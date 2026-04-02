@@ -1,52 +1,30 @@
-# Alcalde de Bayamón — Quick Reference Card
+# Bayamón — Mayor Quick Reference
 
 ## At a Glance
 | Field | Value |
 |-------|-------|
 | Municipality | Bayamón |
-| Population | ~170,000 |
-| Region | Metro (adjacent to San Juan) |
-| Status | Most populated municipality in Puerto Rico |
-| Character | Suburban-urban; commercial hub |
-| Buzz Score | 8.5 / 10 |
-| Priority Tier | Tier 2 |
+| Region | Metro (San Juan adjacente) |
+| Population | ~170,000 (second largest pop in PR) |
+| Current Mayor | Ramón Luis Rivera Cruz (PNP) — long-serving |
+| Email | info@bayamon.pr.gov |
+| Buzz Score | 7.5 / 10 |
+| Priority Tier | Tier 1 — Largest population outside San Juan |
 
-## Why Bayamón Matters
-Bayamón is Puerto Rico's MOST POPULATED municipality. The Bayamón mayor leads more people than any other mayor in PR. This is a major account if we can land it.
+## Key Facts
+- Bayamón is PR's second most populous municipality (sometimes first depending on census)
+- Suburban San Juan — heavily developed, commercial
+- Strong PNP bastion
+- Home to major commercial and industrial zones
+- Ramón Luis Rivera Cruz is one of PR's longest-serving mayors — iconic figure
 
-## Bayamón Profile
+## Key Municipal Issues
+1. Urban growth management — traffic, development
+2. Public safety — high-density urban crime challenges
+3. Public services at scale — 170K population requires serious infrastructure
+4. Economic development — commercial and industrial zones
 
-### Character
-- Suburban city directly west of San Juan — part of the metro area but a distinct municipality
-- "La Ciudad del Chicharrón" (The City of Fried Pork Skin) — a culinary cultural identity
-- Major shopping malls: Las Catalinas (Bayamón), Plaza del Sol, Rexville — commercial hub of the west metro
-- Universities: Universidad Carlos Albizu, Universidad Central de Bayamón, others
-- Industrial: significant pharmaceutical and manufacturing in the Bayamón industrial corridor
-
-### Economy
-- Manufacturing: major pharmaceutical plants in the western corridor
-- Retail: massive retail density along PR-2 and in malls
-- Services: professional and business services
-- Government: significant government employment
-- Healthcare: Hospital Universitario Ramón Ruíz Arnau... [research Bayamón hospitals]
-
-### Political Profile
-- Bayamón is historically PNP-leaning
-- Part of PNP's San Juan metropolitan core
-- Senate Vice President Carmelo Ríos represents this senatorial district
-- Research 2024 mayoral result
-
-## Top Issues for Bayamón Mayor
-1. Traffic and transportation — Bayamón's commercial density creates massive traffic
-2. Infrastructure: roads, flooding
-3. Economic development: maintaining/growing the industrial and retail base
-4. Quality of life for suburban families
-5. Crime in certain urban sectors
-6. School system quality
-
-## Landing Page Angle
-- "El Alcalde de la Ciudad Más Grande" (The Mayor of the Biggest City)
-- Commercial powerhouse: economic development and business environment
-- Family-focused: suburban families, schools, safety
-- Progress and development: the PNP narrative works well here
-- Modern city: the most developed municipality's mayor needs a modern digital presence
+## Pitch Notes
+- **Scale argument:** 170,000 constituents — an AI voice assistant alone pays for itself if it handles 1% of inquiries
+- **Rivera Cruz is a veteran politician** — he's seen everything; lead with ROI and constituent reach data
+- **Premium pricing justified:** Population and budget scale = Elite tier

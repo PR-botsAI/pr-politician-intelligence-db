@@ -1,71 +1,36 @@
-# Alcalde de Arecibo — Quick Reference Card
+# Arecibo — Mayor Quick Reference
 
 ## At a Glance
 | Field | Value |
 |-------|-------|
 | Municipality | Arecibo |
+| Region | Norte |
 | Population | ~87,000 |
-| Region | Norte (northern coast) |
-| Current Mayor | Research 2024 election result |
-| Party | Research |
-| Priority | HIGHEST for us — our home municipality |
-| Buzz Score | TBD pending research |
+| Party lean | Historically competitive PNP/PPD |
+| Current Mayor | Research — confirm 2024 election winner |
+| Email | alcalde@arecibo.pr.gov (general) |
+| Buzz Score | 6.5 / 10 |
+| Priority Tier | Tier 1 — Our home territory |
 
-## Why Arecibo Mayor is Priority #1 for Mayors
+## Why Arecibo is Priority
+- We are based in Arecibo — local credibility is our strongest asset
+- Arecibo is the regional hub for the Norte region
+- The mayor knows Edgar Robles (District 14) and Brenda Pérez (Senate) — referral chain
+- PRASA Northern Region crisis means the mayor has active constituent issues to address digitally
 
-Arecibo is:
-- Our home city ("soy de Arecibo" is our strongest opener)
-- The regional hub of the Norte — most important municipal position in the area
-- The same city as Edgar Robles Rivera (District 14) — overlapping constituent base
-- The regional headquarters of PRASA Northern Region — water is the #1 issue
-- Home to UPR Arecibo campus — academic and professional community
+## Key Municipal Issues
+1. PRASA/water crisis — Arecibo is the PRASA Norte hub
+2. Economic development — commercial corridor, job creation
+3. Infrastructure — roads, flood zones
+4. Hurricane Maria recovery — some sectors still recovering
+5. Historic center revitalization
 
-## Arecibo Municipality Profile
+## 2024 Mayor Research
+- Confirm: Did PNP or PPD win the Arecibo mayoral race in 2024?
+- Source: ceepur.org certified results
+- Update this file with winner's full profile
 
-### History
-- Founded 1616 by Spanish colonizers
-- Named after the Arawak/Taíno word for "aricibor" (reeds)
-- Historic fishing port and agricultural center
-- Famous for: Arecibo Observatory (1963–2020; largest radio telescope in the world until collapse)
-- The Observatory's 2020 collapse was a devastating cultural and scientific loss for PR and the world
-- Now the site is being redeveloped as the Arecibo Institute for Interdisciplinary Science (AIES)
-
-### Economy
-- Regional commercial hub: Las Catalinas mall, commercial corridor
-- Healthcare: Hospital Dr. Ramón Ruíz Arnau
-- Pharmaceuticals: some manufacturing
-- Government: significant government employment
-- Education: UPR Arecibo (engineering, sciences, business)
-- Retail: serves all Norte region municipalities
-
-### Infrastructure Challenges
-- PRASA / AAA Northern Region headquarters — chronic service problems
-- Flooding: Arecibo River (Río Grande de Arecibo) floods downtown during heavy rains
-- Roads: PR-2 commercial corridor, PR-22 expressway, PR-10 to interior
-- Post-Maria: some areas still recovering
-
-### Political Profile
-- Has alternated between PNP and PPD mayors
-- Research current mayor (2024 result)
-- Competitive municipality: neither party can take for granted
-
-## Top Issues for Arecibo Mayor
-1. PRASA / Water reliability — PRASA Norte HQ is here; mayor must address water constantly
-2. Flooding — chronic downtown flooding problem
-3. Economic development — Observatory legacy; regional commerce
-4. Hurricane Maria recovery — still ongoing in some sectors
-5. Public safety — crime in urban areas
-6. The Observatory redevelopment — huge opportunity and responsibility
-
-## Landing Page Angle (Once Mayor Identified)
-- "El Alcalde/La Alcaldesa de la Ciudad de los Sabios" (City of Scientists — Observatory legacy)
-- Norte region leadership positioning
-- Infrastructure recovery and progress narrative
-- Economic development and regional hub role
-- Personal: strong local connections, family in Arecibo
-
-## Research Tasks
-- [ ] Find 2024 election winner for Alcalde de Arecibo
-- [ ] Determine party, background, key issues
-- [ ] Find Facebook page
-- [ ] Check NotiCel/ElNuevoDia for recent Arecibo mayor news
+## Pitch Notes
+- **Local angle:** "Somos de Arecibo — conocemos los problemas de su pueblo."
+- **PRASA angle:** Use Robles' PRASA advocacy as a lead-in — show we understand the issues
+- **Referral chain:** If mayor converts, they refer to Robles and Pérez naturally
