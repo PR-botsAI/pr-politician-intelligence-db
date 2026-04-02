@@ -1,48 +1,25 @@
 # Senatorial District VI — Guayama
 
-## Overview
-- **District Number:** VI (Sexto)
-- **Region:** Southeastern Puerto Rico
-- **Character:** Mixed urban/rural; petrochemical industry history; coastal fishing communities
+## Basic Profile
+| Field | Info |
+|-------|------|
+| District | Distrito Senatorial VI |
+| Hub city | Guayama |
+| Also covers | Salinas, Santa Isabel, Coamo, Villalba, Orocovis (parts) |
+| Population | ~160,000 (approximate) |
+| Party lean | Competitive; PPD strength in interior |
+| Senators (2025–2029) | Research — confirm |
 
----
-
-## Geographic Coverage
-Distrito VI covers southeastern PR, likely including:
-- **Guayama:** ~42,000; the district's main city; petrochemical history
-- **Salinas:** ~28,000; coastal, fishing, saline flats
-- **Patillas:** ~17,000; small coastal municipality; some ecotourism
-- **Arroyo:** ~18,000; historic coastal town
-- **Maunabo:** ~11,000; southeastern tip; small coastal
-- **Cayey, Cidra** (possibly; interior municipalities)
-
-*Verify with CEE maps*
-
----
-
-## Key Characteristics
-
-### Petrochemical Legacy
-- The Guayanilla/Peñuelas area (southwest, adjacent) has a major petrochemical industrial complex
-- Environmental contamination and health concerns in communities near these facilities
-- Environmental justice movement (organizations like the Comité Dialo sobre Riesgo Ambiental de Peñuelas) has been active
-- The petrochemical complex is a major source of economic activity but also environmental damage
-
-### Coastal Fishing Communities
-- Guayama's coastline has traditional fishing communities
-- Fishing economy is in decline due to coral reef damage and climate impacts
-- Coastal flooding risk is increasing
-
-### Agriculture
-- Sugar cane history (now mostly gone)
-- Some diversified agriculture; tropical fruits
-
----
+## Key Facts
+- Southeast coastal + central mountain zone
+- Guayama: historic south coast city; pharmaceutical presence
+- Salinas: Fishing, mangroves, coastal
+- Coamo: Hot springs tourism; historic town
+- Orocovis: Mountain interior; coffee, agriculture
+- AES coal plant in Guayama — major environmental controversy
 
 ## Key Issues
-
-1. **Environmental health:** Communities near petrochemical facilities with documented health concerns
-2. **Economic development:** Post-industrial transition
-3. **Fishing industry decline:** Supporting coastal communities
-4. **Post-Maria recovery:** Rural southeastern communities
-5. **Healthcare access:** Limited medical resources in rural southeastern municipalities
+1. AES coal plant controversy — air quality, health impacts
+2. Agricultural support (interior)
+3. South coast infrastructure
+4. Economic development outside pharma

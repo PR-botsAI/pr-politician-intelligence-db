@@ -1,119 +1,70 @@
 # Senatorial District III — Arecibo
 
-## Overview
-- **District Number:** III (Tercero)
-- **Current Senators:** 2 seats — Brenda Pérez Soto (PNP, research second senator)
-- **Region:** Northern Puerto Rico
-- **Character:** Diverse district spanning the northern coast, the cordillera central foothills, and mountain interior
+## Basic Profile
+| Field | Info |
+|-------|------|
+| District | Distrito Senatorial III |
+| Hub city | Arecibo |
+| Municipalities | Arecibo, Hatillo, Camuy, Quebradillas, Lares, Utuado, Arecibo-adjacent interior |
+| Population | ~280,000 (approximate across municipalities) |
+| Party lean | Competitive; historically PPD-leaning interior vs. PNP coast |
+| Senator (2025–2029) | Brenda Pérez Soto (PNP) |
 
----
+## Geographic Overview
+The largest and most geographically diverse senatorial district. It spans from the Atlantic coast (Arecibo, Hatillo, Camuy, Quebradillas) to the mountain interior (Lares, Utuado). This is a district where the coast votes differently than the mountains, where dairy farms are beside pharmaceutical plants, and where rural isolation meets coastal commerce.
 
-## Municipalities Included
+## Coast vs. Interior Divide
+**Northern Coast (Arecibo, Hatillo, Camuy, Quebradillas):**
+- More urbanized / commercial
+- PNP tends to perform better
+- Better infrastructure and services
+- Regional commercial hub in Arecibo
 
-| Municipality | Pop. Estimate | Character | Party Lean |
-|-------------|--------------|-----------|------------|
-| Arecibo | ~87,000 | Regional hub, coastal, commercial | Competitive |
-| Hatillo | ~40,000 | Dairy capital, agricultural, coastal | Competitive |
-| Camuy | ~33,000 | Coastal/rural, caves tourism, agricultural | PPD lean |
-| Quebradillas | ~25,000 | Small coastal, fishing, some tourism | PPD lean |
-| Lares | ~28,000 | Mountain interior, historic independence site, coffee | Strong PPD |
-| Utuado | ~29,000 | Mountain, Hurricane Maria damage, Dos Bocas | PPD lean |
-| Manatí | ~40,000 | Eastern edge of district, pharmaceutical manufacturing | Competitive |
+**Mountain Interior (Lares, Utuado):**
+- Rural, agricultural, poor infrastructure
+- PPD traditional stronghold — jibaro country
+- Lares has deep independence movement history (Grito de Lares 1868)
+- Isolated communities with worst infrastructure
+- Hurricane Maria hit these areas hardest; recovery slowest
 
-*Note: Some sources include slightly different municipality configurations in Distrito III — verify with official CEE maps*
+## Key Demographics
+- Mixed: urban coast + rural mountain
+- Agricultural workers (dairy in Hatillo, coffee in mountain)
+- Government workers across municipalities
+- University population (UPR Arecibo)
+- High poverty in interior municipalities
+- Significant elderly population (youth emigration high)
 
----
+## Top 5 District Issues
+1. **PRASA/Water — #1** — Northern Region chronic service failures; Robles + Pérez both on this
+2. **Roads and mountain access** — PR-10 and interior roads damaged; mountain communities cut off
+3. **Economic development** — limited opportunities vs. metro; agriculture needs support
+4. **Healthcare access** — hospital in Arecibo serves entire region; specialist access poor in interior
+5. **Electricity (LUMA)** — rural sectors experience longest outages and slowest restoration
 
-## Geographic Character
+## Political Profile
+- **2024:** Brenda Pérez (PNP) won — PNP wave helped flip or hold the seat
+- **2028 outlook:** Competitive — interior PPD vote + coast competitive
+- **MVC/PIP:** Small but present in university community (UPR Arecibo)
+- **Proyecto Dignidad:** Evangelical community growing; could peel some conservative vote
 
-Distrito III is one of Puerto Rico's most geographically diverse senatorial districts:
-- **Northern coast:** Arecibo and Hatillo face the Atlantic Ocean. Commercial, industrial, agricultural coastline. PR-22 expressway connects to San Juan metro.
-- **Foothills:** The transition zone between coast and mountains. Agriculture, rural communities.
-- **Mountain interior (Lares, Utuado):** Steep terrain, isolated communities, coffee country, historic significance.
+## Power Structure
+- **Arecibo mayor:** Key local power figure — coordinates with senator
+- **UPR Arecibo administration:** Institutional weight
+- **Dairy cooperatives (Hatillo):** Organized agricultural voice
+- **Catholic parishes:** Multiple influential churches across district
+- **Labor unions:** Government worker unions in public sector
+- **Facebook community groups:** "Arecibo" and "Hatillo" groups with thousands of members — primary community info channel
 
-This geographic diversity means the senator must understand and advocate for:
-- Coastal infrastructure (ports, fishing, flood management)
-- Urban services (Arecibo as regional hub)
-- Agricultural support (dairy in Hatillo, coffee in Lares/Utuado)
-- Mountain road access (critical lifelines for interior communities)
+## Digital Landscape
+- **Facebook-first** — this district's residents use Facebook more than any other platform
+- **WhatsApp** — universal; neighborhood WhatsApp groups are primary community communication
+- **Mobile browsing** — majority of web access is mobile
+- **Spanish only** — English content gets little engagement here
+- **Local specificity drives engagement** — mention Hatillo, Camuy, Quebradillas by name and engagement triples
 
----
-
-## Demographic Profile
-
-| Indicator | Estimate |
-|-----------|----------|
-| Total district population | ~282,000 |
-| Urban population | ~45% (Arecibo/Manatí anchors) |
-| Rural population | ~55% |
-| Median household income | ~$18,000–22,000 |
-| Poverty rate | ~40–50% (varies by municipality; interior higher) |
-| Primary language | Spanish (nearly universal) |
-| Age profile | Older than PR average (youth emigration) |
-
----
-
-## Key Infrastructure in Distrito III
-
-### Water / PRASA
-- **PRASA Northern Region:** Headquartered in Arecibo; serves all municipalities in this district
-- **Dos Bocas Reservoir (Utuado):** Major water source for the Norte region; chronic management challenges
-- **Río Grande de Arecibo:** PR's most powerful river; both water source and flood risk
-- **Service problems:** Chronic interruptions throughout; documented crisis (Robles Rivera's March 2026 confrontation)
-
-### Roads
-- **PR-22 (Luis A. Ferré Expressway):** Express connection from Arecibo to San Juan
-- **PR-2:** Coastal highway through Hatillo, Camuy, Quebradillas
-- **PR-10:** Critical interior highway from Arecibo to Utuado/Ponce corridor — one of PR's most scenic but also most challenged roads post-Maria
-- **PR-129, PR-111:** Interior mountain roads connecting Lares and Utuado
-- **Hurricane Maria damage:** Mountain roads in Lares and Utuado still have unrepaired damage
-
-### Energy / LUMA
-- Standard LUMA challenges across the district
-- Mountain interior has more frequent and longer outages due to grid vulnerability
-- Adjuntas (adjacent; may be in this district) became famous for Casa Pueblo's solar microgrids post-Maria
-
-### Healthcare
-- **Hospital Dr. Ramón Ruíz Arnau (Arecibo):** Regional hospital serving all Norte municipalities
-- Specialist care requires travel to San Juan for most residents
-- Rural healthcare access: major gap in interior municipalities
-
----
-
-## Political History
-
-- **Historical tendency:** Mixed — coastal municipalities more competitive; interior (Lares, Utuado) historically PPD
-- **Lares special case:** Historic center of independence politics (Grito de Lares 1868); PPD has deep roots but independence sentiment exists
-- **2024:** PNP won district senate seats as part of island-wide wave
-- **Competitiveness:** This district could flip to PPD in a non-wave year
-
----
-
-## Power Structure in Distrito III
-
-### Key Organizations
-- **UPR Arecibo:** 5,000+ students and faculty; professional/academic community
-- **Hospital administration:** Major employer; influential in Arecibo
-- **Dairy cooperatives (Hatillo):** Organized agricultural voice with political weight
-- **Catholic parishes:** In every municipality; community anchors
-- **Cave tourism operators (Camuy):** Small business community interested in tourism policy
-- **Coffee cooperatives (Lares, Utuado):** Agricultural voice in mountain communities
-- **Municipal governments:** Mayors of each municipality are key power players
-
-### Media Serving District
-- NotiCel, El Nuevo Día (island-wide but covers Norte stories)
-- Local radio: WABA Arecibo and other regional stations
-- Facebook community groups for each municipality
-- WhatsApp community networks (primary information channel in rural sectors)
-
----
-
-## Implications for Brenda Pérez Soto's Landing Page
-
-- Must feel relevant to BOTH coastal Arecibo/Hatillo AND mountain Lares/Utuado — very different communities
-- Water (PRASA) is the universal issue across all municipalities
-- Agricultural language resonates: dairy, coffee, jibaro heritage
-- Mountain road access and recovery are emotionally significant for interior constituents
-- University (UPR Arecibo) community is a distinct, educated audience
-- Lead form must include ALL municipalities with their barrios
-- Voice assistant should know the geography: "Está usted en Lares, Utuado, Arecibo, Hatillo, Camuy, Quebradillas o Manatí?"
+## Why This District Matters for Us
+- **This is our home district** — we know it, we live it, we have credibility
+- Both our #1 (Robles) and #2 (Pérez) targets serve this district
+- Local knowledge lets us create demos that name their actual barrios and issues
+- If we win this district, we have the referral network to scale

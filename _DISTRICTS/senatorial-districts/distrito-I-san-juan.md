@@ -1,54 +1,35 @@
 # Senatorial District I — San Juan
 
-## Overview
-- **District Number:** I (Primero)
-- **Region:** Metropolitan San Juan (northeastern coast)
-- **Character:** Urban, diverse, capital city; PR's most politically complex district
+## Basic Profile
+| Field | Info |
+|-------|------|
+| District | Distrito Senatorial I |
+| Primary city | San Juan |
+| Population | ~318,000 |
+| Party lean | Competitive PNP/PPD; metro progressive vote (MVC) |
+| Senators (2025–2029) | Research — confirm elected senators |
 
----
+## Geographic Overview
+District I covers San Juan — Puerto Rico's capital and largest city. It includes diverse neighborhoods: Viejo San Juan (historic), Santurce (arts/gentrification), Miramar, Condado (tourism/wealth), Hato Rey (financial district), Río Piedras (university), and residential communities from Cupey to Trujillo Alto adjacent.
 
-## Geographic Coverage
-Distrito I covers San Juan and potentially adjacent northeastern municipalities. San Juan itself encompasses:
-- **Old San Juan (Viejo San Juan):** Historic district, tourism, government buildings, Fortaleza (Governor's Mansion)
-- **Condado:** Upscale hotel/residential strip, tourism
-- **Miramar:** Business and residential
-- **Santurce:** Historically working class, now culturally rich, gentrifying; arts hub
-- **Río Piedras:** UPR main campus, commercial, diverse
-- **Hato Rey:** Financial district ("the Golden Mile" / La Milla de Oro)
-- **Bayamón border areas:** Some neighborhoods blend
+## Key Demographics
+- Most educated, highest income district on average
+- Also has significant poverty zones (La Perla, parts of Santurce)
+- Large LGBTQ+ community (Santurce)
+- University student population (UPR Río Piedras)
+- Professional/business class
+- Large government worker population
 
----
+## Key Issues
+1. **Gentrification & housing** — Act 60 investors displacing residents; Santurce transformation
+2. **Homelessness** — visible homeless population in Santurce, Condado area
+3. **Public safety** — urban crime in certain sectors
+4. **Flood zones** — Santurce, coastal areas
+5. **Tourism economy** — Airbnb regulation, short-term rentals
+6. **LGBTQ+ rights** — Santurce is PR's queer cultural center
 
-## Demographic Character
-
-- **Most diverse municipality in PR** in terms of economic range, cultural activity, and political opinion
-- Home to government workers (large government employment concentration)
-- Home to business and professional class (Hato Rey, Condado)
-- Home to historically marginalized communities (caseríos / public housing projects)
-- Large LGBTQ+ community (especially Santurce/Condado)
-- Significant gentrification pressure (Act 60 investors, Airbnb, luxury development)
-- **UPR main campus (Río Piedras):** Major academic community with progressive political tendencies
-
----
-
-## Political Profile
-
-- **Most politically diverse district in PR**
-- PNP vs PPD is competitive; MVC/PIP have meaningful presence in urban progressive areas
-- Santurce specifically: MVC stronghold; young, progressive, arts-oriented
-- Condado/Old San Juan: more mixed; tourism business interests
-- Public housing (caseríos): historically PPD stronghold
-- Hato Rey business community: PNP-leaning
-- UPR area: progressive/MVC-leaning
-
----
-
-## Key Issues in Distrito I
-
-1. **Gentrification and housing costs:** Act 60 investors have driven up rents significantly in Santurce, Condado, and other desirable San Juan neighborhoods. Puerto Rican families are being displaced.
-2. **Tourism management:** Balancing tourism economy with quality of life for residents
-3. **Public safety:** Crime in urban areas; relationship between police and communities
-4. **Infrastructure:** San Juan floods severely; drainage infrastructure is aging
-5. **Transportation:** San Juan is car-dependent; public transit is inadequate
-6. **Homelessness:** Highest concentration of homeless individuals in PR
-7. **LGBTQ+ rights:** San Juan has PR's most visible LGBTQ+ community
+## Political Significance
+- MVC performs best here — Mariana Nogales' base
+- PNP has professional and business vote
+- PPD retains some working-class support
+- Most diverse politically of all districts
