@@ -1,38 +1,26 @@
-# Joel I. Franqui Atiles — Quick Reference Card
+# Joel Franqui Atiles — Quick Reference Card
 
 ## At a Glance
 | Field | Value |
 |-------|-------|
-| Full Name | Joel I. Franqui Atiles |
+| Full Name | Joel Franqui Atiles |
+| Known As | Joel Franqui |
 | Title | Representante del Distrito 19 |
 | Chamber | Cámara de Representantes |
 | District | Distrito 19 — Hatillo, Camuy, Quebradillas |
 | Party | Partido Popular Democrático (PPD) |
-| Email | jfranqui@camara.pr.gov |
-| Phone | 787-622-4965 |
-| Buzz Score | 5.9 / 10 |
-| Priority Tier | Tier 1 — Adjacent to Edgar Robles' district, PPD contrast |
+| Term | January 2, 2025 – January 2, 2029 |
+| Email (official) | jfranqui@camara.pr.gov |
+| Buzz Score | 6.8 / 10 |
+| Priority Tier | Tier 1 — Cross-party Norte region |
 
 ## 3-Sentence Summary
-Joel Franqui Atiles is the PPD Representative for Distrito 19, covering Hatillo, Camuy, and Quebradillas — municipalities directly adjacent to and overlapping with Edgar Robles Rivera's Distrito 14. He represents the PPD in a competitive northern PR region where PNP and PPD both have significant bases. His PPD affiliation means our pitch to him demonstrates we are bipartisan — critical credibility for a services business.
+Joel Franqui Atiles is the PPD Representative for Distrito 19, serving the municipalities of Hatillo, Camuy, and Quebradillas — the heart of Puerto Rico's dairy country and northwestern Norte region. He won the PPD primary over Raúl Ferrer Aguilar and secured the seat in a competitive 2024 race. As a PPD legislator in a PNP-dominated chamber, his pitch potential is strong — minority party legislators need every advantage.
 
-## Why He's Tier 1
-- Hatillo overlap: both Robles (PNP) and Franqui (PPD) serve Hatillo — if Robles converts, Franqui is the natural competitive response pitch
-- Adjacent district: we have deep research on his geographic area from the Distrito 14 work
-- PPD: demonstrates to all clients we serve all parties
-- Phone number known: 787-622-4965 — more direct access than many targets
-
-## District Overview
-- **Hatillo:** Dairy capital, Festival de Máscaras — cultural identity, agricultural economy
-- **Camuy:** Famous for Camuy Caves (Parque de las Cavernas del Río Camuy), northern coastal agriculture
-- **Quebradillas:** Smaller coastal municipality, fishing tradition, some tourism (Muelle de Quebradillas)
-
-## Top Issues for District 19
-1. Agricultural support — Hatillo dairy industry needs policy backing
-2. Rural services — Camuy and Quebradillas are smaller, under-resourced municipalities
-3. Coastal infrastructure — fishing communities, coastal roads
-4. Tourism development — Camuy Caves is a major asset
-5. Water/PRASA — same Norte region as Robles' district
+## Top 3 Issues
+1. Agricultural support (Hatillo dairy industry)
+2. Rural community services across 3 municipalities
+3. Opposition to PNP majority agenda — minority voice
 
 ## Landing Page Status
 - [ ] Research complete
