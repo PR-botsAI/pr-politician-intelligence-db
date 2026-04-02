@@ -2,32 +2,66 @@
 
 ## Personal Background
 - **Full name:** Edgar Robles Rivera
-- **Current residence:** Arecibo/Hatillo area, Puerto Rico
-- **Languages:** Spanish (primary), English (working proficiency required for legislative role)
-- **Religion:** Not publicly specified; assumed Catholic given cultural and party context (PNP has historically Catholic base)
+- **Date of birth:** September 21, 1975
+- **Place of birth:** Arecibo, Puerto Rico
+- **Parents:** Juan Robles Pantoja and Carmen Rivera Rodríguez
+- **Family background:** Humble working-class family from Arecibo
+- **Children:** Two children (names not publicly specified)
+- **Religion:** Christian church member (publicly stated on official website)
+- **Languages:** Spanish (primary), English (working proficiency)
+- **Current residence:** Arecibo/Hatillo area
 
-> Note: Detailed personal biographical information (exact birth date, family details, educational institutions) for Edgar Robles Rivera is not yet fully documented in public records as he is a newly elected freshman legislator. This file should be updated as more information becomes available through research.
+---
 
-## Professional Background (Pre-Politics)
-- Specific pre-political career not yet fully documented in public sources
-- Common paths for PNP legislators from the Norte region: law, business, municipal government, engineering, community organizing
-- His Consumer Affairs Committee chairmanship suggests familiarity with business/consumer protection issues
-- Research task: Search LinkedIn, local business directories, camara.pr.gov bio page for career background
+## Education
+| Level | Institution | Year | Notes |
+|-------|-------------|------|-------|
+| K–12 | Escuela University Gardens | — | Early schooling |
+| High School diploma | Escuela Trina Padilla de Sanz, Arecibo | 1995 | |
+| Bachelor's degree | Universidad Interamericana, Recinto de Arecibo | After 1995 | Administración de Empresas (Business Administration) |
 
-## Path to Politics
-- Ran in the 2024 PNP primary for Distrito 14, defeating Abraham Cortés Vélez
-- Won the general election November 5, 2024, defeating PPD's Juan Carlos Colón González
-- District 14 had been PPD-held or competitive — his win was part of PNP's historic 2024 sweep
-- Sworn in January 2, 2025
+---
 
-## Community Connection
-- Represents both Arecibo (regional hub of the Norte) and Hatillo (dairy capital, culturally distinct)
-- His rapid advocacy on the PRASA/AAA water issue (March 2026) shows local-first focus
-- Based in the district he represents — genuine local identity, not a carpetbagger
+## Professional Career (Pre-Politics)
+- **Business career:** 20+ years in private enterprise
+- **Specializations:** Gerencia (management), ventas (sales), business operations
+- **Entrepreneurship:** Founded and operated his own business — gave him first-hand experience with the challenges facing small and medium businesses in Puerto Rico
+- **Government offices:** Worked in various government-related positions before entering electoral politics
 
-## Research Tasks Outstanding
-- [ ] Confirm educational background (university, degree, field)
-- [ ] Confirm pre-political profession
-- [ ] Find family information (married? professional background)
-- [ ] Find any community organizations he was part of before 2024
-- [ ] Find his primary campaign materials for personal narrative
+**Career significance for our pitch:** He understands business and ROI. He ran his own company. When we pitch him, speak his language — return on investment, cost per constituent reached, lead conversion.
+
+---
+
+## Political Career (Pre-Legislative)
+- **PNP leadership in Arecibo:** Held numerous leadership positions within PNP Arecibo chapter
+- **2011:** Elected to Arecibo Municipal Legislature (Legislatura Municipal de Arecibo)
+- **Role:** Designated as PNP minority spokesperson (Portavoz) in the Municipal Legislature
+- **Party roles:** Funcionario de Colegio, Portavoz, Secretario, Tesorero, Director de Campañas Políticas
+- **Total public service:** 10+ years before being elected to the Cámara in 2024
+
+---
+
+## Official Website & Social Media (CONFIRMED)
+- **Official website:** edgarroblesrivera.com
+- **Facebook:** facebook.com/boster.pest (NOTE: This appears to be his personal/early FB; verify official page)
+- **Instagram:** @edgarroblesrivera
+- **Official Cámara email:** erobles@camara.pr.gov
+- **Cámara phone:** 787-721-6040 (main chamber)
+
+---
+
+## Personal Narrative (His Own Words from Website)
+> *"Hoy, con las experiencias acumuladas como padre de dos hijos, profesional, líder político y comunitario, Edgar Robles está listo para enfrentar los desafíos en el Distrito 14, representando a los pueblos de Arecibo y Hatillo, asegurando el bienestar de su gente en la legislatura de Puerto Rico."*
+
+> *"Su TRAYECTORIA refleja DISCIPLINA y RESULTADOS, y su compromiso con el DISTRITO 14 garantiza que SEGUIREMOS EN BUENAS MANOS."*
+
+**These are the exact phrases that should appear on his landing page hero section.**
+
+---
+
+## Key Biographical Insights for Landing Page
+- **“From humble roots” story** — connects with working-class Arecibo/Hatillo base
+- **Self-made businessman** — builds credibility with entrepreneurial constituent base
+- **Over a decade in municipal politics** — not a newcomer; knows the system
+- **Community and church** — faith-community connection resonates in Norte region Catholic base
+- **Father of two** — family-first values frame for his messaging
