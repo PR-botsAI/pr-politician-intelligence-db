@@ -1,93 +1,62 @@
-# Issue Intelligence: Educación
+# Issue Intelligence: Educación (Education)
 
-## Overview
-Education is one of Puerto Rico's most critical and most troubled public policy areas. The combination of fiscal crisis, hurricane damage, population decline, and federal oversight has created a cascading crisis in Puerto Rico's public school system — even as the University of Puerto Rico system remains one of the island's most important institutions.
-
----
-
-## Public K-12 Education
-
-### The Department of Education (DE)
-- **Largest employer:** Puerto Rico's Department of Education is the island's largest single employer
-- **Scale (pre-crisis):** At peak, operated over 1,500 public schools serving 600,000+ students
-- **Current:** Student enrollment has fallen to ~300,000 due to population decline; hundreds of schools have been closed
-
-### The School Closure Crisis
-- PR has closed over 600 public schools since 2010 — more than any U.S. jurisdiction in this period
-- Causes:
-  - Population decline (fewer students)
-  - Fiscal crisis (PROMESA-required budget cuts)
-  - Hurricane Maria damage (hundreds of schools structurally damaged)
-  - Declining birth rates
-- Impact:
-  - Students must travel farther to attend school
-  - Rural and mountain communities lose community anchor institutions
-  - School staff lost jobs (politically significant given DE is the largest employer)
-  - Closed school buildings often remain abandoned — community blight
-
-### Hurricane Maria and Schools
-- Hurricane Maria (2017) damaged hundreds of school buildings
-- Many were already structurally deficient pre-Maria
-- The earthquake sequence of January 2020 added more building closures in southern PR
-- Federal FEMA and CDBG-DR funds are being used to rebuild/replace school facilities — slow process
-
-### Teacher Crisis
-- Teachers in PR are underpaid relative to mainland U.S. and even relative to what mainland school districts offer PR-based teachers
-- Significant teacher emigration: PR teachers are recruited by Florida, Texas, and other states
-- Teacher shortage is acute in math, science, and special education
-- PROMESA cuts affected teacher benefits and pensions — further reducing recruitment
-
-### Charter Schools and Vouchers
-- PR has authorized charter schools (escuelas charters) and a voucher program
-- Controversial: supporters (PNP-aligned) see it as choice and competition; critics (PPD/MVC) see it as defunding public schools
-- The voucher program allows public funds to go to private schools
+## Why This Issue Matters
+Education is a deeply personal issue for Puerto Rican families. School closures (hundreds post-Maria), declining enrollment, UPR budget cuts, and debates over school vouchers make this politically charged.
 
 ---
 
-## University of Puerto Rico (UPR)
+## Puerto Rico Education Landscape
 
-### The Institution
-- 11-campus system; main campus at Río Piedras (San Juan)
-- UPR Mayagüez (RUM): premier engineering and science university; national research reputation
-- Total enrollment: ~50,000 students across all campuses
-- Affordable tuition: historically accessible even for low-income Puerto Ricans — this is a core value
+### Public School System
+- **Managed by:** Departamento de Educación de Puerto Rico
+- **Enrollment:** ~300,000 students (declining significantly — was 500,000+ in 2000)
+- **Schools closed:** 400+ schools closed since 2017 (FOMB-driven consolidation + enrollment decline)
+- **Teacher shortage:** Severe; many certified teachers left for mainland
+- **Infrastructure:** Many school buildings damaged by Maria; some never fully repaired
+- **Performance:** PR students score below U.S. states on standardized measures on average
 
-### Budget Crisis
-- PROMESA Fiscal Board required significant UPR budget cuts (hundreds of millions)
-- Campus programs eliminated, faculty positions lost, student services reduced
-- 2017 student strike at UPR Río Piedras against budget cuts and governance issues
-- UPR is in a constant battle to maintain its mission amid fiscal pressure
+### University of Puerto Rico (UPR)
+- **11 campuses** across the island
+- **Largest campus:** UPR Río Piedras (San Juan) — main research university
+- **Other key campuses:** UPR Mayagüez (RUM, engineering), UPR Arecibo, UPR Bayamón, UPR Cayey, etc.
+- **Budget cuts:** FOMB required significant UPR budget reductions — programs cut, faculty not replaced
+- **Student protests:** UPR has been site of major student strikes and protests over budget cuts (2010, 2017, ongoing)
+- **Significance:** UPR is the anchor of Puerto Rico's intellectual and professional class development
 
-### UPR's Political Significance
-- UPR graduates dominate Puerto Rico's professional class: doctors, lawyers, engineers, teachers, scientists
-- Budget cuts to UPR are deeply felt by middle-class families who depend on affordable higher education
-- UPR faculty are politically active — significant presence in MVC/PIP coalition
-- "Defend UPR" is a rallying cry that crosses party lines among educated Puerto Ricans
-
-### Brain Drain Connection
-- UPR graduates increasingly leave PR for better opportunities in the U.S. mainland
-- Puerto Rico trains professionals who then leave — the "brain drain" problem
-- Every year UPR produces fewer graduates as enrollment declines
-
----
-
-## Political Positions on Education
-
-| Party | Public Schools | UPR | Vouchers/Charter | Teacher Pay |
-|-------|---------------|-----|-----------------|-------------|
-| PNP | Supports reform/restructuring | Supports but accepts cuts | Generally pro | Moderate |
-| PPD | Defend public schools | Strongly defend UPR | Generally oppose | Support increases |
-| MVC | Strong public school defense | Strongly defend UPR | Oppose | Strong support |
-| PIP | Public education as right | UPR as cultural/national institution | Oppose | Strong support |
-| PD | School choice, parental rights | Support | Pro-voucher | Market-based |
+### School Vouchers (Vouchers / Beca Digital)
+- **Beca Digital:** A school voucher program implemented under PNP that allows some students to use public funds for private school
+- **PNP position:** Supports; school choice improves education quality through competition
+- **PPD/MVC/PIP position:** Opposes; diverts funds from public schools that need investment; privatization of education
+- **Proyecto Dignidad:** Strongly supports; allows families to choose faith-based schools
 
 ---
 
-## Landing Page Implications
+## Education Party Positions
 
-- Education consistently ranks in PR's top 5 constituent concerns
-- For politicians with school closures in their district: sensitive issue requiring careful framing
-- For district reps: School names matter. "I'm fighting for [specific school in district]" is powerful
-- UPR: Any politician who represents a UPR campus municipality should feature UPR advocacy
-- Lead form: "Educación" should always be in the issue dropdown
-- Voice assistant knowledge base: Include information about local schools, any bills related to education the politician has filed
+| Issue | PNP | PPD | MVC | PIP | PD |
+|-------|-----|-----|-----|-----|----|
+| School closures | Accept consolidation as necessary | Oppose closures | Strongly oppose | Oppose | Mixed |
+| UPR funding | Support within FOMB constraints | Protect UPR | Restore UPR funding | Restore fully | Less priority |
+| School vouchers | Support | Oppose | Strongly oppose | Strongly oppose | Strongly support |
+| Teacher pay | Support increases | Support increases | Strong support | Support | Support |
+| Federal education funds | Access through statehood parity | Secure within ELA | Anti-colonial frame | Independence | |
+
+---
+
+## Education in the Norte Region
+
+- **UPR Arecibo:** Important local institution; budget cuts felt directly; student body is a political constituency
+- **School closures:** Multiple Arecibo-area schools were closed post-Maria
+- **Teacher retention:** Rural Norte schools have high teacher turnover
+- **Issue for landing pages:** Parents with children in public schools are highly motivated voters on education
+
+---
+
+## How to Use in Landing Pages
+
+- **Emotional hook:** "Nuestros hijos merecen las mejores escuelas" — universal parental emotion
+- **Issue card:** "🏫 Educación de Calidad — [Name] lucha por nuestras escuelas y nuestra universidad"
+- **Lead form:** Include "Educación" as top issue option
+- **PNP angle:** School choice and federal education fund access
+- **PPD angle:** Protect public schools, restore UPR
+- **MVC angle:** Education as a right, oppose privatization

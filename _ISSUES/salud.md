@@ -1,105 +1,64 @@
 # Issue Intelligence: Salud (Healthcare)
 
-## Overview
-Puerto Rico's healthcare system is one of the most complex and challenged in any U.S. jurisdiction. A unique combination of federal funding disparities, physician emigration, infrastructure damage, and high poverty rates has created a healthcare crisis that predates and has been worsened by hurricanes and fiscal austerity.
+## Why This Issue Matters
+Healthcare is an immediate, personal, daily issue for Puerto Ricans. The triple blow of Hurricane Maria (2017), COVID-19 (2020–2022), and the ongoing medical brain drain has created a genuine healthcare crisis that affects every district.
 
 ---
 
-## The Federal Funding Disparity
+## Puerto Rico Healthcare Landscape
 
-### Medicaid (Mi Salud)
-- Puerto Rico receives Medicaid funding under a **federal cap** rather than the open-ended matching formula that states receive
-- States receive between 50–83 cents per dollar of Medicaid spending from the federal government (depending on per capita income)
-- Puerto Rico has historically received a **fixed cap** (approximately $400M–$600M per year in federal Medicaid funds) regardless of need
-- **The disparity:** If PR were a state, it would receive an estimated $4–6 billion more annually in federal healthcare funding
-- This cap forces Puerto Rico to ration healthcare or supplement from its own budget (while in fiscal crisis)
+### Mi Salud (Medicaid in PR)
+- Puerto Rico's Medicaid program is called **Mi Salud**
+- **Coverage:** ~1.5 million Puerto Ricans (about 47% of population)
+- **Federal funding inequity:** PR's Medicaid is federally funded at a lower rate than any U.S. state — a major political issue
+- **PNP argument:** Statehood would bring full Medicaid parity, saving PR hundreds of millions and expanding coverage
+- **The CHIP/Medicaid cliff:** Federal Medicaid caps have required multiple Congressional acts to prevent PR from running out of funds; it's a recurring crisis
 
-**Mi Salud** (Puerto Rico's Medicaid managed care program):
-- Covers approximately 1.5 million Puerto Ricans (nearly half the population)
-- Largest government health insurance program on the island
-- Managed care model: government pays private insurers to manage care
-- Significant Medicaid funding shortfalls result in lower reimbursement rates to providers
+### Hospital Infrastructure
+- Many rural hospitals closed post-Maria or due to FOMB austerity
+- Norte region: Hospital Dr. Ramón Ruíz Arnau in Arecibo is the regional hub
+- Mountain interior: Residents travel 1-2 hours to reach adequate care
+- Specialist shortage: Doctors leaving for mainland is catastrophic for specialist availability
 
-### Medicare Advantage Peculiarity
-Puerto Rico has the highest Medicare Advantage enrollment rate of any jurisdiction in the U.S. (over 90% of Medicare beneficiaries). This is because:
-- Traditional Medicare has limited provider networks in PR
-- Medicare Advantage plans have filled the gap
-- The market dynamics are unusual and have attracted significant private insurer attention
-- Medicare Advantage in PR is a multi-billion dollar market
+### The Medical Brain Drain
+- PR trains doctors at world-class medical schools (UPR School of Medicine, Ponce Health Sciences University)
+- Most graduates leave for mainland for higher salaries
+- Result: ~3.2M Puerto Ricans with fewer doctors per capita than most U.S. states
+- Nurse shortage: Same dynamic; nurses leave for 2-3x the salary on mainland
 
----
-
-## The Physician Shortage Crisis
-
-### Scale
-- Puerto Rico has lost an estimated 50% of its medical specialists since 2006
-- Primary care physicians have also left in large numbers
-- This is arguably the most severe physician shortage crisis of any U.S. jurisdiction
-
-### Why Physicians Leave
-- **Economic:** A physician in Florida or Texas can earn 2–3× what they earn in PR, due to lower insurance reimbursement rates (tied to Medicaid cap) and generally lower private pay rates
-- **PROMESA:** Pension uncertainty for government-employed physicians
-- **Quality of life:** Maria trauma, infrastructure unreliability, school quality for their children
-- **Opportunity:** U.S. license is portable; no immigration barrier
-
-### Impact on Patients
-- Wait times for specialists: months to years
-- Many patients travel to mainland U.S. for specialized care
-- Emergency rooms serve as primary care for many without primary care providers
-- Rural areas worst affected: some municipalities have virtually no specialists
-
-### The Residency Problem
-- UPR Medical School (Recinto de Ciencias Médicas) is a major medical school
-- Trains physicians who then predominantly leave for the mainland
-- PR trains the talent; the mainland retains it
+### Mental Health
+- Mental health crisis post-Maria, post-earthquake, post-COVID is significant
+- Suicide rates elevated
+- Limited community mental health resources
+- Most municipalities have inadequate mental health services
+- José Vargas Vidot's work (Iniciativa Comunitaria) addresses intersection of mental health/addiction/homelessness
 
 ---
 
-## Hospital System
+## Healthcare Party Positions
 
-### Financial Crisis
-- Multiple Puerto Rico hospitals have closed or faced bankruptcy in recent decades
-- Low Medicaid reimbursement rates make hospitals financially unsustainable
-- Rural hospitals face the most severe challenges
-- Several hospital bankruptcies and closures have left communities without local hospital access
-
-### Hurricane Maria Impact
-- Hospitals were affected by the power outage crisis (months without reliable power)
-- Some hospitals generated power with diesel generators for months
-- Medical equipment, medications, and patient care were all compromised
-- Hospital recovery was a major crisis within the larger Maria disaster
+| Issue | PNP | PPD | MVC | PIP | PD |
+|-------|-----|-----|-----|-----|----|
+| Medicaid parity | Via statehood | Via federal negotiation | Right to healthcare | Independence solves | |
+| Hospital closures | Some consolidation accepted | Oppose closures | Strongly oppose | Oppose | Oppose |
+| Reproductive rights | Divided/moderate | Moderate | Pro-choice | Pro-choice | Anti-abortion |
+| Drug treatment | Enforcement + treatment | Treatment emphasis | Harm reduction (Vargas Vidot model) | Harm reduction | Faith-based treatment |
 
 ---
 
-## Mental Health Infrastructure Gap
+## Norte Region Healthcare Specifics
 
-- Puerto Rico has significantly fewer mental health providers per capita than U.S. states
-- Hurricane Maria created a mental health crisis (depression, PTSD, anxiety at very high rates)
-- Suicide rates have been concerning
-- Substance abuse: drug use disorders are significant
-- The mental health infrastructure to respond to these needs is severely inadequate
-- José Vargas Vidot's work (before entering politics) was partly in this space
+- **Arecibo hospital** serves Arecibo, Hatillo, Camuy, Quebradillas, and interior
+- **Specialist travel:** Most Norte residents go to San Juan for specialist care
+- **Mental health access:** Very limited in rural Norte municipalities
+- **Elder care:** High elderly population in Norte; elder care infrastructure is strained
 
 ---
 
-## Political Positions on Healthcare
+## How to Use in Landing Pages
 
-| Party | Federal Parity | Medicaid | Physician Crisis | Mental Health |
-|-------|--------------|---------|-----------------|---------------|
-| PNP | Use statehood to achieve parity | Work within current system | Workforce development | Some investment |
-| PPD | Advocate for parity in Congress | Expand coverage | Retain physicians (salary equity) | More investment |
-| MVC | Healthcare as a right; parity and more | Universal coverage goal | Systemic reform | Prioritize |
-| PIP | Nationalize healthcare post-independence | Public system | Train and retain | Prioritize |
-| PD | Market-based, religious healthcare | Current system | Incentives | Family/church-based |
-
----
-
-## Landing Page Implications
-
-- Healthcare consistently ranks top 5 in PR constituent concerns
-- The physician shortage is personally felt: constituents struggle to see specialists
-- Issue dropdown should always include "Salud" as option
-- For politicians near hospitals: feature any advocacy for hospital funding
-- For politicians near UPR Medical School or healthcare facilities: feature connection
-- Voice assistant: Should know local hospital names and emergency contact info for the district
-- The Mi Salud program affects nearly half of constituents — any politician who has fought for Mi Salud improvements should feature it
+- **Universal issue:** Healthcare resonates across all demographics
+- **Elder population:** Norte district has high elderly population — "protegiendo a nuestros mayores"
+- **Issue card:** "❤️ Salud para Todos — [Name] trabaja para que tengas acceso a médicos y hospitales cerca de ti"
+- **Specific angle:** Name the local hospital; name the nearest specialist facility
+- **Mi Salud:** Constituent-facing language is about access and quality, not policy
