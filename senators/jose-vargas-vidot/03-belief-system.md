@@ -1,7 +1,7 @@
 # Belief System — José Vargas Vidot
 
 ## Core Political Identity
-Vargas Vidot's politics emerge from medical and social service practice, not from ideology or party machinery. He is a physician who spent his career treating the people Puerto Rican society most abandons — people with HIV, drug users, the homeless — and his politics are an extension of that commitment. He is the most unusual senator in PR history.
+José Vargas Vidot is Puerto Rico's most movement-rooted senator — a community health practitioner who became a politician to protect the programs and communities he served for decades. His politics are organized around radical empathy, harm reduction philosophy, and the dignity of the most marginalized. He is MVC's conscience.
 
 ---
 
@@ -9,62 +9,53 @@ Vargas Vidot's politics emerge from medical and social service practice, not fro
 
 | Dimension | Classification | Intensity |
 |-----------|---------------|-----------|
-| Status position | Non-primary (aligned with MVC decolonization frame) | Low |
-| Economic position | Left / Social Medicine approach | High |
+| Status position | Independence-aligned / Decolonization | High |
+| Economic position | Left | Very High |
 | Social position | Very Progressive | Very High |
-| Governance style | Activist-Physician | Very High |
-| Party relationship | Independent-aligned (MVC) | Medium |
+| Governance style | Activist-Legislator | Very High |
+| Party relationship | Principled Maverick | High |
 
 ---
 
 ## Issue Positions
 
-### Homelessness — SIGNATURE ISSUE
-- Treated homeless populations for decades through Iniciativa Comunitaria
-- Advocates for housing-first approach to homelessness
-- Pushes for government to treat homelessness as a health and dignity issue, not a crime or character flaw
-- Has personally lived out the commitment: not just talked about homelessness, has served homeless people directly
+### Salud Pública — SIGNATURE ISSUE
+- **Harm reduction:** One of PR's only politicians to openly advocate for harm reduction (needle exchanges, drug treatment vs. criminalization)
+- **Homelessness:** Frames it as health and housing crisis, not moral failure
+- **HIV/AIDS:** Active in HIV prevention work through Iniciativa Comunitaria
+- **Drug policy:** Advocates treating addiction as public health issue, not criminal issue
+- **Mental health:** Advocates for community-based mental health services
 
-### Drug Policy Reform
-- **Position:** Decriminalization of drug use; treatment-first approach
-- **Rationale:** As a physician, addiction is a disease, not a crime; criminalization makes the health crisis worse
-- **Experience:** Ran needle exchange programs and HIV prevention for IV drug users
-- This is a progressive position but grounded in his medical practice, not ideology
+### Vivienda (Housing)
+- Housing as a fundamental right
+- Opposes gentrification and displacement (connects to Act 60 critique)
+- Advocates for permanent supportive housing for homeless
 
-### Healthcare Access
-- Advocates for universal healthcare access, especially for marginalized populations
-- Critical of gaps in Medicaid coverage and Mi Salud administration
-- Pushes for community health centers and outreach programs
-- Mental health infrastructure: major gap he consistently raises
+### Economía
+- Anti-austerity
+- Advocates for programs that serve the poor and marginalized
+- Connects economic inequality to public health crises
 
-### LGBTQ+ Health and Rights
-- HIV work inherently connects to LGBTQ+ community (historically hardest hit)
-- Affirming of LGBTQ+ rights and dignity
-- His medical practice required non-judgmental care for all patients regardless of identity
-
-### Economic Justice
-- Aligned with MVC's anti-austerity, anti-PROMESA position
-- Sees poverty and marginalization as political choices, not natural conditions
-- Anti-privatization: sees privatization as threatening the most vulnerable
+### Descolonización
+- MVC/independence-aligned framework
+- Frames colonial relationship as root cause of many of PR's social problems
+- Health disparities, poverty, exodus — all connected to colonial economic structure
 
 ---
 
-## What Makes Him Unique
-
-1. **He walked the walk before he talked the talk:** Most politicians talk about the vulnerable. He treated them for 25+ years.
-2. **Medical framing:** He talks about social problems like a doctor — diagnosis, treatment, prevention, not blame
-3. **Credibility that money can't buy:** His authority on homelessness and poverty comes from direct experience, not research or theory
-4. **Personal risk:** Working with HIV patients and homeless drug users in 1990s-2000s PR required genuine moral courage
+## Communication Style
+- **Raw and authentic** — tells stories from the streets, from his decades of community work
+- **Emotional intelligence** — high; connects with people across political lines through shared humanity
+- **Social media:** Active; personal, story-driven content
+- **Not a partisan fighter** — his appeal crosses party lines because his work is non-partisan
 
 ---
 
 ## Pitch Strategy
 
-**Do NOT pitch him a "hype page."** He will find that language offensive.
-
-Instead, pitch:
-- "A constituent connection system that lets you reach the people who need your advocacy"
-- "A way for homeless shelters, social workers, and community health workers to contact your office directly"
-- "A platform that amplifies the work you've already done and connects you with more people who need it"
-
-His landing page should lead with his Iniciativa Comunitaria work, his medical background, and his "before politics" story. That IS the hype. He doesn't need to be positioned as powerful — he needs to be positioned as the senator who came from the street level.
+**His story is the landing page.** 
+- Lead capture form with his community health narrative
+- AI voice assistant that can answer constituent questions about health resources
+- "Senator, your story reaches beyond politics — let's give it a platform that captures the people it moves."
+- Frame as a **movement tool**, not a campaign tool
+- Price at MVC ally level; referral to entire MVC/PIP network is the return

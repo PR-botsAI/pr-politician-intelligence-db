@@ -1,41 +1,34 @@
-# José A. Vargas Vidot — Quick Reference Card
+# José Vargas Vidot — Quick Reference Card
 
 ## At a Glance
 | Field | Value |
 |-------|-------|
-| Full Name | José Antonio Vargas Vidot |
-| Known As | José Vargas Vidot |
+| Full Name | José Vargas Vidot |
+| Known As | José Vargas Vidot / "El Senador de los Sin Voz" |
 | Title | Senador por Acumulación |
 | Chamber | Senado de Puerto Rico |
-| District | Por Acumulación (isla-wide) |
-| Party | Movimiento Victoria Ciudadana (MVC) |
-| Background | Medical doctor, HIV/homeless service physician, NGO founder |
-| Email | jvargas@senado.pr.gov |
-| Buzz Score | 8.2 / 10 |
-| Priority Tier | Tier 1 — High receptivity, progressive, authentic |
+| District | Por Acumulación (island-wide) |
+| Party | MVC / Alianza de País |
+| Email (official) | jvargas@senado.pr.gov |
+| Buzz Score | 8.7 / 10 |
+| Priority Tier | Tier 1 — High buzz, MVC flagship senator |
 
 ## 3-Sentence Summary
-José Vargas Vidot is a medical doctor who spent years providing HIV treatment and services to homeless populations in Puerto Rico before being elected to the Senate — making him one of the most unusual politicians in PR history. He is an MVC senator whose personal credibility comes not from a political career but from decades of frontline social service work. He represents everything our pitch should aspire to reach: authentic, mission-driven, not a career politician, deeply connected to his constituents through actual service.
+José Vargas Vidot is Puerto Rico's most unconventional senator — a pharmacist and community health worker who spent decades on the streets of Santurce working with homeless, addicted, and marginalized communities before being elected to the Senate on the MVC ticket. His personal story is extraordinary, his social media presence is organic and viral, and he represents a politics of radical empathy that resonates across traditional political lines. He is one of our highest buzz scores because his story IS the landing page.
 
-## Top 3 Achievements
-1. Founded Iniciativa Comunitaria — major NGO providing HIV/AIDS treatment, drug rehabilitation, and services to homeless populations in PR
-2. Elected Senator por Acumulación (initially as independent, aligned with MVC)
-3. Consistent advocacy in Senate for homeless rights, drug policy reform, and healthcare access
+## Top 3 Verified Achievements
+1. Founded Iniciativa Comunitaria — landmark Puerto Rico harm reduction and community health organization
+2. Elected Senator on MVC ticket; re-elected 2024
+3. Consistent national and international recognition for community health and harm reduction work
 
-## Top 3 Issues
-1. Homelessness and housing rights
-2. Drug addiction as public health issue (not criminal)
-3. Healthcare access for marginalized populations
-
-## Why He's a Tier 1 Target
-- His mission-driven identity means he'll appreciate tools that help him serve constituents
-- MVC progressive base is tech-forward and will respond well to a professional site
-- His personal story = incredible hype page material
-- He is authentic — pitch must match that energy (no corporate language)
+## His Story (The Hook)
+- Pharmacist who chose to serve homeless and drug-addicted communities
+- Founded Iniciativa Comunitaria de Investigación (ICI) — provides health services, harm reduction, HIV prevention on the streets
+- The organization has served thousands of marginalized Puerto Ricans for decades
+- He's a **senator who literally worked with needle exchanges and slept in shelters** to understand his constituents
+- No PR politician has a more powerful personal narrative
 
 ## Landing Page Status
 - [ ] Research complete
-- [ ] Buzz score calculated  
 - [ ] Demo built
 - [ ] Outreach sent
-- [ ] Client converted

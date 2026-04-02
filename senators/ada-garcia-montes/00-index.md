@@ -1,29 +1,20 @@
-# Ada I. García Montes — Quick Reference Card
+# Ada García Montes — Quick Reference Card
 
 ## At a Glance
 | Field | Value |
 |-------|-------|
-| Full Name | Ada I. García Montes |
+| Full Name | Ada García Montes |
 | Known As | Ada García |
-| Title | Senadora por Acumulación |
+| Title | Senadora |
 | Chamber | Senado de Puerto Rico |
-| District | Por Acumulación (isla-wide) |
-| Party | Partido Nuevo Progresista (PNP) |
-| Email | agarcia@senado.pr.gov |
-| Buzz Score | 5.8 / 10 |
-| Priority Tier | Tier 2 |
-
-## Summary
-Ada García Montes is a PNP senator por acumulación whose profile and specific committee assignments require further research. As an at-large senator, she represents the entire island and is accessible via official email. She is part of the PNP Senate supermajority and votes with the caucus on major legislation.
+| Party | Research — confirm PNP or PPD |
+| Email (official) | Research — agarcia@senado.pr.gov (likely) |
+| Buzz Score | 5.0 / 10 |
+| Priority Tier | Tier 2–3 |
 
 ## Research Tasks
-- [ ] Committee assignments
-- [ ] Key legislation
-- [ ] Professional background
-- [ ] Community focus areas
-- [ ] Social media presence
-
-## Landing Page Angle
-- PNP blue scheme
-- At-large: island-wide issues + showcase specific communities she visits
-- Standard PNP messaging: progress, statehood, competence
+- [ ] Confirm party
+- [ ] Confirm district or acumulación
+- [ ] Research legislative record and committee assignments
+- [ ] Social media audit
+- [ ] SUTRA search
