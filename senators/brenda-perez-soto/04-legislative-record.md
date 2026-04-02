@@ -1,49 +1,74 @@
 # Legislative Record — Brenda Pérez Soto
 
-## Summary (as of April 2026 — 15 months in office)
-- Term began: January 2, 2025
-- Party: PNP (Senate majority)
-- Status: Freshman senator; building record
+> Sources: senado.pr.gov, Metro PR, Telemundo PR, La Perla del Sur, El Foro Noticioso, Prensa sin Censura
+
+## Committee Position
+**Presidenta — Comisión de Educación, Arte y Cultura del Senado**
+- Designated by Senate President Thomas Rivera Schatz, January 2025
+- Jurisdiction: All legislation related to education, arts, and culture
+- Held public hearings on AI integration, educational reform, special education
 
 ---
 
-## Documented Legislation
+## Bills Filed and Status
 
-### PS 1159 — Mandatory Horse Microchip Registration
-- **Type:** Proyecto del Senado (Senate Bill)
-- **Filed:** 2025 session
-- **Subject:** Creates mandatory microchip registration system for horses in Puerto Rico
-- **Purpose:** Address road safety hazard posed by stray or loose horses on Puerto Rico's roads
-  - Stray horses on PR roads cause accidents, particularly on rural highways and at night
-  - This is a known problem especially in rural municipalities in the Norte and interior
-  - A microchip registry would allow owners to be identified and held accountable
-- **Significance:**
-  - Practical, rural-community-specific legislation — exactly what her agricultural district needs
-  - Shows awareness of rural constituent concerns (horse culture is strong in Hatillo/interior municipalities)
-  - Agricultural community legislation: dairy farmers and agricultural workers in Hatillo and interior municipalities understand this issue
-- **Status:** Research current legislative status at sutra.oslpr.org
+### PS 348 — 🤖 AI in Public Schools — **APPROVED BY SENATE UNANIMOUSLY**
+- **Filed by:** Brenda Pérez Soto
+- **Approved:** June 2025 (unanimous Senate vote)
+- **Full title:** *"Ley de Inteligencia Artificial como herramienta de trabajo e instruccional para estudiantes y maestros en el Departamento de Educación de Puerto Rico"*
+- **What it does:** Creates legal framework for ethical AI integration in public schools; focuses on students with academic gaps and special education students; AI serves as support tool for teachers, not replacement
+- **Development process:** Consulted with AI experts AND the Education Secretary Eliezer Ramos Parés before filing
+- **Her statement:** *“Como gobierno, tenemos que facilitar y dar las herramientas a nuestros estudiantes, especialmente los de Escuela Superior, que estén en vanguardia para cuando vayan a lo que es el área laboral.”*
+- **Significance:** This is LANDMARK legislation — first AI education law in Puerto Rico; passed unanimously
 
-### Additional Legislation
-- **Research needed:** Full list of bills filed in 2025–2026
-- **SUTRA search:** Search "Pérez Soto" or "Brenda Pérez" in the Senate bills filter
-- **Committee hearings:** Check senado.pr.gov for any hearings she's participated in
+### PS 374 — Special Education Parents as T1 Assistants — **APPROVED**
+- **What it does:** Allows public employees to take leave to serve as Tipo 1 (T1) assistants for their special education children in school
+- **Why it matters:** Special ed families often can’t afford private T1 aides; this lets parents fill that role
+- **Her personal connection:** Career in education and counseling; she knows this struggle directly
+
+### PS 820 — Media & Digital Literacy Law — **APPROVED**
+- **Full title:** *"Ley de Alfabetización Mediática e Informacional de Puerto Rico"*
+- **What it does:** Mandates that public school students develop media and digital literacy competencies; specifically includes responsible use of technology and AI
+- **Significance:** Complements PS 348 — not just using AI tools but understanding them critically
+
+### PS 1159 — Horse Microchip Registration — FILED
+- **What it does:** Creates mandatory microchip identification and registration system for horses in Puerto Rico to address the stray horse road safety crisis
+- **The problem:** Stray horses (“caballos realengos”) on PR roads cause fatal accidents, especially at night
+- **Agricultural connection:** Demonstrates sensitivity to agricultural community of Hatillo, Camuy, Lares, Utuado
+- **Companion bill:** Separate bill PS 469 by Senator Barlucea also addresses horse roundup mechanism
+
+### PS 374 — Programa de Patrulleros Escolares Reactivation (November 2025)
+- Led Education Commission initiative to reactivate the Education-Police school patrol program
+- Held official swearing-in ceremony at Escuela Ricardo Rodríguez Torres (Florida, PR)
+- 62 students from 4 schools (Florida, Arecibo, Barceloneta) sworn in as school patrols
+- *“Esta alianza representa un paso importante en la educación de valores y en la prevención de la violencia desde los pilares fundamentales de nuestra sociedad.”*
 
 ---
 
-## Community Service Events (Non-Legislative)
+## Community Actions (Non-Legislative)
 
-### "Tu Distrito en Acción" Ferias de Servicios
-- Pérez Soto has organized community service fairs across her district
-- Brings government agencies directly to constituents: ASUME, CESCO, DOH, Social Security, etc.
-- These events serve constituents who have difficulty navigating government bureaucracy
-- Covers multiple municipalities: reported events in Arecibo, Hatillo, Camuy, Quebradillas, Lares, Utuado
-- **Political significance:** Service fairs are classic PR constituent service — builds name recognition across a large geographic district
-- **For our pitch:** "Your service fairs reach hundreds of people at once. A digital system captures all of them permanently."
+### October 2025 — Water Crisis Personal Response
+- Norte region experienced major PRASA outage affecting municipalities from Quebradillas to Dorado
+- Pérez Soto personally purchased **paletas de agua** (water packs) with her own personal funds (NOT institutional funds)
+- Distributed to affected communities during the emergency
+- **Political significance:** Act generated controversy when a video was misinterpreted; she clarified publicly
+- **Her statement:** *“Nunca he utilizado la emergencia relacionada con la falta de servicio de agua potable para fines políticos o personales.”*
+- Shows genuine constituent-first impulse under personal funding constraints
+
+### District Athletic Recognition
+- Held recognition ceremony for children of the Liga Atlética Policiaca del Distrito de Arecibo
+- Community youth sports support — visible constituent engagement
 
 ---
 
-## Research Tasks
-- [ ] Complete SUTRA search for all PS filed by Pérez Soto
-- [ ] Find Senate committee assignments
-- [ ] Check news archives for any legislative advocacy or statements
-- [ ] Determine current status of PS 1159
+## Legislative Effectiveness Rating: **HIGH for freshman senator**
+- Two major education laws approved in first year
+- Committee chairmanship is highly active with public hearings
+- Strong connection between her professional background (teacher/principal) and her legislative portfolio
+- UNANIMOUS Senate approval of PS 348 shows cross-party respect and quality draftsmanship
+
+---
+
+## Why She Is Our Best Pitch
+She passed Puerto Rico’s first AI law. She is not anti-technology. She is already a believer.
+Our pitch is not “here’s new technology” — it’s “here’s the same AI you already believe in, applied to your constituent outreach.”
