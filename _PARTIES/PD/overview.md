@@ -5,43 +5,28 @@
 |-------|-------|
 | Full Name | Proyecto Dignidad |
 | Founded | 2019 |
-| Founder | Javier Jiménez Pérez |
+| Founder | César Vázquez Muñiz |
 | Color | Orange |
-| Core Position | Christian conservative governance; status is secondary |
-| National Alignment | U.S. social conservative movement |
-| 2024 Status | Small legislative minority; some senators/representatives |
-| Key Figure | Joanne Rodríguez Veve (Senator) |
+| Symbol | Cross / family silhouette |
+| National Affiliation | None (socially conservative, non-partisan on status) |
+| Core Identity | Christian values, anti-corruption, family-first governance |
+| Current President | César Vázquez Muñiz |
+| 2024 Results | 2 Senate seats, 2+ House seats, growing |
 
----
+## Origin
+Proyecto Dignidad was founded in 2019 by César Vázquez Muñiz, a lawyer and Christian conservative activist. It emerged from Puerto Rico's evangelical Christian community and social conservatives who felt neither PNP nor PPD represented their values — PNP too focused on statehood, PPD too focused on ELA, both too corrupt.
 
-## Founding Context
+The party's founding coincided with the explosion of evangelical Christianity in Puerto Rico. While PR has historically been majority Catholic, evangelical Protestant churches have grown dramatically and now represent a significant political constituency that Proyecto Dignidad targets.
 
-Proyecto Dignidad was founded in 2019 by Javier Jiménez Pérez, the mayor of San Sebastián, who was frustrated with PNP's social moderation on issues like same-sex marriage and abortion. The party emerged from Puerto Rico's significant and growing evangelical Christian community, which felt politically homeless between:
-- PNP: Pro-statehood but socially moderate (accepts established LGBTQ+ rights)
-- PPD: Pro-ELA but similar social moderation
-- MVC/PIP: Explicitly progressive on social issues
+## 2024 Results
+- César Vázquez ran for governor — received ~5% statewide
+- Won 2 Senate seats (or representation via constitutional minority)
+- Growing presence in municipal races
+- Gained votes in municipalities with strong evangelical communities
 
-**The gap PD fills:** A party that explicitly governs from Christian values, opposes same-sex marriage/LGBTQ+ agenda, opposes abortion, and prioritizes family as defined by religious tradition.
-
----
-
-## Electoral History
-| Year | Result | Notes |
-|------|--------|-------|
-| 2020 | Jiménez: ~6% for governor | Strong debut for new party; won some legislative seats |
-| 2024 | Maintained legislative presence | Jiménez left to run for governor of PR under PD; result research needed |
-
-## Key Legislators
-- **Joanne Rodríguez Veve:** Senator, the most visible PD legislative figure. Known for socially conservative positions expressed with legal rigor.
-- **César Vázquez:** PD president (research for current status)
-
----
-
-## Puerto Rico's Evangelical Growth
-
-PD's existence reflects a real demographic shift in Puerto Rico:
-- Puerto Rico was historically 85%+ Catholic
-- By 2020s: approximately 30–35% evangelical Protestant
-- Evangelical churches are politically active, community-embedded, and effectively organized
-- Many evangelicals felt the Catholic-aligned parties (PNP/PPD) were too willing to accept LGBTQ+ legal advances
-- PD gives this community a political vehicle
+## Demographic Base
+- Evangelical Christians (primary)
+- Social conservatives across parties
+- Voters who prioritize corruption/ethics issues
+- Some Catholic conservatives who left PNP/PPD
+- Often lower-income working class in evangelical communities

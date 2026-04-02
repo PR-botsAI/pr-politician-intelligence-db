@@ -1,61 +1,55 @@
-# PPD — Messaging Patterns & Communication
+# PPD — Messaging & Communication Patterns
 
-## Core Messaging Themes (2024–2026)
+## Core Message Architecture
 
-Without the governorship, PPD messaging operates through mayors, the Resident Commissioner, and the legislative minority. The messages are necessarily oppositional and local.
+### Tier 1: The Identity Defense
+> "Somos puertorriqueños — y siempre lo seremos."
 
-### Theme 1: Identity and Culture
-"Somos puertorriqueños" — We are Puerto Ricans. The PPD defends cultural identity against what they frame as the Americanizing force of PNP statehood. This remains the party's most emotionally resonant message with its base.
+PPD leads with cultural identity. This is their emotional anchor.
 
-### Theme 2: Anti-Privatization / Defending Public Services
-LUMA Energy is a gift for PPD messaging. "PNP privatized your electricity. Bills went up. Lights still go out. PPD will fight to restore public control." This message works across political affiliations because LUMA is universally unpopular.
+### Tier 2: The Protection Promise
+> "Protegemos lo que es nuestro — nuestros programas, nuestros derechos, nuestra cultura."
 
-### Theme 3: Governance from the Municipalities
-PPD mayors dominate messaging with "el pueblo" through local social media, events, and services. Municipal PPD messaging is about local results — road repairs, festivals, services delivered.
-
-### Theme 4: Federal Advocacy Through Resident Commissioner
-Hernández Rivera as PR's voice in Washington. Federal program protection, Medicaid advocacy, disaster funding.
-
-### Theme 5: Anti-Corruption (Currently)
-PPD positions itself as cleaner alternative to PNP's patronage (even though PPD has its own patronage history). Particularly effective when PNP officials face federal investigations.
+### Tier 3: The Service Legacy
+> "El PPD construyó Puerto Rico moderno. Seguimos trabajando para nuestro pueblo."
 
 ---
 
-## Key Symbols and Visual Identity
-- **Color:** Red (PPD red)
-- **Symbol:** La Pava (the jibaro straw hat) — powerful, historically loaded symbol
-- **Imagery:** Rural scenes, community events, "el pueblo" — ordinary people
-- **Flag:** Puerto Rican flag without the American flag alongside (contrast with PNP's dual-flag imagery)
+## Vocabulary Guide
+
+### Use These Words
+- Pueblo / The people
+- Identidad / Identity
+- Lo nuestro / What's ours
+- La Pava / (the jibaro hat — powerful emotional symbol)
+- Familia puertorriqueña / Puerto Rican family
+- Soberanía / Sovereignty (in cultural context)
+- Los que más necesitan / Those who need it most
+- Comunidad / Community
+- Orgullo / Pride
+
+### Avoid / Red Flags for PPD
+- Statehood language
+- Privatization-positive language
+- Corporate/investor-friendly framing without caveats
+- Anything that sounds like cultural assimilation
 
 ---
 
-## Facebook Communication Style
+## Social Media Patterns (PPD Legislators)
 
-PPD politicians and mayors on Facebook:
-- Community event focus: fiestas patronales, community celebrations, local services
-- La Pava symbol appears frequently
-- Anti-LUMA posts resonate strongly
-- Local results: "Arreglamos la calle X", "Conseguimos fondos para Y"
-- Warm, community tone — less formal than PNP
-- Spanish-dominant (rarely English)
-- Heavy use of Puerto Rican cultural imagery
+- **Primary platform:** Facebook — PPD base is older
+- **Content strength:** Community events, service delivery, cultural celebrations (fiestas patronales, etc.)
+- **Emotional resonance:** Nostalgia + community pride
+- **Video:** Town halls, in-person meetings, radio segments
+- **Language:** Almost exclusively Spanish
 
 ---
 
-## Key Slogans and Phrases
-- "El pueblo primero" (The people first)
-- "Somos puertorriqueños" (We are Puerto Ricans)
-- "La Pava con el Pueblo" (The PPD with the people)
-- Anti-statehood: "La estadidad borrará nuestra identidad"
-- Anti-LUMA: "Devuelvan la AEE al pueblo" (Return the electricity authority to the people)
-- Municipal: "Trabajando por [municipio]" (Working for [municipality])
-
----
-
-## What PPD NEVER Says
-- Pro-statehood language
-- Anything that sounds pro-U.S. assimilation
-- Anti-labor or anti-union messaging
-- Praise for privatization
-- English-first communication (very rare)
-- Pro-Act 60 investor incentives
+## Landing Page Tone Guide (PPD)
+For a PPD politician's landing page:
+- **Community-rooted and warm** — like a neighbor, not a politician
+- **Cultural pride** — references to local traditions, history, community
+- **Protector frame** — defender of the people against powerful outside forces
+- **Service-focused** — what they've done for the community concretely
+- **Spanish-first** — minimal or no English on constituent-facing materials

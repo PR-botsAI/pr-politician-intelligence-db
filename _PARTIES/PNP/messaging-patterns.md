@@ -1,88 +1,72 @@
-# PNP — Messaging Patterns & Communication
+# PNP — Messaging & Communication Patterns
 
-## Core Messaging Themes (2024–2026)
+## Core Message Architecture
 
-Under Governor Jenniffer González Colón, PNP messaging has shifted toward governance competence and federal relationship management rather than pure status advocacy.
+### Tier 1: The Mission
+> "Puerto Rico merece ser Estado — con plena ciudadanía, plena representación, plena igualdad."
 
-### Theme 1: "El Progreso" (Progress)
-- Concrete deliverables: infrastructure projects, federal funds secured, roads built
-- Before/after comparisons: what we accomplished vs. what PPD left us
-- Economic development announcements
-- Federal grants and programs secured through good Washington relationships
+This is always the north star. Every PNP communication can eventually connect back to this.
 
-### Theme 2: Statehood as Equality
-- "Somos ciudadanos americanos" — we are American citizens
-- Medicaid/SSI parity argument: "States receive more, territories receive less — that's unjust"
-- Congressional representation argument: "We serve in the military without a vote"
-- Avoids aggressive/confrontational statehood framing in favor of rights-based appeal
+### Tier 2: The Service Promise
+> "Mientras luchamos por la estadidad, servimos a nuestro pueblo todos los días."
 
-### Theme 3: Governance Competence
-- Post-Telegramgate, PNP must demonstrate it can govern well
-- Transparency messaging (even if limited)
-- Professional administration
-- Federal relationship management (FEMA funds, infrastructure investment)
+This bridges the abstract (statehood) to the concrete (roads, water, safety).
 
-### Theme 4: Security
-- Crime reduction messaging
-- Police support
-- "Law and order" framing common in PNP communications
+### Tier 3: The Achievement Proof
+> "Mira lo que hemos logrado para el Distrito X / Municipio Y..."
+
+Specific, local, tangible. This is where landing pages live.
 
 ---
 
-## Key Slogans by Era
-| Era | Slogan | Notes |
-|-----|--------|-------|
-| Ferré (1968) | "El Nuevo Progresismo" | Party founding identity |
-| Romero Barceló | "Progreso y Estadidad" | Direct status appeal |
-| Rosselló I | "Hacia un Nuevo Puerto Rico" | Modernization focus |
-| Fortuño | "Un Nuevo Comienzo" | Post-PPD fiscal crisis |
-| González Colón (2020) | Results-focused | Post-Telegramgate repair |
-| González Colón (2024) | "Puerto Rico Avanza" | Progress and competence |
+## Vocabulary Guide
+
+### Use These Words
+- Igualdad / Equality
+- Dignidad / Dignity  
+- Progreso / Progress
+- Familia / Family
+- Trabajo / Work/Employment
+- Servicio / Service
+- Ciudadanía / Citizenship
+- Nuestra gente / Our people
+- El Norte / [region name]
+- Comunidad / Community
+
+### Avoid These Frames
+- "Colonia" (PPD/PIP use this — PNP rejects the framing)
+- Anything that sounds anti-American
+- "Soberanía" alone (it has PPD/independence connotations)
+- Divisive partisan attacks in constituent-facing materials
 
 ---
 
-## Facebook Communication Style
+## Social Media Patterns (PNP Legislators)
 
-PNP politicians on Facebook tend to:
-- Post frequently (daily or near-daily for active legislators)
-- Feature photos of community events, ribbon cuttings, federal officials visiting
-- Announce federal grant awards prominently
-- Use both Spanish and English (more than PPD/PIP)
-- Use the Puerto Rican flag 🇵🇷 extensively
-- Post patriotic content on U.S. holidays (4th of July, Veterans Day, Memorial Day) — PPD/PIP politicians typically avoid this
-- Comment on local news stories relevant to their district
-- Share press releases in full
+### Facebook (Primary Platform for PNP reps)
+- **Best performing:** Photos with constituents, ribbon cuttings, community events
+- **Strong:** Legislative achievements with specific numbers
+- **Good:** Sharing governor's announcements
+- **Avoid:** Controversial social issues (abortion, LGBTQ) — stay in lane
+- **Posting frequency:** 3–5x per week
+- **Best time:** 7–9am, 12–1pm, 6–8pm (when people check before/after work)
 
-### Individual PNP Politician Styles Vary:
-- Thomas Rivera Schatz: Aggressive, confrontational, direct
-- Jenniffer González Colón: Professional, executive, results-focused, bilingual
-- Junior district reps like Robles: More constituent-service focused, local issues
+### Video
+- Short Facebook/Instagram videos of visits to district sites
+- Town halls or community events recorded and posted
+- Governor press conferences reshared
 
----
-
-## What PNP NEVER Says
-- Anti-American or critical of U.S. institutions fundamentally
-- Support for independence
-- "Colonia" (they reject this framing — prefer "territorio" or argue statehood solves it)
-- Critical of U.S. military presence
-- Spanish-only messaging (always at least bilingual)
-- Anti-business rhetoric
-- Anything that sounds like PPD's "identidad" framing without the statehood pivot
+### Language
+- 95% Spanish
+- English occasionally for federal/U.S. audience
+- Bilingual captions for milestone posts
 
 ---
 
-## Visual Identity
-- **Color:** Blue (PNP blue, approximately #003DA5)
-- **Symbol:** The starburst/estrella — represents the new star on the U.S. flag
-- **Imagery:** American and Puerto Rican flags together; professional settings; infrastructure/development
-- **Fonts:** Traditional, authoritative
-- **Photos:** Politicians in suits at official functions; ribbon cuttings; meetings with federal officials
-
----
-
-## Emotional Triggers for PNP Messaging
-1. **Pride:** "Somos puertorriqueños Y americanos"
-2. **Injustice:** "Pagamos impuestos, servimos en el ejército, pero no tenemos voto"
-3. **Hope:** "La estadidad nos traerá $10 mil millones más en fondos federales"
-4. **Competence:** "Nosotros sí gobernamos bien"
-5. **Progress:** Concrete, tangible, photographable improvements
+## Landing Page Tone Guide (PNP)
+For any PNP politician's landing page, the copy should feel:
+- **Professional but warm** — not corporate, not folksy
+- **Achievement-focused** — what have they done, with proof
+- **Community-rooted** — names their specific district/municipality
+- **Aspirational** — points toward better future
+- **Never divisive** — constituent service pages avoid partisan attacks

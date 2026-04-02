@@ -1,71 +1,35 @@
 # MVC — Voter Base Profile
 
-## Who Votes MVC
+## Who Votes MVC/Alianza de País
 
-### Age: The Youth Party
-MVC's strongest demographic is 18–35. In PR's fragmented electorate, young voters are MVC's primary base:
-- University students at UPR and private universities
-- Young professionals who stayed in PR or returned after studying abroad
-- First-time voters who came of age post-Telegramgate
-- Gen Z voters (born 1997+) who see PNP and PPD as corrupt legacy parties
+### Demographics
+- **Age:** Youngest base of any party — strong 18–40 concentration
+- **Geography:** Urban — San Juan (Santurce, Río Piedras), Ponce progressive areas, university towns
+- **Education:** Highest education level of any party base — university students, graduates, professionals
+- **Income:** Mixed — committed young progressives who may be lower income; professional class
+- **Religion:** Secular or non-practicing Catholic; progressive Christian; non-religious
 
-### Geography: Urban Concentration
-- **San Juan / Santurce:** MVC's heartland. Santurce specifically is the creative/cultural/progressive hub of PR. Concentrated progressive population, high density of young renters, artists, LGBTQ+ community.
-- **Río Piedras:** University of Puerto Rico main campus area. Academic community.
-- **Caguas:** Growing MVC presence in second-largest metro.
-- **University towns:** Any municipality with a UPR campus sees MVC support.
-- **Weaker in:** Rural interior, western PR, heavily Catholic conservative communities
+### Psychographics
+- **Identity:** Puerto Rican nationalist who doesn't need U.S. validation
+- **Values:** Justice, solidarity, transparency, community
+- **Political sophistication:** High — they read the legislation, they watch the hearings, they research
+- **Distrust:** Of both PNP and PPD as corrupt establishment parties; of U.S. colonial institutions
+- **Motivation:** Building a better Puerto Rico that they don't have to leave
 
-### Occupation and Class
-- Academics, professors, teachers
-- Artists, musicians, writers, designers
-- Lawyers and legal advocates
-- Social workers
-- NGO workers
-- Environmental advocates
-- Young service workers who are economically precarious but politically engaged
-- Some middle-class professionals who identify with progressive values
+### The MVC Voter is Active
+- Not just a voter — often a volunteer, organizer, donor (even if small amounts)
+- Shares content on social media, has political conversations
+- Engaged in community organizations outside electoral politics
+- Will attend a town hall, a community meeting, a march
 
-### LGBTQ+ Community
-MVC is the only PR party that explicitly champions LGBTQ+ rights. The LGBTQ+ community — significant in San Juan/Santurce — is a core MVC constituency. Mariana Nogales' visible allyship is central to this relationship.
+## What MVC Voters Want
+1. Decolonization process (status change, but through self-determination)
+2. Corruption accountability
+3. LGBTQ+ and civil rights protection
+4. Housing justice, anti-displacement
+5. Public services (not privatized)
+6. Environmental protection
+7. Economic justice (living wages, worker protections)
 
-### The Diaspora Influence
-Puerto Ricans in the continental U.S. — particularly New York, Florida, Massachusetts — increasingly engage with PR politics. The diaspora skews more progressive and more independence-leaning. MVC's social media presence reaches this diaspora effectively.
-
----
-
-## Why They Choose MVC Over PPD
-
-The critical question: why does a progressive voter choose MVC over PPD?
-
-1. **PPD is seen as part of the problem:** The same corruption, the same patronage, just in red instead of blue
-2. **PPD is ideologically vague:** MVC has a clear progressive platform; PPD's ELA position seems like a non-answer
-3. **Generational rejection:** Young voters associate PPD with their parents' failed politics
-4. **MVC feels authentic:** Community organizers vs. career politicians
-5. **Social media culture:** MVC speaks the language of young digital Puerto Ricans; PPD doesn't
-
----
-
-## What Moves MVC Voters
-
-- Moral clarity: justice, rights, dignity
-- Anti-corruption and transparency
-- Climate and environmental concerns
-- LGBTQ+ rights and inclusion
-- Anti-gentrification and housing rights
-- Anti-austerity and debt cancellation
-- Decolonization frame (even if not explicit independence support)
-- Authentic, non-performative politics
-- Candidates who explain their reasoning, not just their positions
-
----
-
-## MVC Voter Ceiling and Challenge
-
-MVC's challenge: how to grow beyond the urban progressive base without diluting its identity. The mass of PR voters is still:
-- More socially conservative
-- More Catholic
-- More rural
-- More dependent on the PNP/PPD patronage machines
-
-MVC's path to growth requires either winning more urban turnout or finding rural communities with economic grievances (anti-LUMA, anti-austerity) where their economic message transcends their social positions.
+## Pitch Implication
+MVC politicians are harder sales — they scrutinize vendors, will ask about values alignment, and won't pay for something that feels corporate or inauthentic. BUT if you win them, you win the entire progressive network. Price at ally rates; get the referrals.

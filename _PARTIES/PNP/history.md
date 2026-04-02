@@ -1,54 +1,45 @@
-# PNP — Party History 1967–2026
+# PNP — Party History
 
 ## Founding Era (1967–1972)
+**Luis A. Ferré** founded the party after the 1967 plebiscite showed significant statehood support. He was an industrialist, art patron, and Ponce elite who believed Puerto Rico's future lay in full American integration.
 
-The Partido Nuevo Progresista was founded on August 20, 1967, by Luis A. Ferré, a Ponce industrialist, engineer, and art patron who had previously served in the Republican Statehood Party. The party emerged from the 1967 status plebiscite, in which statehood received 39% — enough to demonstrate serious support and justify a dedicated party.
+- 1967: PNP founded
+- 1968: Ferré wins governorship — ends 28 years of PPD dominance
+- 1969–1973: Ferré's first PNP administration; moderate, institution-building
+- 1972: PPD regains government under Rafael Hernández Colón
 
-Ferré's 1968 gubernatorial victory — ending 28 years of PPD dominance — was historic. He ran on modernization, industrial development, and statehood. His administration (1969–1973) established the PNP's brand as the party of economic development and U.S. integration.
+## Romero Barceló Era (1977–1984)
+**Carlos Romero Barceló** was the most aggressive statehooder governor. His confrontational style with the PPD and his handling of the **Cerro Maravilla** murders (1978) — where police killed two independence activists — became the defining scandal of his era. The cover-up and subsequent investigation shook PR politics for years.
 
-## The Romero Barceló Era (1977–1985)
+## The Pedro Rosselló Era (1993–2001)
+Pedro Rosselló González's two terms were transformative:
+- Massive privatization: sold Puerto Rico Telephone Company (PRTC)
+- Infrastructure modernization
+- Economic growth era (pre-Section 936 elimination)
+- **Section 936 Elimination (1996):** Congress eliminated the tax exemption that powered PR's manufacturing economy. Long-term economic consequence was devastating. PPD blames PNP for not fighting harder; PNP notes Congress decided.
+- Corruption scandals: Multiple officials indicted
 
-Carlos Romero Barceló served two terms as governor and was one of the most aggressive statehood advocates in PR history. He pushed for statehood legislation in the U.S. Congress, built close relationships with Republican administrations (Reagan era), and expanded the party's urban base. His era was marked by controversy including the Cerro Maravilla incident (1978) — two independence activists killed by police in what became a cover-up scandal that damaged his administration and contributed to his 1984 loss.
+## Luis Fortuño Era (2009–2013)
+- Won in 2008 landslide amid economic crisis
+- Implemented austerity: fired ~17,000 government employees (Law 7)
+- Triggered massive protests
+- Lost re-election 2012 to PPD's García Padilla
 
-## PPD Interlude (1985–1993)
+## Ricardo Rosselló & Telegramgate (2017–2019)
+- Won 2016 on economic reform platform
+- **PROMESA/Fiscal Board:** PR declared bankruptcy under PROMESA; Fiscal Oversight Board imposed
+- **Hurricane Maria (2017):** Catastrophic response, official death toll 2,975
+- **Telegramgate (July 2019):** ~900 pages of private Telegram chat leaked — included racist, misogynistic messages mocking hurricane victims, women, political rivals
+- **El Verano del 19:** Mass protests; Rosselló resigned July 24, 2019 — first Puerto Rico governor to resign
+- **The succession crisis:** Multiple officials resigned in days; Wanda Vázquez became governor
 
-The PPD won in 1984 with Rafael Hernández Colón, who served until 1993. The PNP was in opposition but maintained its municipal presence and rebuilt for the 1992 cycle.
+## Pedro Pierluisi & Recovery Era (2021–2025)
+- Won 2020; stabilized post-Rosselló chaos
+- Managed COVID-19, earthquake recovery (2020 earthquakes), Maria recovery continuation
+- Lost 2024 primary to Jenniffer González Colón
 
-## The Rosselló I Era (1993–2001): Peak PNP Power
-
-Pedro Rosselló González served two terms and represents the PNP's most transformative period:
-- **Privatization:** Sold Puerto Rico Telephone Company (PRTC) to GTE; privatized various government functions
-- **Section 936 fight:** U.S. Congress eliminated the federal tax exemption that powered PR's manufacturing economy; Rosselló fought against this but lost — setting the stage for the economic crisis of the 2000s
-- **Status plebiscites:** Held 1993 plebiscite (ELA won narrowly) and 1998 plebiscite ("none of the above" won controversially)
-- **Crime:** Implemented controversial policing measures; National Guard deployed to housing projects
-- **Personal:** Son Ricardo Rosselló would later become governor and resign in scandal
-
-## PPD Return (2001–2009)
-
-Sila María Calderón (2001–2005) became PR's first female governor under PPD. Aníbal Acevedo Vilá (2005–2009) faced federal corruption charges but was acquitted.
-
-## The Fortuño Austerity Era (2009–2013)
-
-Luis Fortuño won a historic landslide in 2008 during the global financial crisis. His administration:
-- Laid off approximately 30,000 government workers (controversial austerity measure)
-- Attempted fiscal stabilization as PR's debt ballooned
-- Had PNP supermajority in legislature
-- Lost re-election to PPD's Alejandro García Padilla in 2012 (narrow loss)
-
-## PPD and Fiscal Collapse (2013–2017)
-
-García Padilla's famous 2015 declaration that Puerto Rico's debt was "unpayable" led to the passage of PROMESA by U.S. Congress in 2016 — creating the Fiscal Oversight and Management Board (La Junta). This is seen as a colonial imposition by independence/progressive forces and a necessary fiscal correction by PNP/PPD centrists.
-
-## Ricardo Rosselló and Telegramgate (2017–2019)
-
-Ricardo Rosselló (son of Pedro) won 2016 with a large margin. His administration:
-- Led PR through Hurricane Maria (2017) — widely criticized disaster response
-- Pursued statehood legislation in Congress
-- 2019: 916-page private chat leaked showing gross misogyny, homophobia, and mockery of Maria victims
-- Massive protests ("el Verano del 19") — unprecedented public mobilization
-- Rosselló resigned August 2, 2019 — first PR governor to resign
-- Secretary of State Wanda Vázquez became governor (2019–2021)
-
-## González Colón Era (2021–present)
-
-Jenniffer González Colón, previously Resident Commissioner, won the 2020 race cleanly and decisively. Re-elected 2024 with increased margin. PNP achieved legislative supermajority in 2024 — first time since Fortuño era. This represents PNP's full recovery from Telegramgate.
+## Current Era: Jenniffer González (2025–)
+- First female governor
+- PNP supermajority in legislature
+- Federal funding management (CDBG-DR, FEMA, infrastructure bills) is key challenge/opportunity
+- Relationship with Trump administration (Republican alignment) is strategically important

@@ -1,60 +1,51 @@
-# PIP — Party History 1946–2026
+# PIP — Party History
 
 ## Founding (1946)
+Founded October 20, 1946, by PPD dissidents who refused to accept Muñoz Marín's turn toward Commonwealth instead of independence. Led initially by Gilberto Concepción de Gracia.
 
-The Partido Independentista Puertorriqueño was founded on October 20, 1946, by Gilberto Concepción de Gracia, a lawyer and civil rights advocate who had been a member of the PPD. He broke with Muñoz Marín when it became clear the PPD would pursue Commonwealth rather than independence.
+Core founding belief: Puerto Rico is a nation. Colonialism is wrong regardless of its economic benefits. Independence is a matter of dignity and right, not just policy preference.
 
-The founding context: Puerto Rico in 1946 was experiencing political awakening. The Nationalist Party under Pedro Albizu Campos was the most radical independence voice; the PPD under Muñoz Marín was the governing independence-to-autonomy transition. PIP positioned itself as a democratic, electoral path to independence distinct from the Nationalists' revolutionary approach.
+## Pedro Albizu Campos & The Nationalist Tradition
 
-## Pedro Albizu Campos and the Nationalist Tradition (Context)
+While Albizu Campos led the **Nationalist Party** (separate from PIP), his legacy is inseparable from the independence movement:
+- Harvard Law School graduate
+- Argued Puerto Rico's colonial status under international law
+- Organized resistance movements
+- Imprisoned by U.S. government multiple times
+- Died 1965 after years of imprisonment
+- **The Gag Law (Law 53 of 1948):** Made it illegal to display a Puerto Rican flag or advocate independence — enforced until 1957
 
-Albizu Campos was not a PIP member — he led the Nationalist Party — but his legacy deeply shapes the independence movement:
-- Harvard Law School graduate (1921) — spoke at his Puerto Rican identity despite U.S. education
-- Led the Nationalist Party; organized sugar workers
-- 1950 Nationalist Revolt: Armed uprisings in multiple municipalities; attack on U.S. Congress in 1954
-- Imprisoned multiple times by U.S. and PR governments
-- Claimed he was subjected to radiation experiments while imprisoned (disputed but documented concern)
-- Died 1965, broken in health but symbolically immortal to the independence movement
+## The COINTELPRO Era (1950s–1970s)
 
-For PIP voters, Albizu Campos represents moral courage and the price of resistance. He is invoked regularly in independence culture.
+The FBI conducted systematic surveillance and infiltration of Puerto Rican independence activists:
+- **Carpetas:** Political surveillance files on ~75,000–100,000 individuals
+- PIP members, professors, artists, lawyers were surveilled
+- Some activists were set up, harassed, or had careers destroyed
+- The **Cerro Maravilla murders (1978):** Two young independence activists killed by undercover police — became emblematic of state repression
+- Carpetas exposed in 1987; now partially declassified
 
-## The FBI / COINTELPRO Persecution
+This history of persecution **defines the PIP's identity** — they are survivors of repression who continued anyway. This is deeply held cultural memory.
 
-This is the defining historical experience of the Puerto Rican independence movement and cannot be overstated:
+## The Electoral Drought (1956–2016)
 
-**The Carpetas:**
-- The Puerto Rico Intelligence Division (DIV) maintained secret files ("carpetas") on independence supporters from the 1930s through the 1980s
-- Approximately 75,000–100,000 individuals had carpetas — a massive surveillance apparatus for an island of 3 million
-- Files included: professors, lawyers, journalists, students, labor leaders, artists — anyone associated with independence
-- The carpetas were used to deny government employment, pressure employers, harass individuals
-- They were exposed in 1987 and the Civil Liberties Committee of Puerto Rico documented them
-- The files were subsequently released under court order
+After the founding surge, PIP struggled electorally:
+- Consistently received 3–6% of vote
+- Always maintained legislative presence via at-large seats
+- Focus shifted to cultural and intellectual leadership rather than power
+- Rubén Berríos Martínez led the party for 40 years (1970–2010s) — stability through decline
 
-**Impact on PIP:**
-- Surveillance created a culture of resistance and solidarity within the independence movement
-- Being "fichado" (having a carpeta) was a badge of honor for committed independentistas
-- It explains why independence supporters in PR distrust U.S. government institutions at a deep level
-- It is the lived experience that gives the decolonization argument emotional weight beyond theory
+## The Renaissance (2020–)
 
-## Electoral History
+Juan Dalmau's 2020 campaign for governor — run as part of Alianza de País with MVC — received 13.6% of the vote. This was:
+- The best PIP governor result since 1952
+- Evidence that the Verano del 19 energy was real and sustained
+- Proof that the Alianza coalition could grow
 
-| Year | Gubernatorial Result | Notes |
-|------|---------------------|-------|
-| 1948 | 10.3% | Strong debut |
-| 1952 | 19.6% | Best ever |
-| 1956 | 12.4% | Decline begins |
-| 1960 | 3.1% | Major drop |
-| 1964–2016 | <5% in most cycles | Long electoral drought |
-| 2020 | 13.6% (Dalmau) | Renaissance — Alianza with MVC |
-| 2024 | Alianza candidate | Continued growth via coalition |
+2024: Further consolidation. The Alianza is now a permanent feature of PR politics, not a temporary spike.
 
-**The 1952 peak** coincided with both the creation of the Commonwealth (opposition moment) and PIP's strongest organizational period. The subsequent decline reflects the PPD's success in positioning the ELA as a pragmatic solution and the suppression of the independence movement.
-
-## The 2020 Renaissance
-
-Juan Dalmau's 13.6% in 2020 was transformational. What changed:
-1. Telegramgate (2019) — discredited PNP/PPD
-2. MVC's emergence — created progressive electoral infrastructure PIP could ally with
-3. Dalmau's personal charisma — more accessible than traditional PIP image
-4. Social media reach — independence arguments could bypass traditional media gatekeepers
-5. Young voter openness — Gen Z not locked into PNP/PPD loyalty
+## Why PIP is Growing Now
+1. Young voters identifying with decolonization language globally (BLM, global south movements)
+2. Economic frustration driving anti-colonial sentiment
+3. Telegramgate proved institutional parties are corrupt
+4. The Alianza gave PIP electoral viability it never had alone
+5. Juan Dalmau is the most charismatic PIP leader since Berríos
