@@ -6,111 +6,103 @@
 
 ---
 
+## 📊 Coverage Status (Full Build — April 2026)
+
+| Folder | Content | Status |
+|--------|---------|--------|
+| `_SYSTEM/` | Profile schema, belief taxonomy, data sources | ✅ Complete |
+| `_PARTIES/PNP/` | Overview, belief system, structure, history, base, messaging | ✅ Complete |
+| `_PARTIES/PPD/` | Overview, belief system, structure, history, base, messaging | ✅ Complete |
+| `_PARTIES/MVC/` | Overview, belief system, structure, history, base, messaging | ✅ Complete |
+| `_PARTIES/PIP/` | Overview, belief system, structure, history, base, messaging | ✅ Complete |
+| `_PARTIES/PD/` | Overview, belief system, base | ✅ Complete |
+| `representatives/edgar-robles-rivera/` | Files 00–06 + 10 | ✅ Deep profile |
+| `representatives/mariana-nogales-molinelli/` | 00-index, 03-belief | 🟡 Expanding |
+| `representatives/joel-franqui-atiles/` | 00-index, 03-belief, 10-brief | ✅ Tier 1 done |
+| `representatives/jorge-rivera-segarra/` | 00-index, 03-belief | 🟡 Expanding |
+| `representatives/lisie-burgos-muniz/` | 00-index | 🔵 Queued |
+| `representatives/jose-quiquito-melendez/` | 00-index | 🔵 Queued |
+| `senators/brenda-perez-soto/` | 00-index, 03-belief | 🟡 Expanding |
+| `senators/thomas-rivera-schatz/` | 00-index, 03-belief | ✅ Key profile done |
+| `senators/jose-vargas-vidot/` | 00-index, 03-belief | ✅ Key profile done |
+| `senators/carmelo-rios-santiago/` | 00-index | 🔵 Queued |
+| `senators/juan-zaragoza-gomez/` | 00-index | 🔵 Queued |
+| `senators/ada-garcia-montes/` | 00-index | 🔵 Queued |
+| `mayors/san-juan/` | 00-index (Miguel Romero) | ✅ Done |
+| `mayors/arecibo/` | 00-index | ✅ Done |
+| `mayors/hatillo/` | 00-index | ✅ Done |
+| `mayors/ponce/` | 00-index | ✅ Done |
+| `mayors/bayamon/` | 00-index | ✅ Done |
+| `mayors/carolina/` | 00-index | ✅ Done |
+| `mayors/mayaguez/` | 00-index | ✅ Done |
+| `mayors/morovis/` | 00-index | ✅ Done |
+| `_DISTRICTS/senatorial/` | All 8 districts (I–VIII) | ✅ Complete |
+| `_DISTRICTS/representative/` | Dist 14, 15, 19 + template | ✅ Key districts done |
+| `_ISSUES/agua-y-infraestructura` | Full deep dive | ✅ Complete |
+| `_ISSUES/economia-y-empleo` | Full deep dive | ✅ Complete |
+| `_ISSUES/seguridad` | Full deep dive | ✅ Complete |
+| `_ISSUES/educacion` | Full deep dive | ✅ Complete |
+| `_ISSUES/salud` | Full deep dive | ✅ Complete |
+| `_ISSUES/energia` | Full deep dive | ✅ Complete |
+| `_ISSUES/vivienda` | Full deep dive | ✅ Complete |
+| `_ISSUES/estatus-politico` | Full deep dive | ✅ Complete |
+| `_ISSUES/medio-ambiente` | Full deep dive | ✅ Complete |
+
+---
+
 ## 🗂️ Repository Architecture
 
 ```
 pr-politician-intelligence-db/
 │
 ├── _SYSTEM/                          # Meta-system: schemas, rubrics, methodology
-│   ├── profile-schema.md             # Master template for every politician
-│   ├── belief-system-taxonomy.md     # Classification system for political beliefs
-│   ├── party-mechanics-guide.md      # How each PR party actually operates
-│   ├── buzz-scoring-rubric.md        # How to calculate buzz/heat scores
-│   └── data-sources.md              # Where to research every data point
+│   ├── profile-schema.md             # Master 10-file template for every politician
+│   ├── belief-system-taxonomy.md     # 5-dimension classification system
+│   └── data-sources.md              # Every source: SUTRA, CEE, NotiCel, etc.
 │
-├── _PARTIES/                         # Deep party intelligence
-│   ├── PNP/                          # Partido Nuevo Progresista
-│   │   ├── overview.md               # Full party profile
-│   │   ├── belief-system.md          # Ideology, values, positions
-│   │   ├── structure.md              # Leadership, internal mechanics
-│   │   ├── history.md                # Founding to present
-│   │   ├── base-profile.md           # Who votes for them and why
-│   │   └── messaging-patterns.md     # How they communicate
-│   ├── PPD/                          # Partido Popular Democrático
-│   │   ├── overview.md
-│   │   ├── belief-system.md
-│   │   ├── structure.md
-│   │   ├── history.md
-│   │   ├── base-profile.md
-│   │   └── messaging-patterns.md
-│   ├── MVC/                          # Movimiento Victoria Ciudadana
-│   │   ├── overview.md
-│   │   ├── belief-system.md
-│   │   ├── structure.md
-│   │   ├── history.md
-│   │   ├── base-profile.md
-│   │   └── messaging-patterns.md
-│   ├── PIP/                          # Partido Independentista Puertorriqueño
-│   │   ├── overview.md
-│   │   ├── belief-system.md
-│   │   ├── structure.md
-│   │   ├── history.md
-│   │   ├── base-profile.md
-│   │   └── messaging-patterns.md
-│   └── PD/                           # Proyecto Dignidad
-│       ├── overview.md
-│       ├── belief-system.md
-│       └── base-profile.md
+├── _PARTIES/                         # Deep party intelligence — all 5 parties
+│   ├── PNP/                          # 6 files: overview, belief, structure, history, base, messaging
+│   ├── PPD/                          # 6 files
+│   ├── MVC/                          # 6 files
+│   ├── PIP/                          # 6 files
+│   └── PD/                           # 3 files
 │
-├── _DISTRICTS/                       # District & municipality intelligence
-│   ├── senatorial-districts/
-│   │   ├── distrito-III-arecibo.md   # Senate District III (Arecibo)
-│   │   └── ...7 more
-│   └── representative-districts/
-│       ├── distrito-14.md            # Rep District 14 (Arecibo/Hatillo)
-│       └── ...39 more
+├── _DISTRICTS/                       # District intelligence
+│   ├── senatorial-districts/         # All 8 senatorial districts
+│   └── representative-districts/     # Key districts + template for all 40
 │
-├── representatives/                  # C. de Representantes
-│   ├── edgar-robles-rivera/          # Distrito 14
-│   │   ├── 00-index.md               # Quick reference card
-│   │   ├── 01-biography.md           # Life story, background, education
-│   │   ├── 02-political-career.md    # Career timeline, elections, offices
-│   │   ├── 03-belief-system.md       # Values, ideology, positions on issues
-│   │   ├── 04-legislative-record.md  # Bills, votes, committee work
-│   │   ├── 05-district-profile.md    # District demographics, issues, needs
-│   │   ├── 06-public-persona.md      # Media presence, tone, brand
-│   │   ├── 07-relationships.md       # Allies, rivals, endorsers, network
-│   │   ├── 08-vulnerabilities.md     # Political weaknesses, controversies
-│   │   ├── 09-campaign-intelligence.md # Electoral data, strategy, donors
-│   │   └── 10-landing-page-brief.md  # AI-ready brief for landing page build
-│   ├── joel-franqui-atiles/          # Distrito 19
-│   ├── mariana-nogales-molinelli/    # Por Acumulación
-│   └── [more representatives]/
+├── representatives/                  # Each rep gets their own folder
+│   ├── edgar-robles-rivera/          # ⭐ PRIORITY 1 — Dist 14 (Arecibo/Hatillo/PNP)
+│   ├── mariana-nogales-molinelli/    # ⭐ PRIORITY 2 — Acumulación (PIP/MVC)
+│   ├── joel-franqui-atiles/          # ⭐ PRIORITY 3 — Dist 19 (Hatillo/Camuy/PPD)
+│   └── [+ 3 more indexed]
 │
-├── senators/                         # Senado de Puerto Rico
-│   ├── brenda-perez-soto/            # Distrito Arecibo
-│   │   ├── 00-index.md
-│   │   ├── 01-biography.md
-│   │   ├── 02-political-career.md
-│   │   ├── 03-belief-system.md
-│   │   ├── 04-legislative-record.md
-│   │   ├── 05-district-profile.md
-│   │   ├── 06-public-persona.md
-│   │   ├── 07-relationships.md
-│   │   ├── 08-vulnerabilities.md
-│   │   ├── 09-campaign-intelligence.md
-│   │   └── 10-landing-page-brief.md
-│   ├── thomas-rivera-schatz/
-│   ├── carmelo-rios-santiago/
-│   ├── jose-vargas-vidot/
-│   └── [more senators]/
+├── senators/                         # Each senator gets their own folder
+│   ├── brenda-perez-soto/            # ⭐ PRIORITY 1 — Dist III Arecibo (PNP)
+│   ├── thomas-rivera-schatz/         # Senate President (PNP)
+│   ├── jose-vargas-vidot/            # MVC flagship senator
+│   └── [+ 3 more indexed]
 │
-├── mayors/                           # Alcaldes
-│   ├── [municipality-name]/
-│   │   ├── 00-index.md
-│   │   └── [...same 10-file structure]
-│   └── ...
+├── mayors/                           # 8 major municipalities profiled
+│   ├── san-juan/                     # Capital — Elite tier target
+│   ├── arecibo/                      # OUR HOME MARKET — Priority 1
+│   ├── hatillo/                      # Norte region
+│   ├── ponce/                        # Second city
+│   ├── bayamon/                      # Largest suburban market
+│   ├── carolina/                     # Airport corridor
+│   ├── mayaguez/                     # Western hub
+│   └── morovis/                      # Interior Norte
 │
-└── _ISSUES/                          # Issue intelligence (cross-reference)
-    ├── agua-y-infraestructura.md     # Water, PRASA, AAA
-    ├── economia-y-empleo.md          # Economy, jobs, federal funds
-    ├── seguridad.md                  # Crime, police, public safety
-    ├── educacion.md                  # Schools, university, UPR
-    ├── salud.md                      # Healthcare, hospitals
-    ├── energia.md                    # LUMA, electricity crisis
-    ├── vivienda.md                   # Housing, homelessness
-    ├── estatus-politico.md           # Statehood, Commonwealth, Independence
-    └── medio-ambiente.md             # Environment, climate
+└── _ISSUES/                          # 9 complete issue intelligence files
+    ├── agua-y-infraestructura.md     # PRASA/AAA crisis deep dive
+    ├── economia-y-empleo.md          # Economic crisis, Act 60, PROMESA
+    ├── seguridad.md                  # Crime, police reform
+    ├── educacion.md                  # Schools, UPR, vouchers
+    ├── salud.md                      # Healthcare, brain drain, Medicaid
+    ├── energia.md                    # LUMA, grid crisis, renewables
+    ├── vivienda.md                   # Housing, gentrification, recovery
+    ├── estatus-politico.md           # Statehood/ELA/Independence full analysis
+    └── medio-ambiente.md             # Climate, environment, Camuy Caves
 ```
 
 ---
@@ -123,31 +115,41 @@ pr-politician-intelligence-db/
 3. Use `03-belief-system.md` to write their issue cards authentically
 4. Pull district pain points from `05-district-profile.md`
 5. Use `06-public-persona.md` to match their communication style
-6. The `10-landing-page-brief.md` is AI-ready — feed it directly to Claude
+6. Feed `10-landing-page-brief.md` directly to Claude — it's AI-ready
 
 ### To configure an AI voice assistant:
 1. Use `03-belief-system.md` + `04-legislative-record.md` for knowledge base
-2. Use `06-public-persona.md` for tone configuration
+2. Use `06-public-persona.md` for tone/voice configuration
 3. Use `05-district-profile.md` for local issue awareness
+4. Use `_ISSUES/[issue].md` for deep topic knowledge
 
 ### To write outreach or pitch content:
-1. Use `08-vulnerabilities.md` to find their pain points (diplomatically)
-2. Use `09-campaign-intelligence.md` to understand their strategic needs
+1. Use `08-vulnerabilities.md` for their pain points
+2. Use `09-campaign-intelligence.md` for strategic needs
 3. Use `_PARTIES/[party]/messaging-patterns.md` to write in their style
+4. Cross-reference `_DISTRICTS/` for local specificity
+
+### To add a new politician:
+1. Copy `_SYSTEM/profile-schema.md` template
+2. Create folder: `representatives/[firstname-lastname]/`
+3. Create 10 files using the schema
+4. Cross-reference `_PARTIES/`, `_DISTRICTS/`, and `_ISSUES/` files
 
 ---
 
-## 📊 Coverage Status
+## ⭐ Priority Targets (Outreach Order)
 
-| Folder | Politicians | Status |
-|--------|-------------|--------|
-| representatives/ | 51 total | 3 complete, building |
-| senators/ | 27 total | 2 complete, building |
-| mayors/ | 78 total | Queued |
-| _PARTIES/ | 5 parties | 4 complete |
-| _DISTRICTS/ | 48 districts | Building |
-| _ISSUES/ | 9 issue areas | Building |
+| # | Name | Role | Party | File |
+|---|------|------|-------|------|
+| 1 | Edgar Robles Rivera | Rep Dist 14 | PNP | representatives/edgar-robles-rivera/ |
+| 2 | Brenda Pérez Soto | Senator Dist III | PNP | senators/brenda-perez-soto/ |
+| 3 | Joel Franqui Atiles | Rep Dist 19 | PPD | representatives/joel-franqui-atiles/ |
+| 4 | Mariana Nogales Molinelli | Rep Acumulación | PIP/MVC | representatives/mariana-nogales-molinelli/ |
+| 5 | José Vargas Vidot | Senator Acumulación | MVC | senators/jose-vargas-vidot/ |
+| 6 | Thomas Rivera Schatz | Senate President | PNP | senators/thomas-rivera-schatz/ |
+| 7 | Arecibo Mayor | Municipality | TBD | mayors/arecibo/ |
+| 8 | Hatillo Mayor | Municipality | TBD | mayors/hatillo/ |
 
 ---
 
-*Owner: PR-botsAI | Last updated: April 2026*
+*Owner: PR-botsAI | Built: April 2026 | Private Repository*
