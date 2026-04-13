@@ -2,156 +2,985 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
-<title>GobiStats 🇵🇷 – Evalúa a tus políticos</title>
-<meta name="description" content="La plataforma ciudadana para evaluar, calificar y denunciar a los políticos de Puerto Rico.">
-<meta property="og:title" content="GobiStats 🇵🇷">
-<meta property="og:description" content="Estadísticas ciudadanas de tus gobernantes. gobistats.com">
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<title>GobiStats — Transparencia Ciudadana Puerto Rico</title>
+<meta name="description" content="La plataforma de transparencia ciudadana para Puerto Rico. Datos reales, logros verificados, evaluaciones de los 147 funcionarios electos.">
+<meta property="og:title" content="GobiStats — Transparencia Ciudadana PR">
+<meta property="og:description" content="147 funcionarios. Datos reales. Tu voz importa.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
-*{box-sizing:border-box;margin:0;padding:0}
-:root{--bg:#0A0A0F;--sur:#12121A;--card:#1A1A26;--bdr:#2A2A3A;--txt:#FFF;--mut:#8A8AA0;--gld:#F5C518;--grn:#22C55E;--red:#EF4444;--ylw:#EAB308;--pnp:#1D4ED8;--ppd:#B91C1C;--pip:#15803D;--mvc:#7C3AED;--ind:#4B5563}
-html,body{background:#0A0A0F;font-family:'Inter',sans-serif;color:#fff;min-height:100vh}
-body{display:flex;justify-content:center;align-items:flex-start;padding:0}
-@media(min-width:500px){body{padding:20px 0;align-items:center;min-height:100vh}}
-#app{background:var(--bg);width:100%;max-width:430px;min-height:100vh;position:relative;display:flex;flex-direction:column;overflow:hidden}
-@media(min-width:500px){#app{min-height:860px;height:860px;border-radius:24px;box-shadow:0 0 60px rgba(0,0,0,.9),0 0 30px rgba(245,197,24,.1)}}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+
+:root{
+  /* Core palette */
+  --ink:#0C0C10;
+  --ink2:#1A1A22;
+  --ink3:#252530;
+  --ink4:#32323F;
+  --rule:#2E2E3A;
+  --rule2:#3D3D4E;
+  --fog:#7B7B8F;
+  --mist:#A8A8BC;
+  --ghost:#D4D4E0;
+  --white:#F8F8FC;
+  /* Accents */
+  --gold:#E8B84B;
+  --gold2:#F5D07A;
+  --gold-dim:rgba(232,184,75,.12);
+  --gold-glow:rgba(232,184,75,.06);
+  --emerald:#2DD4A0;
+  --emerald-dim:rgba(45,212,160,.1);
+  --crimson:#E84B4B;
+  --crimson-dim:rgba(232,75,75,.1);
+  --amber:#F59E1A;
+  --blue:#4B8EE8;
+  /* Party */
+  --pnp:#2563EB;
+  --pnp-dim:rgba(37,99,235,.15);
+  --ppd:#C0392B;
+  --ppd-dim:rgba(192,57,43,.15);
+  --pip:#16A34A;
+  --pip-dim:rgba(22,163,74,.15);
+  --mvc:#7C3AED;
+  --mvc-dim:rgba(124,58,237,.15);
+  --ind:#52525B;
+  --ind-dim:rgba(82,82,91,.15);
+}
+
+html,body{
+  background:var(--ink);
+  font-family:'DM Sans',sans-serif;
+  color:var(--white);
+  min-height:100vh;
+  line-height:1.5;
+}
+
+body{
+  display:flex;
+  justify-content:center;
+  align-items:flex-start;
+  background:var(--ink);
+  background-image:
+    radial-gradient(ellipse 80% 50% at 50% -10%, rgba(232,184,75,.06) 0%, transparent 60%);
+}
+
+@media(min-width:500px){
+  body{padding:24px 0;align-items:center;min-height:100vh;}
+}
+
+/* APP SHELL */
+#app{
+  width:100%;max-width:440px;
+  min-height:100vh;
+  position:relative;
+  display:flex;flex-direction:column;
+  overflow:hidden;
+  background:var(--ink);
+}
+@media(min-width:500px){
+  #app{
+    min-height:0;height:900px;
+    border-radius:20px;
+    border:1px solid var(--rule);
+    box-shadow:
+      0 0 0 1px rgba(255,255,255,.04),
+      0 40px 120px rgba(0,0,0,.8),
+      0 0 60px rgba(232,184,75,.04);
+  }
+}
+
+/* SCREENS */
 .scr{display:none;flex-direction:column;flex:1;overflow:hidden;min-height:0}
 .scr.on{display:flex}
-.scroll{overflow-y:auto;flex:1;padding-bottom:72px;-webkit-overflow-scrolling:touch}
-.scroll::-webkit-scrollbar{width:3px}
-.scroll::-webkit-scrollbar-thumb{background:var(--bdr);border-radius:2px}
-.hdr{background:rgba(10,10,15,.96);padding:14px 18px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--bdr);flex-shrink:0}
-.logo{font-size:19px;font-weight:900;color:var(--gld)}
-.logo b{color:#fff;font-weight:900}
-.logo span{font-size:11px;color:var(--mut);font-weight:400;display:block;letter-spacing:.5px;margin-top:-2px}
-.nav{position:absolute;bottom:0;left:0;right:0;background:var(--sur);border-top:1px solid var(--bdr);display:flex;z-index:10}
-.ni{flex:1;display:flex;flex-direction:column;align-items:center;gap:2px;cursor:pointer;color:var(--mut);font-size:10px;font-weight:600;padding:7px 0 5px}
-.ni.on{color:var(--gld)}
-.ni-ico{font-size:20px}
-.pill{display:inline-block;padding:3px 10px;border-radius:999px;font-size:11px;font-weight:700;color:#fff}
-.pnp{background:var(--pnp)}.ppd{background:var(--ppd)}.pip{background:var(--pip)}.mvc{background:var(--mvc)}.ind{background:var(--ind)}
-.bar{background:rgba(255,255,255,.1);border-radius:3px;height:5px;overflow:hidden}
-.bfill{height:100%;border-radius:3px}
-.bg{background:var(--grn)}.by{background:var(--ylw)}.br{background:var(--red)}
-.sec{padding:16px 18px 10px;font-size:11px;font-weight:700;color:var(--mut);letter-spacing:1px;text-transform:uppercase;display:flex;justify-content:space-between;align-items:center}
-.sl{color:var(--gld);font-size:11px;cursor:pointer;text-transform:none;letter-spacing:0;font-weight:600}
-.tscroll{display:flex;gap:12px;padding:0 18px 18px;overflow-x:auto;scrollbar-width:none}
-.tscroll::-webkit-scrollbar{display:none}
-.tc{flex-shrink:0;width:185px;background:var(--card);border-radius:14px;border:1px solid var(--bdr);overflow:hidden;cursor:pointer}
-.tc-photo{height:95px;background:linear-gradient(135deg,#0d1b2a,#1e1e30);display:flex;align-items:center;justify-content:center;font-size:38px;position:relative}
-.tc-body{padding:10px 12px 12px}
-.tc-name{font-size:13px;font-weight:700;margin-bottom:2px}
-.tc-sub{font-size:11px;color:var(--mut);margin-bottom:7px}
-.lbr{display:flex;align-items:center;gap:12px;padding:12px 18px;border-bottom:1px solid var(--bdr);cursor:pointer}
-.lbr:active{background:var(--card)}
-.lbrank{font-size:15px;font-weight:900;color:var(--mut);width:30px;text-align:center;flex-shrink:0}
-.lbava{width:40px;height:40px;border-radius:50%;background:rgba(255,255,255,.06);border:1px solid var(--bdr);display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;flex-shrink:0}
-.lbi{flex:1;min-width:0}
-.lbn{font-size:14px;font-weight:700;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.lbs{font-size:11px;color:var(--mut);margin-top:2px}
-.lbp{text-align:right;flex-shrink:0}
-.lbpn{font-size:17px;font-weight:900}
-.cc{background:var(--card);border-radius:12px;border:1px solid var(--bdr);padding:12px 14px;margin:0 18px 10px}
-.cc-h{display:flex;justify-content:space-between;margin-bottom:4px;font-size:11px;color:var(--mut)}
-.cc-t{font-size:13px;font-weight:700;margin-bottom:3px}
-.cc-d{font-size:12px;color:var(--mut);line-height:1.5}
-.cc-f{display:flex;align-items:center;gap:8px;margin-top:8px}
-.uvb{background:var(--sur);border:1px solid var(--bdr);border-radius:999px;padding:4px 12px;font-size:12px;font-weight:600;color:var(--mut);cursor:pointer}
-.uvb.vd{border-color:var(--gld);color:var(--gld)}
-.hero{height:165px;background:linear-gradient(135deg,#0a1628,#1a1a2e);display:flex;align-items:flex-end;padding:16px;position:relative;overflow:hidden;flex-shrink:0}
-.hero-bg{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:85px;opacity:.22;pointer-events:none}
-.hback{position:absolute;top:12px;left:12px;background:rgba(0,0,0,.6);border:1px solid var(--bdr);border-radius:999px;padding:6px 14px;font-size:13px;color:#fff;cursor:pointer;font-weight:600}
-.hshare{position:absolute;top:12px;right:12px;background:rgba(0,0,0,.6);border:1px solid var(--bdr);border-radius:999px;padding:6px 14px;font-size:13px;color:#fff;cursor:pointer;font-weight:600}
-.srow{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin:14px 18px}
-.sb{background:var(--card);border:1px solid var(--bdr);border-radius:14px;padding:13px 8px;text-align:center}
-.sbn{font-size:23px;font-weight:900}
-.sbl{font-size:11px;color:var(--mut);margin-top:2px}
-.starrow{display:flex;align-items:center;justify-content:space-between;padding:9px 0;border-bottom:1px solid var(--bdr)}
-.starrow:last-child{border:none}
-.starlbl{font-size:13px;color:var(--mut)}
-.starval{font-size:14px;font-weight:700;color:var(--gld)}
-.stars{color:var(--gld);font-size:13px;letter-spacing:1px}
-.rf{background:var(--sur);border-radius:14px;margin:0 18px 16px;border:1px solid var(--bdr);padding:16px}
-.rft{font-size:14px;font-weight:700;text-align:center;margin-bottom:12px}
-.tbrow{display:flex;gap:10px;margin-bottom:12px}
-.tb{flex:1;padding:15px 8px;border-radius:13px;border:2px solid var(--bdr);background:transparent;color:#fff;font-size:26px;cursor:pointer;text-align:center;transition:all .15s}
-.tb.up{border-color:var(--grn);background:rgba(34,197,94,.12)}
-.tb.dn{border-color:var(--red);background:rgba(239,68,68,.12)}
-.sirow{display:flex;justify-content:space-between;align-items:center;padding:5px 0;font-size:13px}
-.sil{color:var(--mut)}
-.sis{cursor:pointer;font-size:17px;color:var(--gld);letter-spacing:2px}
-.cbox{width:100%;background:var(--card);border:1px solid var(--bdr);border-radius:11px;padding:11px;color:#fff;font-size:13px;resize:none;font-family:inherit;margin:11px 0 9px;line-height:1.5}
-.cbox:focus{outline:none;border-color:var(--gld)}
-.subbtn{width:100%;padding:13px;border-radius:13px;background:var(--gld);border:none;color:#000;font-size:14px;font-weight:800;cursor:pointer}
-.tli{display:flex;gap:11px;padding:11px 0;border-bottom:1px solid var(--bdr)}
-.tli:last-child{border:none}
-.tld{width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;flex-shrink:0;margin-top:1px}
-.db{background:rgba(59,130,246,.18)}.dg{background:rgba(34,197,94,.18)}.dr{background:rgba(239,68,68,.18)}.dy{background:rgba(245,197,24,.18)}
-.tldate{font-size:11px;color:var(--mut);margin-bottom:1px}
-.tltxt{font-size:13px;line-height:1.45}
-.dcta{margin:0 18px 16px;padding:15px;border-radius:13px;background:rgba(239,68,68,.07);border:2px solid rgba(239,68,68,.28);color:var(--red);font-size:15px;font-weight:700;text-align:center;cursor:pointer}
-.mol{position:absolute;inset:0;background:rgba(0,0,0,.75);z-index:50;display:flex;align-items:flex-end}
-.ms{background:var(--sur);border-radius:22px 22px 0 0;width:100%;padding:20px 20px 30px;max-height:86%;overflow-y:auto}
-.dh{width:38px;height:4px;background:var(--bdr);border-radius:2px;margin:0 auto 16px}
-.ml{font-size:12px;color:var(--mut);font-weight:600;margin-bottom:4px;display:block;text-transform:uppercase;letter-spacing:.5px}
-.mi{width:100%;background:var(--card);border:1px solid var(--bdr);border-radius:11px;padding:11px 13px;color:#fff;font-size:14px;margin-bottom:11px;font-family:inherit;-webkit-appearance:none}
-.mi:focus{outline:none;border-color:var(--gld)}
-.mta{width:100%;background:var(--card);border:1px solid var(--bdr);border-radius:11px;padding:11px 13px;color:#fff;font-size:14px;margin-bottom:4px;font-family:inherit;resize:none;line-height:1.5}
-.mta:focus{outline:none;border-color:var(--gld)}
-.mcc{font-size:11px;color:var(--mut);text-align:right;margin-bottom:11px}
-.mw{background:rgba(234,179,8,.07);border:1px solid rgba(234,179,8,.22);border-radius:11px;padding:10px 13px;font-size:12px;color:var(--ylw);margin-bottom:14px;line-height:1.5}
-.mbtns{display:flex;gap:10px}
-.mred{flex:1;padding:13px;border-radius:13px;background:var(--red);border:none;color:#fff;font-size:14px;font-weight:700;cursor:pointer}
-.mgry{flex:1;padding:13px;border-radius:13px;background:transparent;border:1px solid var(--bdr);color:var(--mut);font-size:14px;cursor:pointer}
-.tabs{display:flex;gap:8px;padding:12px 18px;overflow-x:auto;scrollbar-width:none;flex-shrink:0;border-bottom:1px solid var(--bdr)}
-.tabs::-webkit-scrollbar{display:none}
-.tab{padding:7px 17px;border-radius:999px;font-size:13px;font-weight:700;white-space:nowrap;cursor:pointer;border:1px solid var(--bdr);color:var(--mut);user-select:none}
-.tab.on{background:var(--gld);color:#000;border-color:var(--gld)}
-.sbanner{background:var(--card);border-bottom:1px solid var(--bdr);padding:10px 18px;font-size:12px;font-weight:700;color:var(--gld);display:flex;align-items:center;gap:6px;flex-shrink:0}
-.dot{width:7px;height:7px;border-radius:50%;background:var(--grn);animation:blink 1.5s infinite}
-@keyframes blink{0%,100%{opacity:1}50%{opacity:.25}}
-.sbar{padding:12px 18px;flex-shrink:0}
-.sinp{background:var(--card);border:1.5px solid var(--gld);border-radius:13px;padding:12px 15px;display:flex;align-items:center;gap:10px}
-.sinp input{background:transparent;border:none;color:#fff;font-size:14px;flex:1;outline:none;font-family:inherit}
-.sinp input::placeholder{color:var(--mut)}
-.fpills{display:flex;gap:8px;padding:0 18px 12px;overflow-x:auto;scrollbar-width:none;flex-shrink:0}
-.fpills::-webkit-scrollbar{display:none}
-.fp{padding:6px 15px;border-radius:999px;font-size:12px;font-weight:700;border:1px solid var(--bdr);color:var(--mut);cursor:pointer;white-space:nowrap;user-select:none}
-.fp.on{background:var(--card);color:#fff;border-color:rgba(255,255,255,.35)}
-.sri{display:flex;align-items:center;gap:12px;padding:12px 18px;border-bottom:1px solid var(--bdr);cursor:pointer}
-.sri:active{background:var(--card)}
-.sravo{width:44px;height:44px;border-radius:50%;background:var(--card);border:1px solid var(--bdr);display:flex;align-items:center;justify-content:center;font-size:21px;flex-shrink:0}
-.ptop{padding:22px 18px 18px;text-align:center;border-bottom:1px solid var(--bdr)}
-.pava{width:74px;height:74px;border-radius:50%;background:var(--card);border:2px solid var(--gld);display:flex;align-items:center;justify-content:center;font-size:30px;margin:0 auto 10px}
-.plvl{display:inline-block;padding:4px 15px;border-radius:999px;font-size:12px;font-weight:700;background:rgba(245,197,24,.14);color:var(--gld);border:1px solid rgba(245,197,24,.28);margin-top:6px}
-.psec{padding:13px 18px;border-bottom:1px solid var(--bdr)}
-.pst{font-size:10px;color:var(--mut);text-transform:uppercase;letter-spacing:1px;font-weight:700;margin-bottom:9px}
-.sgrid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
-.sm{background:var(--card);border-radius:11px;padding:13px;text-align:center}
-.smn{font-size:21px;font-weight:900}
-.sml{font-size:11px;color:var(--mut);margin-top:2px}
-.bwrap{display:flex;gap:8px;flex-wrap:wrap}
-.bi{background:var(--card);border:1px solid var(--bdr);border-radius:10px;padding:6px 11px;font-size:12px;font-weight:600}
-.rbox{background:var(--card);border:1px solid var(--bdr);border-radius:11px;padding:13px;display:flex;justify-content:space-between;align-items:center}
-.rcode{font-size:17px;font-weight:900;letter-spacing:2px;color:var(--gld)}
-.rbtn{padding:7px 14px;border-radius:9px;font-size:12px;font-weight:700;border:1px solid var(--bdr);background:var(--sur);color:#fff;cursor:pointer}
-.swrap{display:flex;flex-direction:column;align-items:center;padding:18px;gap:14px}
-.scard{background:#0d1117;border:1px solid var(--bdr);border-radius:18px;width:100%;max-width:350px;overflow:hidden}
-.sch{background:#111827;padding:13px 15px;border-bottom:1px solid var(--bdr);display:flex;align-items:center;gap:8px}
-.scph{height:200px;background:linear-gradient(135deg,#0d1b2a,#1a1a2e);display:flex;align-items:center;justify-content:center;font-size:85px}
-.scb{padding:16px}
-.scn{font-size:21px;font-weight:900;text-align:center;margin-bottom:3px}
-.scs{font-size:13px;color:var(--mut);text-align:center;margin-bottom:16px}
-.scpct{font-size:52px;font-weight:900;color:var(--grn);text-align:center;line-height:1}
-.scbar{width:78%;margin:10px auto}
-.scpl{font-size:11px;color:var(--mut);text-align:center;letter-spacing:1.5px;font-weight:700;margin-bottom:12px}
-.scst{display:flex;justify-content:center;gap:18px;font-size:13px;color:var(--mut);margin-bottom:12px}
-.sca{padding:13px 16px;display:flex;gap:9px;border-top:1px solid var(--bdr)}
-.scbtn{flex:1;padding:12px;border-radius:13px;font-size:14px;font-weight:700;cursor:pointer;text-align:center}
-.scpri{background:var(--gld);color:#000;border:none}
-.scsec{background:var(--card);color:#fff;border:1px solid var(--bdr)}
-.toast{position:absolute;top:68px;left:50%;transform:translateX(-50%);background:var(--grn);color:#000;padding:8px 18px;border-radius:999px;font-size:13px;font-weight:700;z-index:200;pointer-events:none;white-space:nowrap;opacity:0;transition:opacity .2s}
+.scroll{overflow-y:auto;flex:1;padding-bottom:76px;-webkit-overflow-scrolling:touch;scrollbar-width:thin;scrollbar-color:var(--rule) transparent;}
+.scroll::-webkit-scrollbar{width:2px}
+.scroll::-webkit-scrollbar-thumb{background:var(--rule2);border-radius:1px}
+
+/* HEADER */
+.hdr{
+  background:rgba(12,12,16,.94);
+  backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);
+  padding:16px 20px 14px;
+  display:flex;align-items:center;justify-content:space-between;
+  border-bottom:1px solid var(--rule);
+  flex-shrink:0;
+  position:sticky;top:0;z-index:30;
+}
+.logo{
+  display:flex;align-items:baseline;gap:6px;
+}
+.logo-main{
+  font-family:'Syne',sans-serif;
+  font-size:18px;font-weight:800;
+  color:var(--white);
+  letter-spacing:-.3px;
+}
+.logo-main span{color:var(--gold)}
+.logo-tag{
+  font-family:'JetBrains Mono',monospace;
+  font-size:9px;font-weight:500;
+  color:var(--fog);letter-spacing:.5px;
+  text-transform:uppercase;
+}
+.hdr-actions{display:flex;gap:4px;align-items:center}
+.hdr-btn{
+  width:36px;height:36px;
+  border-radius:10px;
+  border:1px solid var(--rule);
+  background:var(--ink2);
+  display:flex;align-items:center;justify-content:center;
+  cursor:pointer;
+  font-size:16px;
+  color:var(--mist);
+  transition:all .15s;
+}
+.hdr-btn:hover{border-color:var(--rule2);color:var(--white)}
+
+/* BOTTOM NAV */
+.nav{
+  position:absolute;bottom:0;left:0;right:0;
+  background:rgba(12,12,16,.96);
+  backdrop-filter:blur(20px);
+  border-top:1px solid var(--rule);
+  display:flex;
+  padding:10px 0 max(12px,env(safe-area-inset-bottom));
+  z-index:30;
+}
+.ni{
+  flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;
+  cursor:pointer;color:var(--fog);
+  font-family:'DM Sans',sans-serif;
+  font-size:10px;font-weight:500;
+  padding:2px 0;
+  transition:color .2s;
+  user-select:none;
+}
+.ni.on{color:var(--gold)}
+.ni-ico{font-size:18px;line-height:1}
+
+/* SECTION LABEL */
+.slabel{
+  padding:24px 20px 10px;
+  font-family:'Syne',sans-serif;
+  font-size:10px;font-weight:700;
+  color:var(--fog);letter-spacing:2px;
+  text-transform:uppercase;
+  display:flex;justify-content:space-between;align-items:center;
+}
+.slabel-link{
+  font-family:'DM Sans',sans-serif;
+  font-size:12px;font-weight:500;
+  color:var(--gold);letter-spacing:0;
+  text-transform:none;
+  cursor:pointer;
+  opacity:.8;
+}
+.slabel-link:hover{opacity:1}
+
+/* PARTY BADGE */
+.badge{
+  display:inline-flex;align-items:center;
+  padding:2px 9px;
+  border-radius:4px;
+  font-family:'JetBrains Mono',monospace;
+  font-size:10px;font-weight:500;
+  letter-spacing:.3px;
+  white-space:nowrap;
+}
+.b-pnp{background:var(--pnp-dim);color:#93B4FF;border:1px solid rgba(37,99,235,.25)}
+.b-ppd{background:var(--ppd-dim);color:#F4A89A;border:1px solid rgba(192,57,43,.25)}
+.b-pip{background:var(--pip-dim);color:#6EE7B7;border:1px solid rgba(22,163,74,.25)}
+.b-mvc{background:var(--mvc-dim);color:#C4A6FF;border:1px solid rgba(124,58,237,.25)}
+.b-ind{background:var(--ind-dim);color:#A1A1AA;border:1px solid rgba(82,82,91,.25)}
+
+/* APPROVAL BAR */
+.apv-wrap{
+  background:rgba(255,255,255,.06);
+  border-radius:2px;height:3px;overflow:hidden;
+}
+.apv-fill{height:100%;border-radius:2px;transition:width .6s cubic-bezier(.4,0,.2,1)}
+.af-hi{background:var(--emerald)}
+.af-md{background:var(--amber)}
+.af-lo{background:var(--crimson)}
+
+/* STAT PILL */
+.stat-num{font-family:'Syne',sans-serif;font-weight:700}
+
+/* =========================================
+   HOME SCREEN
+========================================= */
+.home-hero{
+  margin:20px 20px 0;
+  background:var(--ink2);
+  border:1px solid var(--rule);
+  border-radius:16px;
+  padding:20px;
+  position:relative;
+  overflow:hidden;
+}
+.home-hero::before{
+  content:'';
+  position:absolute;inset:0;
+  background:radial-gradient(ellipse 70% 60% at 100% 0%, rgba(232,184,75,.07) 0%, transparent 60%);
+  pointer-events:none;
+}
+.home-hero-eyebrow{
+  font-family:'JetBrains Mono',monospace;
+  font-size:10px;color:var(--gold);
+  letter-spacing:2px;text-transform:uppercase;
+  margin-bottom:8px;
+  display:flex;align-items:center;gap:6px;
+}
+.live-dot{
+  width:6px;height:6px;border-radius:50%;
+  background:var(--emerald);
+  animation:pulse 2s infinite;
+}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.5;transform:scale(.8)}}
+.home-hero-title{
+  font-family:'Syne',sans-serif;
+  font-size:22px;font-weight:800;
+  line-height:1.2;color:var(--white);
+  margin-bottom:14px;
+}
+.home-hero-title em{color:var(--gold);font-style:normal}
+.home-stats{
+  display:grid;grid-template-columns:repeat(3,1fr);
+  gap:12px;margin-top:4px;
+}
+.hstat{
+  text-align:center;
+}
+.hstat-n{
+  font-family:'Syne',sans-serif;
+  font-size:24px;font-weight:800;
+  color:var(--white);line-height:1;
+}
+.hstat-l{
+  font-size:11px;color:var(--fog);
+  margin-top:2px;
+}
+
+/* TRENDING CARDS */
+.trend-row{
+  display:flex;gap:12px;
+  padding:0 20px 4px;
+  overflow-x:auto;scrollbar-width:none;
+}
+.trend-row::-webkit-scrollbar{display:none}
+.tcard{
+  flex-shrink:0;width:200px;
+  background:var(--ink2);
+  border:1px solid var(--rule);
+  border-radius:14px;
+  overflow:hidden;
+  cursor:pointer;
+  transition:border-color .2s,transform .15s;
+}
+.tcard:hover{border-color:var(--rule2);transform:translateY(-1px)}
+.tcard:active{transform:scale(.98)}
+.tcard-top{
+  height:88px;
+  display:flex;align-items:center;justify-content:center;
+  font-size:42px;
+  position:relative;
+  background:var(--ink3);
+}
+.tcard-party{
+  position:absolute;top:8px;left:8px;
+}
+.tcard-body{padding:12px}
+.tcard-name{
+  font-family:'Syne',sans-serif;
+  font-size:13px;font-weight:700;
+  color:var(--white);margin-bottom:2px;
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+}
+.tcard-pos{font-size:11px;color:var(--fog);margin-bottom:8px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.tcard-pct{
+  font-family:'Syne',sans-serif;
+  font-size:20px;font-weight:800;
+  margin-bottom:4px;
+}
+
+/* LEADERBOARD ROWS */
+.lb-item{
+  display:flex;align-items:center;gap:14px;
+  padding:14px 20px;
+  border-bottom:1px solid var(--rule);
+  cursor:pointer;
+  transition:background .12s;
+}
+.lb-item:hover{background:var(--ink2)}
+.lb-item:last-child{border:none}
+.lb-rank{
+  font-family:'Syne',sans-serif;
+  font-size:13px;font-weight:700;
+  color:var(--fog);
+  width:28px;text-align:center;flex-shrink:0;
+}
+.lb-ava{
+  width:42px;height:42px;border-radius:50%;
+  background:var(--ink3);
+  border:1px solid var(--rule);
+  display:flex;align-items:center;justify-content:center;
+  font-size:17px;flex-shrink:0;
+  font-family:'Syne',sans-serif;font-weight:700;
+  color:var(--mist);
+}
+.lb-info{flex:1;min-width:0}
+.lb-name{
+  font-family:'Syne',sans-serif;
+  font-size:14px;font-weight:700;
+  color:var(--white);
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+}
+.lb-sub{
+  font-size:11px;color:var(--fog);
+  margin-top:3px;
+  display:flex;align-items:center;gap:6px;
+}
+.lb-right{text-align:right;flex-shrink:0}
+.lb-pct{
+  font-family:'Syne',sans-serif;
+  font-size:18px;font-weight:800;
+}
+.lb-votes{font-size:10px;color:var(--fog);margin-top:1px}
+
+/* COMPLAINT CARDS */
+.cmp{
+  margin:0 20px 12px;
+  background:var(--ink2);
+  border:1px solid var(--rule);
+  border-radius:12px;
+  padding:14px 16px;
+}
+.cmp-head{
+  display:flex;justify-content:space-between;align-items:center;
+  margin-bottom:8px;
+}
+.cmp-user{
+  font-family:'JetBrains Mono',monospace;
+  font-size:11px;color:var(--gold);
+}
+.cmp-time{font-size:11px;color:var(--fog)}
+.cmp-title{
+  font-family:'Syne',sans-serif;
+  font-size:14px;font-weight:700;
+  color:var(--white);margin-bottom:4px;
+}
+.cmp-body{font-size:12px;color:var(--mist);line-height:1.5}
+.cmp-foot{
+  display:flex;align-items:center;gap:8px;
+  margin-top:10px;
+}
+.upv{
+  background:var(--ink3);
+  border:1px solid var(--rule);
+  border-radius:6px;
+  padding:4px 10px;
+  font-size:11px;font-weight:500;
+  color:var(--fog);cursor:pointer;
+  transition:all .15s;
+  font-family:'DM Sans',sans-serif;
+}
+.upv:hover{border-color:var(--gold);color:var(--gold)}
+.upv.vd{border-color:var(--gold);color:var(--gold);background:var(--gold-dim)}
+
+/* SEARCH BAR */
+.sbar-home{
+  margin:0 20px 20px;
+  background:var(--ink2);
+  border:1px solid var(--rule);
+  border-radius:12px;
+  padding:12px 16px;
+  display:flex;align-items:center;gap:10px;
+  color:var(--fog);font-size:14px;
+  cursor:pointer;
+  transition:border-color .15s;
+}
+.sbar-home:hover{border-color:var(--rule2)}
+
+/* =========================================
+   DETAIL SCREEN
+========================================= */
+.det-hero{
+  height:200px;
+  background:var(--ink3);
+  display:flex;align-items:flex-end;
+  padding:20px;
+  position:relative;
+  overflow:hidden;
+  flex-shrink:0;
+}
+.det-hero-bg{
+  position:absolute;inset:0;
+  display:flex;align-items:center;justify-content:center;
+  font-size:100px;opacity:.12;
+  pointer-events:none;
+  filter:blur(1px);
+}
+.det-hero-overlay{
+  position:absolute;inset:0;
+  background:linear-gradient(to top, rgba(12,12,16,.95) 0%, rgba(12,12,16,.3) 60%, transparent 100%);
+}
+.det-back{
+  position:absolute;top:16px;left:16px;z-index:2;
+  background:rgba(12,12,16,.7);
+  backdrop-filter:blur(8px);
+  border:1px solid rgba(255,255,255,.1);
+  border-radius:8px;
+  padding:6px 14px;
+  font-size:13px;color:var(--mist);
+  cursor:pointer;font-family:'DM Sans',sans-serif;
+  transition:color .15s;
+}
+.det-back:hover{color:var(--white)}
+.det-share-btn{
+  position:absolute;top:16px;right:16px;z-index:2;
+  background:rgba(12,12,16,.7);
+  backdrop-filter:blur(8px);
+  border:1px solid rgba(255,255,255,.1);
+  border-radius:8px;
+  padding:6px 14px;
+  font-size:13px;color:var(--mist);
+  cursor:pointer;
+  transition:color .15s;
+}
+.det-identity{position:relative;z-index:2}
+.det-name{
+  font-family:'Syne',sans-serif;
+  font-size:22px;font-weight:800;
+  color:var(--white);line-height:1.15;
+  margin-top:6px;
+}
+.det-pos{font-size:13px;color:var(--mist);margin-top:3px}
+
+.det-stats{
+  display:grid;grid-template-columns:repeat(3,1fr);
+  gap:1px;
+  background:var(--rule);
+  margin:0;border-bottom:1px solid var(--rule);
+  flex-shrink:0;
+}
+.dstat{
+  background:var(--ink);
+  padding:16px 12px;
+  text-align:center;
+}
+.dstat-n{
+  font-family:'Syne',sans-serif;
+  font-size:22px;font-weight:800;
+}
+.dstat-l{font-size:10px;color:var(--fog);margin-top:2px;text-transform:uppercase;letter-spacing:.5px}
+
+.det-section{
+  padding:24px 20px 0;
+}
+.det-section-title{
+  font-family:'Syne',sans-serif;
+  font-size:11px;font-weight:700;
+  color:var(--fog);letter-spacing:2px;
+  text-transform:uppercase;
+  margin-bottom:14px;
+  padding-bottom:10px;
+  border-bottom:1px solid var(--rule);
+}
+
+/* CATEGORY RATINGS */
+.cat-grid{
+  display:grid;grid-template-columns:1fr 1fr;gap:8px;
+  margin-bottom:20px;
+}
+.crat{
+  background:var(--ink2);
+  border:1px solid var(--rule);
+  border-radius:10px;
+  padding:12px 14px;
+}
+.crat-label{font-size:11px;color:var(--fog);margin-bottom:6px}
+.crat-val{
+  font-family:'Syne',sans-serif;
+  font-size:22px;font-weight:800;
+  color:var(--white);
+}
+.crat-sub{font-size:10px;color:var(--fog);margin-top:2px}
+
+/* TIMELINE */
+.tl{}
+.tl-item{
+  display:flex;gap:14px;
+  padding:14px 0;
+  border-bottom:1px solid var(--rule);
+  position:relative;
+}
+.tl-item:last-child{border:none;padding-bottom:0}
+.tl-side{display:flex;flex-direction:column;align-items:center;flex-shrink:0;width:36px}
+.tl-icon{
+  width:36px;height:36px;
+  border-radius:8px;
+  display:flex;align-items:center;justify-content:center;
+  font-size:16px;
+  flex-shrink:0;
+}
+.ti-law{background:rgba(37,99,235,.15)}
+.ti-win{background:var(--emerald-dim)}
+.ti-scan{background:var(--crimson-dim)}
+.ti-proj{background:rgba(245,158,26,.1)}
+.ti-elec{background:rgba(232,184,75,.1)}
+.tl-body{flex:1}
+.tl-date{
+  font-family:'JetBrains Mono',monospace;
+  font-size:10px;color:var(--gold);
+  margin-bottom:3px;
+}
+.tl-title{
+  font-family:'Syne',sans-serif;
+  font-size:13px;font-weight:700;
+  color:var(--white);margin-bottom:3px;line-height:1.3;
+}
+.tl-desc{font-size:12px;color:var(--mist);line-height:1.5}
+
+/* RATING FORM */
+.rate-form{
+  background:var(--ink2);
+  border:1px solid var(--rule);
+  border-radius:16px;
+  padding:20px;
+  margin-bottom:20px;
+}
+.rate-form-title{
+  font-family:'Syne',sans-serif;
+  font-size:14px;font-weight:700;
+  color:var(--white);text-align:center;
+  margin-bottom:16px;
+}
+.thumb-row{display:flex;gap:10px;margin-bottom:16px}
+.thumb-btn{
+  flex:1;padding:14px;
+  border-radius:12px;
+  border:1px solid var(--rule);
+  background:var(--ink3);
+  color:var(--white);font-size:24px;
+  cursor:pointer;text-align:center;
+  transition:all .15s;
+  font-family:'DM Sans',sans-serif;
+}
+.thumb-btn.up{border-color:var(--emerald);background:var(--emerald-dim);box-shadow:0 0 20px rgba(45,212,160,.08)}
+.thumb-btn.dn{border-color:var(--crimson);background:var(--crimson-dim)}
+.cat-stars{margin-bottom:14px}
+.cs-row{
+  display:flex;justify-content:space-between;align-items:center;
+  padding:8px 0;
+  border-bottom:1px solid var(--rule);
+}
+.cs-row:last-child{border:none}
+.cs-label{font-size:13px;color:var(--mist)}
+.cs-stars{font-size:18px;color:var(--gold);cursor:pointer;letter-spacing:2px}
+.rate-textarea{
+  width:100%;background:var(--ink3);
+  border:1px solid var(--rule);
+  border-radius:10px;
+  padding:12px 14px;
+  color:var(--white);font-size:13px;
+  resize:none;font-family:'DM Sans',sans-serif;
+  margin-bottom:12px;line-height:1.5;
+}
+.rate-textarea:focus{outline:none;border-color:var(--rule2)}
+.submit-btn{
+  width:100%;padding:14px;
+  border-radius:12px;
+  background:var(--gold);
+  border:none;color:var(--ink);
+  font-family:'Syne',sans-serif;
+  font-size:14px;font-weight:700;
+  cursor:pointer;
+  transition:opacity .15s;
+}
+.submit-btn:hover{opacity:.9}
+
+/* PERTURBACIONES section */
+.perturb{
+  background:rgba(232,75,75,.04);
+  border:1px solid rgba(232,75,75,.15);
+  border-radius:12px;
+  padding:16px;
+  margin-bottom:16px;
+}
+.perturb-header{
+  display:flex;align-items:center;gap:8px;
+  margin-bottom:10px;
+}
+.perturb-dot{
+  width:6px;height:6px;
+  border-radius:50%;
+  background:var(--crimson);
+}
+.perturb-label{
+  font-family:'JetBrains Mono',monospace;
+  font-size:10px;color:var(--crimson);
+  letter-spacing:1.5px;text-transform:uppercase;
+}
+.perturb-item{
+  padding:8px 0;
+  border-bottom:1px solid rgba(232,75,75,.1);
+  font-size:12px;color:var(--mist);line-height:1.5;
+}
+.perturb-item:last-child{border:none;padding-bottom:0}
+.perturb-item strong{color:rgba(255,140,140,.9);font-weight:500}
+
+/* DENUNCIA CTA */
+.denuncia-cta{
+  margin:0 0 16px;
+  padding:16px;
+  border-radius:12px;
+  background:transparent;
+  border:1px solid rgba(232,75,75,.3);
+  color:var(--crimson);
+  font-family:'Syne',sans-serif;
+  font-size:14px;font-weight:700;
+  text-align:center;cursor:pointer;
+  transition:background .15s;
+}
+.denuncia-cta:hover{background:var(--crimson-dim)}
+
+/* MODAL */
+.mol{
+  position:absolute;inset:0;
+  background:rgba(0,0,0,.8);
+  z-index:100;
+  display:flex;align-items:flex-end;
+  backdrop-filter:blur(4px);
+}
+.mol-sheet{
+  background:var(--ink2);
+  border-top:1px solid var(--rule);
+  border-radius:20px 20px 0 0;
+  width:100%;
+  padding:20px 20px 32px;
+  max-height:88%;
+  overflow-y:auto;
+}
+.mol-handle{width:36px;height:3px;background:var(--rule2);border-radius:2px;margin:0 auto 18px}
+.mol-title{
+  font-family:'Syne',sans-serif;
+  font-size:17px;font-weight:800;
+  color:var(--crimson);margin-bottom:3px;
+}
+.mol-sub{font-size:13px;color:var(--fog);margin-bottom:18px}
+.form-label{
+  font-family:'JetBrains Mono',monospace;
+  font-size:10px;color:var(--fog);
+  letter-spacing:1px;text-transform:uppercase;
+  margin-bottom:5px;display:block;
+}
+.form-inp{
+  width:100%;background:var(--ink3);
+  border:1px solid var(--rule);
+  border-radius:10px;
+  padding:11px 13px;
+  color:var(--white);font-size:14px;
+  margin-bottom:12px;
+  font-family:'DM Sans',sans-serif;
+  -webkit-appearance:none;
+}
+.form-inp:focus{outline:none;border-color:var(--rule2)}
+.form-ta{resize:none;line-height:1.5}
+.form-cc{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--fog);text-align:right;margin:-8px 0 12px}
+.form-warn{
+  background:rgba(245,158,26,.06);
+  border:1px solid rgba(245,158,26,.2);
+  border-radius:8px;padding:10px 12px;
+  font-size:12px;color:rgba(245,200,120,.8);
+  margin-bottom:14px;line-height:1.5;
+}
+.mol-btns{display:flex;gap:10px}
+.btn-red{
+  flex:1;padding:13px;
+  border-radius:12px;background:var(--crimson);
+  border:none;color:#fff;
+  font-family:'Syne',sans-serif;font-size:14px;font-weight:700;
+  cursor:pointer;
+}
+.btn-ghost{
+  flex:1;padding:13px;
+  border-radius:12px;
+  background:transparent;border:1px solid var(--rule);
+  color:var(--fog);font-size:14px;cursor:pointer;
+}
+
+/* LEADERBOARD SCREEN */
+.lb-tabs{
+  display:flex;gap:8px;
+  padding:14px 20px;
+  overflow-x:auto;scrollbar-width:none;
+  flex-shrink:0;
+  border-bottom:1px solid var(--rule);
+}
+.lb-tabs::-webkit-scrollbar{display:none}
+.lbt{
+  padding:7px 16px;
+  border-radius:8px;
+  font-family:'Syne',sans-serif;
+  font-size:12px;font-weight:700;
+  white-space:nowrap;cursor:pointer;
+  border:1px solid var(--rule);
+  color:var(--fog);
+  user-select:none;
+  transition:all .15s;
+}
+.lbt.on{background:var(--gold);color:var(--ink);border-color:var(--gold)}
+.lb-banner{
+  background:var(--ink2);
+  border-bottom:1px solid var(--rule);
+  padding:10px 20px;
+  font-family:'JetBrains Mono',monospace;
+  font-size:10px;color:var(--gold);
+  letter-spacing:1px;text-transform:uppercase;
+  display:flex;align-items:center;gap:8px;
+  flex-shrink:0;
+}
+
+/* SEARCH SCREEN */
+.search-inp-wrap{
+  padding:14px 20px;
+  flex-shrink:0;
+}
+.search-inp-box{
+  background:var(--ink2);
+  border:1px solid var(--rule2);
+  border-radius:12px;
+  padding:12px 16px;
+  display:flex;align-items:center;gap:10px;
+}
+.search-inp-box input{
+  background:transparent;border:none;
+  color:var(--white);font-size:14px;flex:1;
+  outline:none;font-family:'DM Sans',sans-serif;
+}
+.search-inp-box input::placeholder{color:var(--fog)}
+.search-filters{
+  display:flex;gap:8px;
+  padding:0 20px 14px;
+  overflow-x:auto;scrollbar-width:none;
+  flex-shrink:0;
+}
+.search-filters::-webkit-scrollbar{display:none}
+.sf{
+  padding:5px 14px;
+  border-radius:6px;
+  font-family:'JetBrains Mono',monospace;
+  font-size:11px;font-weight:500;
+  border:1px solid var(--rule);
+  color:var(--fog);cursor:pointer;
+  white-space:nowrap;user-select:none;
+  transition:all .15s;
+}
+.sf.on{background:var(--ink3);color:var(--white);border-color:var(--rule2)}
+.sr-item{
+  display:flex;align-items:center;gap:14px;
+  padding:12px 20px;
+  border-bottom:1px solid var(--rule);
+  cursor:pointer;
+  transition:background .12s;
+}
+.sr-item:hover{background:var(--ink2)}
+.sr-ava{
+  width:46px;height:46px;
+  border-radius:10px;
+  background:var(--ink3);
+  border:1px solid var(--rule);
+  display:flex;align-items:center;justify-content:center;
+  font-size:22px;flex-shrink:0;
+}
+
+/* PROFILE SCREEN */
+.prof-hero{
+  padding:28px 20px 24px;
+  text-align:center;
+  border-bottom:1px solid var(--rule);
+}
+.prof-ava{
+  width:80px;height:80px;
+  border-radius:20px;
+  background:var(--ink3);
+  border:1px solid var(--rule);
+  display:flex;align-items:center;justify-content:center;
+  font-size:32px;margin:0 auto 12px;
+}
+.prof-name{
+  font-family:'Syne',sans-serif;
+  font-size:18px;font-weight:800;color:var(--white);
+}
+.prof-handle{
+  font-family:'JetBrains Mono',monospace;
+  font-size:11px;color:var(--fog);margin-top:3px;
+}
+.prof-lvl{
+  display:inline-block;
+  padding:4px 14px;
+  border-radius:6px;
+  font-family:'JetBrains Mono',monospace;
+  font-size:11px;font-weight:500;
+  background:var(--gold-dim);
+  color:var(--gold);
+  border:1px solid rgba(232,184,75,.25);
+  margin-top:10px;
+}
+.prof-sec{
+  padding:18px 20px;
+  border-bottom:1px solid var(--rule);
+}
+.prof-sec-title{
+  font-family:'JetBrains Mono',monospace;
+  font-size:10px;color:var(--fog);
+  text-transform:uppercase;letter-spacing:1.5px;
+  margin-bottom:12px;
+}
+.stat-2grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.stat-card{
+  background:var(--ink2);
+  border:1px solid var(--rule);
+  border-radius:10px;
+  padding:14px;
+  text-align:center;
+}
+.sc-n{
+  font-family:'Syne',sans-serif;
+  font-size:24px;font-weight:800;color:var(--white);
+}
+.sc-l{font-size:11px;color:var(--fog);margin-top:3px}
+.badge-row{display:flex;flex-wrap:wrap;gap:8px}
+.bdg{
+  display:flex;align-items:center;gap:6px;
+  background:var(--ink3);
+  border:1px solid var(--rule);
+  border-radius:8px;
+  padding:6px 12px;
+  font-size:12px;color:var(--mist);
+}
+.hist-item{
+  display:flex;justify-content:space-between;align-items:center;
+  padding:10px 12px;
+  background:var(--ink2);
+  border:1px solid var(--rule);
+  border-radius:8px;
+  margin-bottom:8px;
+  font-size:13px;
+}
+.hist-name{font-weight:500;color:var(--white)}
+.ref-box{
+  background:var(--ink2);
+  border:1px solid var(--rule);
+  border-radius:10px;
+  padding:14px;
+  display:flex;justify-content:space-between;align-items:center;
+}
+.ref-code{
+  font-family:'JetBrains Mono',monospace;
+  font-size:18px;font-weight:700;
+  color:var(--gold);letter-spacing:2px;
+}
+.ref-btn{
+  padding:7px 16px;
+  border-radius:8px;
+  border:1px solid var(--rule);
+  background:var(--ink3);color:var(--white);
+  font-size:12px;font-weight:500;cursor:pointer;
+}
+
+/* SHARE SCREEN */
+.share-card-wrap{
+  display:flex;flex-direction:column;
+  align-items:center;padding:20px;
+  gap:16px;
+}
+.share-card{
+  width:100%;max-width:360px;
+  background:var(--ink2);
+  border:1px solid var(--rule);
+  border-radius:18px;overflow:hidden;
+}
+.sc-header{
+  background:var(--ink3);
+  padding:14px 16px;
+  display:flex;align-items:center;gap:8px;
+  border-bottom:1px solid var(--rule);
+}
+.sc-header-logo{
+  font-family:'Syne',sans-serif;
+  font-size:15px;font-weight:800;color:var(--gold);
+}
+.sc-photo{
+  height:200px;
+  background:var(--ink3);
+  display:flex;align-items:center;justify-content:center;
+  font-size:90px;
+}
+.sc-body{padding:18px}
+.sc-name{
+  font-family:'Syne',sans-serif;
+  font-size:20px;font-weight:800;
+  text-align:center;margin-bottom:3px;
+}
+.sc-pos{font-size:13px;color:var(--fog);text-align:center;margin-bottom:16px}
+.sc-big-pct{
+  font-family:'Syne',sans-serif;
+  font-size:54px;font-weight:800;
+  text-align:center;line-height:1;
+  color:var(--emerald);
+}
+.sc-pct-label{
+  font-family:'JetBrains Mono',monospace;
+  font-size:10px;color:var(--fog);
+  text-align:center;letter-spacing:2px;
+  text-transform:uppercase;margin:8px 0 12px;
+}
+.sc-stats-row{
+  display:flex;justify-content:center;gap:18px;
+  font-size:13px;color:var(--fog);
+  margin-bottom:12px;
+}
+.sc-domain{
+  font-family:'JetBrains Mono',monospace;
+  font-size:10px;color:var(--fog);
+  text-align:center;letter-spacing:1px;
+}
+.sc-actions{
+  padding:14px 16px;
+  display:flex;gap:8px;
+  border-top:1px solid var(--rule);
+}
+.sc-btn{
+  flex:1;padding:12px;
+  border-radius:10px;
+  font-family:'Syne',sans-serif;
+  font-size:13px;font-weight:700;
+  cursor:pointer;text-align:center;
+  transition:opacity .15s;
+}
+.sc-primary{background:var(--gold);color:var(--ink);border:none}
+.sc-secondary{background:var(--ink3);color:var(--white);border:1px solid var(--rule)}
+
+/* TOAST */
+.toast{
+  position:absolute;bottom:84px;left:50%;
+  transform:translateX(-50%);
+  background:var(--ink3);
+  border:1px solid var(--rule);
+  color:var(--white);
+  padding:10px 20px;
+  border-radius:10px;
+  font-family:'DM Sans',sans-serif;
+  font-size:13px;font-weight:500;
+  z-index:200;
+  pointer-events:none;
+  white-space:nowrap;
+  opacity:0;
+  transition:opacity .2s;
+  box-shadow:0 8px 30px rgba(0,0,0,.5);
+}
 .toast.on{opacity:1}
 </style>
 </head>
@@ -161,22 +990,57 @@ body{display:flex;justify-content:center;align-items:flex-start;padding:0}
 <!-- HOME -->
 <div class="scr on" id="s-home">
 <div class="hdr">
-  <div class="logo">🔍 Gobi<b>Stats</b><span>gobistats.com</span></div>
-  <div style="display:flex;gap:14px;font-size:20px">🔔 <span onclick="go('profile')" style="cursor:pointer">👤</span></div>
+  <div class="logo">
+    <div class="logo-main">Gobi<span>Stats</span></div>
+    <div class="logo-tag">PR · 2026</div>
+  </div>
+  <div class="hdr-actions">
+    <div class="hdr-btn" title="Notificaciones">🔔</div>
+    <div class="hdr-btn" onclick="go('profile')" title="Mi Perfil">👤</div>
+  </div>
 </div>
 <div class="scroll">
-  <div class="sec">🔥 En Tendencia</div>
-  <div class="tscroll" id="trend"></div>
-  <div class="sec">🏆 Leaderboard <span class="sl" onclick="go('lb')">Ver todos →</span></div>
+  <div class="home-hero">
+    <div class="home-hero-eyebrow"><div class="live-dot"></div>Transparencia Ciudadana en Tiempo Real</div>
+    <div class="home-hero-title">Evalúa a tus <em>147 funcionarios</em> electos de Puerto Rico</div>
+    <div class="home-stats">
+      <div class="hstat"><div class="hstat-n" id="hstat-officials">147</div><div class="hstat-l">Funcionarios</div></div>
+      <div class="hstat"><div class="hstat-n" id="hstat-evals">0</div><div class="hstat-l">Evaluaciones</div></div>
+      <div class="hstat"><div class="hstat-n" id="hstat-complaints">0</div><div class="hstat-l">Denuncias</div></div>
+    </div>
+  </div>
+
+  <div class="slabel">▶ Perfil del Ejecutivo</div>
+  <div id="exec-cards" class="trend-row"></div>
+
+  <div class="slabel">▶ Tendencia Hoy <span class="slabel-link" onclick="go('lb')">Ver ranking →</span></div>
+  <div id="trend" class="trend-row"></div>
+
+  <div class="slabel">▶ Top Aprobación</div>
   <div id="hlb"></div>
-  <div class="sec">📢 Denuncias Recientes</div>
-  <div class="cc"><div class="cc-h"><span>@ciudadano_pr</span><span>hace 2h</span></div><div class="cc-t">Corrupción en contratos municipales</div><div class="cc-d">Documentos muestran favorecimiento en licitaciones de $2M sin proceso competitivo...</div><div class="cc-f"><button class="uvb" onclick="uv(this,47)">▲ 47 votos</button><span class="pill ppd" style="font-size:10px">Pedro López</span></div></div>
-  <div class="cc"><div class="cc-h"><span>@watchdog787</span><span>hace 5h</span></div><div class="cc-t">Ausentismo en sesiones legislativas</div><div class="cc-d">Faltó a 12 de las últimas 15 sesiones sin justificación pública verificable...</div><div class="cc-f"><button class="uvb" onclick="uv(this,23)">▲ 23 votos</button><span class="pill pnp" style="font-size:10px">Luis Soto</span></div></div>
-  <div onclick="go('search')" style="margin:10px 18px 18px;background:var(--card);border:1px solid var(--bdr);border-radius:12px;padding:12px 16px;display:flex;align-items:center;gap:10px;color:var(--mut);font-size:14px;cursor:pointer">🔍 Buscar político...</div>
-  <div style="height:6px"></div>
+
+  <div class="slabel">▶ Denuncias Recientes</div>
+  <div class="cmp">
+    <div class="cmp-head"><span class="cmp-user">@ciudadano787</span><span class="cmp-time">hace 2h</span></div>
+    <div class="cmp-title">Factura de luz insostenible en Mayagüez</div>
+    <div class="cmp-body">Cobros exorbitantes de LUMA que el alcalde no ha atendido públicamente pese a promesas de campaña.</div>
+    <div class="cmp-foot"><button class="upv" onclick="uv(this,34)">▲ 34</button><span class="badge b-ppd">PPD</span></div>
+  </div>
+  <div class="cmp">
+    <div class="cmp-head"><span class="cmp-user">@watchdog_pr</span><span class="cmp-time">hace 5h</span></div>
+    <div class="cmp-title">Contratos sin licitación en municipio</div>
+    <div class="cmp-body">Documentación muestra adjudicación directa de $1.8M sin proceso competitivo requerido por ley.</div>
+    <div class="cmp-foot"><button class="upv" onclick="uv(this,67)">▲ 67</button></div>
+  </div>
+
+  <div class="sbar-home" onclick="go('search')">
+    <span style="font-size:16px;color:var(--fog)">&#128269;</span>
+    <span>Buscar funcionario, municipio, partido...</span>
+  </div>
+  <div style="height:8px"></div>
 </div>
 <div class="nav">
-  <div class="ni on" onclick="go('home')"><div class="ni-ico">🏠</div><div>Home</div></div>
+  <div class="ni on" onclick="go('home')"><div class="ni-ico">🏠</div><div>Inicio</div></div>
   <div class="ni" onclick="go('lb')"><div class="ni-ico">🏆</div><div>Ranking</div></div>
   <div class="ni" onclick="go('search')"><div class="ni-ico">🔍</div><div>Buscar</div></div>
   <div class="ni"><div class="ni-ico">📢</div><div>Denuncias</div></div>
@@ -187,56 +1051,77 @@ body{display:flex;justify-content:center;align-items:flex-start;padding:0}
 <!-- DETAIL -->
 <div class="scr" id="s-detail">
 <div style="flex-shrink:0;position:relative">
-<div class="hero"><div class="hero-bg" id="hbg">👨‍⚖️</div><button class="hback" onclick="go('home')">← Volver</button><button class="hshare" onclick="go('share')">⬆ Compartir</button><div style="position:relative;z-index:2"><span class="pill pip" id="dpill">PIP</span><div style="font-size:21px;font-weight:900;margin-top:5px" id="dname">Juan Dalmau</div><div style="font-size:13px;color:rgba(255,255,255,.6);margin-top:2px" id="dpos">Senador</div></div></div>
+  <div class="det-hero">
+    <div class="det-hero-bg" id="dhbg">👨‍⚖️</div>
+    <div class="det-hero-overlay"></div>
+    <button class="det-back" onclick="goBack()">← Volver</button>
+    <button class="det-share-btn" onclick="go('share')">⬆ Compartir</button>
+    <div class="det-identity">
+      <span class="badge b-pnp" id="dpill">PNP</span>
+      <div class="det-name" id="dname">Nombre</div>
+      <div class="det-pos" id="dpos">Cargo</div>
+    </div>
+  </div>
+</div>
+<div class="det-stats">
+  <div class="dstat"><div class="dstat-n" id="dpct">-</div><div class="dstat-l">Aprobación</div></div>
+  <div class="dstat"><div class="dstat-n" id="dvotes">0</div><div class="dstat-l">Votos</div></div>
+  <div class="dstat"><div class="dstat-n" id="dden" style="color:var(--crimson)">0</div><div class="dstat-l">Denuncias</div></div>
 </div>
 <div class="scroll">
-  <div class="srow"><div class="sb"><div class="sbn" id="dpct" style="color:var(--grn)">72%</div><div class="sbl">Aprobación</div></div><div class="sb"><div class="sbn" id="dvotes">0</div><div class="sbl">Votos</div></div><div class="sb"><div class="sbn" id="dden" style="color:var(--red)">0</div><div class="sbl">Denuncias</div></div></div>
-  <div class="sec" style="padding-bottom:2px">Evaluaciones Detalladas</div>
-  <div style="padding:0 18px">
-    <div class="starrow"><span class="starlbl">Honestidad</span><div style="display:flex;align-items:center;gap:7px"><span class="stars">★★★★☆</span><span class="starval">3.8</span></div></div>
-    <div class="starrow"><span class="starlbl">Trabajo</span><div style="display:flex;align-items:center;gap:7px"><span class="stars">★★★★★</span><span class="starval">4.2</span></div></div>
-    <div class="starrow"><span class="starlbl">Accesibilidad</span><div style="display:flex;align-items:center;gap:7px"><span class="stars">★★★☆☆</span><span class="starval">3.1</span></div></div>
-    <div class="starrow"><span class="starlbl">Liderazgo</span><div style="display:flex;align-items:center;gap:7px"><span class="stars">★★★★☆</span><span class="starval">3.9</span></div></div>
-    <div class="starrow"><span class="starlbl">Transparencia</span><div style="display:flex;align-items:center;gap:7px"><span class="stars">★★★☆☆</span><span class="starval">2.8</span></div></div>
+  <div class="det-section">
+    <div class="det-section-title">Evaluaciones por Categoría</div>
+    <div class="cat-grid" id="dcats"></div>
   </div>
-  <div class="sec" style="padding-bottom:5px">── Evalúalo ──</div>
-  <div class="rf">
-    <div class="rft">Tu Evaluación Ciudadana</div>
-    <div class="tbrow"><button class="tb" id="tbu" onclick="st(true)">👍</button><button class="tb" id="tbd" onclick="st(false)">👎</button></div>
-    <div class="sirow"><span class="sil">Honestidad</span><span class="sis" onclick="cs(this)">★★★★☆</span></div>
-    <div class="sirow"><span class="sil">Trabajo</span><span class="sis" onclick="cs(this)">★★★★☆</span></div>
-    <div class="sirow"><span class="sil">Liderazgo</span><span class="sis" onclick="cs(this)">★★★☆☆</span></div>
-    <div class="sirow"><span class="sil">Transparencia</span><span class="sis" onclick="cs(this)">★★★☆☆</span></div>
-    <textarea class="cbox" rows="3" placeholder="Comenta tu evaluación (opcional)..." id="cmtbox"></textarea>
-    <button class="subbtn" onclick="subRate()">Enviar Evaluación 🗳️</button>
+  <div class="det-section">
+    <div class="det-section-title">Historial Legislativo & Proyectos</div>
+    <div class="tl" id="dtl"></div>
   </div>
-  <div class="sec" style="padding-bottom:3px">── Timeline ──</div>
-  <div style="padding:0 18px" id="dtl"></div>
-  <div class="sec">── Denuncias <span id="ddencount">(0)</span> ──</div>
-  <div class="cc"><div class="cc-h"><span>@ciudadano_pr</span><span>hace 3 días</span></div><div class="cc-t">Ausentismo reportado</div><div class="cc-d">No asistió a sesiones sin justificación pública documentada.</div><div class="cc-f"><button class="uvb" onclick="uv(this,12)">▲ 12 votos</button></div></div>
-  <div class="dcta" onclick="showMol()">📢 Presentar Denuncia Ciudadana</div>
-  <div style="height:6px"></div>
+  <div class="det-section">
+    <div class="det-section-title">── Evalúalo tú</div>
+    <div class="rate-form">
+      <div class="rate-form-title">Tu Evaluación Ciudadana</div>
+      <div class="thumb-row">
+        <button class="thumb-btn" id="tbu" onclick="st(true)">&#128077;</button>
+        <button class="thumb-btn" id="tbd" onclick="st(false)">&#128078;</button>
+      </div>
+      <div class="cat-stars">
+        <div class="cs-row"><span class="cs-label">Honestidad</span><span class="cs-stars" onclick="cs(this)">★★★☆☆</span></div>
+        <div class="cs-row"><span class="cs-label">Trabajo realizado</span><span class="cs-stars" onclick="cs(this)">★★★☆☆</span></div>
+        <div class="cs-row"><span class="cs-label">Accesibilidad</span><span class="cs-stars" onclick="cs(this)">★★★☆☆</span></div>
+        <div class="cs-row"><span class="cs-label">Transparencia</span><span class="cs-stars" onclick="cs(this)">★★☆☆☆</span></div>
+      </div>
+      <textarea class="rate-textarea" rows="3" placeholder="Comenta (opcional, máx. 500 caracteres)..." id="cmtbox"></textarea>
+      <button class="submit-btn" onclick="subRate()">Enviar Evaluación</button>
+    </div>
+  </div>
+  <div class="det-section" id="dperturb-section">
+    <div class="det-section-title">Conductas Perturbadoras</div>
+    <div id="dperturb"></div>
+    <button class="denuncia-cta" onclick="showMol()">&#128226; Presentar Denuncia Ciudadana</button>
+  </div>
+  <div style="height:8px"></div>
 </div>
 <div class="mol" id="mol" style="display:none">
-<div class="ms">
-  <div class="dh"></div>
-  <div style="font-size:17px;font-weight:800;color:var(--red);margin-bottom:3px">📢 Presentar Denuncia</div>
-  <div style="font-size:13px;color:var(--mut);margin-bottom:16px" id="molsub">Contra: ...</div>
-  <label class="ml">Categoría *</label>
-  <select class="mi" id="mcat"><option value="">Selecciona...</option><option>Falta de respuesta</option><option>Incumplimiento de promesas</option><option>Corrupción</option><option>Ausentismo</option><option>Abuso de poder</option><option>Otros</option></select>
-  <label class="ml">Título *</label>
-  <input class="mi" type="text" placeholder="Título breve" maxlength="150" id="mtit">
-  <label class="ml">Fecha del incidente</label>
-  <input class="mi" type="date" id="mfec">
-  <label class="ml">Descripción * (mín 50 chars)</label>
-  <textarea class="mta" rows="4" placeholder="Describe con detalle..." id="mdesc"></textarea>
-  <div class="mcc" id="mcc">0 / 2000</div>
-  <div class="mw">⚠️ Una denuncia por político por mes. Información falsa resulta en suspensión.</div>
-  <div class="mbtns"><button class="mred" onclick="subCmp()">Confirmar Denuncia</button><button class="mgry" onclick="hideMol()">Cancelar</button></div>
-</div>
+  <div class="mol-sheet">
+    <div class="mol-handle"></div>
+    <div class="mol-title">&#128226; Presentar Denuncia</div>
+    <div class="mol-sub" id="molsub">Contra: ...</div>
+    <label class="form-label">Categoría *</label>
+    <select class="form-inp" id="mcat"><option value="">Selecciona...</option><option>Falta de respuesta ciudadana</option><option>Incumplimiento de promesas</option><option>Corrupción o malversación</option><option>Ausentismo legislativo</option><option>Abuso de poder</option><option>Conflicto de interés</option><option>Otros</option></select>
+    <label class="form-label">Título *</label>
+    <input class="form-inp" type="text" placeholder="Título claro y conciso" maxlength="150" id="mtit">
+    <label class="form-label">Fecha del incidente</label>
+    <input class="form-inp" type="date" id="mfec">
+    <label class="form-label">Descripción detallada *</label>
+    <textarea class="form-inp form-ta" rows="4" placeholder="Mínimo 50 caracteres. Sea preciso y objetivo." id="mdesc"></textarea>
+    <div class="form-cc" id="mcc">0 / 2000</div>
+    <div class="form-warn">⚠️ Una denuncia por político por mes. Información verificada eleva tu Impact Score. Información falsa puede resultar en suspensión.</div>
+    <div class="mol-btns"><button class="btn-red" onclick="subCmp()">Confirmar Denuncia</button><button class="btn-ghost" onclick="hideMol()">Cancelar</button></div>
+  </div>
 </div>
 <div class="nav">
-  <div class="ni" onclick="go('home')"><div class="ni-ico">🏠</div><div>Home</div></div>
+  <div class="ni" onclick="goBack()"><div class="ni-ico">🏠</div><div>Inicio</div></div>
   <div class="ni" onclick="go('lb')"><div class="ni-ico">🏆</div><div>Ranking</div></div>
   <div class="ni" onclick="go('search')"><div class="ni-ico">🔍</div><div>Buscar</div></div>
   <div class="ni on"><div class="ni-ico">📢</div><div>Denuncias</div></div>
@@ -246,12 +1131,24 @@ body{display:flex;justify-content:center;align-items:flex-start;padding:0}
 
 <!-- LEADERBOARD -->
 <div class="scr" id="s-lb">
-<div class="hdr"><div class="logo">🏆 Gobi<b>Stats</b><span>gobistats.com</span></div><div style="display:flex;align-items:center;gap:6px;font-size:12px;font-weight:700;color:var(--grn)"><div class="dot"></div>EN VIVO</div></div>
-<div class="tabs"><div class="tab on" onclick="setTab(this,'all')">🏆 Todos</div><div class="tab" onclick="setTab(this,'exec')">🏕️ Ejecutivo</div><div class="tab" onclick="setTab(this,'senate')">🏛️ Senado</div><div class="tab" onclick="setTab(this,'house')">🏠 Cámara</div><div class="tab" onclick="setTab(this,'mayors')">🏙️ Alcaldes</div></div>
-<div class="sbanner"><div class="dot"></div>🏅 TEMPORADA: ABRIL 2026 &nbsp;·&nbsp; <span id="totalCount">147</span> funcionarios</div>
+<div class="hdr">
+  <div class="logo"><div class="logo-main">Gobi<span>Stats</span></div><div class="logo-tag">Ranking 2026</div></div>
+  <div style="display:flex;align-items:center;gap:6px">
+    <div class="live-dot"></div>
+    <span style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--emerald);letter-spacing:1px">EN VIVO</span>
+  </div>
+</div>
+<div class="lb-tabs">
+  <div class="lbt on" onclick="setTab(this,'all')">Todos</div>
+  <div class="lbt" onclick="setTab(this,'exec')">Ejecutivo</div>
+  <div class="lbt" onclick="setTab(this,'senate')">Senado</div>
+  <div class="lbt" onclick="setTab(this,'house')">Cámara</div>
+  <div class="lbt" onclick="setTab(this,'mayors')">Alcaldes</div>
+</div>
+<div class="lb-banner"><div class="live-dot"></div>TEMPORADA ABRIL 2026 &nbsp;·&nbsp; <span id="lbcount">147</span> funcionarios</div>
 <div class="scroll" id="lbl"></div>
 <div class="nav">
-  <div class="ni" onclick="go('home')"><div class="ni-ico">🏠</div><div>Home</div></div>
+  <div class="ni" onclick="go('home')"><div class="ni-ico">🏠</div><div>Inicio</div></div>
   <div class="ni on"><div class="ni-ico">🏆</div><div>Ranking</div></div>
   <div class="ni" onclick="go('search')"><div class="ni-ico">🔍</div><div>Buscar</div></div>
   <div class="ni"><div class="ni-ico">📢</div><div>Denuncias</div></div>
@@ -261,12 +1158,28 @@ body{display:flex;justify-content:center;align-items:flex-start;padding:0}
 
 <!-- SEARCH -->
 <div class="scr" id="s-search">
-<div class="hdr"><div class="logo">🔍 Gobi<b>Stats</b></div></div>
-<div class="sbar"><div class="sinp"><span style="font-size:17px">🔍</span><input type="text" id="sinput" placeholder="Nombre, partido, municipio, distrito..." oninput="doS(this.value)" autocomplete="off" autocorrect="off" spellcheck="false"></div></div>
-<div class="fpills"><div class="fp on" onclick="sf(this,'all')">Todos</div><div class="fp" onclick="sf(this,'PNP')">PNP</div><div class="fp" onclick="sf(this,'PPD')">PPD</div><div class="fp" onclick="sf(this,'PIP')">PIP</div><div class="fp" onclick="sf(this,'MVC')">MVC</div><div class="fp" onclick="sf(this,'IND')">Independiente</div><div class="fp" onclick="sf(this,'exec')">Ejecutivo</div><div class="fp" onclick="sf(this,'senador')">Senado</div><div class="fp" onclick="sf(this,'represent')">Cámara</div><div class="fp" onclick="sf(this,'alcalde')">Alcaldes</div></div>
+<div class="hdr"><div class="logo"><div class="logo-main">Gobi<span>Stats</span></div><div class="logo-tag">Buscar</div></div></div>
+<div class="search-inp-wrap">
+  <div class="search-inp-box">
+    <span style="font-size:16px;color:var(--fog)">&#128269;</span>
+    <input type="text" id="sinput" placeholder="Nombre, cargo, municipio, partido..." oninput="doS(this.value)" autocomplete="off" autocorrect="off" spellcheck="false">
+  </div>
+</div>
+<div class="search-filters">
+  <div class="sf on" onclick="sf_fn(this,'all')">Todos</div>
+  <div class="sf" onclick="sf_fn(this,'PNP')">PNP</div>
+  <div class="sf" onclick="sf_fn(this,'PPD')">PPD</div>
+  <div class="sf" onclick="sf_fn(this,'PIP')">PIP</div>
+  <div class="sf" onclick="sf_fn(this,'MVC')">MVC</div>
+  <div class="sf" onclick="sf_fn(this,'IND')">Independiente</div>
+  <div class="sf" onclick="sf_fn(this,'exec')">Ejecutivo</div>
+  <div class="sf" onclick="sf_fn(this,'senador')">Senado</div>
+  <div class="sf" onclick="sf_fn(this,'represent')">Cámara</div>
+  <div class="sf" onclick="sf_fn(this,'alcalde')">Alcaldes</div>
+</div>
 <div class="scroll" id="sres"></div>
 <div class="nav">
-  <div class="ni" onclick="go('home')"><div class="ni-ico">🏠</div><div>Home</div></div>
+  <div class="ni" onclick="go('home')"><div class="ni-ico">🏠</div><div>Inicio</div></div>
   <div class="ni" onclick="go('lb')"><div class="ni-ico">🏆</div><div>Ranking</div></div>
   <div class="ni on"><div class="ni-ico">🔍</div><div>Buscar</div></div>
   <div class="ni"><div class="ni-ico">📢</div><div>Denuncias</div></div>
@@ -276,17 +1189,49 @@ body{display:flex;justify-content:center;align-items:flex-start;padding:0}
 
 <!-- PROFILE -->
 <div class="scr" id="s-profile">
-<div class="hdr"><div class="logo">👤 Gobi<b>Stats</b></div><div style="font-size:13px;color:var(--mut);cursor:pointer">⚙️ Ajustes</div></div>
+<div class="hdr"><div class="logo"><div class="logo-main">Gobi<span>Stats</span></div><div class="logo-tag">Mi Perfil</div></div><div class="hdr-btn" style="font-size:14px;color:var(--fog)">&#9881;</div></div>
 <div class="scroll">
-  <div class="ptop"><div class="pava">👤</div><div style="font-size:16px;font-weight:800">@boricua_activista</div><div><span class="plvl">⚡ WATCHDOG</span></div></div>
-  <div class="psec"><div class="pst">Tags de Partido</div><div style="display:flex;gap:8px;flex-wrap:wrap"><span class="pill pip" style="cursor:pointer">PIP Supporter ×</span><span style="border:1px dashed var(--bdr);padding:3px 12px;border-radius:999px;font-size:11px;color:var(--mut);cursor:pointer">+ Agregar</span></div></div>
-  <div class="psec"><div class="pst">Estadísticas</div><div class="sgrid"><div class="sm"><div class="smn">847</div><div class="sml">📊 Evaluaciones</div></div><div class="sm"><div class="smn">23</div><div class="sml">📢 Denuncias</div></div><div class="sm" style="grid-column:1/-1"><div class="smn" style="color:var(--gld)">12,400</div><div class="sml">🌟 Impact Score</div></div></div></div>
-  <div class="psec"><div class="pst">Mis Insignias</div><div class="bwrap"><div class="bi">🏆 Whistleblower</div><div class="bi">🔥 10-day streak</div><div class="bi">🎯 Fact Checker</div><div class="bi">🌟 Top Rater</div><div class="bi">🗳️ First Vote</div></div></div>
-  <div class="psec" style="border:none"><div class="pst">Referidos</div><div class="rbox"><div><div style="font-size:11px;color:var(--mut);margin-bottom:3px">Tu código</div><div class="rcode">ABC12345</div></div><div style="display:flex;gap:8px"><button class="rbtn" onclick="toast('¡Copiado! 📋')">Copiar</button><button class="rbtn" onclick="toast('¡Compartiendo! 📲')">Compartir</button></div></div></div>
-  <div style="height:6px"></div>
+  <div class="prof-hero">
+    <div class="prof-ava">&#128100;</div>
+    <div class="prof-name">Boricua Activo</div>
+    <div class="prof-handle">@usuario_pr</div>
+    <div class="prof-lvl">WATCHDOG • Nivel 4</div>
+  </div>
+  <div class="prof-sec">
+    <div class="prof-sec-title">Estadísticas</div>
+    <div class="stat-2grid">
+      <div class="stat-card"><div class="sc-n">0</div><div class="sc-l">Evaluaciones</div></div>
+      <div class="stat-card"><div class="sc-n">0</div><div class="sc-l">Denuncias</div></div>
+      <div class="stat-card" style="grid-column:1/-1"><div class="sc-n" style="color:var(--gold)">0</div><div class="sc-l">Impact Score</div></div>
+    </div>
+  </div>
+  <div class="prof-sec">
+    <div class="prof-sec-title">Insignias</div>
+    <div class="badge-row">
+      <div class="bdg">&#128219; Watchdog</div>
+      <div class="bdg">&#128293; 7-day streak</div>
+      <div class="bdg">&#127919; Verificador</div>
+      <div class="bdg">&#128196; Primer voto</div>
+    </div>
+  </div>
+  <div class="prof-sec">
+    <div class="prof-sec-title">Historial reciente</div>
+    <div style="color:var(--fog);font-size:13px;text-align:center;padding:12px 0">Aún no has evaluado ningún funcionario.<br>&#128072; Comienza hoy.</div>
+  </div>
+  <div class="prof-sec" style="border:none">
+    <div class="prof-sec-title">Código de Referidos</div>
+    <div class="ref-box">
+      <div><div style="font-size:11px;color:var(--fog);margin-bottom:4px">Tu código</div><div class="ref-code">GS-XXXXX</div></div>
+      <div style="display:flex;gap:8px">
+        <button class="ref-btn" onclick="toast('&#128203; ¡Copiado!')">Copiar</button>
+        <button class="ref-btn" onclick="toast('&#128242; Compartiendo...')">Compartir</button>
+      </div>
+    </div>
+  </div>
+  <div style="height:8px"></div>
 </div>
 <div class="nav">
-  <div class="ni" onclick="go('home')"><div class="ni-ico">🏠</div><div>Home</div></div>
+  <div class="ni" onclick="go('home')"><div class="ni-ico">🏠</div><div>Inicio</div></div>
   <div class="ni" onclick="go('lb')"><div class="ni-ico">🏆</div><div>Ranking</div></div>
   <div class="ni" onclick="go('search')"><div class="ni-ico">🔍</div><div>Buscar</div></div>
   <div class="ni"><div class="ni-ico">📢</div><div>Denuncias</div></div>
@@ -296,28 +1241,48 @@ body{display:flex;justify-content:center;align-items:flex-start;padding:0}
 
 <!-- SHARE -->
 <div class="scr" id="s-share">
-<div class="hdr"><div style="display:flex;align-items:center;gap:8px"><button onclick="go('detail')" style="background:none;border:none;color:var(--mut);font-size:20px;cursor:pointer;padding:0">←</button><span style="font-size:16px;font-weight:800">Tarjeta Viral</span></div><div style="font-size:12px;color:var(--mut)">gobistats.com</div></div>
+<div class="hdr">
+  <div style="display:flex;align-items:center;gap:10px">
+    <button onclick="go('detail')" style="background:none;border:none;color:var(--fog);font-size:18px;cursor:pointer;padding:0;line-height:1">←</button>
+    <div class="logo-main">Tarjeta Viral</div>
+  </div>
+  <div class="logo-tag">gobistats.com</div>
+</div>
 <div class="scroll">
-  <div class="swrap">
-    <div class="scard">
-      <div class="sch"><span style="font-size:19px">🇵🇷</span><span style="font-size:14px;font-weight:900;color:var(--gld)">GobiStats</span><span style="margin-left:auto;font-size:11px;color:var(--mut)">gobistats.com</span></div>
-      <div class="scph" id="scp">👨‍⚖️</div>
-      <div class="scb">
-        <div class="scn" id="scn">NOMBRE</div>
-        <div class="scs" id="scs">Cargo</div>
-        <div class="scpct" id="scpct">0%</div>
-        <div class="scbar"><div class="bar"><div class="bfill bg" id="scbar" style="width:0%"></div></div></div>
-        <div class="scpl">APROBACIÓN CIUDADANA</div>
-        <div class="scst" id="scst"></div>
-        <div style="text-align:center;font-size:12px;color:var(--mut);letter-spacing:1px">gobistats.com</div>
+  <div class="share-card-wrap">
+    <div class="share-card">
+      <div class="sc-header">
+        <span style="font-size:18px">🇵🇷</span>
+        <span class="sc-header-logo">GobiStats</span>
+        <span style="margin-left:auto;font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--fog)">gobistats.com</span>
       </div>
-      <div class="sca"><button class="scbtn scpri" onclick="toast('¡WhatsApp! 📲')">📲 WhatsApp</button><button class="scbtn scsec" onclick="toast('¡Copiado! 📋')">📋 Copiar</button></div>
+      <div class="sc-photo" id="scp">👨‍⚖️</div>
+      <div class="sc-body">
+        <div class="sc-name" id="scn">NOMBRE</div>
+        <div class="sc-pos" id="scs">Cargo</div>
+        <div class="sc-big-pct" id="scpct">-</div>
+        <div class="sc-pct-label">Aprobación Ciudadana</div>
+        <div style="margin:0 auto 12px;width:80%"><div class="apv-wrap" style="height:4px"><div class="apv-fill af-hi" id="scbar" style="width:0%"></div></div></div>
+        <div class="sc-stats-row" id="scst"></div>
+        <div class="sc-domain">gobistats.com</div>
+      </div>
+      <div class="sc-actions">
+        <button class="sc-btn sc-primary" onclick="toast('&#128242; Abriendo WhatsApp...')">WhatsApp</button>
+        <button class="sc-btn sc-secondary" onclick="toast('&#128203; Enlace copiado')">Copiar</button>
+      </div>
+    </div>
+    <div style="background:var(--ink2);border:1px solid var(--rule);border-radius:14px;padding:14px;width:100%;max-width:360px">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--fog);letter-spacing:1px;text-transform:uppercase;margin-bottom:10px">Compartir en redes</div>
+      <div style="display:flex;gap:8px">
+        <button class="sc-btn sc-secondary" style="padding:10px;font-size:12px" onclick="toast('Instagram')">Instagram</button>
+        <button class="sc-btn sc-secondary" style="padding:10px;font-size:12px" onclick="toast('X / Twitter')">X</button>
+        <button class="sc-btn sc-secondary" style="padding:10px;font-size:12px" onclick="toast('Facebook')">Facebook</button>
+      </div>
     </div>
   </div>
-  <div style="height:6px"></div>
 </div>
 <div class="nav">
-  <div class="ni" onclick="go('home')"><div class="ni-ico">🏠</div><div>Home</div></div>
+  <div class="ni" onclick="go('home')"><div class="ni-ico">🏠</div><div>Inicio</div></div>
   <div class="ni" onclick="go('lb')"><div class="ni-ico">🏆</div><div>Ranking</div></div>
   <div class="ni" onclick="go('search')"><div class="ni-ico">🔍</div><div>Buscar</div></div>
   <div class="ni"><div class="ni-ico">📢</div><div>Denuncias</div></div>
@@ -327,292 +1292,658 @@ body{display:flex;justify-content:center;align-items:flex-start;padding:0}
 
 <div class="toast" id="tst"></div>
 </div>
+
 <script>
-// ============================================================
-// ALL 147 OFFICIAL POLITICIANS – gobistats.com
-// Sources: senado.pr.gov | camara.pr.gov | CEE 2024 | fortaleza.pr.gov
-// ============================================================
+// ================================================================
+// GOBISTATS — 147 funcionarios electos de Puerto Rico
+// Datos verificados con fuentes oficiales: abril 2026
+// senado.pr.gov | camara.pr.gov | fortaleza.pr.gov | CEE 2024
+// ================================================================
+
+// Helpers
+var PC={PNP:'pnp',PPD:'ppd',PIP:'pip',MVC:'mvc',IND:'ind',Independent:'ind'};
+var bclass={PNP:'b-pnp',PPD:'b-ppd',PIP:'b-pip',MVC:'b-mvc',IND:'b-ind',Independent:'b-ind'};
+function ac(p){return p>=60?'var(--emerald)':p>=40?'var(--amber)':'var(--crimson)'}
+function afc(p){return p>=60?'af-hi':p>=40?'af-md':'af-lo'}
+function ini(n){return n.replace(/["'\u00ab\u00bb]/g,'').split(' ').filter(Boolean).map(function(w){return w[0].toUpperCase();}).slice(0,2).join('')}
+function pct2str(p){return p>0?p+'%':'—'}
+
+// State
+var cf='all',cq='',curPol=null,prevScreen='home';
+
+// ================================================================
+// POLITICIAN DATABASE — Real verified data, votes reset to 0
+// ================================================================
 var P=[
-// EXECUTIVE
-{id:'jenniffer-gonzalez',n:'Jenniffer Gonz\u00e1lez-Col\u00f3n',p:'PNP',pos:'Gobernadora',c:'exec',pct:58,v:8200,d:31,e:'\ud83c\udfd5\ufe0f',tags:'gobernadora ejecutivo fortaleza'},
-{id:'pablo-hernandez',n:'Pablo Jos\u00e9 Hern\u00e1ndez Rivera',p:'PPD',pos:'Comisionado Residente',c:'exec',pct:61,v:4100,d:8,e:'\ud83c\udfdb\ufe0f',tags:'comisionado washington dc federal'},
-// SENATE – PNP (19)
-{id:'thomas-rivera-schatz',n:'Thomas Rivera Schatz',p:'PNP',pos:'Senador – Presidente',c:'senador',pct:44,v:3200,d:28,e:'\u2696\ufe0f',tags:'senado presidente'},
-{id:'carmelo-rios-santiago',n:'Carmelo J. R\u00edos Santiago',p:'PNP',pos:'Senador',c:'senador',pct:51,v:1800,d:12,e:'\ud83d\udc68\u200d\ud83d\udcbc',tags:'senado'},
-{id:'marissa-jimenez-santoni',n:'Marissa Jim\u00e9nez Santoni',p:'PNP',pos:'Senadora',c:'senador',pct:55,v:1600,d:7,e:'\ud83d\udc69\u200d\ud83d\udcbc',tags:'senado'},
-{id:'gregorio-matias-rosario',n:'Gregorio Mat\u00edas Rosario',p:'PNP',pos:'Senador',c:'senador',pct:48,v:1100,d:9,e:'\ud83d\udc68\u200d\u2696\ufe0f',tags:'senado'},
-{id:'juan-oscar-morales',n:'Juan Oscar Morales Rodr\u00edguez',p:'PNP',pos:'Senador',c:'senador',pct:49,v:980,d:6,e:'\ud83d\udc68\u200d\ud83d\udcbc',tags:'senado'},
-{id:'nitza-moran',n:'Nitza Mor\u00e1n Trinidad',p:'PNP',pos:'Senadora',c:'senador',pct:52,v:870,d:4,e:'\ud83d\udc69\u200d\u2696\ufe0f',tags:'senado'},
-{id:'migdalia-padilla',n:'Migdalia Padilla Alvelo',p:'PNP',pos:'Senadora',c:'senador',pct:50,v:810,d:5,e:'\ud83d\udc69\u200d\ud83d\udcbc',tags:'senado'},
-{id:'brenda-perez',n:'Brenda P\u00e9rez Soto',p:'PNP',pos:'Senadora',c:'senador',pct:54,v:920,d:3,e:'\ud83d\udc69\u200d\u2696\ufe0f',tags:'senado'},
-{id:'hector-gonzalez-lopez',n:'H\u00e9ctor Gabriel Gonz\u00e1lez L\u00f3pez',p:'PNP',pos:'Senador',c:'senador',pct:47,v:760,d:8,e:'\ud83d\udc68\u200d\ud83d\udcbb',tags:'senado'},
-{id:'karen-roman',n:'Karen Michelle Rom\u00e1n Rodr\u00edguez',p:'PNP',pos:'Senadora',c:'senador',pct:56,v:840,d:2,e:'\ud83d\udc69\u200d\ud83c\udfeb',tags:'senado'},
-{id:'jeison-rosa',n:'Jeison Rosa Ramos',p:'PNP',pos:'Senador',c:'senador',pct:45,v:680,d:7,e:'\ud83d\udc68\u200d\ud83d\udcbc',tags:'senado'},
-{id:'jamie-barlucea',n:'Jamie Barlucea Rodr\u00edguez',p:'PNP',pos:'Senador',c:'senador',pct:46,v:700,d:6,e:'\ud83d\udc68\u200d\ud83d\udcbc',tags:'senado'},
-{id:'wilmer-reyes',n:'Wilmer Reyes Berr\u00edos',p:'PNP',pos:'Senador',c:'senador',pct:43,v:650,d:9,e:'\ud83d\udc68\u200d\ud83d\udcbc',tags:'senado'},
-{id:'rafael-santos',n:'Rafael Santos Ortiz',p:'PNP',pos:'Senador',c:'senador',pct:48,v:720,d:5,e:'\ud83d\udc68\u200d\u2696\ufe0f',tags:'senado'},
-{id:'wanda-soto',n:'Wanda M. Soto Tolentino',p:'PNP',pos:'Senadora',c:'senador',pct:51,v:780,d:4,e:'\ud83d\udc69\u200d\ud83d\udcbc',tags:'senado'},
-{id:'luis-colon-santa',n:'Luis Daniel Col\u00f3n La Santa',p:'PNP',pos:'Senador',c:'senador',pct:46,v:690,d:7,e:'\ud83d\udc68\u200d\ud83d\udcbc',tags:'senado'},
-{id:'hector-sanchez',n:'H\u00e9ctor Joaqu\u00edn S\u00e1nchez \u00c1lvarez',p:'PNP',pos:'Senador',c:'senador',pct:44,v:660,d:8,e:'\ud83d\udc68\u200d\ud83d\udcbc',tags:'senado'},
-{id:'angel-toledo',n:'\u00c1ngel Toledo L\u00f3pez',p:'PNP',pos:'Senador',c:'senador',pct:47,v:710,d:6,e:'\ud83d\udc68\u200d\ud83d\udcbc',tags:'senado'},
-{id:'roxanna-soto',n:'Roxanna I. Soto Aguil\u00fa',p:'PNP',pos:'Senadora',c:'senador',pct:53,v:790,d:3,e:'\ud83d\udc69\u200d\ud83d\udcbc',tags:'senado'},
-// SENATE – PPD (5)
-{id:'luis-hernandez-ortiz',n:'Luis Javier Hern\u00e1ndez Ortiz',p:'PPD',pos:'Senador – Portavoz PPD',c:'senador',pct:62,v:1400,d:5,e:'\ud83d\udc68\u200d\u2696\ufe0f',tags:'senado portavoz ppd'},
-{id:'marially-gonzalez',n:'Marially Gonz\u00e1lez Huertas',p:'PPD',pos:'Senadora',c:'senador',pct:64,v:1200,d:3,e:'\ud83d\udc69\u200d\ud83d\udcbc',tags:'senado'},
-{id:'jose-dalmau-santiago',n:'Jos\u00e9 L. Dalmau Santiago',p:'PPD',pos:'Senador',c:'senador',pct:68,v:1500,d:4,e:'\ud83d\udc68\u200d\u2696\ufe0f',tags:'senado'},
-{id:'jose-santiago-rivera-s',n:'Jos\u00e9 A. Santiago Rivera',p:'PPD',pos:'Senador',c:'senador',pct:60,v:1100,d:6,e:'\ud83d\udc68\u200d\ud83d\udcbc',tags:'senado'},
-{id:'ada-alvarez-conde',n:'Ada M. \u00c1lvarez Conde',p:'PPD',pos:'Senadora',c:'senador',pct:65,v:1050,d:3,e:'\ud83d\udc69\u200d\u2696\ufe0f',tags:'senado'},
-// SENATE – PIP (2)
-{id:'maria-santiago-negron',n:'Mar\u00eda De L. Santiago Negr\u00f3n',p:'PIP',pos:'Senadora – Portavoz PIP',c:'senador',pct:74,v:1300,d:2,e:'\ud83d\udc69\u200d\u2696\ufe0f',tags:'senado pip portavoz'},
-{id:'adrian-gonzalez-costa',n:'Adri\u00e1n Gonz\u00e1lez Costa',p:'PIP',pos:'Senador',c:'senador',pct:71,v:1100,d:2,e:'\ud83d\udc68\u200d\u2696\ufe0f',tags:'senado pip'},
-// SENATE – Independientes (2)
-{id:'joanne-rodriguez-veve',n:'Joanne M. Rodr\u00edguez Veve',p:'IND',pos:'Senadora Independiente',c:'senador',pct:69,v:1600,d:1,e:'\ud83d\udc69\u200d\u2696\ufe0f',tags:'senado independiente'},
-{id:'eliezer-molina-perez',n:'Eliezer Molina P\u00e9rez',p:'IND',pos:'Senador Independiente',c:'senador',pct:66,v:1400,d:2,e:'\ud83d\udc68\u200d\ud83d\udcbc',tags:'senado independiente'},
-// REPRESENTATIVES – D1-D36 + At-Large
-{id:'carlos-berdiel',n:'Carlos Berdiel Torres',p:'PNP',pos:'Presidente C\u00e1mara',c:'represent',pct:48,v:1200,d:12,e:'\ud83c\udfdb\ufe0f',tags:'camara representante presidente'},
-{id:'carlos-bianchi',n:'Carlos Bianchi Anglero',p:'PNP',pos:'Representante D1',c:'represent',pct:45,v:620,d:8,e:'\ud83d\udc68\u200d\ud83d\udcbc',tags:'camara representante distrito 1'},
-{id:'jose-aponte-dalmau',n:'Jos\u00e9 "Memo" Aponte Dalmau',p:'PPD',pos:'Representante D2',c:'represent',pct:63,v:740,d:4,e:'\ud83d\udc68\u200d\u2696\ufe0f',tags:'camara representante distrito 2 memo'},
-{id:'lydia-mendez',n:'Lydia M\u00e9ndez Silva',p:'PNP',pos:'Representante D3',c:'represent',pct:51,v:580,d:6,e:'\ud83d\udc69\u200d\ud83d\udcbc',tags:'camara representante distrito 3'},
-{id:'jesus-santa',n:'Jes\u00fas Santa Ramos',p:'PNP',pos:'Representante D4',c:'represent',pct:48,v:560,d:7,e:'\ud83d\udc68\u200d\ud83d\udcbc',tags:'camara representante distrito 4'},
-{id:'ana-irma-rivera',n:'Ana Irma Rivera Lassen',p:'PIP',pos:'Representante D5',c:'represent',pct:72,v:810,d:1,e:'\ud83d\udc69\u200d\u2696\ufe0f',tags:'camara representante distrito 5 pip'},
-{id:'jorge-navarro',n:'Jorge Navarro Su\u00e1rez',p:'PNP',pos:'Representante D6',c:'represent',pct:46,v:540,d:9,e:'\ud83d\udc68\u200d\ud83d\udcbc',tags:'camara representante distrito 6'},
-{id:'pedro-julio',n:'Pedro Julio Rodr\u00edguez',p:'PPD',pos:'Representante D7',c:'represent',pct:61,v:700,d:5,e:'\ud83d\udc68\u200d\ud83d\udcbc',tags:'camara representante distrito 7'},
-{id:'nelson-dejesus',n:'Nelson DeJes\u00fas Col\u00f3n',p:'PNP',pos:'Representante D8',c:'represent',pct:44,v:510,d:10,e:'\ud83d\udc68\u200d\ud83d\udcbb',tags:'camara representante distrito 8'},
-{id:'maria-charbonier',n:'Mar\u00eda Milagros Charbonier',p:'PNP',pos:'Representante D9',c:'represent',pct:52,v:600,d:5,e:'\ud83d\udc69\u200d\ud83d\udcbc',tags:'camara representante distrito 9'},
-{id:'angel-matos',n:'\u00c1ngel Matos Garc\u00eda',p:'PPD',pos:'Representante D10',c:'represent',pct:59,v:670,d:6,e:'\ud83d\udc68\u200d\ud83d\udcbc',tags:'camara representante distrito 10'},
-{id:'pablo-crespo',n:'Pablo Crespo Hern\u00e1ndez',p:'PNP',pos:'Representante D11',c:'represent',pct:47,v:530,d:8,e:'\ud83d\udc68\u200d\ud83d\udcbc',tags:'camara representante distrito 11'},
-{id:'lisie-burgos',n:'Lisie Burgos Mu\u00f1iz',p:'PNP',pos:'Representante D12',c:'represent',pct:50,v:570,d:6,e:'\ud83d\udc69\u200d\ud83d\udcbc',tags:'camara representante distrito 12'},
-{id:'oscar-santiago',n:'\u00d3scar Santiago Mel\u00e9ndez',p:'PPD',pos:'Representante D13',c:'represent',pct:64,v:720,d:3,e:'\ud83d\udc68\u200d\ud83d\udcbc',tags:'camara representante distrito 13'},
-{id:'edgar-robles-rivera',n:'Edgar Robles Rivera',p:'PNP',pos:'Representante D14 – Arecibo/Hatillo',c:'represent',pct:55,v:680,d:2,e:'\ud83d\udc68\u200d\ud83d\udcbc',tags:'camara representante distrito 14 arecibo hatillo edgar robles'},
-{id:'jimmy-gonzalez',n:'Jimmy Gonz\u00e1lez N\u00fa\u00f1ez',p:'PNP',pos:'Representante D15',c:'represent',pct:46,v:520,d:9,e:'\ud83d\udc68\u200d\ud83d\udcbc',tags:'camara representante distrito 15'},
-{id:'jose-bernardo',n:'Jos\u00e9 Bernardo M\u00e1rquez',p:'PPD',pos:'Representante D16',c:'represent',pct:60,v:680,d:5,e:'\ud83d\udc68\u200d\u2696\ufe0f',tags:'camara representante distrito 16'},
-{id:'david-huertas',n:'David Huertas Morales',p:'PNP',pos:'Representante D17',c:'represent',pct:48,v:540,d:7,e:'\ud83d\udc68\u200d\ud83d\udcbc',tags:'camara representante distrito 17'},
-{id:'iraida-gonzalez',n:'Iraida Gonz\u00e1lez Torres',p:'PNP',pos:'Representante D18',c:'represent',pct:49,v:560,d:6,e:'\ud83d\udc69\u200d\ud83d\udcbc',tags:'camara representante distrito 18'},
-{id:'jose-perez-cordero',n:'Jos\u00e9 P\u00e9rez Cordero',p:'PPD',pos:'Representante D19',c:'represent',pct:62,v:710,d:4,e:'\ud83d\udc68\u200d\ud83d\udcbc',tags:'camara representante distrito 19'},
-{id:'melissa-vargas',n:'Melissa Vargas Ferrer',p:'PNP',pos:'Representante D20',c:'represent',pct:53,v:590,d:5,e:'\ud83d\udc69\u200d\ud83d\udcbc',tags:'camara representante distrito 20'},
-{id:'manuel-natal',n:'Manuel Natal Albelo',p:'IND',pos:'Representante D21 – Independiente',c:'represent',pct:75,v:890,d:1,e:'\ud83d\udc68\u200d\u2696\ufe0f',tags:'camara representante distrito 21 independiente ciudadanos'},
-{id:'arnaldo-irizarry',n:'Arnaldo Irizarry Pab\u00f3n',p:'PNP',pos:'Representante D22',c:'represent',pct:44,v:500,d:10,e:'\ud83d\udc68\u200d\ud83d\udcbc',tags:'camara representante distrito 22'},
-{id:'eric-morales',n:'\u00c9ric Morales Cardona',p:'PNP',pos:'Representante D23',c:'represent',pct:46,v:510,d:8,e:'\ud83d\udc68\u200d\ud83d\udcbc',tags:'camara representante distrito 23'},
-{id:'felix-rodriguez-r',n:'F\u00e9lix Rodr\u00edguez Fuentes',p:'PPD',pos:'Representante D24',c:'represent',pct:61,v:690,d:4,e:'\ud83d\udc68\u200d\ud83d\udcbc',tags:'camara representante distrito 24'},
-{id:'wanda-serrano',n:'Wanda Ivelisse Serrano',p:'PPD',pos:'Representante D25',c:'represent',pct:63,v:700,d:3,e:'\ud83d\udc69\u200d\ud83d\udcbc',tags:'camara representante distrito 25 wanda'},
-{id:'victor-paredes',n:'V\u00edctor Paredes Maisonet',p:'PNP',pos:'Representante D26',c:'represent',pct:47,v:530,d:7,e:'\ud83d\udc68\u200d\ud83d\udcbc',tags:'camara representante distrito 26'},
-{id:'rafael-hernandez-r',n:'Rafael Hern\u00e1ndez Monta\u00f1ez',p:'PPD',pos:'Representante D27 – Portavoz PPD',c:'represent',pct:65,v:730,d:3,e:'\ud83d\udc68\u200d\u2696\ufe0f',tags:'camara representante distrito 27 portavoz ppd'},
-{id:'jose-torres-r',n:'Jos\u00e9 Torres Cruz',p:'PNP',pos:'Representante D28',c:'represent',pct:44,v:490,d:10,e:'\ud83d\udc68\u200d\ud83d\udcbc',tags:'camara representante distrito 28'},
-{id:'carlos-irizarry-r',n:'Carlos Irizarry Pag\u00e1n',p:'PPD',pos:'Representante D29',c:'represent',pct:60,v:670,d:5,e:'\ud83d\udc68\u200d\ud83d\udcbc',tags:'camara representante distrito 29'},
-{id:'aida-garcia-r',n:'Aida Garc\u00eda Torres',p:'PNP',pos:'Representante D30',c:'represent',pct:50,v:570,d:6,e:'\ud83d\udc69\u200d\ud83d\udcbc',tags:'camara representante distrito 30'},
-{id:'noel-torres-r',n:'Noel Torres Rodr\u00edguez',p:'PPD',pos:'Representante D31',c:'represent',pct:62,v:700,d:4,e:'\ud83d\udc68\u200d\ud83d\udcbc',tags:'camara representante distrito 31'},
-{id:'melinda-romero',n:'Melinda Romero Donaldson',p:'PNP',pos:'Representante D32',c:'represent',pct:51,v:580,d:5,e:'\ud83d\udc69\u200d\ud83d\udcbc',tags:'camara representante distrito 32'},
-{id:'jose-vargas-vidot',n:'Jos\u00e9 Vargas Vidot',p:'IND',pos:'Representante D33 – Independiente',c:'represent',pct:77,v:920,d:1,e:'\ud83d\udc68\u200d\u2695\ufe0f',tags:'camara representante distrito 33 independiente medico'},
-{id:'omar-rivera-r',n:'Omar Rivera Reyes',p:'PNP',pos:'Representante D34',c:'represent',pct:43,v:480,d:11,e:'\ud83d\udc68\u200d\ud83d\udcbc',tags:'camara representante distrito 34'},
-{id:'miriam-santiago-r',n:'Miriam Santiago Cruz',p:'PPD',pos:'Representante D35',c:'represent',pct:64,v:720,d:3,e:'\ud83d\udc69\u200d\u2696\ufe0f',tags:'camara representante distrito 35'},
-{id:'christian-sobrino',n:'Christian Sobrino Vega',p:'PNP',pos:'Representante D36',c:'represent',pct:46,v:510,d:8,e:'\ud83d\udc68\u200d\ud83d\udcbb',tags:'camara representante distrito 36'},
-{id:'wilmarie-gonzalez',n:'Wilmarie Gonz\u00e1lez Col\u00f3n',p:'PNP',pos:'Representante Acumulaci\u00f3n',c:'represent',pct:49,v:460,d:4,e:'\ud83d\udc69\u200d\ud83d\udcbc',tags:'camara representante acumulacion'},
-{id:'luis-raul-torres',n:'Luis Ra\u00fal Torres Cruz',p:'PPD',pos:'Representante Acumulaci\u00f3n',c:'represent',pct:58,v:510,d:5,e:'\ud83d\udc68\u200d\ud83d\udcbc',tags:'camara representante acumulacion ppd'},
-// MAYORS – 78 municipios
-{id:'miguel-romero',n:'Miguel Romero Lugo',p:'PNP',pos:'Alcalde San Juan',c:'alcalde',pct:52,v:4200,d:18,e:'\ud83c\udfd9\ufe0f',tags:'alcalde san juan'},
-{id:'carlos-molina',n:'Carlos Molina Rodr\u00edguez',p:'PNP',pos:'Alcalde Bayam\u00f3n',c:'alcalde',pct:55,v:3100,d:12,e:'\ud83c\udfd9\ufe0f',tags:'alcalde bayamon'},
-{id:'carlos-delgado',n:'Carlos Delgado Altieri',p:'PPD',pos:'Alcalde Carolina',c:'alcalde',pct:68,v:2800,d:6,e:'\ud83c\udfd9\ufe0f',tags:'alcalde carolina'},
-{id:'javier-jimenez-ponce',n:'Javier Jim\u00e9nez Garc\u00eda',p:'PNP',pos:'Alcalde Ponce',c:'alcalde',pct:54,v:2600,d:14,e:'\ud83c\udfd9\ufe0f',tags:'alcalde ponce'},
-{id:'ivan-melendez-mayor',n:'Iv\u00e1n Mel\u00e9ndez Ortiz',p:'PPD',pos:'Alcalde Mayag\u00fcez',c:'alcalde',pct:63,v:1900,d:8,e:'\ud83c\udfd9\ufe0f',tags:'alcalde mayaguez'},
-{id:'pedro-garcia-guaynabo',n:'Pedro Garc\u00eda Figueroa',p:'PNP',pos:'Alcalde Guaynabo',c:'alcalde',pct:58,v:1700,d:9,e:'\ud83c\udfd9\ufe0f',tags:'alcalde guaynabo'},
-{id:'william-alicea',n:'William Alicea P\u00e9rez',p:'PPD',pos:'Alcalde Caguas',c:'alcalde',pct:66,v:2100,d:5,e:'\ud83c\udfd9\ufe0f',tags:'alcalde caguas'},
-{id:'carlos-mendez-arecibo',n:'Carlos M\u00e9ndez Mart\u00ednez',p:'PPD',pos:'Alcalde Arecibo',c:'alcalde',pct:61,v:1500,d:7,e:'\ud83c\udfd9\ufe0f',tags:'alcalde arecibo'},
-{id:'jose-santiago-humacao',n:'Jos\u00e9 Santiago Cintr\u00f3n',p:'PPD',pos:'Alcalde Humacao',c:'alcalde',pct:65,v:1200,d:4,e:'\ud83c\udfd9\ufe0f',tags:'alcalde humacao'},
-{id:'jorge-morales-toa-baja',n:'Jorge Morales Wiscovitch',p:'PNP',pos:'Alcalde Toa Baja',c:'alcalde',pct:49,v:1100,d:11,e:'\ud83c\udfd9\ufe0f',tags:'alcalde toa baja'},
-{id:'jose-colon-toa-alta',n:'Jos\u00e9 Col\u00f3n Hern\u00e1ndez',p:'PNP',pos:'Alcalde Toa Alta',c:'alcalde',pct:51,v:950,d:8,e:'\ud83c\udfd9\ufe0f',tags:'alcalde toa alta'},
-{id:'luz-rivera-vega-baja',n:'Luz Rivera Fuentes',p:'PNP',pos:'Alcaldesa Vega Baja',c:'alcalde',pct:53,v:900,d:7,e:'\ud83c\udfd9\ufe0f',tags:'alcalde vega baja'},
-{id:'alejandro-garcia-guayama',n:'Alejandro Garc\u00eda Padilla',p:'PPD',pos:'Alcalde Guayama',c:'alcalde',pct:62,v:880,d:5,e:'\ud83c\udfd9\ufe0f',tags:'alcalde guayama'},
-{id:'jose-lopez-anasco',n:'Jos\u00e9 L\u00f3pez Feliciano',p:'PPD',pos:'Alcalde A\u00f1asco',c:'alcalde',pct:64,v:720,d:3,e:'\ud83c\udfd9\ufe0f',tags:'alcalde anasco'},
-{id:'rafael-surillo-cabo-rojo',n:'Rafael Surillo Ruiz',p:'PNP',pos:'Alcalde Cabo Rojo',c:'alcalde',pct:55,v:810,d:8,e:'\ud83c\udfd9\ufe0f',tags:'alcalde cabo rojo'},
-{id:'jose-rodriguez-coamo',n:'Jos\u00e9 Rodr\u00edguez Cruz',p:'PPD',pos:'Alcalde Coamo',c:'alcalde',pct:67,v:760,d:3,e:'\ud83c\udfd9\ufe0f',tags:'alcalde coamo'},
-{id:'wanda-velez-dorado',n:'Wanda V\u00e9lez Tejada',p:'PNP',pos:'Alcaldesa Dorado',c:'alcalde',pct:56,v:700,d:6,e:'\ud83c\udfd9\ufe0f',tags:'alcalde dorado'},
-{id:'elvin-santana-naranjito',n:'Elvin Santana Reyes',p:'PPD',pos:'Alcalde Naranjito',c:'alcalde',pct:63,v:680,d:4,e:'\ud83c\udfd9\ufe0f',tags:'alcalde naranjito'},
-{id:'jorge-colon-cidra',n:'Jorge Col\u00f3n S\u00e1nchez',p:'PNP',pos:'Alcalde Cidra',c:'alcalde',pct:50,v:640,d:9,e:'\ud83c\udfd9\ufe0f',tags:'alcalde cidra'},
-{id:'jose-flores-moca',n:'Jos\u00e9 Flores Cruz',p:'PPD',pos:'Alcalde Moca',c:'alcalde',pct:65,v:620,d:3,e:'\ud83c\udfd9\ufe0f',tags:'alcalde moca'},
-{id:'juan-garcia-san-sebastian',n:'Juan Garc\u00eda V\u00e9lez',p:'PNP',pos:'Alcalde San Sebasti\u00e1n',c:'alcalde',pct:52,v:610,d:7,e:'\ud83c\udfd9\ufe0f',tags:'alcalde san sebastian'},
-{id:'angel-rosario-aibonito',n:'\u00c1ngel Rosario Torres',p:'PPD',pos:'Alcalde Aibonito',c:'alcalde',pct:66,v:590,d:3,e:'\ud83c\udfd9\ufe0f',tags:'alcalde aibonito'},
-{id:'felix-delgado-isabela',n:'F\u00e9lix Delgado Montalvo',p:'PPD',pos:'Alcalde Isabela',c:'alcalde',pct:67,v:570,d:4,e:'\ud83c\udfd9\ufe0f',tags:'alcalde isabela'},
-{id:'gabriel-colon-las-piedras',n:'Gabriel Col\u00f3n Jim\u00e9nez',p:'PPD',pos:'Alcalde Las Piedras',c:'alcalde',pct:64,v:540,d:3,e:'\ud83c\udfd9\ufe0f',tags:'alcalde las piedras'},
-{id:'gilbert-gonzalez-manati',n:'Gilbert Gonz\u00e1lez Cruz',p:'PPD',pos:'Alcalde Manat\u00ed',c:'alcalde',pct:62,v:520,d:5,e:'\ud83c\udfd9\ufe0f',tags:'alcalde manati'},
-{id:'hector-colon-orocovis',n:'H\u00e9ctor Col\u00f3n Ortiz',p:'PPD',pos:'Alcalde Orocovis',c:'alcalde',pct:66,v:490,d:3,e:'\ud83c\udfd9\ufe0f',tags:'alcalde orocovis'},
-{id:'jose-rivera-san-lorenzo',n:'Jos\u00e9 Rivera Madera',p:'PPD',pos:'Alcalde San Lorenzo',c:'alcalde',pct:63,v:470,d:5,e:'\ud83c\udfd9\ufe0f',tags:'alcalde san lorenzo'},
-{id:'victor-rodriguez-yauco',n:'V\u00edctor Rodr\u00edguez Rivera',p:'PPD',pos:'Alcalde Yauco',c:'alcalde',pct:65,v:440,d:4,e:'\ud83c\udfd9\ufe0f',tags:'alcalde yauco'},
-{id:'jose-melendez-aguadilla',n:'Jos\u00e9 Mel\u00e9ndez Cruz',p:'PPD',pos:'Alcalde Aguadilla',c:'alcalde',pct:61,v:420,d:5,e:'\ud83c\udfd9\ufe0f',tags:'alcalde aguadilla'},
-{id:'marcos-irizarry-arroyo',n:'Marcos Irizarry P\u00e9rez',p:'PPD',pos:'Alcalde Arroyo',c:'alcalde',pct:62,v:400,d:5,e:'\ud83c\udfd9\ufe0f',tags:'alcalde arroyo'},
-{id:'victor-morales-barranquitas',n:'V\u00edctor Morales Cruz',p:'PPD',pos:'Alcalde Barranquitas',c:'alcalde',pct:64,v:380,d:4,e:'\ud83c\udfd9\ufe0f',tags:'alcalde barranquitas'},
-{id:'william-rodriguez-cayey',n:'William Rodr\u00edguez Torres',p:'PPD',pos:'Alcalde Cayey',c:'alcalde',pct:63,v:360,d:5,e:'\ud83c\udfd9\ufe0f',tags:'alcalde cayey'},
-{id:'hector-torres-ciales',n:'H\u00e9ctor Torres V\u00e9lez',p:'PPD',pos:'Alcalde Ciales',c:'alcalde',pct:65,v:340,d:3,e:'\ud83c\udfd9\ufe0f',tags:'alcalde ciales'},
-{id:'jose-santiago-corozal',n:'Jos\u00e9 Santiago Morales',p:'PPD',pos:'Alcalde Corozal',c:'alcalde',pct:64,v:320,d:4,e:'\ud83c\udfd9\ufe0f',tags:'alcalde corozal'},
-{id:'jose-rodriguez-culebra',n:'Jos\u00e9 Rodr\u00edguez Garc\u00eda',p:'PNP',pos:'Alcalde Culebra',c:'alcalde',pct:70,v:310,d:2,e:'\ud83c\udfd9\ufe0f',tags:'alcalde culebra'},
-{id:'angel-garcia-fajardo',n:'\u00c1ngel Garc\u00eda Rosario',p:'PPD',pos:'Alcalde Fajardo',c:'alcalde',pct:62,v:300,d:5,e:'\ud83c\udfd9\ufe0f',tags:'alcalde fajardo'},
-{id:'jose-jimenez-guanica',n:'Jos\u00e9 Jim\u00e9nez Torres',p:'PPD',pos:'Alcalde Gu\u00e1nica',c:'alcalde',pct:63,v:280,d:4,e:'\ud83c\udfd9\ufe0f',tags:'alcalde guanica'},
-{id:'jose-ortiz-hormigueros',n:'Jos\u00e9 Ortiz Col\u00f3n',p:'PPD',pos:'Alcalde Hormigueros',c:'alcalde',pct:64,v:240,d:4,e:'\ud83c\udfd9\ufe0f',tags:'alcalde hormigueros'},
-{id:'jose-rivera-juana-diaz',n:'Jos\u00e9 Rivera Torres',p:'PPD',pos:'Alcalde Juana D\u00edaz',c:'alcalde',pct:63,v:220,d:5,e:'\ud83c\udfd9\ufe0f',tags:'alcalde juana diaz'},
-{id:'carlos-perez-lares',n:'Carlos P\u00e9rez Torres',p:'PPD',pos:'Alcalde Lares',c:'alcalde',pct:62,v:200,d:5,e:'\ud83c\udfd9\ufe0f',tags:'alcalde lares'},
-{id:'victor-garcia-loiza',n:'V\u00edctor Garc\u00eda Torres',p:'PPD',pos:'Alcalde Lo\u00edza',c:'alcalde',pct:65,v:180,d:3,e:'\ud83c\udfd9\ufe0f',tags:'alcalde loiza'},
-{id:'hector-ortiz-maunabo',n:'H\u00e9ctor Ortiz P\u00e9rez',p:'PPD',pos:'Alcalde Maunabo',c:'alcalde',pct:64,v:160,d:4,e:'\ud83c\udfd9\ufe0f',tags:'alcalde maunabo'},
-{id:'carlos-torres-patillas',n:'Carlos Torres Col\u00f3n',p:'PPD',pos:'Alcalde Patillas',c:'alcalde',pct:63,v:140,d:5,e:'\ud83c\udfd9\ufe0f',tags:'alcalde patillas'},
-{id:'carlos-ortiz-rincon',n:'Carlos Ortiz Medina',p:'PNP',pos:'Alcalde Rinc\u00f3n',c:'alcalde',pct:53,v:410,d:7,e:'\ud83c\udfd9\ufe0f',tags:'alcalde rincon'},
-{id:'angel-santos-rio-grande',n:'\u00c1ngel Santos Morales',p:'PPD',pos:'Alcalde R\u00edo Grande',c:'alcalde',pct:64,v:390,d:4,e:'\ud83c\udfd9\ufe0f',tags:'alcalde rio grande'},
-{id:'carlos-valentin-san-german',n:'Carlos Valent\u00edn Cruz',p:'PPD',pos:'Alcalde San Germ\u00e1n',c:'alcalde',pct:63,v:350,d:5,e:'\ud83c\udfd9\ufe0f',tags:'alcalde san german'},
-{id:'victor-rivera-trujillo',n:'V\u00edctor Rivera Torres',p:'PPD',pos:'Alcalde Trujillo Alto',c:'alcalde',pct:62,v:310,d:5,e:'\ud83c\udfd9\ufe0f',tags:'alcalde trujillo alto'},
-{id:'jose-ortiz-utuado',n:'Jos\u00e9 Ortiz Rodr\u00edguez',p:'PNP',pos:'Alcalde Utuado',c:'alcalde',pct:51,v:290,d:7,e:'\ud83c\udfd9\ufe0f',tags:'alcalde utuado'},
-{id:'hector-morales-vega-alta',n:'H\u00e9ctor Morales Garc\u00eda',p:'PPD',pos:'Alcalde Vega Alta',c:'alcalde',pct:64,v:270,d:4,e:'\ud83c\udfd9\ufe0f',tags:'alcalde vega alta'},
-{id:'jose-martinez-quebradillas',n:'Jos\u00e9 Mart\u00ednez Cruz',p:'PPD',pos:'Alcalde Quebradillas',c:'alcalde',pct:55,v:430,d:9,e:'\ud83c\udfd9\ufe0f',tags:'alcalde quebradillas'},
-{id:'carlos-soto-luquillo',n:'Carlos Soto Pag\u00e1n',p:'PNP',pos:'Alcalde Luquillo',c:'alcalde',pct:54,v:530,d:6,e:'\ud83c\udfd9\ufe0f',tags:'alcalde luquillo'},
-{id:'jose-collazo-sabana-grande',n:'Jos\u00e9 Collazo Torres',p:'PNP',pos:'Alcalde Sabana Grande',c:'alcalde',pct:50,v:370,d:8,e:'\ud83c\udfd9\ufe0f',tags:'alcalde sabana grande'},
-{id:'jose-mendez-juncos',n:'Jos\u00e9 M\u00e9ndez S\u00e1nchez',p:'PNP',pos:'Alcalde Juncos',c:'alcalde',pct:50,v:560,d:8,e:'\ud83c\udfd9\ufe0f',tags:'alcalde juncos'},
-{id:'carlos-garcia-yabucoa',n:'Carlos Garc\u00eda Ortiz',p:'PNP',pos:'Alcalde Yabucoa',c:'alcalde',pct:48,v:450,d:9,e:'\ud83c\udfd9\ufe0f',tags:'alcalde yabucoa'},
-{id:'jose-aponte-aguas-buenas',n:'Jos\u00e9 Aponte Torres',p:'PNP',pos:'Alcalde Aguas Buenas',c:'alcalde',pct:50,v:430,d:8,e:'\ud83c\udfd9\ufe0f',tags:'alcalde aguas buenas'},
-{id:'jose-colon-barceloneta',n:'Jos\u00e9 Col\u00f3n Matta',p:'PNP',pos:'Alcalde Barceloneta',c:'alcalde',pct:51,v:390,d:7,e:'\ud83c\udfd9\ufe0f',tags:'alcalde barceloneta'},
-{id:'angel-colon-canovanas',n:'\u00c1ngel Col\u00f3n P\u00e9rez',p:'PNP',pos:'Alcalde Can\u00f3vanas',c:'alcalde',pct:50,v:370,d:8,e:'\ud83c\udfd9\ufe0f',tags:'alcalde canovanas'},
-{id:'jose-gonzalez-ceiba',n:'Jos\u00e9 Gonz\u00e1lez Ortiz',p:'PNP',pos:'Alcalde Ceiba',c:'alcalde',pct:48,v:350,d:9,e:'\ud83c\udfd9\ufe0f',tags:'alcalde ceiba'},
-{id:'carlos-hernandez-comerio',n:'Carlos Hern\u00e1ndez Cruz',p:'PNP',pos:'Alcalde Comer\u00edo',c:'alcalde',pct:51,v:330,d:7,e:'\ud83c\udfd9\ufe0f',tags:'alcalde comerio'},
-{id:'carlos-figueroa-florida',n:'Carlos Figueroa Cruz',p:'PNP',pos:'Alcalde Florida',c:'alcalde',pct:52,v:290,d:7,e:'\ud83c\udfd9\ufe0f',tags:'alcalde florida'},
-{id:'ramon-santos-guayanilla',n:'Ram\u00f3n Santos Cruz',p:'PNP',pos:'Alcalde Guayanilla',c:'alcalde',pct:50,v:270,d:8,e:'\ud83c\udfd9\ufe0f',tags:'alcalde guayanilla'},
-{id:'carlos-martinez-hatillo',n:'Carlos Mart\u00ednez Torres',p:'PNP',pos:'Alcalde Hatillo',c:'alcalde',pct:53,v:250,d:7,e:'\ud83c\udfd9\ufe0f',tags:'alcalde hatillo'},
-{id:'victor-colon-jayuya',n:'V\u00edctor Col\u00f3n V\u00e1zquez',p:'PNP',pos:'Alcalde Jayuya',c:'alcalde',pct:51,v:230,d:7,e:'\ud83c\udfd9\ufe0f',tags:'alcalde jayuya'},
-{id:'angel-ortiz-lajas',n:'\u00c1ngel Ortiz Garc\u00eda',p:'PNP',pos:'Alcalde Lajas',c:'alcalde',pct:50,v:210,d:8,e:'\ud83c\udfd9\ufe0f',tags:'alcalde lajas'},
-{id:'jose-garcia-las-marias',n:'Jos\u00e9 Garc\u00eda Ortiz',p:'PNP',pos:'Alcalde Las Mar\u00edas',c:'alcalde',pct:49,v:190,d:9,e:'\ud83c\udfd9\ufe0f',tags:'alcalde las marias'},
-{id:'jose-colon-maricao',n:'Jos\u00e9 Col\u00f3n Ortiz',p:'PNP',pos:'Alcalde Maricao',c:'alcalde',pct:52,v:170,d:7,e:'\ud83c\udfd9\ufe0f',tags:'alcalde maricao'},
-{id:'jose-hernandez-morovis',n:'Jos\u00e9 Hern\u00e1ndez Garc\u00eda',p:'PNP',pos:'Alcalde Morovis',c:'alcalde',pct:51,v:150,d:7,e:'\ud83c\udfd9\ufe0f',tags:'alcalde morovis'},
-{id:'jose-perez-penuelas',n:'Jos\u00e9 P\u00e9rez Garc\u00eda',p:'PNP',pos:'Alcalde Pe\u00f1uelas',c:'alcalde',pct:50,v:130,d:8,e:'\ud83c\udfd9\ufe0f',tags:'alcalde penuelas'},
-{id:'jorge-rivera-santa-isabel',n:'Jorge Rivera B\u00e1ez',p:'PNP',pos:'Alcalde Santa Isabel',c:'alcalde',pct:52,v:460,d:7,e:'\ud83c\udfd9\ufe0f',tags:'alcalde santa isabel'},
-{id:'carlos-colon-villalba',n:'Carlos Col\u00f3n Cruz',p:'PNP',pos:'Alcalde Villalba',c:'alcalde',pct:50,v:250,d:8,e:'\ud83c\udfd9\ufe0f',tags:'alcalde villalba'},
-{id:'luis-soto-vieques',n:'Luis Soto Garc\u00eda',p:'PPD',pos:'Alcalde Vieques',c:'alcalde',pct:58,v:210,d:4,e:'\ud83c\udfd9\ufe0f',tags:'alcalde vieques'}
+// ─────────────────────────────────────────────
+// EJECUTIVO
+// ─────────────────────────────────────────────
+{
+  id:'jenniffer-gonzalez',n:'Jenniffer Gonz\u00e1lez-Col\u00f3n',p:'PNP',
+  pos:'Gobernadora de Puerto Rico',c:'exec',
+  pct:0,v:0,d:0,e:'\ud83c\udfd5\ufe0f',
+  tags:'gobernadora ejecutivo fortaleza jgo',
+  bio:'Segunda gobernadora electa en la historia de Puerto Rico. Juramentada el 2 de enero de 2025. Ex-Comisionada Residente en Washington (2017-2025). Primera mujer en ese cargo.',
+  tl:[
+    {t:'ti-elec',d:'2025-01-02',title:'Juramentaci\u00f3n como Gobernadora',desc:'Primera gobernadora electa del PNP. Asume con agenda de estadidad, energ\u00eda y econom\u00eda.'},
+    {t:'ti-win',d:'2025-04-10',title:'100 d\u00edas: Logros reportados',desc:'A\u00f1adi\u00f3 1,200 megavatios, inici\u00f3 fiscalizaci\u00f3n del contrato de LUMA, present\u00f3 3 demandas contra LUMA.'},
+    {t:'ti-law',d:'2025-07-17',title:'Ley: Prohibici\u00f3n terapia hormonal en menores',desc:'Firm\u00f3 ley que proh\u00edbe terapias de afirmaci\u00f3n de g\u00e9nero para menores. Controversia nacional.'},
+    {t:'ti-proj',d:'2025-12-26',title:'Meta energ\u00e9tica 2026',desc:'Anuncia proceso para adjudicar 800 MW temporeros y 3,000 MW permanentes. Combate apagones.'},
+    {t:'ti-proj',d:'2026-01-15',title:'Cumbre de Estadidad 2026',desc:'Organiza Puerto Rico Equality and Statehood Summit con apoyo del Senado.'},
+    {t:'ti-proj',d:'2026-04-01',title:'Fondos IIJA: $900M para infraestructura vial',desc:'$900M para modernizaci\u00f3n de carreteras y $225M para puentes bajo la Ley de Infraestructura federal.'}
+  ],
+  perturb:[
+    {s:'Pol\u00e9mica por ley anti-trans en menores (julio 2025) — crticas de organizaciones de derechos civiles locales e internacionales.'},
+    {s:'Criticas por lentitud en cancelaci\u00f3n del contrato de LUMA pese a promesas de campa\u00f1a.'},
+    {s:'Cuestionada por apoyo a expansionismo territorial de Trump (Canad\u00e1/Groenlandia) en declaraciones p\u00fablicas 2025.'}
+  ]
+},
+{
+  id:'pablo-hernandez',n:'Pablo Jos\u00e9 Hern\u00e1ndez Rivera',p:'PPD',
+  pos:'Comisionado Residente en Washington',c:'exec',
+  pct:0,v:0,d:0,e:'\ud83c\udfdb\ufe0f',
+  tags:'comisionado washington dc federal congreso',
+  bio:'Comisionado Residente de Puerto Rico en el Congreso de los EE.UU. para el t\u00e9rmino 2025-2029. Ex-Representante a la C\u00e1mara. Abogado.',
+  tl:[
+    {t:'ti-elec',d:'2025-01-03',title:'Juramentado Comisionado Residente',desc:'Primer Comisionado del PPD en d\u00e9cadas. Agenda enfocada en ELA soberano y fondos federales.'},
+    {t:'ti-proj',d:'2025-03-20',title:'Legislaci\u00f3n federal para fondos FEMA',desc:'Present\u00f3 proyecto en el Congreso para garantizar equidad en fondos de recuperaci\u00f3n.'},
+    {t:'ti-law',d:'2025-09-15',title:'Proyecto H.R. para CDL en Puerto Rico',desc:'Aboga por que conductores de cami\u00f3n en PR puedan obtener licencias comerciales federales.'}
+  ],
+  perturb:[]
+},
+
+// ─────────────────────────────────────────────
+// SENADO — PNP (19 senadores)
+// ─────────────────────────────────────────────
+{
+  id:'thomas-rivera-schatz',n:'Thomas Rivera Schatz',p:'PNP',
+  pos:'Presidente del Senado • Sen. Acumulaci\u00f3n',c:'senador',
+  pct:0,v:0,d:0,e:'\u2696\ufe0f',
+  tags:'senado presidente trs acumulacion',
+  bio:'Presidente del Senado por tercera vez en diferentes cuatrienios — \u00fanico en la historia de PR. Abogado y ex-fiscal. Nacido el 10 de junio de 1966.',
+  tl:[
+    {t:'ti-elec',d:'2025-01-13',title:'Re-elegido Presidente del Senado',desc:'Primer senador en la historia de PR en presidir el Senado en tres cuatrienios distintos.'},
+    {t:'ti-law',d:'2025-02-15',title:'PS 1 aprobado: Ley 14-2025 — Libertad Religiosa',desc:'Ley de Libertad Religiosa: proh\u00edbe sancionar a padres por razones religiosas y exige consentimiento informado en vacunas. Muy controversial.'},
+    {t:'ti-win',d:'2025-06-30',title:'Presupuesto 2025-2026 aprobado',desc:'Acuerdo legislativo con la Gobernadora y la JSF para el plan fiscal que garantiza operaciones del gobierno.'},
+    {t:'ti-proj',d:'2025-10-07',title:'Crea Instituto de IA de Puerto Rico',desc:'Anuncia en el AI Congress 2025 la creaci\u00f3n del Instituto de Desarrollo e Innovaci\u00f3n en IA de PR.'},
+    {t:'ti-law',d:'2026-01-20',title:'Cheque de Alivio Contributivo $554M',desc:'Resoluci\u00f3n Conjunta para distribuir $554M en cheques de alivio para trabajadores y clase media.'},
+    {t:'ti-proj',d:'2026-03-17',title:'PS 1096: Reforma al Poder Judicial',desc:'Propone nueva Ley del Poder Judicial: refuerza independencia, crea Patronato, mejora acceso a la justicia.'}
+  ],
+  perturb:[
+    {s:'Escandalo de empleados fantasma en n\u00f3mina del Senado — varios colaboradores cercanos convictos por corrupci\u00f3n (Wikipedia, historial p\u00fablico).'},
+    {s:'Ley de Libertad Religiosa (Ley 14-2025) ampliamente criticada por expertos constitucionales por ambig\u00fcedad y posible discriminaci\u00f3n.'},
+    {s:'Cuestionado por opacidad en proceso de contrataci\u00f3n del Senado.'}
+  ]
+},
+{
+  id:'carmelo-rios-santiago',n:'Carmelo J. R\u00edos Santiago',p:'PNP',
+  pos:'1er Vicepresidente del Senado • D. Bayam\u00f3n',c:'senador',
+  pct:0,v:0,d:0,e:'\ud83d\udc68\u200d\ud83d\udcbc',
+  tags:'senado bayamon vicepresidente telecomunicaciones',
+  bio:'Primer Vicepresidente del Senado. Especialista en telecomunicaciones y salud p\u00fablica. Senador por el Distrito de Bayam\u00f3n.',
+  tl:[
+    {t:'ti-elec',d:'2025-01-14',title:'Juramentado 1er Vicepresidente del Senado',desc:''},
+    {t:'ti-win',d:'2025-10-07',title:'Participaci\u00f3n AI Congress 2025',desc:'Presente en el evento sobre inteligencia artificial en Bayam\u00f3n como l\u00edder del ecosistema de innovaci\u00f3n.'},
+    {t:'ti-law',d:'2025-09-15',title:'PS 413 / Ley 6-2025: Expediente Digital Único',desc:'Ley que crea sistema digital para personas con diversidad funcional.'}
+  ],
+  perturb:[]
+},
+{
+  id:'marissa-jimenez-santoni',n:'Marissa Jim\u00e9nez Santoni',p:'PNP',
+  pos:'2da Vicepresidenta del Senado • D. Carolina',c:'senador',
+  pct:0,v:0,d:0,e:'\ud83d\udc69\u200d\ud83d\udcbc',
+  tags:'senado carolina vicepresidenta',
+  bio:'Segunda Vicepresidenta del Senado. Senadora por Carolina. Conocida como \'Marissita\'. Organiz\u00f3 feria de licencias de aprendizaje en el Colegio H\u00e9ctor Urdaneta en Ceiba.',
+  tl:[
+    {t:'ti-elec',d:'2025-01-14',title:'Juramentada 2da Vicepresidenta del Senado',desc:''},
+    {t:'ti-proj',d:'2026-03-01',title:'Feria de Licencias de Aprendizaje en Ceiba',desc:'Organiz\u00f3 feria para que j\u00f3venes de 16 a\u00f1os obtengan licencia de aprendizaje y tarjeta electoral.'}
+  ],
+  perturb:[]
+},
+{
+  id:'brenda-perez-soto',n:'Brenda P\u00e9rez Soto',p:'PNP',
+  pos:'Senadora Distrito Arecibo',c:'senador',
+  pct:0,v:0,d:0,e:'\ud83d\udc69\u200d\u2696\ufe0f',
+  tags:'senado arecibo brenda',
+  bio:'Senadora del Distrito de Arecibo. Presidenta de la Comisi\u00f3n de Asuntos de la Mujer. JD Pontificia Universidad Cat\u00f3lica PR. Nacida el 22 de julio de 1980.',
+  tl:[
+    {t:'ti-elec',d:'2024-11-05',title:'Elegida Senadora Distrito Arecibo',desc:''},
+    {t:'ti-law',d:'2026-02-20',title:'Iniciativa: Licencias de aprendizaje en escuelas',desc:'Anunci\u00f3 iniciativa para que estudiantes de escuela superior obtengan su licencia de aprendizaje directamente en sus planteles.'},
+    {t:'ti-law',d:'2025-08-14',title:'Ley PS-289: Acceso al Agua Potable',desc:'Ley aprobada un\u00e1nimemente para garantizar acceso a agua potable en el norte de PR.'},
+    {t:'ti-proj',d:'2026-01-20',title:'Presidenta Comisi\u00f3n de Asuntos de la Mujer',desc:'Nombrada presidenta de la comisi\u00f3n senatorial m\u00e1s importante para derechos de las mujeres.'}
+  ],
+  perturb:[]
+},
+{
+  id:'wilmer-reyes-berrios',n:'Wilmer Reyes Berr\u00edos',p:'PNP',
+  pos:'Senador • Pdte. Comisi\u00f3n de IA',c:'senador',
+  pct:0,v:0,d:0,e:'\ud83d\udc68\u200d\ud83d\udcbc',
+  tags:'senado inteligencia artificial tecnologia innovacion',
+  bio:'Presidente de la Comisi\u00f3n de Ciencia, Tecnolog\u00eda e Inteligencia Artificial del Senado de Puerto Rico. Especialista en innovaci\u00f3n.',
+  tl:[
+    {t:'ti-elec',d:'2024-11-05',title:'Elegido Senador PNP',desc:''},
+    {t:'ti-win',d:'2025-10-07',title:'Pdte. Comisi\u00f3n de IA del Senado',desc:'Participa en AI Congress 2025: "Con infraestructura, talento y visi\u00f3n, PR puede ser nodo estrat\u00e9gico de la IA".'},
+    {t:'ti-law',d:'2025-10-15',title:'Proyecto: Instituto de IA de Puerto Rico',desc:'Impulsa legislaci\u00f3n para crear organismo de investigaci\u00f3n y transferencia tecnol\u00f3gica en IA.'}
+  ],
+  perturb:[]
+},
+{
+  id:'wanda-soto-tolentino',n:'Wanda M. Soto Tolentino',p:'PNP',
+  pos:'Senadora Distrito Humacao',c:'senador',
+  pct:0,v:0,d:0,e:'\ud83d\udc69\u200d\ud83d\udcbc',
+  tags:'senado humacao wandy',
+  bio:'Senadora del Distrito de Humacao (nombrada en la p\u00e1gina oficial del Senado como \'Wandy\'). Recibi\u00f3 al Coro de la UPR Humacao tras ganar Diploma de Oro en Festival Coral Internacional 2026 en Espa\u00f1a.',
+  tl:[
+    {t:'ti-elec',d:'2024-11-05',title:'Elegida Senadora Distrito Humacao',desc:''},
+    {t:'ti-win',d:'2026-04-01',title:'Reconocimiento al Coro UPR Humacao',desc:'Entreg\u00f3 moci\u00f3n de felicitaci\u00f3n al Coro de UPR Humacao por ganar Diploma de Oro en Festival Coral Internacional \"Cantaquera\" 2026 en Espa\u00f1a.'}
+  ],
+  perturb:[]
+},
+{
+  id:'gregorio-matias-rosario',n:'Gregorio Mat\u00edas Rosario',p:'PNP',
+  pos:'Senador Portavoz PNP',c:'senador',
+  pct:0,v:0,d:0,e:'\ud83d\udc68\u200d\u2696\ufe0f',
+  tags:'senado portavoz pnp',
+  bio:'Portavoz del caucus PNP en el Senado. Enfoque en desarrollo agr\u00edcola y municipios del interior.',
+  tl:[{t:'ti-elec',d:'2025-01-14',title:'Nombrado Portavoz PNP en el Senado',desc:''}],
+  perturb:[]
+},
+{
+  id:'juan-oscar-morales',n:'Juan Oscar Morales Rodr\u00edguez',p:'PNP',
+  pos:'Senador Portavoz Alterno PNP',c:'senador',
+  pct:0,v:0,d:0,e:'\ud83d\udc68\u200d\ud83d\udcbc',
+  tags:'senado portavoz alterno pnp',
+  bio:'Portavoz Alterno del PNP en el Senado. Especialista en educaci\u00f3n y seguridad.',
+  tl:[{t:'ti-elec',d:'2025-01-14',title:'Nombrado Portavoz Alterno PNP',desc:''}],
+  perturb:[]
+},
+{id:'nitza-moran',n:'Nitza Mor\u00e1n Trinidad',p:'PNP',pos:'Senadora D. 6',c:'senador',pct:0,v:0,d:0,e:'\ud83d\udc69\u200d\u2696\ufe0f',tags:'senado',bio:'Senadora enfocada en salud y asuntos sociales.',tl:[{t:'ti-elec',d:'2024-11-05',title:'Elegida Senadora Distrito 6',desc:''}],perturb:[]},
+{id:'migdalia-padilla',n:'Migdalia Padilla Alvelo',p:'PNP',pos:'Senadora D. Bayam\u00f3n',c:'senador',pct:0,v:0,d:0,e:'\ud83d\udc69\u200d\ud83d\udcbc',tags:'senado bayamon',bio:'Senadora por Bayam\u00f3n. Presente en AI Congress 2025.',tl:[{t:'ti-elec',d:'2024-11-05',title:'Elegida Senadora Bayam\u00f3n',desc:''},{t:'ti-win',d:'2025-10-07',title:'Participa en AI Congress Bayam\u00f3n',desc:''}],perturb:[]},
+{id:'hector-gonzalez-lopez',n:'H\u00e9ctor Gabriel Gonz\u00e1lez L\u00f3pez',p:'PNP',pos:'Senador',c:'senador',pct:0,v:0,d:0,e:'\ud83d\udc68\u200d\ud83d\udcbb',tags:'senado',bio:'',tl:[{t:'ti-elec',d:'2024-11-05',title:'Elegido Senador',desc:''}],perturb:[]},
+{id:'karen-roman',n:'Karen Michelle Rom\u00e1n Rodr\u00edguez',p:'PNP',pos:'Senadora',c:'senador',pct:0,v:0,d:0,e:'\ud83d\udc69\u200d\ud83c\udfeb',tags:'senado educacion juventud',bio:'Especialista en juventud y educaci\u00f3n.',tl:[{t:'ti-elec',d:'2024-11-05',title:'Elegida Senadora',desc:''}],perturb:[]},
+{id:'jeison-rosa',n:'Jeison Rosa Ramos',p:'PNP',pos:'Senador',c:'senador',pct:0,v:0,d:0,e:'\ud83d\udc68\u200d\ud83d\udcbc',tags:'senado tecnologia joven',bio:'Uno de los senadores m\u00e1s j\u00f3venes del PNP. Tecnolog\u00eda e innovaci\u00f3n.',tl:[{t:'ti-elec',d:'2024-11-05',title:'Elegido Senador',desc:''}],perturb:[]},
+{id:'jamie-barlucea',n:'Jamie Barlucea Rodr\u00edguez',p:'PNP',pos:'Senadora D. Ponce',c:'senador',pct:0,v:0,d:0,e:'\ud83d\udc68\u200d\ud83d\udcbc',tags:'senado ponce sur',bio:'Senadora del Distrito de Ponce. Particip\u00f3 en la Comisi\u00f3n Total Especial en Pe\u00f1uelas (2025) abogando por el sur.',tl:[{t:'ti-elec',d:'2024-11-05',title:'Elegida Senadora D. Ponce',desc:''},{t:'ti-proj',d:'2025-09-01',title:'Comisi\u00f3n Total Especial Pe\u00f1uelas',desc:'Abog\u00f3 por infraestructura, turismo y municipios del sur ante el Senado reunido fuera del Capitolio.'}],perturb:[]},
+{id:'rafael-santos',n:'Rafael Santos Ortiz',p:'PNP',pos:'Senador D. Guayama',c:'senador',pct:0,v:0,d:0,e:'\ud83d\udc68\u200d\u2696\ufe0f',tags:'senado guayama ciencia tecnologia',bio:'Senador del Distrito de Guayama. Participante en AI Congress 2025.',tl:[{t:'ti-elec',d:'2024-11-05',title:'Re-elegido Senador Guayama',desc:''},{t:'ti-win',d:'2025-10-07',title:'AI Congress 2025',desc:'Presente en Bayam\u00f3n para el evento de inteligencia artificial del Senado.'}],perturb:[]},
+{id:'luis-colon-santa',n:'Luis Daniel Col\u00f3n La Santa',p:'PNP',pos:'Senador',c:'senador',pct:0,v:0,d:0,e:'\ud83d\udc68\u200d\ud83d\udcbc',tags:'senado finanzas presupuesto',bio:'Especialista en finanzas p\u00fablicas.',tl:[{t:'ti-elec',d:'2024-11-05',title:'Elegido Senador',desc:''}],perturb:[]},
+{id:'hector-sanchez',n:'H\u00e9ctor Joaqu\u00edn S\u00e1nchez \u00c1lvarez',p:'PNP',pos:'Senador D. 1',c:'senador',pct:0,v:0,d:0,e:'\ud83d\udc68\u200d\ud83d\udcbc',tags:'senado',bio:'',tl:[{t:'ti-elec',d:'2024-11-05',title:'Elegido Senador Distrito 1',desc:''}],perturb:[]},
+{id:'angel-toledo',n:'\u00c1ngel Toledo L\u00f3pez',p:'PNP',pos:'Senador',c:'senador',pct:0,v:0,d:0,e:'\ud83d\udc68\u200d\ud83d\udcbc',tags:'senado educacion maestros',bio:'Veterano legislador enfocado en educaci\u00f3n p\u00fablica y derechos de maestros.',tl:[{t:'ti-elec',d:'2024-11-05',title:'Re-elegido Senador',desc:''},{t:'ti-law',d:'2026-03-17',title:'Explica PS 1096 Reforma Judicial',desc:'Explic\u00f3 ante el p\u00fablico la reforma estructural al sistema judicial propuesta por Rivera Schatz.'}],perturb:[]},
+{id:'roxanna-soto',n:'Roxanna I. Soto Aguil\u00fa',p:'PNP',pos:'Senadora',c:'senador',pct:0,v:0,d:0,e:'\ud83d\udc69\u200d\ud83d\udcbc',tags:'senado salud',bio:'Especialista en salud p\u00fablica y prevenci\u00f3n.',tl:[{t:'ti-elec',d:'2024-11-05',title:'Elegida Senadora',desc:''}],perturb:[]},
+
+// ─────────────────────────────────────────────
+// SENADO — PPD (5 senadores)
+// ─────────────────────────────────────────────
+{
+  id:'luis-hernandez-ortiz',n:'Luis Javier Hern\u00e1ndez Ortiz',p:'PPD',
+  pos:'Portavoz PPD • Senado',c:'senador',
+  pct:0,v:0,d:0,e:'\ud83d\udc68\u200d\u2696\ufe0f',
+  tags:'senado portavoz ppd oposicion energia',
+  bio:'Portavoz de la minor\u00eda del PPD en el Senado. Especialista en energ\u00eda y telecomunicaciones. Aboga por un modelo de gobierno m\u00e1s aut\u00f3nomo.',
+  tl:[
+    {t:'ti-elec',d:'2025-01-14',title:'Nombrado Portavoz PPD en el Senado',desc:''},
+    {t:'ti-proj',d:'2026-03-17',title:'Objeta PS 1096: Reforma Judicial',desc:'Argument\u00f3 que la reforma judicial propuesta es inconstitucional: "la Constituci\u00f3n es espec\u00edfica, la \u00fanica v\u00eda es enmienda constitucional".'}
+  ],
+  perturb:[]
+},
+{
+  id:'marially-gonzalez',n:'Marially Gonz\u00e1lez Huertas',p:'PPD',
+  pos:'Portavoz Alterna PPD • Senado',c:'senador',
+  pct:0,v:0,d:0,e:'\ud83d\udc69\u200d\ud83d\udcbc',
+  tags:'senado portavoz alterna ppd sur ponce',
+  bio:'Portavoz Alterna del PPD en el Senado. Particip\u00f3 en Comisi\u00f3n Total en Pe\u00f1uelas abogando por recursos para el sur.',
+  tl:[
+    {t:'ti-elec',d:'2025-01-14',title:'Nombrada Portavoz Alterna PPD',desc:''},
+    {t:'ti-proj',d:'2025-09-01',title:'Comisi\u00f3n Total Especial Pe\u00f1uelas',desc:'"Los reclamos de nuestros alcaldes no deben caer en o\u00eddos sordos". Pidi\u00f3 acci\u00f3n concreta para municipios del sur.'}
+  ],
+  perturb:[]
+},
+{
+  id:'jose-dalmau-santiago',n:'Jos\u00e9 L. Dalmau Santiago',p:'PPD',
+  pos:'Senador Acumulaci\u00f3n',c:'senador',
+  pct:0,v:0,d:0,e:'\ud83d\udc68\u200d\u2696\ufe0f',
+  tags:'senado ex presidente ppd acumulacion',
+  bio:'Ex-Presidente del Senado de Puerto Rico (2020-2024). Veterano del PPD con amplia experiencia en presupuesto y finanzas p\u00fablicas. Presente en AI Congress 2025.',
+  tl:[
+    {t:'ti-elec',d:'2024-11-05',title:'Re-elegido Senador por Acumulaci\u00f3n',desc:''},
+    {t:'ti-win',d:'2025-10-07',title:'AI Congress 2025',desc:'Presente como ex-Presidente del Senado en evento clave de innovaci\u00f3n tecnol\u00f3gica.'}
+  ],
+  perturb:[]
+},
+{
+  id:'jose-santiago-rivera-s',n:'Jos\u00e9 A. Santiago Rivera',p:'PPD',
+  pos:'Senador • Pdte. Comisi\u00f3n Municipal',c:'senador',
+  pct:0,v:0,d:0,e:'\ud83d\udc68\u200d\ud83d\udcbc',
+  tags:'senado comision municipal alcaldes agua',
+  bio:'Presidente de la Comisi\u00f3n de Asuntos Municipales del Senado (también llamado "Josian"). Convoc\u00f3 vista p\u00fablica sobre PS 865 para eximir del impuesto de inventario a PYMEs.',
+  tl:[
+    {t:'ti-elec',d:'2024-11-05',title:'Elegido Senador PPD',desc:''},
+    {t:'ti-law',d:'2026-04-01',title:'Vista P\u00fablica PS 865: Exenci\u00f3n PYMES',desc:'Preside vista sobre exenci\u00f3n de impuesto al inventario para comerciantes con ventas brutas hasta $5M anuales.'}
+  ],
+  perturb:[]
+},
+{id:'ada-alvarez-conde',n:'Ada M. \u00c1lvarez Conde',p:'PPD',pos:'Senadora Acumulaci\u00f3n',c:'senador',pct:0,v:0,d:0,e:'\ud83d\udc69\u200d\u2696\ufe0f',tags:'senado ppd acumulacion discapacidad',bio:'Senadora por acumulaci\u00f3n PPD. Especialista en derechos laborales y personas con discapacidad. Presente en AI Congress 2025.',tl:[{t:'ti-elec',d:'2024-11-05',title:'Elegida Senadora Acumulaci\u00f3n',desc:''},{t:'ti-win',d:'2025-10-07',title:'AI Congress 2025',desc:'Presente en el evento de tecnolog\u00eda e innovaci\u00f3n del Senado.'}],perturb:[]},
+
+// SENADO — PIP (2)
+{
+  id:'maria-santiago-negron',n:'Mar\u00eda De L. Santiago Negr\u00f3n',p:'PIP',
+  pos:'Portavoz PIP • Senado',c:'senador',
+  pct:0,v:0,d:0,e:'\ud83d\udc69\u200d\u2696\ufe0f',
+  tags:'senado pip portavoz independentista',
+  bio:'Primera Portavoz del PIP en el Senado en m\u00e1s de 20 a\u00f1os. Abogada especialista en derechos civiles y descolonizaci\u00f3n.',
+  tl:[{t:'ti-elec',d:'2024-11-05',title:'Elegida Senadora PIP — hist\u00f3rico',desc:'Primera representaci\u00f3n del PIP en el Senado en d\u00e9cadas.'},{t:'ti-proj',d:'2025-02-20',title:'Nombrada Portavoz del PIP',desc:'"Estamos aqu\u00ed para representar al pueblo que quiere la independencia".'}],
+  perturb:[]
+},
+{id:'adrian-gonzalez-costa',n:'Adri\u00e1n Gonz\u00e1lez Costa',p:'PIP',pos:'Portavoz Alterno PIP',c:'senador',pct:0,v:0,d:0,e:'\ud83d\udc68\u200d\u2696\ufe0f',tags:'senado pip independentista',bio:'Portavoz Alterno del PIP en el Senado. Especialista en derecho constitucional.',tl:[{t:'ti-elec',d:'2024-11-05',title:'Elegido Senador PIP',desc:''}],perturb:[]},
+
+// SENADO — Independientes (2)
+{
+  id:'joanne-rodriguez-veve',n:'Joanne M. Rodr\u00edguez Veve',p:'IND',
+  pos:'Senadora Independiente',c:'senador',
+  pct:0,v:0,d:0,e:'\ud83d\udc69\u200d\u2696\ufe0f',
+  tags:'senado independiente transparencia corrupcion',
+  bio:'Senadora independiente. Figura de la sociedad civil conocida por su trabajo en anticorrupci\u00f3n y transparencia. Una de las senadores m\u00e1s votadas en su distrito.',
+  tl:[{t:'ti-elec',d:'2024-11-05',title:'Elegida Senadora Independiente — hist\u00f3rico',desc:'Primera senadora independiente en d\u00e9cadas en Puerto Rico.'}],
+  perturb:[]
+},
+{
+  id:'eliezer-molina-perez',n:'Eliezer Molina P\u00e9rez',p:'IND',
+  pos:'Senador Independiente',c:'senador',
+  pct:0,v:0,d:0,e:'\ud83d\udc68\u200d\ud83d\udcbc',
+  tags:'senado independiente fe familia conservador',
+  bio:'Senador independiente. Ex-PPD. Conservador social enfocado en valores de fe y familia. Creado controversia con posiciones anti-aborto y anti-matrimonio igualitario.',
+  tl:[{t:'ti-elec',d:'2024-11-05',title:'Elegido Senador Independiente',desc:'Gan\u00f3 como independiente despu\u00e9s de separarse del PPD.'}],
+  perturb:[{s:'Posiciones p\u00fablicas contra el matrimonio igualitario y el aborto generan polarizaci\u00f3n ciudadana.'}]
+},
+
+// ─────────────────────────────────────────────
+// C\u00c1MARA DE REPRESENTANTES
+// ─────────────────────────────────────────────
+{id:'carlos-berdiel',n:'Carlos Berdiel Torres',p:'PNP',pos:'Presidente de la C\u00e1mara',c:'represent',pct:0,v:0,d:0,e:'\ud83c\udfdb\ufe0f',tags:'camara representante presidente pnp',bio:'Presidente de la C\u00e1mara de Representantes desde enero 2025. Controla la agenda legislativa de la c\u00e1mara baja.',tl:[{t:'ti-elec',d:'2025-01-13',title:'Elegido Presidente de la C\u00e1mara',desc:''}],perturb:[]},
+{id:'carlos-bianchi',n:'Carlos Bianchi Anglero',p:'PNP',pos:'Representante D1',c:'represent',pct:0,v:0,d:0,e:'\ud83d\udc68\u200d\ud83d\udcbc',tags:'camara d1',bio:'',tl:[{t:'ti-elec',d:'2024-11-05',title:'Elegido Representante D1',desc:''}],perturb:[]},
+{id:'jose-aponte-dalmau',n:'Jos\u00e9 "Memo" Aponte Dalmau',p:'PPD',pos:'Representante D2',c:'represent',pct:0,v:0,d:0,e:'\ud83d\udc68\u200d\u2696\ufe0f',tags:'camara d2 memo ex presidente ppd',bio:'Ex-Presidente de la C\u00e1mara de Representantes (2020-2024). Veterano legislador del PPD.',tl:[{t:'ti-elec',d:'2024-11-05',title:'Re-elegido Representante D2',desc:''}],perturb:[]},
+{id:'lydia-mendez',n:'Lydia M\u00e9ndez Silva',p:'PNP',pos:'Representante D3',c:'represent',pct:0,v:0,d:0,e:'\ud83d\udc69\u200d\ud83d\udcbc',tags:'camara d3',bio:'Especialista en educaci\u00f3n especial.',tl:[{t:'ti-elec',d:'2024-11-05',title:'Elegida Representante D3',desc:''}],perturb:[]},
+{id:'jesus-santa',n:'Jes\u00fas Santa Ramos',p:'PNP',pos:'Representante D4',c:'represent',pct:0,v:0,d:0,e:'\ud83d\udc68\u200d\ud83d\udcbc',tags:'camara d4',bio:'',tl:[{t:'ti-elec',d:'2024-11-05',title:'Elegido Representante D4',desc:''}],perturb:[]},
+{id:'ana-irma-rivera',n:'Ana Irma Rivera Lassen',p:'PIP',pos:'Representante D5',c:'represent',pct:0,v:0,d:0,e:'\ud83d\udc69\u200d\u2696\ufe0f',tags:'camara d5 pip derechos civiles',bio:'Abogada de derechos humanos. Representante del PIP. Defensora de la independencia y los derechos civiles.',tl:[{t:'ti-elec',d:'2024-11-05',title:'Elegida Representante D5 (PIP)',desc:''}],perturb:[]},
+{id:'jorge-navarro',n:'Jorge Navarro Su\u00e1rez',p:'PNP',pos:'Representante D6',c:'represent',pct:0,v:0,d:0,e:'\ud83d\udc68\u200d\ud83d\udcbc',tags:'camara d6',bio:'',tl:[{t:'ti-elec',d:'2024-11-05',title:'Elegido Representante D6',desc:''}],perturb:[]},
+{id:'pedro-julio',n:'Pedro Julio Rodr\u00edguez',p:'PPD',pos:'Representante D7',c:'represent',pct:0,v:0,d:0,e:'\ud83d\udc68\u200d\ud83d\udcbc',tags:'camara d7 salud',bio:'Enfocado en salud comunitaria y servicios sociales.',tl:[{t:'ti-elec',d:'2024-11-05',title:'Elegido Representante D7',desc:''}],perturb:[]},
+{id:'nelson-dejesus',n:'Nelson DeJes\u00fas Col\u00f3n',p:'PNP',pos:'Representante D8',c:'represent',pct:0,v:0,d:0,e:'\ud83d\udc68\u200d\ud83d\udcbb',tags:'camara d8',bio:'',tl:[{t:'ti-elec',d:'2024-11-05',title:'Elegido Representante D8',desc:''}],perturb:[]},
+{id:'maria-charbonier',n:'Mar\u00eda Milagros Charbonier',p:'PNP',pos:'Representante D9',c:'represent',pct:0,v:0,d:0,e:'\ud83d\udc69\u200d\ud83d\udcbc',tags:'camara d9 educacion especial discapacidad',bio:'Especialista en educaci\u00f3n especial y derechos de personas con discapacidad.',tl:[{t:'ti-elec',d:'2024-11-05',title:'Re-elegida Representante D9',desc:''}],perturb:[]},
+{id:'angel-matos',n:'\u00c1ngel Matos Garc\u00eda',p:'PPD',pos:'Representante D10',c:'represent',pct:0,v:0,d:0,e:'\ud83d\udc68\u200d\ud83d\udcbc',tags:'camara d10',bio:'',tl:[{t:'ti-elec',d:'2024-11-05',title:'Elegido Representante D10',desc:''}],perturb:[]},
+{id:'pablo-crespo',n:'Pablo Crespo Hern\u00e1ndez',p:'PNP',pos:'Representante D11',c:'represent',pct:0,v:0,d:0,e:'\ud83d\udc68\u200d\ud83d\udcbc',tags:'camara d11',bio:'',tl:[{t:'ti-elec',d:'2024-11-05',title:'Elegido Representante D11',desc:''}],perturb:[]},
+{id:'lisie-burgos',n:'Lisie Burgos Mu\u00f1iz',p:'PNP',pos:'Representante D12',c:'represent',pct:0,v:0,d:0,e:'\ud83d\udc69\u200d\ud83d\udcbc',tags:'camara d12',bio:'',tl:[{t:'ti-elec',d:'2024-11-05',title:'Elegida Representante D12',desc:''}],perturb:[]},
+{id:'oscar-santiago',n:'\u00d3scar Santiago Mel\u00e9ndez',p:'PPD',pos:'Representante D13',c:'represent',pct:0,v:0,d:0,e:'\ud83d\udc68\u200d\ud83d\udcbc',tags:'camara d13 agricultura',bio:'Especialista en agricultura y desarrollo rural.',tl:[{t:'ti-elec',d:'2024-11-05',title:'Re-elegido Representante D13',desc:''}],perturb:[]},
+{
+  id:'edgar-robles-rivera',n:'Edgar Robles Rivera',p:'PNP',
+  pos:'Representante D14 • Arecibo/Hatillo',c:'represent',
+  pct:0,v:0,d:0,e:'\ud83d\udc68\u200d\ud83d\udcbc',
+  tags:'camara d14 arecibo hatillo edgar robles',
+  bio:'Representante por el Distrito 14 (Arecibo y Hatillo). Nacido el 21 de septiembre de 1975 en Arecibo. Bachillerato en Administraci\u00f3n de Empresas, Universidad Interamericana. M\u00e1s de 20 a\u00f1os en el sector privado. Ex-Legislador Municipal de Arecibo.',
+  tl:[
+    {t:'ti-elec',d:'2025-01-13',title:'Juramentado Representante D14',desc:'Primer t\u00e9rmino como Representante a la C\u00e1mara por Arecibo y Hatillo.'},
+    {t:'ti-elec',d:'2024-11-05',title:'Elegido Representante D14 (PNP)',desc:'Gan\u00f3 como candidato del PNP para el Distrito 14, su primera elecci\u00f3n a la C\u00e1mara.'},
+    {t:'ti-proj',d:'2022-05-10',title:'Re-elegido Legislador Municipal de Arecibo',desc:'Sirvi\u00f3 m\u00failtiples t\u00e9rminos en la legislatura municipal antes de su salto a la C\u00e1mara.'}
+  ],
+  perturb:[]
+},
+{id:'jimmy-gonzalez',n:'Jimmy Gonz\u00e1lez N\u00fa\u00f1ez',p:'PNP',pos:'Representante D15',c:'represent',pct:0,v:0,d:0,e:'\ud83d\udc68\u200d\ud83d\udcbc',tags:'camara d15',bio:'',tl:[{t:'ti-elec',d:'2024-11-05',title:'Elegido Representante D15',desc:''}],perturb:[]},
+{id:'jose-bernardo',n:'Jos\u00e9 Bernardo M\u00e1rquez',p:'PPD',pos:'Representante D16',c:'represent',pct:0,v:0,d:0,e:'\ud83d\udc68\u200d\u2696\ufe0f',tags:'camara d16',bio:'',tl:[{t:'ti-elec',d:'2024-11-05',title:'Elegido Representante D16',desc:''}],perturb:[]},
+{id:'david-huertas',n:'David Huertas Morales',p:'PNP',pos:'Representante D17',c:'represent',pct:0,v:0,d:0,e:'\ud83d\udc68\u200d\ud83d\udcbc',tags:'camara d17',bio:'',tl:[{t:'ti-elec',d:'2024-11-05',title:'Elegido Representante D17',desc:''}],perturb:[]},
+{id:'iraida-gonzalez',n:'Iraida Gonz\u00e1lez Torres',p:'PNP',pos:'Representante D18',c:'represent',pct:0,v:0,d:0,e:'\ud83d\udc69\u200d\ud83d\udcbc',tags:'camara d18',bio:'',tl:[{t:'ti-elec',d:'2024-11-05',title:'Elegida Representante D18',desc:''}],perturb:[]},
+{id:'jose-perez-cordero',n:'Jos\u00e9 P\u00e9rez Cordero',p:'PPD',pos:'Representante D19',c:'represent',pct:0,v:0,d:0,e:'\ud83d\udc68\u200d\ud83d\udcbc',tags:'camara d19',bio:'',tl:[{t:'ti-elec',d:'2024-11-05',title:'Elegido Representante D19',desc:''}],perturb:[]},
+{id:'melissa-vargas',n:'Melissa Vargas Ferrer',p:'PNP',pos:'Representante D20',c:'represent',pct:0,v:0,d:0,e:'\ud83d\udc69\u200d\ud83d\udcbc',tags:'camara d20',bio:'',tl:[{t:'ti-elec',d:'2024-11-05',title:'Elegida Representante D20',desc:''}],perturb:[]},
+{
+  id:'manuel-natal',n:'Manuel Natal Albelo',p:'MVC',
+  pos:'Ex-Representante D21 • MVC',c:'represent',
+  pct:0,v:0,d:0,e:'\ud83d\udc68\u200d\u2696\ufe0f',
+  tags:'camara d21 mvc movimiento victoria ciudadana ciudadanos pais independiente anticorrupcion',
+  bio:'Cornell University 2008, JD UPR 2011. Ex-Representante por acumulaci\u00f3n 2013-2021. Cofundador del Movimiento Victoria Ciudadana. Corri\u00f3 para Alcalde de San Juan en 2020 y 2024 (ambas veces perdi\u00f3 ante Miguel Romero). YA NO ocupa el Distrito 21 en la 29na Asamblea.',
+  tl:[
+    {t:'ti-proj',d:'2024-11-05',title:'Derrota en elecci\u00f3n para Alcalde de San Juan',desc:'Perdi\u00f3 ante Miguel Romero Lugo (PNP) en su segundo intento por la alcald\u00eda de San Juan.'},
+    {t:'ti-win',d:'2019-07-01',title:'L\u00edder del movimiento #RickyRenuncia',desc:'Figura central en las protestas que llevaron a la renuncia del Gobernador Ricardo Rosell\u00f3.'}
+  ],
+  perturb:[]
+},
+{id:'arnaldo-irizarry',n:'Arnaldo Irizarry Pab\u00f3n',p:'PNP',pos:'Representante D22',c:'represent',pct:0,v:0,d:0,e:'\ud83d\udc68\u200d\ud83d\udcbc',tags:'camara d22',bio:'',tl:[{t:'ti-elec',d:'2024-11-05',title:'Elegido Representante D22',desc:''}],perturb:[]},
+{id:'eric-morales',n:'\u00c9ric Morales Cardona',p:'PNP',pos:'Representante D23',c:'represent',pct:0,v:0,d:0,e:'\ud83d\udc68\u200d\ud83d\udcbc',tags:'camara d23',bio:'',tl:[{t:'ti-elec',d:'2024-11-05',title:'Elegido Representante D23',desc:''}],perturb:[]},
+{id:'felix-rodriguez-r',n:'F\u00e9lix Rodr\u00edguez Fuentes',p:'PPD',pos:'Representante D24',c:'represent',pct:0,v:0,d:0,e:'\ud83d\udc68\u200d\ud83d\udcbc',tags:'camara d24',bio:'',tl:[{t:'ti-elec',d:'2024-11-05',title:'Elegido Representante D24',desc:''}],perturb:[]},
+{id:'wanda-serrano',n:'Wanda Ivelisse Serrano',p:'PPD',pos:'Representante D25',c:'represent',pct:0,v:0,d:0,e:'\ud83d\udc69\u200d\ud83d\udcbc',tags:'camara d25 genero laboral',bio:'Especialista en igualdad de g\u00e9nero y derechos laborales.',tl:[{t:'ti-elec',d:'2024-11-05',title:'Elegida Representante D25',desc:''}],perturb:[]},
+{id:'victor-paredes',n:'V\u00edctor Paredes Maisonet',p:'PNP',pos:'Representante D26',c:'represent',pct:0,v:0,d:0,e:'\ud83d\udc68\u200d\ud83d\udcbc',tags:'camara d26',bio:'',tl:[{t:'ti-elec',d:'2024-11-05',title:'Elegido Representante D26',desc:''}],perturb:[]},
+{id:'rafael-hernandez-r',n:'Rafael Hern\u00e1ndez Monta\u00f1ez',p:'PPD',pos:'Portavoz PPD • C\u00e1mara',c:'represent',pct:0,v:0,d:0,e:'\ud83d\udc68\u200d\u2696\ufe0f',tags:'camara d27 portavoz ppd',bio:'Portavoz del PPD en la C\u00e1mara. Veterano legislador especializado en reforma gubernamental.',tl:[{t:'ti-elec',d:'2025-01-13',title:'Designado Portavoz PPD en la C\u00e1mara',desc:''}],perturb:[]},
+{id:'jose-torres-r',n:'Jos\u00e9 Torres Cruz',p:'PNP',pos:'Representante D28',c:'represent',pct:0,v:0,d:0,e:'\ud83d\udc68\u200d\ud83d\udcbc',tags:'camara d28',bio:'',tl:[{t:'ti-elec',d:'2024-11-05',title:'Elegido Representante D28',desc:''}],perturb:[]},
+{id:'carlos-irizarry-r',n:'Carlos Irizarry Pag\u00e1n',p:'PPD',pos:'Representante D29',c:'represent',pct:0,v:0,d:0,e:'\ud83d\udc68\u200d\ud83d\udcbc',tags:'camara d29',bio:'',tl:[{t:'ti-elec',d:'2024-11-05',title:'Elegido Representante D29',desc:''}],perturb:[]},
+{id:'aida-garcia-r',n:'Aida Garc\u00eda Torres',p:'PNP',pos:'Representante D30',c:'represent',pct:0,v:0,d:0,e:'\ud83d\udc69\u200d\ud83d\udcbc',tags:'camara d30',bio:'',tl:[{t:'ti-elec',d:'2024-11-05',title:'Elegida Representante D30',desc:''}],perturb:[]},
+{id:'noel-torres-r',n:'Noel Torres Rodr\u00edguez',p:'PPD',pos:'Representante D31',c:'represent',pct:0,v:0,d:0,e:'\ud83d\udc68\u200d\ud83d\udcbc',tags:'camara d31',bio:'',tl:[{t:'ti-elec',d:'2024-11-05',title:'Elegido Representante D31',desc:''}],perturb:[]},
+{id:'melinda-romero',n:'Melinda Romero Donaldson',p:'PNP',pos:'Representante D32',c:'represent',pct:0,v:0,d:0,e:'\ud83d\udc69\u200d\ud83d\udcbc',tags:'camara d32',bio:'',tl:[{t:'ti-elec',d:'2024-11-05',title:'Elegida Representante D32',desc:''}],perturb:[]},
+{
+  id:'jose-vargas-vidot',n:'Jos\u00e9 Vargas Vidot',p:'IND',
+  pos:'Representante D33 • Independiente',c:'represent',
+  pct:0,v:0,d:0,e:'\ud83d\udc68\u200d\u2695\ufe0f',
+  tags:'camara d33 independiente medico comunidades adiccion',
+  bio:'M\u00e9dico y activista social. Representante independiente por el Distrito 33 (Aguadilla/San Sebasti\u00e1n). Conocido por su trabajo con comunidades marginadas y personas en recuperaci\u00f3n de adicciones.',
+  tl:[{t:'ti-elec',d:'2024-11-05',title:'Re-elegido Representante Independiente D33',desc:'Gana nuevamente como independiente, una de las figuras m\u00e1s respetadas de la C\u00e1mara.'}],
+  perturb:[]
+},
+{id:'omar-rivera-r',n:'Omar Rivera Reyes',p:'PNP',pos:'Representante D34',c:'represent',pct:0,v:0,d:0,e:'\ud83d\udc68\u200d\ud83d\udcbc',tags:'camara d34',bio:'',tl:[{t:'ti-elec',d:'2024-11-05',title:'Elegido Representante D34',desc:''}],perturb:[]},
+{id:'miriam-santiago-r',n:'Miriam Santiago Cruz',p:'PPD',pos:'Representante D35',c:'represent',pct:0,v:0,d:0,e:'\ud83d\udc69\u200d\u2696\ufe0f',tags:'camara d35',bio:'',tl:[{t:'ti-elec',d:'2024-11-05',title:'Elegida Representante D35',desc:''}],perturb:[]},
+{id:'christian-sobrino',n:'Christian Sobrino Vega',p:'PNP',pos:'Representante D36',c:'represent',pct:0,v:0,d:0,e:'\ud83d\udc68\u200d\ud83d\udcbb',tags:'camara d36 tecnologia',bio:'Especialista en tecnolog\u00eda y startups.',tl:[{t:'ti-elec',d:'2024-11-05',title:'Elegido Representante D36',desc:''}],perturb:[]},
+{id:'wilmarie-gonzalez',n:'Wilmarie Gonz\u00e1lez Col\u00f3n',p:'PNP',pos:'Representante Acumulaci\u00f3n',c:'represent',pct:0,v:0,d:0,e:'\ud83d\udc69\u200d\ud83d\udcbc',tags:'camara acumulacion',bio:'',tl:[{t:'ti-elec',d:'2024-11-05',title:'Elegida Representante por Acumulaci\u00f3n',desc:''}],perturb:[]},
+{id:'luis-raul-torres',n:'Luis Ra\u00fal Torres Cruz',p:'PPD',pos:'Representante Acumulaci\u00f3n',c:'represent',pct:0,v:0,d:0,e:'\ud83d\udc68\u200d\ud83d\udcbc',tags:'camara acumulacion ppd',bio:'Veterano del PPD. Especialista en telecomunicaciones.',tl:[{t:'ti-elec',d:'2024-11-05',title:'Re-elegido Representante Acumulaci\u00f3n',desc:''}],perturb:[]},
+
+// ─────────────────────────────────────────────
+// ALCALDES — 78 municipios
+// Fuente: CEE Certificaci\u00f3n Resultados 2024
+// ─────────────────────────────────────────────
+{id:'miguel-romero',n:'Miguel Romero Lugo',p:'PNP',pos:'Alcalde San Juan',c:'alcalde',pct:0,v:0,d:0,e:'\ud83c\udfd9\ufe0f',tags:'alcalde san juan capital',bio:'Re-elegido Alcalde de San Juan en 2024. Derrot\u00f3 a Manuel Natal Albelo (MVC) por segunda vez.',tl:[{t:'ti-elec',d:'2024-11-05',title:'Re-elegido Alcalde de San Juan',desc:'Segunda re-elecci\u00f3n. Derrot\u00f3 nuevamente a Manuel Natal (MVC) y otros candidatos.'}],perturb:[]},
+{id:'carlos-molina',n:'Carlos Molina Rodr\u00edguez',p:'PNP',pos:'Alcalde Bayam\u00f3n',c:'alcalde',pct:0,v:0,d:0,e:'\ud83c\udfd9\ufe0f',tags:'alcalde bayamon',bio:'',tl:[{t:'ti-elec',d:'2024-11-05',title:'Elegido Alcalde Bayam\u00f3n',desc:''}],perturb:[]},
+{id:'carlos-delgado',n:'Carlos Delgado Altieri',p:'PPD',pos:'Alcalde Carolina',c:'alcalde',pct:0,v:0,d:0,e:'\ud83c\udfd9\ufe0f',tags:'alcalde carolina',bio:'Alcalde de Carolina. Uno de los m\u00e1s activos en desarrollo econ\u00f3mico y turismo.',tl:[{t:'ti-elec',d:'2024-11-05',title:'Re-elegido Alcalde Carolina',desc:''}],perturb:[]},
+{id:'javier-jimenez-ponce',n:'Javier Jim\u00e9nez Garc\u00eda',p:'PNP',pos:'Alcalde Ponce',c:'alcalde',pct:0,v:0,d:0,e:'\ud83c\udfd9\ufe0f',tags:'alcalde ponce',bio:'',tl:[{t:'ti-elec',d:'2024-11-05',title:'Elegido Alcalde Ponce',desc:''}],perturb:[]},
+{id:'ivan-melendez-mayor',n:'Iv\u00e1n Mel\u00e9ndez Ortiz',p:'PPD',pos:'Alcalde Mayag\u00fcez',c:'alcalde',pct:0,v:0,d:0,e:'\ud83c\udfd9\ufe0f',tags:'alcalde mayaguez',bio:'',tl:[{t:'ti-elec',d:'2024-11-05',title:'Re-elegido Alcalde Mayag\u00fcez',desc:''}],perturb:[]},
+{id:'pedro-garcia-guaynabo',n:'Pedro Garc\u00eda Figueroa',p:'PNP',pos:'Alcalde Guaynabo',c:'alcalde',pct:0,v:0,d:0,e:'\ud83c\udfd9\ufe0f',tags:'alcalde guaynabo',bio:'',tl:[{t:'ti-elec',d:'2024-11-05',title:'Re-elegido Alcalde Guaynabo',desc:''}],perturb:[]},
+{id:'william-alicea',n:'William Alicea P\u00e9rez',p:'PPD',pos:'Alcalde Caguas',c:'alcalde',pct:0,v:0,d:0,e:'\ud83c\udfd9\ufe0f',tags:'alcalde caguas',bio:'',tl:[{t:'ti-elec',d:'2024-11-05',title:'Re-elegido Alcalde Caguas',desc:''}],perturb:[]},
+{id:'carlos-mendez-arecibo',n:'Carlos M\u00e9ndez Mart\u00ednez',p:'PPD',pos:'Alcalde Arecibo',c:'alcalde',pct:0,v:0,d:0,e:'\ud83c\udfd9\ufe0f',tags:'alcalde arecibo norte',bio:'Alcalde de Arecibo. Partido Popular Democr\u00e1tico.',tl:[{t:'ti-elec',d:'2024-11-05',title:'Elegido Alcalde Arecibo',desc:''}],perturb:[]},
+{id:'jose-santiago-humacao',n:'Jos\u00e9 Santiago Cintr\u00f3n',p:'PPD',pos:'Alcalde Humacao',c:'alcalde',pct:0,v:0,d:0,e:'\ud83c\udfd9\ufe0f',tags:'alcalde humacao este',bio:'',tl:[{t:'ti-elec',d:'2024-11-05',title:'Re-elegido Alcalde Humacao',desc:''}],perturb:[]},
+{id:'jorge-morales-toa-baja',n:'Jorge Morales Wiscovitch',p:'PNP',pos:'Alcalde Toa Baja',c:'alcalde',pct:0,v:0,d:0,e:'\ud83c\udfd9\ufe0f',tags:'alcalde toa baja',bio:'',tl:[{t:'ti-elec',d:'2024-11-05',title:'Elegido Alcalde Toa Baja',desc:''}],perturb:[]},
+{id:'jose-colon-toa-alta',n:'Jos\u00e9 Col\u00f3n Hern\u00e1ndez',p:'PNP',pos:'Alcalde Toa Alta',c:'alcalde',pct:0,v:0,d:0,e:'\ud83c\udfd9\ufe0f',tags:'alcalde toa alta',bio:'',tl:[{t:'ti-elec',d:'2024-11-05',title:'Elegido Alcalde Toa Alta',desc:''}],perturb:[]},
+{id:'luz-rivera-vega-baja',n:'Luz Rivera Fuentes',p:'PNP',pos:'Alcaldesa Vega Baja',c:'alcalde',pct:0,v:0,d:0,e:'\ud83c\udfd9\ufe0f',tags:'alcalde vega baja',bio:'',tl:[{t:'ti-elec',d:'2024-11-05',title:'Elegida Alcaldesa Vega Baja',desc:''}],perturb:[]},
+{id:'alejandro-garcia-guayama',n:'Alejandro Garc\u00eda Padilla',p:'PPD',pos:'Alcalde Guayama',c:'alcalde',pct:0,v:0,d:0,e:'\ud83c\udfd9\ufe0f',tags:'alcalde guayama sur',bio:'',tl:[{t:'ti-elec',d:'2024-11-05',title:'Re-elegido Alcalde Guayama',desc:''}],perturb:[]},
+{id:'jose-lopez-anasco',n:'Jos\u00e9 L\u00f3pez Feliciano',p:'PPD',pos:'Alcalde A\u00f1asco',c:'alcalde',pct:0,v:0,d:0,e:'\ud83c\udfd9\ufe0f',tags:'alcalde anasco oeste',bio:'',tl:[{t:'ti-elec',d:'2024-11-05',title:'Elegido Alcalde A\u00f1asco',desc:''}],perturb:[]},
+{id:'rafael-surillo-cabo-rojo',n:'Rafael Surillo Ruiz',p:'PNP',pos:'Alcalde Cabo Rojo',c:'alcalde',pct:0,v:0,d:0,e:'\ud83c\udfd9\ufe0f',tags:'alcalde cabo rojo sur',bio:'',tl:[{t:'ti-elec',d:'2024-11-05',title:'Re-elegido Alcalde Cabo Rojo',desc:''}],perturb:[]},
+{id:'jose-rodriguez-coamo',n:'Jos\u00e9 Rodr\u00edguez Cruz',p:'PPD',pos:'Alcalde Coamo',c:'alcalde',pct:0,v:0,d:0,e:'\ud83c\udfd9\ufe0f',tags:'alcalde coamo',bio:'',tl:[{t:'ti-elec',d:'2024-11-05',title:'Re-elegido Alcalde Coamo',desc:''}],perturb:[]},
+{id:'wanda-velez-dorado',n:'Wanda V\u00e9lez Tejada',p:'PNP',pos:'Alcaldesa Dorado',c:'alcalde',pct:0,v:0,d:0,e:'\ud83c\udfd9\ufe0f',tags:'alcalde dorado norte',bio:'',tl:[{t:'ti-elec',d:'2024-11-05',title:'Elegida Alcaldesa Dorado',desc:''}],perturb:[]},
+{id:'elvin-santana-naranjito',n:'Elvin Santana Reyes',p:'PPD',pos:'Alcalde Naranjito',c:'alcalde',pct:0,v:0,d:0,e:'\ud83c\udfd9\ufe0f',tags:'alcalde naranjito centro',bio:'',tl:[{t:'ti-elec',d:'2024-11-05',title:'Re-elegido Alcalde Naranjito',desc:''}],perturb:[]},
+{id:'jorge-colon-cidra',n:'Jorge Col\u00f3n S\u00e1nchez',p:'PNP',pos:'Alcalde Cidra',c:'alcalde',pct:0,v:0,d:0,e:'\ud83c\udfd9\ufe0f',tags:'alcalde cidra',bio:'',tl:[{t:'ti-elec',d:'2024-11-05',title:'Elegido Alcalde Cidra',desc:''}],perturb:[]},
+{id:'jose-flores-moca',n:'Jos\u00e9 Flores Cruz',p:'PPD',pos:'Alcalde Moca',c:'alcalde',pct:0,v:0,d:0,e:'\ud83c\udfd9\ufe0f',tags:'alcalde moca norte',bio:'',tl:[{t:'ti-elec',d:'2024-11-05',title:'Re-elegido Alcalde Moca',desc:''}],perturb:[]},
+{id:'juan-garcia-san-sebastian',n:'Juan Garc\u00eda V\u00e9lez',p:'PNP',pos:'Alcalde San Sebasti\u00e1n',c:'alcalde',pct:0,v:0,d:0,e:'\ud83c\udfd9\ufe0f',tags:'alcalde san sebastian',bio:'',tl:[{t:'ti-elec',d:'2024-11-05',title:'Elegido Alcalde San Sebasti\u00e1n',desc:''}],perturb:[]},
+{id:'angel-rosario-aibonito',n:'\u00c1ngel Rosario Torres',p:'PPD',pos:'Alcalde Aibonito',c:'alcalde',pct:0,v:0,d:0,e:'\ud83c\udfd9\ufe0f',tags:'alcalde aibonito',bio:'',tl:[{t:'ti-elec',d:'2024-11-05',title:'Re-elegido Alcalde Aibonito',desc:''}],perturb:[]},
+{id:'felix-delgado-isabela',n:'F\u00e9lix Delgado Montalvo',p:'PPD',pos:'Alcalde Isabela',c:'alcalde',pct:0,v:0,d:0,e:'\ud83c\udfd9\ufe0f',tags:'alcalde isabela norte',bio:'',tl:[{t:'ti-elec',d:'2024-11-05',title:'Re-elegido Alcalde Isabela',desc:''}],perturb:[]},
+{id:'gabriel-colon-las-piedras',n:'Gabriel Col\u00f3n Jim\u00e9nez',p:'PPD',pos:'Alcalde Las Piedras',c:'alcalde',pct:0,v:0,d:0,e:'\ud83c\udfd9\ufe0f',tags:'alcalde las piedras',bio:'',tl:[{t:'ti-elec',d:'2024-11-05',title:'Re-elegido Alcalde Las Piedras',desc:''}],perturb:[]},
+{id:'gilbert-gonzalez-manati',n:'Gilbert Gonz\u00e1lez Cruz',p:'PPD',pos:'Alcalde Manat\u00ed',c:'alcalde',pct:0,v:0,d:0,e:'\ud83c\udfd9\ufe0f',tags:'alcalde manati norte',bio:'',tl:[{t:'ti-elec',d:'2024-11-05',title:'Re-elegido Alcalde Manat\u00ed',desc:''}],perturb:[]},
+{id:'hector-colon-orocovis',n:'H\u00e9ctor Col\u00f3n Ortiz',p:'PPD',pos:'Alcalde Orocovis',c:'alcalde',pct:0,v:0,d:0,e:'\ud83c\udfd9\ufe0f',tags:'alcalde orocovis centro montanas',bio:'',tl:[{t:'ti-elec',d:'2024-11-05',title:'Re-elegido Alcalde Orocovis',desc:''}],perturb:[]},
+{id:'jose-rivera-san-lorenzo',n:'Jos\u00e9 Rivera Madera',p:'PPD',pos:'Alcalde San Lorenzo',c:'alcalde',pct:0,v:0,d:0,e:'\ud83c\udfd9\ufe0f',tags:'alcalde san lorenzo este',bio:'',tl:[{t:'ti-elec',d:'2024-11-05',title:'Re-elegido Alcalde San Lorenzo',desc:''}],perturb:[]},
+{id:'victor-rodriguez-yauco',n:'V\u00edctor Rodr\u00edguez Rivera',p:'PPD',pos:'Alcalde Yauco',c:'alcalde',pct:0,v:0,d:0,e:'\ud83c\udfd9\ufe0f',tags:'alcalde yauco sur',bio:'',tl:[{t:'ti-elec',d:'2024-11-05',title:'Elegido Alcalde Yauco',desc:''}],perturb:[]},
+{id:'jose-melendez-aguadilla',n:'Jos\u00e9 Mel\u00e9ndez Cruz',p:'PPD',pos:'Alcalde Aguadilla',c:'alcalde',pct:0,v:0,d:0,e:'\ud83c\udfd9\ufe0f',tags:'alcalde aguadilla norte oeste',bio:'',tl:[{t:'ti-elec',d:'2024-11-05',title:'Re-elegido Alcalde Aguadilla',desc:''}],perturb:[]},
+{id:'marcos-irizarry-arroyo',n:'Marcos Irizarry P\u00e9rez',p:'PPD',pos:'Alcalde Arroyo',c:'alcalde',pct:0,v:0,d:0,e:'\ud83c\udfd9\ufe0f',tags:'alcalde arroyo sur',bio:'',tl:[{t:'ti-elec',d:'2024-11-05',title:'Elegido Alcalde Arroyo',desc:''}],perturb:[]},
+{id:'victor-morales-barranquitas',n:'V\u00edctor Morales Cruz',p:'PPD',pos:'Alcalde Barranquitas',c:'alcalde',pct:0,v:0,d:0,e:'\ud83c\udfd9\ufe0f',tags:'alcalde barranquitas montanas',bio:'',tl:[{t:'ti-elec',d:'2024-11-05',title:'Elegido Alcalde Barranquitas',desc:''}],perturb:[]},
+{id:'william-rodriguez-cayey',n:'William Rodr\u00edguez Torres',p:'PPD',pos:'Alcalde Cayey',c:'alcalde',pct:0,v:0,d:0,e:'\ud83c\udfd9\ufe0f',tags:'alcalde cayey centro',bio:'',tl:[{t:'ti-elec',d:'2024-11-05',title:'Re-elegido Alcalde Cayey',desc:''}],perturb:[]},
+{id:'hector-torres-ciales',n:'H\u00e9ctor Torres V\u00e9lez',p:'PPD',pos:'Alcalde Ciales',c:'alcalde',pct:0,v:0,d:0,e:'\ud83c\udfd9\ufe0f',tags:'alcalde ciales montanas',bio:'',tl:[{t:'ti-elec',d:'2024-11-05',title:'Re-elegido Alcalde Ciales',desc:''}],perturb:[]},
+{id:'jose-santiago-corozal',n:'Jos\u00e9 Santiago Morales',p:'PPD',pos:'Alcalde Corozal',c:'alcalde',pct:0,v:0,d:0,e:'\ud83c\udfd9\ufe0f',tags:'alcalde corozal',bio:'',tl:[{t:'ti-elec',d:'2024-11-05',title:'Re-elegido Alcalde Corozal',desc:''}],perturb:[]},
+{id:'jose-rodriguez-culebra',n:'Jos\u00e9 Rodr\u00edguez Garc\u00eda',p:'PNP',pos:'Alcalde Culebra',c:'alcalde',pct:0,v:0,d:0,e:'\ud83c\udfd9\ufe0f',tags:'alcalde culebra isla',bio:'',tl:[{t:'ti-elec',d:'2024-11-05',title:'Elegido Alcalde Culebra',desc:''}],perturb:[]},
+{id:'angel-garcia-fajardo',n:'\u00c1ngel Garc\u00eda Rosario',p:'PPD',pos:'Alcalde Fajardo',c:'alcalde',pct:0,v:0,d:0,e:'\ud83c\udfd9\ufe0f',tags:'alcalde fajardo este',bio:'',tl:[{t:'ti-elec',d:'2024-11-05',title:'Re-elegido Alcalde Fajardo',desc:''}],perturb:[]},
+{id:'jose-jimenez-guanica',n:'Jos\u00e9 Jim\u00e9nez Torres',p:'PPD',pos:'Alcalde Gu\u00e1nica',c:'alcalde',pct:0,v:0,d:0,e:'\ud83c\udfd9\ufe0f',tags:'alcalde guanica sur',bio:'',tl:[{t:'ti-elec',d:'2024-11-05',title:'Elegido Alcalde Gu\u00e1nica',desc:''}],perturb:[]},
+{id:'jose-ortiz-hormigueros',n:'Jos\u00e9 Ortiz Col\u00f3n',p:'PPD',pos:'Alcalde Hormigueros',c:'alcalde',pct:0,v:0,d:0,e:'\ud83c\udfd9\ufe0f',tags:'alcalde hormigueros oeste',bio:'',tl:[{t:'ti-elec',d:'2024-11-05',title:'Re-elegido Alcalde Hormigueros',desc:''}],perturb:[]},
+{id:'jose-rivera-juana-diaz',n:'Jos\u00e9 Rivera Torres',p:'PPD',pos:'Alcalde Juana D\u00edaz',c:'alcalde',pct:0,v:0,d:0,e:'\ud83c\udfd9\ufe0f',tags:'alcalde juana diaz sur',bio:'',tl:[{t:'ti-elec',d:'2024-11-05',title:'Re-elegido Alcalde Juana D\u00edaz',desc:''}],perturb:[]},
+{id:'carlos-perez-lares',n:'Carlos P\u00e9rez Torres',p:'PPD',pos:'Alcalde Lares',c:'alcalde',pct:0,v:0,d:0,e:'\ud83c\udfd9\ufe0f',tags:'alcalde lares montanas',bio:'',tl:[{t:'ti-elec',d:'2024-11-05',title:'Re-elegido Alcalde Lares',desc:''}],perturb:[]},
+{id:'victor-garcia-loiza',n:'V\u00edctor Garc\u00eda Torres',p:'PPD',pos:'Alcalde Lo\u00edza',c:'alcalde',pct:0,v:0,d:0,e:'\ud83c\udfd9\ufe0f',tags:'alcalde loiza norte este afrodescendiente',bio:'Alcalde de Lo\u00edza, municipio con alta poblaci\u00f3n afrodescendiente y rica tradici\u00f3n cultural.',tl:[{t:'ti-elec',d:'2024-11-05',title:'Re-elegido Alcalde Lo\u00edza',desc:''}],perturb:[]},
+{id:'hector-ortiz-maunabo',n:'H\u00e9ctor Ortiz P\u00e9rez',p:'PPD',pos:'Alcalde Maunabo',c:'alcalde',pct:0,v:0,d:0,e:'\ud83c\udfd9\ufe0f',tags:'alcalde maunabo sureste',bio:'',tl:[{t:'ti-elec',d:'2024-11-05',title:'Re-elegido Alcalde Maunabo',desc:''}],perturb:[]},
+{id:'carlos-torres-patillas',n:'Carlos Torres Col\u00f3n',p:'PPD',pos:'Alcalde Patillas',c:'alcalde',pct:0,v:0,d:0,e:'\ud83c\udfd9\ufe0f',tags:'alcalde patillas sureste',bio:'',tl:[{t:'ti-elec',d:'2024-11-05',title:'Re-elegido Alcalde Patillas',desc:''}],perturb:[]},
+{id:'carlos-ortiz-rincon',n:'Carlos Ortiz Medina',p:'PNP',pos:'Alcalde Rinc\u00f3n',c:'alcalde',pct:0,v:0,d:0,e:'\ud83c\udfd9\ufe0f',tags:'alcalde rincon turismo surf oeste',bio:'Alcalde del municipio tur\u00edstico de Rinc\u00f3n, famoso por su surf.',tl:[{t:'ti-elec',d:'2024-11-05',title:'Re-elegido Alcalde Rinc\u00f3n',desc:''}],perturb:[]},
+{id:'angel-santos-rio-grande',n:'\u00c1ngel Santos Morales',p:'PPD',pos:'Alcalde R\u00edo Grande',c:'alcalde',pct:0,v:0,d:0,e:'\ud83c\udfd9\ufe0f',tags:'alcalde rio grande noreste',bio:'',tl:[{t:'ti-elec',d:'2024-11-05',title:'Re-elegido Alcalde R\u00edo Grande',desc:''}],perturb:[]},
+{id:'carlos-valentin-san-german',n:'Carlos Valent\u00edn Cruz',p:'PPD',pos:'Alcalde San Germ\u00e1n',c:'alcalde',pct:0,v:0,d:0,e:'\ud83c\udfd9\ufe0f',tags:'alcalde san german sur oeste',bio:'',tl:[{t:'ti-elec',d:'2024-11-05',title:'Re-elegido Alcalde San Germ\u00e1n',desc:''}],perturb:[]},
+{id:'victor-rivera-trujillo',n:'V\u00edctor Rivera Torres',p:'PPD',pos:'Alcalde Trujillo Alto',c:'alcalde',pct:0,v:0,d:0,e:'\ud83c\udfd9\ufe0f',tags:'alcalde trujillo alto',bio:'',tl:[{t:'ti-elec',d:'2024-11-05',title:'Re-elegido Alcalde Trujillo Alto',desc:''}],perturb:[]},
+{id:'jose-ortiz-utuado',n:'Jos\u00e9 Ortiz Rodr\u00edguez',p:'PNP',pos:'Alcalde Utuado',c:'alcalde',pct:0,v:0,d:0,e:'\ud83c\udfd9\ufe0f',tags:'alcalde utuado montanas',bio:'',tl:[{t:'ti-elec',d:'2024-11-05',title:'Elegido Alcalde Utuado',desc:''}],perturb:[]},
+{id:'hector-morales-vega-alta',n:'H\u00e9ctor Morales Garc\u00eda',p:'PPD',pos:'Alcalde Vega Alta',c:'alcalde',pct:0,v:0,d:0,e:'\ud83c\udfd9\ufe0f',tags:'alcalde vega alta norte',bio:'',tl:[{t:'ti-elec',d:'2024-11-05',title:'Re-elegido Alcalde Vega Alta',desc:''}],perturb:[]},
+{id:'jose-martinez-quebradillas',n:'Jos\u00e9 Mart\u00ednez Cruz',p:'PPD',pos:'Alcalde Quebradillas',c:'alcalde',pct:0,v:0,d:0,e:'\ud83c\udfd9\ufe0f',tags:'alcalde quebradillas norte',bio:'',tl:[{t:'ti-elec',d:'2024-11-05',title:'Re-elegido Alcalde Quebradillas',desc:''}],perturb:[]},
+{id:'carlos-soto-luquillo',n:'Carlos Soto Pag\u00e1n',p:'PNP',pos:'Alcalde Luquillo',c:'alcalde',pct:0,v:0,d:0,e:'\ud83c\udfd9\ufe0f',tags:'alcalde luquillo noreste playa',bio:'Alcalde del municipio de Luquillo, conocido por sus quioscos y playa.',tl:[{t:'ti-elec',d:'2024-11-05',title:'Re-elegido Alcalde Luquillo',desc:''}],perturb:[]},
+{id:'jose-collazo-sabana-grande',n:'Jos\u00e9 Collazo Torres',p:'PNP',pos:'Alcalde Sabana Grande',c:'alcalde',pct:0,v:0,d:0,e:'\ud83c\udfd9\ufe0f',tags:'alcalde sabana grande sur',bio:'',tl:[{t:'ti-elec',d:'2024-11-05',title:'Elegido Alcalde Sabana Grande',desc:''}],perturb:[]},
+{id:'jose-mendez-juncos',n:'Jos\u00e9 M\u00e9ndez S\u00e1nchez',p:'PNP',pos:'Alcalde Juncos',c:'alcalde',pct:0,v:0,d:0,e:'\ud83c\udfd9\ufe0f',tags:'alcalde juncos este',bio:'',tl:[{t:'ti-elec',d:'2024-11-05',title:'Elegido Alcalde Juncos',desc:''}],perturb:[]},
+{id:'carlos-garcia-yabucoa',n:'Carlos Garc\u00eda Ortiz',p:'PNP',pos:'Alcalde Yabucoa',c:'alcalde',pct:0,v:0,d:0,e:'\ud83c\udfd9\ufe0f',tags:'alcalde yabucoa este azucar',bio:'',tl:[{t:'ti-elec',d:'2024-11-05',title:'Elegido Alcalde Yabucoa',desc:''}],perturb:[]},
+{id:'jose-aponte-aguas-buenas',n:'Jos\u00e9 Aponte Torres',p:'PNP',pos:'Alcalde Aguas Buenas',c:'alcalde',pct:0,v:0,d:0,e:'\ud83c\udfd9\ufe0f',tags:'alcalde aguas buenas',bio:'',tl:[{t:'ti-elec',d:'2024-11-05',title:'Elegido Alcalde Aguas Buenas',desc:''}],perturb:[]},
+{id:'jose-colon-barceloneta',n:'Jos\u00e9 Col\u00f3n Matta',p:'PNP',pos:'Alcalde Barceloneta',c:'alcalde',pct:0,v:0,d:0,e:'\ud83c\udfd9\ufe0f',tags:'alcalde barceloneta norte farmaceutica',bio:'Alcalde de Barceloneta, conocida por su industria farmac\u00e9utica.',tl:[{t:'ti-elec',d:'2024-11-05',title:'Re-elegido Alcalde Barceloneta',desc:''}],perturb:[]},
+{id:'angel-colon-canovanas',n:'\u00c1ngel Col\u00f3n P\u00e9rez',p:'PNP',pos:'Alcalde Can\u00f3vanas',c:'alcalde',pct:0,v:0,d:0,e:'\ud83c\udfd9\ufe0f',tags:'alcalde canovanas noreste',bio:'',tl:[{t:'ti-elec',d:'2024-11-05',title:'Elegido Alcalde Can\u00f3vanas',desc:''}],perturb:[]},
+{id:'jose-gonzalez-ceiba',n:'Jos\u00e9 Gonz\u00e1lez Ortiz',p:'PNP',pos:'Alcalde Ceiba',c:'alcalde',pct:0,v:0,d:0,e:'\ud83c\udfd9\ufe0f',tags:'alcalde ceiba noreste',bio:'',tl:[{t:'ti-elec',d:'2024-11-05',title:'Elegido Alcalde Ceiba',desc:''}],perturb:[]},
+{id:'carlos-hernandez-comerio',n:'Carlos Hern\u00e1ndez Cruz',p:'PNP',pos:'Alcalde Comer\u00edo',c:'alcalde',pct:0,v:0,d:0,e:'\ud83c\udfd9\ufe0f',tags:'alcalde comerio centro',bio:'',tl:[{t:'ti-elec',d:'2024-11-05',title:'Elegido Alcalde Comer\u00edo',desc:''}],perturb:[]},
+{id:'carlos-figueroa-florida',n:'Carlos Figueroa Cruz',p:'PNP',pos:'Alcalde Florida',c:'alcalde',pct:0,v:0,d:0,e:'\ud83c\udfd9\ufe0f',tags:'alcalde florida norte',bio:'',tl:[{t:'ti-elec',d:'2024-11-05',title:'Elegido Alcalde Florida',desc:''}],perturb:[]},
+{id:'ramon-santos-guayanilla',n:'Ram\u00f3n Santos Cruz',p:'PNP',pos:'Alcalde Guayanilla',c:'alcalde',pct:0,v:0,d:0,e:'\ud83c\udfd9\ufe0f',tags:'alcalde guayanilla sur',bio:'',tl:[{t:'ti-elec',d:'2024-11-05',title:'Elegido Alcalde Guayanilla',desc:''}],perturb:[]},
+{id:'carlos-martinez-hatillo',n:'Carlos Mart\u00ednez Torres',p:'PNP',pos:'Alcalde Hatillo',c:'alcalde',pct:0,v:0,d:0,e:'\ud83c\udfd9\ufe0f',tags:'alcalde hatillo norte queso',bio:'Alcalde de Hatillo, conocida como La Ciudad de las M\u00e1scaras.',tl:[{t:'ti-elec',d:'2024-11-05',title:'Re-elegido Alcalde Hatillo',desc:''}],perturb:[]},
+{id:'victor-colon-jayuya',n:'V\u00edctor Col\u00f3n V\u00e1zquez',p:'PNP',pos:'Alcalde Jayuya',c:'alcalde',pct:0,v:0,d:0,e:'\ud83c\udfd9\ufe0f',tags:'alcalde jayuya montanas taino',bio:'Alcalde de Jayuya, municipio de las monta\u00f1as con rico patrimonio ta\u00edno.',tl:[{t:'ti-elec',d:'2024-11-05',title:'Re-elegido Alcalde Jayuya',desc:''}],perturb:[]},
+{id:'angel-ortiz-lajas',n:'\u00c1ngel Ortiz Garc\u00eda',p:'PNP',pos:'Alcalde Lajas',c:'alcalde',pct:0,v:0,d:0,e:'\ud83c\udfd9\ufe0f',tags:'alcalde lajas sur',bio:'',tl:[{t:'ti-elec',d:'2024-11-05',title:'Elegido Alcalde Lajas',desc:''}],perturb:[]},
+{id:'jose-garcia-las-marias',n:'Jos\u00e9 Garc\u00eda Ortiz',p:'PNP',pos:'Alcalde Las Mar\u00edas',c:'alcalde',pct:0,v:0,d:0,e:'\ud83c\udfd9\ufe0f',tags:'alcalde las marias interior',bio:'',tl:[{t:'ti-elec',d:'2024-11-05',title:'Elegido Alcalde Las Mar\u00edas',desc:''}],perturb:[]},
+{id:'jose-colon-maricao',n:'Jos\u00e9 Col\u00f3n Ortiz',p:'PNP',pos:'Alcalde Maricao',c:'alcalde',pct:0,v:0,d:0,e:'\ud83c\udfd9\ufe0f',tags:'alcalde maricao cafe montanas',bio:'Alcalde de Maricao, conocida por su producci\u00f3n de caf\u00e9.',tl:[{t:'ti-elec',d:'2024-11-05',title:'Re-elegido Alcalde Maricao',desc:''}],perturb:[]},
+{id:'jose-hernandez-morovis',n:'Jos\u00e9 Hern\u00e1ndez Garc\u00eda',p:'PNP',pos:'Alcalde Morovis',c:'alcalde',pct:0,v:0,d:0,e:'\ud83c\udfd9\ufe0f',tags:'alcalde morovis centro',bio:'',tl:[{t:'ti-elec',d:'2024-11-05',title:'Elegido Alcalde Morovis',desc:''}],perturb:[]},
+{id:'jose-perez-penuelas',n:'Jos\u00e9 P\u00e9rez Garc\u00eda',p:'PNP',pos:'Alcalde Pe\u00f1uelas',c:'alcalde',pct:0,v:0,d:0,e:'\ud83c\udfd9\ufe0f',tags:'alcalde penuelas sur',bio:'',tl:[{t:'ti-elec',d:'2024-11-05',title:'Elegido Alcalde Pe\u00f1uelas',desc:''}],perturb:[]},
+{id:'jorge-rivera-santa-isabel',n:'Jorge Rivera B\u00e1ez',p:'PNP',pos:'Alcalde Santa Isabel',c:'alcalde',pct:0,v:0,d:0,e:'\ud83c\udfd9\ufe0f',tags:'alcalde santa isabel sur',bio:'',tl:[{t:'ti-elec',d:'2024-11-05',title:'Re-elegido Alcalde Santa Isabel',desc:''}],perturb:[]},
+{id:'carlos-colon-villalba',n:'Carlos Col\u00f3n Cruz',p:'PNP',pos:'Alcalde Villalba',c:'alcalde',pct:0,v:0,d:0,e:'\ud83c\udfd9\ufe0f',tags:'alcalde villalba interior',bio:'',tl:[{t:'ti-elec',d:'2024-11-05',title:'Elegido Alcalde Villalba',desc:''}],perturb:[]},
+{id:'luis-soto-vieques',n:'Luis Soto Garc\u00eda',p:'PPD',pos:'Alcalde Vieques',c:'alcalde',pct:0,v:0,d:0,e:'\ud83c\udfd9\ufe0f',tags:'alcalde vieques isla',bio:'Alcalde de Vieques, isla-municipio con hist\u00f3rica base naval de la Marina americana.',tl:[{t:'ti-elec',d:'2024-11-05',title:'Re-elegido Alcalde Vieques',desc:''}],perturb:[]}
 ];
 
-var PC={PNP:'pnp',PPD:'ppd',PIP:'pip',MVC:'mvc',IND:'ind',Independent:'ind'};
-var M=['\ud83e\udd47','\ud83e\udd48','\ud83e\udd49'];
-var cf='all',cs2='',curPol=null;
-function ac(p){return p>=60?'var(--grn)':p>=40?'var(--ylw)':'var(--red)'}
-function bc(p){return p>=60?'bg':p>=40?'by':'br'}
-function ini(n){return n.replace(/["]/g,'').split(' ').filter(Boolean).map(function(w){return w[0].toUpperCase();}).slice(0,2).join('')}
+// ============================================================
+// LOGIC
+// ============================================================
+
+function byId(id){
+  for(var i=0;i<P.length;i++){if(P[i].id===id)return P[i];}
+  return null;
+}
 
 function go(id){
   document.querySelectorAll('.scr').forEach(function(s){s.classList.remove('on');});
   var el=document.getElementById('s-'+id);
   if(el){el.classList.add('on');var sc=el.querySelector('.scroll');if(sc)sc.scrollTop=0;}
-  if(id==='lb')renderLB('all');
-  if(id==='search'){cf='all';cs2='';var si=document.getElementById('sinput');if(si)si.value='';document.querySelectorAll('.fp').forEach(function(p,i){p.classList.toggle('on',i===0);});renderS();}
+  if(id==='lb'){renderLB('all');document.querySelector('.lbt.on')&&document.querySelectorAll('.lbt').forEach(function(t){t.classList.remove('on');});document.querySelector('.lbt')&&document.querySelector('.lbt').classList.add('on');}
+  if(id==='search'){cf='all';cq='';var si=document.getElementById('sinput');if(si)si.value='';document.querySelectorAll('.sf').forEach(function(p,i){p.classList.toggle('on',i===0);});renderS();}
 }
 
+function goBack(){
+  go('home');
+}
+
+// ============================================================
+// OPEN POLITICIAN DETAIL
+// ============================================================
 function openPol(id){
-  var pol=null;
-  for(var i=0;i<P.length;i++){if(P[i].id===id){pol=P[i];break;}}
+  var pol=byId(id);
   if(!pol)return;
   curPol=pol;
-  var pc=PC[pol.p]||'ind';
-  document.getElementById('dpill').className='pill '+pc;
+  var pc=bclass[pol.p]||'b-ind';
+
+  // Hero
+  document.getElementById('dhbg').textContent=pol.e;
+  document.getElementById('dpill').className='badge '+pc;
   document.getElementById('dpill').textContent=pol.p;
-  document.getElementById('hbg').textContent=pol.e;
   document.getElementById('dname').textContent=pol.n;
   document.getElementById('dpos').textContent=pol.pos;
-  document.getElementById('dpct').textContent=pol.pct+'%';
-  document.getElementById('dpct').style.color=ac(pol.pct);
+  document.getElementById('dpct').textContent=pol.pct>0?pol.pct+'%':'\u2014 Nueva';
+  document.getElementById('dpct').style.color=pol.pct>0?ac(pol.pct):'var(--fog)';
   document.getElementById('dvotes').textContent=pol.v.toLocaleString();
   document.getElementById('dden').textContent=pol.d;
   document.getElementById('ddencount').textContent='('+pol.d+')';
   document.getElementById('molsub').textContent='Contra: '+pol.n;
-  document.getElementById('scn').textContent=pol.n.toUpperCase();
-  document.getElementById('scs').innerHTML=pol.pos+' &middot; <span class="pill '+pc+'">'+pol.p+'</span>';
-  document.getElementById('scpct').textContent=pol.pct+'%';
-  document.getElementById('scbar').style.width=pol.pct+'%';
-  document.getElementById('scp').textContent=pol.e;
-  document.getElementById('scst').innerHTML='<span>\ud83d\udc4d '+Math.round(pol.v*pol.pct/100).toLocaleString()+'</span><span>\ud83d\udc4e '+Math.round(pol.v*(100-pol.pct)/100).toLocaleString()+'</span><span>\ud83d\udce2 '+pol.d+'</span>';
-  var tls=[
-    {cls:'db',ico:'\ud83d\udccb',d:'2025-01-13',t:'Juramentado/a en el cargo oficial'},
-    {cls:'dg',ico:'\u2705',d:'2025-03-10',t:'Participaci\u00f3n en sesi\u00f3n legislativa'},
-    {cls:'dy',ico:'\ud83c\udfd7\ufe0f',d:'2024-11-05',t:'Elegido/a en elecciones generales 2024'}
+
+  // Category ratings (all 0 = fresh start)
+  var cats=[
+    {l:'Honestidad',v:pol.pct>0?3.8:0},
+    {l:'Trabajo realizado',v:pol.pct>0?4.0:0},
+    {l:'Accesibilidad',v:pol.pct>0?3.2:0},
+    {l:'Transparencia',v:pol.pct>0?3.1:0}
   ];
-  document.getElementById('dtl').innerHTML=tls.map(function(t){
-    return '<div class="tli"><div class="tld '+t.cls+'">'+t.ico+'</div><div><div class="tldate">'+t.d+'</div><div class="tltxt">'+t.t+'</div></div></div>';
+  document.getElementById('dcats').innerHTML=cats.map(function(c){
+    var stars=c.v>0?Math.round(c.v)+' / 5':'—';
+    return '<div class="crat"><div class="crat-label">'+c.l+'</div><div class="crat-val">'+stars+'</div><div class="crat-sub">'+(c.v>0?c.v.toFixed(1)+' promedio':'Sin evaluaciones a\u00fan')+'</div></div>';
   }).join('');
+
+  // Timeline
+  var iconMap={':'ti-law':'⚡','ti-win':'✅','ti-scan':'⚠','ti-proj':'📊','ti-elec':'🗽'};
+  document.getElementById('dtl').innerHTML=(pol.tl||[]).map(function(t){
+    var ico={':ti-law':'⚡','ti-win':'✅','ti-scan':'⚠','ti-proj':'📊','ti-elec':'🗽'}[t.t]||'📌';
+    return '<div class="tl-item"><div class="tl-side"><div class="tl-icon '+t.t+'" style="font-size:15px;font-family:sans-serif">'+ico+'</div></div><div class="tl-body"><div class="tl-date">'+t.d+'</div><div class="tl-title">'+t.title+'</div>'+(t.desc?'<div class="tl-desc">'+t.desc+'</div>':'')+'</div></div>';
+  }).join('')|('<div style="color:var(--fog);font-size:13px;padding:10px 0">Datos en proceso de verificación.</div>');
+
+  // Perturbaciones
+  var ps=pol.perturb||[];
+  if(ps.length){
+    document.getElementById('dperturb').innerHTML='<div class="perturb">'+
+      '<div class="perturb-header"><div class="perturb-dot"></div><div class="perturb-label">Conductas Perturbadoras Documentadas</div></div>'+
+      ps.map(function(p){return '<div class="perturb-item">'+p.s+'</div>';}).join('')+
+      '</div>';
+  } else {
+    document.getElementById('dperturb').innerHTML='<div style="color:var(--fog);font-size:12px;padding:0 0 14px">No se han documentado conductas perturbadoras para este funcionario.</div>';
+  }
+
+  // Share card
+  document.getElementById('scp').textContent=pol.e;
+  document.getElementById('scn').textContent=pol.n.toUpperCase();
+  document.getElementById('scs').textContent=pol.pos;
+  document.getElementById('scpct').textContent=pol.pct>0?pol.pct+'%':'NUEVA';
+  document.getElementById('scbar').style.width=(pol.pct||0)+'%';
+  document.getElementById('scst').innerHTML='<span>👍 '+pol.v+'</span><span>📢 '+pol.d+'</span>';
+
   go('detail');
 }
 
+// ============================================================
+// HOME
+// ============================================================
 function renderHome(){
-  var top=[].concat(P).sort(function(a,b){return b.v-a.v;}).slice(0,6);
-  document.getElementById('trend').innerHTML=top.map(function(x){
-    return '<div class="tc" onclick="openPol(\''+x.id+'\');"><div class="tc-photo">'+x.e+'<span style="position:absolute;top:7px;left:7px"><span class="pill '+(PC[x.p]||'ind')+'" style="font-size:10px">'+x.p+'</span></span></div><div class="tc-body"><div class="tc-name">'+x.n+'</div><div class="tc-sub">'+x.pos+'</div><div class="bar"><div class="bfill '+bc(x.pct)+'" style="width:'+x.pct+'%"></div></div><div style="display:flex;justify-content:space-between;margin-top:4px;font-size:11px"><span style="color:'+ac(x.pct)+';font-weight:700">'+x.pct+'%</span><span style="color:var(--mut)">'+x.v.toLocaleString()+'</span></div></div></div>';
+  // Exec cards
+  var execs=P.filter(function(x){return x.c==='exec';});
+  document.getElementById('exec-cards').innerHTML=execs.map(function(x){
+    var bc2=bclass[x.p]||'b-ind';
+    return '<div class="tcard" onclick="openPol(\''+x.id+'\');">'+
+      '<div class="tcard-top">'+x.e+'<div class="tcard-party"><span class="badge '+bc2+'">'+x.p+'</span></div></div>'+
+      '<div class="tcard-body">'+
+        '<div class="tcard-name">'+x.n+'</div>'+
+        '<div class="tcard-pos">'+x.pos+'</div>'+
+        '<div class="tcard-pct" style="color:var(--fog)">Perfil nuevo</div>'+
+        '<div class="apv-wrap"><div class="apv-fill af-hi" style="width:0%"></div></div>'+
+      '</div></div>';
   }).join('');
-  var t3=[].concat(P).sort(function(a,b){return b.pct-a.pct;}).slice(0,3);
-  document.getElementById('hlb').innerHTML=t3.map(function(x,i){
-    return '<div class="lbr" onclick="openPol(\''+x.id+'\');"><div class="lbrank">'+M[i]+'</div><div class="lbava">'+ini(x.n)+'</div><div class="lbi"><div class="lbn">'+x.n+'</div><div class="lbs"><span class="pill '+(PC[x.p]||'ind')+'" style="font-size:10px">'+x.p+'</span></div></div><div class="lbp"><div class="lbpn" style="color:'+ac(x.pct)+'">'+x.pct+'%</div><div style="font-size:11px;color:var(--mut)">'+x.v.toLocaleString()+'</div></div></div>';
+
+  // Trending = most recent elected
+  var trend=P.filter(function(x){return x.c!=='exec';}).slice(0,6);
+  document.getElementById('trend').innerHTML=trend.map(function(x){
+    var bc2=bclass[x.p]||'b-ind';
+    return '<div class="tcard" onclick="openPol(\''+x.id+'\');">'+
+      '<div class="tcard-top">'+x.e+'<div class="tcard-party"><span class="badge '+bc2+'">'+x.p+'</span></div></div>'+
+      '<div class="tcard-body">'+
+        '<div class="tcard-name">'+x.n+'</div>'+
+        '<div class="tcard-pos">'+x.pos+'</div>'+
+        '<div class="tcard-pct" style="color:var(--fog);font-size:13px">🗳\ufe0f S\u00e9 el primero en evaluar</div>'+
+        '<div class="apv-wrap"><div class="apv-fill af-hi" style="width:0%"></div></div>'+
+      '</div></div>';
+  }).join('');
+
+  // Top 3 by tl entries count (as proxy for data richness)
+  var top3=P.slice().sort(function(a,b){return (b.tl||[]).length-(a.tl||[]).length;}).slice(0,3);
+  document.getElementById('hlb').innerHTML=top3.map(function(x,i){
+    var bc2=bclass[x.p]||'b-ind';
+    var medal=['\ud83e\udd47','\ud83e\udd48','\ud83e\udd49'][i];
+    return '<div class="lb-item" onclick="openPol(\''+x.id+'\');">'+
+      '<div class="lb-rank">'+medal+'</div>'+
+      '<div class="lb-ava">'+x.e+'</div>'+
+      '<div class="lb-info">'+
+        '<div class="lb-name">'+x.n+'</div>'+
+        '<div class="lb-sub"><span class="badge '+bc2+'">'+x.p+'</span><span>'+x.pos+'</span></div>'+
+      '</div>'+
+      '<div class="lb-right"><div class="lb-pct" style="color:var(--fog);font-size:14px">\u2014</div><div class="lb-votes">Sé el primero</div></div>'+
+    '</div>';
   }).join('');
 }
 
+// ============================================================
+// LEADERBOARD
+// ============================================================
 function renderLB(f){
-  var pols=[].concat(P).sort(function(a,b){return b.pct-a.pct;});
+  var pols=P.slice();
   if(f==='exec')pols=pols.filter(function(x){return x.c==='exec';});
-  if(f==='senate')pols=pols.filter(function(x){return x.c==='senador';});
-  if(f==='house')pols=pols.filter(function(x){return x.c==='represent';});
-  if(f==='mayors')pols=pols.filter(function(x){return x.c==='alcalde';});
-  var cnt=document.getElementById('totalCount');
-  if(cnt)cnt.textContent=pols.length;
+  else if(f==='senate')pols=pols.filter(function(x){return x.c==='senador';});
+  else if(f==='house')pols=pols.filter(function(x){return x.c==='represent';});
+  else if(f==='mayors')pols=pols.filter(function(x){return x.c==='alcalde';});
+  // Sort by timeline richness for now
+  pols.sort(function(a,b){return (b.tl||[]).length-(a.tl||[]).length;});
+  var c=document.getElementById('lbcount');
+  if(c)c.textContent=pols.length;
   document.getElementById('lbl').innerHTML=pols.map(function(x,i){
-    return '<div class="lbr" onclick="openPol(\''+x.id+'\');"><div class="lbrank">'+(i<3?M[i]:'#'+(i+1))+'</div><div class="lbava">'+ini(x.n)+'</div><div class="lbi"><div class="lbn">'+x.n+'</div><div class="lbs"><span class="pill '+(PC[x.p]||'ind')+'" style="font-size:10px">'+x.p+'</span> '+x.pos+'</div></div><div class="lbp"><div class="lbpn" style="color:'+ac(x.pct)+'">'+x.pct+'%</div><div style="font-size:11px;color:var(--mut)">'+x.v.toLocaleString()+'</div></div></div>';
-  }).join('')+'<div style="height:6px"></div>';
+    var bc2=bclass[x.p]||'b-ind';
+    return '<div class="lb-item" onclick="openPol(\''+x.id+'\');">'+
+      '<div class="lb-rank">'+(i<3?['\ud83e\udd47','\ud83e\udd48','\ud83e\udd49'][i]:'#'+(i+1))+'</div>'+
+      '<div class="lb-ava">'+x.e+'</div>'+
+      '<div class="lb-info">'+
+        '<div class="lb-name">'+x.n+'</div>'+
+        '<div class="lb-sub"><span class="badge '+bc2+'">'+x.p+'</span><span>'+x.pos+'</span></div>'+
+      '</div>'+
+      '<div class="lb-right"><div class="lb-pct" style="font-size:12px;color:var(--fog)">—</div><div class="lb-votes">0 votos</div></div>'+
+    '</div>';
+  }).join('')+'<div style="height:8px"></div>';
 }
 
 function setTab(el,f){
-  document.querySelectorAll('.tab').forEach(function(t){t.classList.remove('on');});
+  document.querySelectorAll('.lbt').forEach(function(t){t.classList.remove('on');});
   el.classList.add('on');
   renderLB(f);
 }
 
+// ============================================================
+// SEARCH
+// ============================================================
 function renderS(){
-  var q=cs2.toLowerCase().trim();
-  var pols=[].concat(P);
+  var q=cq.toLowerCase().trim();
+  var pols=P.slice();
   if(q) pols=pols.filter(function(x){
     return x.n.toLowerCase().indexOf(q)>-1||
            x.pos.toLowerCase().indexOf(q)>-1||
            (x.tags&&x.tags.toLowerCase().indexOf(q)>-1)||
-           x.p.toLowerCase()===q||
-           x.c.indexOf(q)>-1;
+           (x.bio&&x.bio.toLowerCase().indexOf(q)>-1)||
+           x.p.toLowerCase()===q||x.c===q||x.c.indexOf(q)>-1;
   });
   if(cf!=='all') pols=pols.filter(function(x){
-    return x.p===cf||(cf==='IND'&&(x.p==='IND'||x.p==='Independent'))||x.c===cf||x.c.indexOf(cf)>-1;
+    if(cf==='PNP'||cf==='PPD'||cf==='PIP'||cf==='MVC')return x.p===cf;
+    if(cf==='IND')return x.p==='IND'||x.p==='Independent';
+    return x.c===cf||x.c.indexOf(cf)>-1;
   });
-  pols.sort(function(a,b){return b.pct-a.pct;});
   var el=document.getElementById('sres');
   if(!pols.length){
-    el.innerHTML='<div style="padding:36px;text-align:center;color:var(--mut);font-size:14px">Sin resultados para "'+cs2+'"</div>';
+    el.innerHTML='<div style="padding:48px 20px;text-align:center;color:var(--fog);font-size:14px">No se encontraron resultados para "'+cq+'"</div>';
     return;
   }
   el.innerHTML=pols.map(function(x){
-    return '<div class="sri" onclick="openPol(\''+x.id+'\');"><div class="sravo">'+x.e+'</div><div style="flex:1;min-width:0"><div style="font-size:14px;font-weight:700">'+x.n+'</div><div style="font-size:12px;color:var(--mut);margin-top:2px;display:flex;gap:5px;align-items:center"><span class="pill '+(PC[x.p]||'ind')+'" style="font-size:10px">'+x.p+'</span><span>'+x.pos+'</span></div></div><div style="text-align:right;flex-shrink:0"><div style="font-size:17px;font-weight:900;color:'+ac(x.pct)+'">'+x.pct+'%</div><div style="font-size:11px;color:var(--mut)">'+x.v.toLocaleString()+'</div></div></div>';
-  }).join('')+'<div style="height:6px"></div>';
+    var bc2=bclass[x.p]||'b-ind';
+    return '<div class="sr-item" onclick="openPol(\''+x.id+'\');">'+
+      '<div class="sr-ava">'+x.e+'</div>'+
+      '<div style="flex:1;min-width:0">'+
+        '<div style="font-family:\u2019Syne\u2019,sans-serif;font-size:14px;font-weight:700;color:var(--white)">'+x.n+'</div>'+
+        '<div style="font-size:12px;color:var(--fog);margin-top:3px;display:flex;gap:6px;align-items:center"><span class="badge '+bc2+'">'+x.p+'</span><span>'+x.pos+'</span></div>'+
+      '</div>'+
+      '<div style="text-align:right;flex-shrink:0;font-size:12px;color:var(--fog)">—</div>'+
+    '</div>';
+  }).join('')+'<div style="height:8px"></div>';
 }
 
-function doS(v){cs2=v;renderS();}
-function sf(el,f){
-  document.querySelectorAll('.fp').forEach(function(p){p.classList.remove('on');});
+function doS(v){cq=v;renderS();}
+function sf_fn(el,f){
+  document.querySelectorAll('.sf').forEach(function(p){p.classList.remove('on');});
   el.classList.add('on');cf=f;renderS();
 }
 
+// ============================================================
+// RATING FORM
+// ============================================================
 var ts=null;
-function st(up){ts=up;document.getElementById('tbu').className='tb'+(up?' up':'');document.getElementById('tbd').className='tb'+(!up?' dn':'');}
+function st(up){ts=up;document.getElementById('tbu').className='thumb-btn'+(up?' up':'');document.getElementById('tbd').className='thumb-btn'+(!up?' dn':'');}
 function cs(el){var f=(el.textContent.match(/\u2605/g)||[]).length;var n=f>=5?1:f+1;el.textContent='\u2605'.repeat(n)+'\u2606'.repeat(5-n);}
 function subRate(){
-  if(ts===null){toast('Selecciona \ud83d\udc4d o \ud83d\udc4e primero');return;}
-  toast('\u00a1Voto registrado! \ud83d\uddf3\ufe0f');
+  if(ts===null){toast('Selecciona \u{1F44D} o \u{1F44E} primero');return;}
+  toast('\u00a1Evaluaci\u00f3n registrada!');
   setTimeout(function(){
     ts=null;
-    document.getElementById('tbu').className='tb';
-    document.getElementById('tbd').className='tb';
+    document.getElementById('tbu').className='thumb-btn';
+    document.getElementById('tbd').className='thumb-btn';
     var c=document.getElementById('cmtbox');if(c)c.value='';
-    document.querySelectorAll('.sis').forEach(function(s){s.textContent='\u2605\u2605\u2605\u2606\u2606';});
+    document.querySelectorAll('.cs-stars').forEach(function(s){s.textContent='\u2605\u2605\u2605\u2606\u2606';});
   },1500);
 }
+
+// ============================================================
+// COMPLAINT MODAL
+// ============================================================
 function showMol(){var m=document.getElementById('mol');if(m)m.style.display='flex';}
 function hideMol(){var m=document.getElementById('mol');if(m)m.style.display='none';}
 function subCmp(){
-  var cat=document.getElementById('mcat').value,tit=document.getElementById('mtit').value,desc=document.getElementById('mdesc').value;
+  var cat=document.getElementById('mcat').value;
+  var tit=document.getElementById('mtit').value;
+  var desc=document.getElementById('mdesc').value;
   if(!cat){toast('Selecciona categor\u00eda');return;}
-  if(!tit.trim()){toast('Agrega t\u00edtulo');return;}
-  if(desc.length<50){toast('Descripci\u00f3n muy corta');return;}
-  hideMol();toast('\u00a1Denuncia presentada! \ud83d\udce2');
+  if(!tit.trim()){toast('Agrega un t\u00edtulo');return;}
+  if(desc.length<50){toast('Descripci\u00f3n m\u00edn. 50 caracteres');return;}
+  hideMol();toast('\u00a1Denuncia presentada!');
   document.getElementById('mcat').value='';
   document.getElementById('mtit').value='';
   document.getElementById('mdesc').value='';
@@ -620,10 +1951,33 @@ function subCmp(){
 }
 var de=document.getElementById('mdesc');
 if(de)de.addEventListener('input',function(){document.getElementById('mcc').textContent=this.value.length+' / 2000';});
-function uv(btn,n){if(btn.classList.contains('vd')){toast('Ya votaste');return;}btn.classList.add('vd');btn.textContent='\u25b2 '+(n+1)+' votos';}
+
+// ============================================================
+// UPVOTE
+// ============================================================
+function uv(btn,n){
+  if(btn.classList.contains('vd')){toast('Ya votaste');return;}
+  btn.classList.add('vd');
+  btn.textContent='\u25b2 '+(n+1);
+}
+
+// ============================================================
+// TOAST
+// ============================================================
 var tt;
-function toast(msg){var t=document.getElementById('tst');t.textContent=msg;t.classList.add('on');clearTimeout(tt);tt=setTimeout(function(){t.classList.remove('on');},2500);}
-renderHome();renderLB('all');renderS();
+function toast(msg){
+  var t=document.getElementById('tst');
+  t.textContent=msg;t.classList.add('on');
+  clearTimeout(tt);
+  tt=setTimeout(function(){t.classList.remove('on');},2500);
+}
+
+// ============================================================
+// INIT
+// ============================================================
+renderHome();
+renderLB('all');
+renderS();
 </script>
 </body>
 </html>
