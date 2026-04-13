@@ -5,14 +5,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <title>PoliRANK 🇵🇷 – Evalúa a tus políticos</title>
 <meta name="description" content="La plataforma ciudadana para evaluar, calificar y denunciar a los políticos de Puerto Rico.">
-<meta property="og:title" content="PoliRANK 🇵🇷">
-<meta property="og:description" content="Evalúa a tus políticos. Transparencia ciudadana para Puerto Rico.">
-<meta property="og:type" content="website">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
 <style>
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
-html,body{background:#060608;font-family:'Inter',system-ui,sans-serif;color:#fff;min-height:100vh;display:flex;align-items:center;justify-content:center;overflow:hidden}
 
 :root{
   --bg:#0A0A0F;--surface:#12121A;--card:#1A1A26;--border:#2A2A3A;
@@ -21,31 +17,67 @@ html,body{background:#060608;font-family:'Inter',system-ui,sans-serif;color:#fff
   --pnp:#1D4ED8;--ppd:#B91C1C;--pip:#15803D;--mvc:#7C3AED;--ind:#4B5563;
 }
 
-.app{
-  background:var(--bg);color:var(--text);
-  width:100%;max-width:430px;
-  height:100vh;max-height:860px;
-  border-radius:0;overflow:hidden;position:relative;
-  display:flex;flex-direction:column;
-  box-shadow:0 0 60px rgba(245,197,24,.08);
+html{
+  background:#060608;
+  font-family:'Inter',system-ui,sans-serif;
+  color:#fff;
+  height:100%;
 }
-@media(min-width:500px){.app{border-radius:24px;height:860px;box-shadow:0 0 80px rgba(0,0,0,.8),0 0 40px rgba(245,197,24,.1)}}
 
-.screen{display:none;flex-direction:column;flex:1;overflow:hidden}
+body{
+  min-height:100%;
+  background:#060608;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:flex-start;
+  padding:0;
+}
+
+@media(min-width:500px){
+  body{
+    min-height:100vh;
+    justify-content:center;
+    padding:20px 0;
+  }
+}
+
+.app{
+  background:var(--bg);
+  color:var(--text);
+  width:100%;
+  max-width:430px;
+  min-height:100vh;
+  position:relative;
+  display:flex;
+  flex-direction:column;
+  overflow:hidden;
+}
+
+@media(min-width:500px){
+  .app{
+    min-height:0;
+    height:860px;
+    border-radius:24px;
+    box-shadow:0 0 80px rgba(0,0,0,.9),0 0 40px rgba(245,197,24,.08);
+  }
+}
+
+.screen{display:none;flex-direction:column;flex:1;overflow:hidden;min-height:0}
 .screen.active{display:flex}
 
-.scroll{overflow-y:auto;flex:1;padding-bottom:68px}
+.scroll{overflow-y:auto;flex:1;padding-bottom:72px;min-height:0}
 .scroll::-webkit-scrollbar{width:3px}
 .scroll::-webkit-scrollbar-thumb{background:var(--border);border-radius:4px}
 
 /* HEADER */
-.hdr{background:rgba(10,10,15,.95);backdrop-filter:blur(12px);padding:14px 18px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--border);flex-shrink:0;position:sticky;top:0;z-index:20}
+.hdr{background:rgba(10,10,15,.95);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);padding:14px 18px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--border);flex-shrink:0;position:sticky;top:0;z-index:20}
 .logo{font-size:20px;font-weight:900;color:var(--gold);letter-spacing:-0.5px}
 .logo span{color:#fff}
 .hdr-icons{display:flex;gap:14px;font-size:20px;cursor:pointer}
 
 /* BOTTOM NAV */
-.bnav{position:absolute;bottom:0;left:0;right:0;background:var(--surface);border-top:1px solid var(--border);display:flex;padding:6px 0 8px;z-index:20}
+.bnav{position:absolute;bottom:0;left:0;right:0;background:var(--surface);border-top:1px solid var(--border);display:flex;padding:6px 0 max(8px,env(safe-area-inset-bottom));z-index:20}
 .bnav-item{flex:1;display:flex;flex-direction:column;align-items:center;gap:2px;cursor:pointer;color:var(--muted);font-size:10px;font-weight:600;padding:4px 0;transition:color .2s;user-select:none}
 .bnav-item.active{color:var(--gold)}
 .bnav-icon{font-size:22px}
@@ -63,13 +95,11 @@ html,body{background:#060608;font-family:'Inter',system-ui,sans-serif;color:#fff
 .bar-fill{height:100%;border-radius:4px;transition:width .5s cubic-bezier(.4,0,.2,1)}
 .bar-green{background:var(--green)}.bar-yellow{background:var(--yellow)}.bar-red{background:var(--red)}
 
-/* =========================================
-   SCREEN 1 – HOME
-   ========================================= */
+/* SCREEN 1 - HOME */
 .trend-scroll{display:flex;gap:12px;padding:0 18px 18px;overflow-x:auto;scrollbar-width:none}
 .trend-scroll::-webkit-scrollbar{display:none}
 .trend-card{flex-shrink:0;width:190px;background:var(--card);border-radius:16px;border:1px solid var(--border);overflow:hidden;cursor:pointer;transition:transform .15s,border-color .15s}
-.trend-card:hover{transform:translateY(-2px);border-color:var(--gold)}
+.trend-card:active{transform:scale(.97)}
 .trend-photo{height:100px;background:linear-gradient(135deg,#1a1a2e,#16213e);display:flex;align-items:center;justify-content:center;font-size:40px;position:relative}
 .trend-body{padding:10px 12px 12px}
 .trend-name{font-size:13px;font-weight:700;margin-bottom:2px}
@@ -77,9 +107,9 @@ html,body{background:#060608;font-family:'Inter',system-ui,sans-serif;color:#fff
 .trend-pct{display:flex;justify-content:space-between;margin-top:5px;font-size:11px}
 
 .lb-row{display:flex;align-items:center;gap:12px;padding:12px 18px;border-bottom:1px solid var(--border);cursor:pointer;transition:background .15s}
-.lb-row:hover{background:var(--card)}
+.lb-row:active{background:var(--card)}
 .lb-rank{font-size:16px;font-weight:900;color:var(--muted);width:32px;text-align:center;flex-shrink:0}
-.lb-avatar{width:42px;height:42px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:700;flex-shrink:0;border:1px solid var(--border)}
+.lb-avatar{width:42px;height:42px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;flex-shrink:0;border:1px solid var(--border);background:rgba(255,255,255,.06)}
 .lb-info{flex:1;min-width:0}
 .lb-name{font-size:14px;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .lb-sub{font-size:11px;color:var(--muted);margin-top:2px;display:flex;align-items:center;gap:4px}
@@ -95,14 +125,12 @@ html,body{background:#060608;font-family:'Inter',system-ui,sans-serif;color:#fff
 .cmp-text{font-size:12px;color:var(--muted);line-height:1.5}
 .cmp-footer{display:flex;align-items:center;gap:8px;margin-top:8px}
 .upvote-btn{background:var(--surface);border:1px solid var(--border);border-radius:999px;padding:4px 12px;font-size:12px;font-weight:600;color:var(--muted);cursor:pointer;transition:all .2s}
-.upvote-btn:hover,.upvote-btn.voted{border-color:var(--gold);color:var(--gold)}
+.upvote-btn.voted{border-color:var(--gold);color:var(--gold)}
 
 .search-bar{margin:10px 18px 18px;background:var(--card);border:1px solid var(--border);border-radius:12px;padding:12px 16px;display:flex;align-items:center;gap:10px;color:var(--muted);font-size:14px;cursor:pointer;transition:border-color .2s}
-.search-bar:hover{border-color:var(--gold)}
+.search-bar:active{border-color:var(--gold)}
 
-/* =========================================
-   SCREEN 2 – POLITICIAN DETAIL
-   ========================================= */
+/* SCREEN 2 - DETAIL */
 .pol-hero{height:170px;background:linear-gradient(135deg,#0d1b2a,#1a1a2e);display:flex;align-items:flex-end;padding:16px;position:relative;flex-shrink:0;overflow:hidden}
 .pol-hero-bg{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:90px;opacity:.25;pointer-events:none}
 .pol-backbtn{position:absolute;top:14px;left:14px;background:rgba(0,0,0,.6);border:1px solid var(--border);border-radius:999px;padding:6px 14px;font-size:13px;color:#fff;cursor:pointer;font-weight:600;z-index:2}
@@ -126,7 +154,6 @@ html,body{background:#060608;font-family:'Inter',system-ui,sans-serif;color:#fff
 .rate-title{font-size:14px;font-weight:700;text-align:center;margin-bottom:14px}
 .thumb-row{display:flex;gap:10px;margin-bottom:14px}
 .thumb-btn{flex:1;padding:16px 10px;border-radius:14px;border:2px solid var(--border);background:transparent;color:#fff;font-size:28px;cursor:pointer;text-align:center;transition:all .2s;line-height:1}
-.thumb-btn:hover{background:var(--card)}
 .thumb-btn.active-up{border-color:var(--green);background:rgba(34,197,94,.12)}
 .thumb-btn.active-down{border-color:var(--red);background:rgba(239,68,68,.12)}
 .star-input-row{display:flex;justify-content:space-between;align-items:center;padding:6px 0;font-size:13px}
@@ -134,9 +161,8 @@ html,body{background:#060608;font-family:'Inter',system-ui,sans-serif;color:#fff
 .star-input-stars{cursor:pointer;font-size:18px;color:var(--gold);letter-spacing:2px}
 .comment-box{width:100%;background:var(--card);border:1px solid var(--border);border-radius:12px;padding:12px;color:#fff;font-size:13px;resize:none;font-family:inherit;margin:12px 0 10px;line-height:1.5}
 .comment-box:focus{outline:none;border-color:var(--gold)}
-.submit-btn{width:100%;padding:14px;border-radius:14px;background:var(--gold);border:none;color:#000;font-size:14px;font-weight:800;cursor:pointer;transition:opacity .2s,transform .1s}
-.submit-btn:hover{opacity:.92}
-.submit-btn:active{transform:scale(.98)}
+.submit-btn{width:100%;padding:14px;border-radius:14px;background:var(--gold);border:none;color:#000;font-size:14px;font-weight:800;cursor:pointer;transition:opacity .2s}
+.submit-btn:active{opacity:.85}
 
 .tl-item{display:flex;gap:12px;padding:12px 0;border-bottom:1px solid var(--border)}
 .tl-item:last-child{border:none}
@@ -149,29 +175,25 @@ html,body{background:#060608;font-family:'Inter',system-ui,sans-serif;color:#fff
 .tl-text{font-size:13px;line-height:1.5}
 
 .complaint-cta{margin:0 18px 16px;padding:16px;border-radius:14px;background:rgba(239,68,68,.08);border:2px solid rgba(239,68,68,.3);color:var(--red);font-size:15px;font-weight:700;text-align:center;cursor:pointer;transition:all .2s}
-.complaint-cta:hover{background:rgba(239,68,68,.16);border-color:var(--red)}
+.complaint-cta:active{background:rgba(239,68,68,.16)}
 
 /* MODAL */
-.modal-overlay{position:absolute;inset:0;background:rgba(0,0,0,.75);z-index:50;display:flex;align-items:flex-end;backdrop-filter:blur(2px)}
+.modal-overlay{position:absolute;inset:0;background:rgba(0,0,0,.75);z-index:50;display:flex;align-items:flex-end;backdrop-filter:blur(2px);-webkit-backdrop-filter:blur(2px)}
 .modal-sheet{background:var(--surface);border-radius:24px 24px 0 0;width:100%;padding:20px 20px 32px;max-height:85%;overflow-y:auto}
 .drag-handle{width:40px;height:4px;background:var(--border);border-radius:2px;margin:0 auto 18px}
 .modal-title{font-size:17px;font-weight:800;margin-bottom:3px;color:var(--red)}
 .modal-sub{font-size:13px;color:var(--muted);margin-bottom:18px}
 .form-label{font-size:12px;color:var(--muted);font-weight:600;margin-bottom:5px;display:block;text-transform:uppercase;letter-spacing:.5px}
-.form-select,.form-input{width:100%;background:var(--card);border:1px solid var(--border);border-radius:12px;padding:12px 14px;color:#fff;font-size:14px;margin-bottom:12px;font-family:inherit;appearance:none}
+.form-select,.form-input{width:100%;background:var(--card);border:1px solid var(--border);border-radius:12px;padding:12px 14px;color:#fff;font-size:14px;margin-bottom:12px;font-family:inherit;-webkit-appearance:none;appearance:none}
 .form-select:focus,.form-input:focus,.form-textarea:focus{outline:none;border-color:var(--gold)}
 .form-textarea{width:100%;background:var(--card);border:1px solid var(--border);border-radius:12px;padding:12px 14px;color:#fff;font-size:14px;margin-bottom:4px;font-family:inherit;resize:none;line-height:1.5}
 .char-count{font-size:11px;color:var(--muted);text-align:right;margin-bottom:12px}
 .modal-warn{background:rgba(234,179,8,.08);border:1px solid rgba(234,179,8,.25);border-radius:12px;padding:10px 14px;font-size:12px;color:var(--yellow);margin-bottom:16px;line-height:1.5}
 .modal-btns{display:flex;gap:10px}
-.btn-red{flex:1;padding:14px;border-radius:14px;background:var(--red);border:none;color:#fff;font-size:14px;font-weight:700;cursor:pointer;transition:opacity .2s}
-.btn-red:hover{opacity:.9}
-.btn-outline{flex:1;padding:14px;border-radius:14px;background:transparent;border:1px solid var(--border);color:var(--muted);font-size:14px;cursor:pointer;transition:background .2s}
-.btn-outline:hover{background:var(--card)}
+.btn-red{flex:1;padding:14px;border-radius:14px;background:var(--red);border:none;color:#fff;font-size:14px;font-weight:700;cursor:pointer}
+.btn-outline{flex:1;padding:14px;border-radius:14px;background:transparent;border:1px solid var(--border);color:var(--muted);font-size:14px;cursor:pointer}
 
-/* =========================================
-   SCREEN 3 – LEADERBOARD
-   ========================================= */
+/* SCREEN 3 - LEADERBOARD */
 .tabs-wrap{display:flex;gap:8px;padding:12px 18px;overflow-x:auto;scrollbar-width:none;flex-shrink:0;border-bottom:1px solid var(--border)}
 .tabs-wrap::-webkit-scrollbar{display:none}
 .tab{padding:8px 18px;border-radius:999px;font-size:13px;font-weight:700;white-space:nowrap;cursor:pointer;border:1px solid var(--border);color:var(--muted);transition:all .2s;user-select:none}
@@ -180,11 +202,9 @@ html,body{background:#060608;font-family:'Inter',system-ui,sans-serif;color:#fff
 .live-dot{width:7px;height:7px;border-radius:50%;background:var(--green);animation:blink 1.5s ease infinite;flex-shrink:0}
 @keyframes blink{0%,100%{opacity:1}50%{opacity:.3}}
 
-/* =========================================
-   SCREEN 4 – SEARCH
-   ========================================= */
+/* SCREEN 4 - SEARCH */
 .search-wrap{padding:12px 18px;flex-shrink:0}
-.search-input-row{background:var(--card);border:1px solid var(--gold);border-radius:14px;padding:12px 16px;display:flex;align-items:center;gap:10px}
+.search-input-row{background:var(--card);border:1.5px solid var(--gold);border-radius:14px;padding:12px 16px;display:flex;align-items:center;gap:10px}
 .search-input-row input{background:transparent;border:none;color:#fff;font-size:14px;flex:1;outline:none;font-family:inherit}
 .search-input-row input::placeholder{color:var(--muted)}
 .filter-row{display:flex;gap:8px;padding:0 18px 12px;overflow-x:auto;scrollbar-width:none;flex-shrink:0}
@@ -192,12 +212,10 @@ html,body{background:#060608;font-family:'Inter',system-ui,sans-serif;color:#fff
 .f-pill{padding:6px 16px;border-radius:999px;font-size:12px;font-weight:700;border:1px solid var(--border);color:var(--muted);cursor:pointer;white-space:nowrap;transition:all .2s;user-select:none}
 .f-pill.active{background:var(--card);color:#fff;border-color:rgba(255,255,255,.4)}
 .sr-item{display:flex;align-items:center;gap:12px;padding:12px 18px;border-bottom:1px solid var(--border);cursor:pointer;transition:background .15s}
-.sr-item:hover{background:var(--card)}
-.sr-ava{width:46px;height:46px;border-radius:50%;background:var(--card);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0}
+.sr-item:active{background:var(--card)}
+.sr-ava{width:46px;height:46px;border-radius:50%;background:var(--card);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0}
 
-/* =========================================
-   SCREEN 5 – PROFILE
-   ========================================= */
+/* SCREEN 5 - PROFILE */
 .prof-top{padding:24px 18px 18px;text-align:center;border-bottom:1px solid var(--border)}
 .prof-ava{width:76px;height:76px;border-radius:50%;background:var(--card);border:2px solid var(--gold);display:flex;align-items:center;justify-content:center;font-size:32px;margin:0 auto 10px}
 .prof-name{font-size:16px;font-weight:800}
@@ -213,12 +231,9 @@ html,body{background:#060608;font-family:'Inter',system-ui,sans-serif;color:#fff
 .ref-box{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:14px;display:flex;justify-content:space-between;align-items:center}
 .ref-code{font-size:18px;font-weight:900;letter-spacing:2px;color:var(--gold)}
 .ref-btn-row{display:flex;gap:8px}
-.ref-btn{padding:7px 16px;border-radius:10px;font-size:12px;font-weight:700;border:1px solid var(--border);background:var(--surface);color:#fff;cursor:pointer;transition:background .2s}
-.ref-btn:hover{background:var(--card)}
+.ref-btn{padding:7px 16px;border-radius:10px;font-size:12px;font-weight:700;border:1px solid var(--border);background:var(--surface);color:#fff;cursor:pointer}
 
-/* =========================================
-   SCREEN 6 – SHARE CARD
-   ========================================= */
+/* SCREEN 6 - SHARE */
 .share-wrap{display:flex;flex-direction:column;align-items:center;padding:20px 18px;gap:16px}
 .share-card{background:#0d1117;border:1px solid var(--border);border-radius:20px;width:100%;max-width:360px;overflow:hidden}
 .sc-head{background:#111827;padding:14px 16px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:8px}
@@ -235,49 +250,41 @@ html,body{background:#060608;font-family:'Inter',system-ui,sans-serif;color:#fff
 .sc-actions{padding:14px 18px;display:flex;gap:10px;border-top:1px solid var(--border)}
 .sc-btn{flex:1;padding:13px;border-radius:14px;font-size:14px;font-weight:700;cursor:pointer;transition:all .2s;text-align:center}
 .sc-primary{background:var(--gold);color:#000;border:none}
-.sc-primary:hover{opacity:.9}
 .sc-secondary{background:var(--card);color:#fff;border:1px solid var(--border)}
-.sc-secondary:hover{border-color:var(--gold)}
 
 /* TOAST */
-.toast{position:absolute;top:72px;left:50%;transform:translateX(-50%);background:var(--green);color:#000;padding:9px 20px;border-radius:999px;font-size:13px;font-weight:700;z-index:200;pointer-events:none;white-space:nowrap;opacity:0;transition:opacity .2s}
+.toast{position:absolute;top:72px;left:50%;transform:translateX(-50%);background:var(--green);color:#000;padding:9px 20px;border-radius:999px;font-size:13px;font-weight:700;z-index:200;pointer-events:none;white-space:nowrap;opacity:0;transition:opacity .25s;box-shadow:0 4px 20px rgba(0,0,0,.5)}
 .toast.show{opacity:1}
 
-/* LOADING */
-.splash{position:fixed;inset:0;background:#060608;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:12px;z-index:999;transition:opacity .4s}
-.splash-logo{font-size:36px;font-weight:900;color:var(--gold)}
-.splash-logo span{color:#fff}
-.splash-sub{font-size:13px;color:var(--muted)}
+/* SPLASH */
+.splash{position:fixed;inset:0;background:#060608;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:12px;z-index:999;transition:opacity .5s}
+.splash.hidden{opacity:0;pointer-events:none}
 </style>
 </head>
 <body>
 
 <div class="splash" id="splash">
-  <div style="font-size:48px">🇵🇷</div>
-  <div class="splash-logo">Poli<span>RANK</span></div>
-  <div class="splash-sub">Evaluación ciudadana · Puerto Rico</div>
+  <div style="font-size:56px">🇵🇷</div>
+  <div style="font-size:36px;font-weight:900;color:var(--gold)">Poli<span style="color:#fff">RANK</span></div>
+  <div style="font-size:14px;color:var(--muted);margin-top:4px">Evaluación ciudadana · Puerto Rico</div>
 </div>
 
 <div class="app" id="app">
 
-<!-- ═══════════════════════════════════════
-     SCREEN 1 – HOME
-═══════════════════════════════════════ -->
+<!-- ===== SCREEN 1: HOME ===== -->
 <div class="screen active" id="screen-home">
   <div class="hdr">
     <div class="logo">🇵🇷 Poli<span>RANK</span></div>
     <div class="hdr-icons">
-      <span title="Notificaciones">🔔</span>
-      <span title="Mi Perfil" onclick="goScreen('profile')">👤</span>
+      <span>🔔</span>
+      <span onclick="goScreen('profile')">👤</span>
     </div>
   </div>
   <div class="scroll">
     <div class="sec">🔥 En Tendencia</div>
     <div class="trend-scroll" id="trendCards"></div>
-
     <div class="sec">🏆 Leaderboard <span class="sec-link" onclick="goScreen('leaderboard')">Ver todos →</span></div>
     <div id="homeLeaderboard"></div>
-
     <div class="sec">📢 Denuncias Recientes</div>
     <div class="cmp-card">
       <div class="cmp-header"><span class="cmp-user">@ciudadano_pr</span><span class="cmp-time">hace 2h</span></div>
@@ -297,7 +304,6 @@ html,body{background:#060608;font-family:'Inter',system-ui,sans-serif;color:#fff
       <div class="cmp-text">Prometió reducir la deuda municipal en 20% — aumentó 8% en su primer año...</div>
       <div class="cmp-footer"><button class="upvote-btn" onclick="upvote(this,61)">▲ 61 votos</button><span class="pill pill-mvc" style="font-size:10px">Carlos Ruiz</span></div>
     </div>
-
     <div class="search-bar" onclick="goScreen('search')">
       <span>🔍</span><span>Buscar político...</span>
     </div>
@@ -312,29 +318,26 @@ html,body{background:#060608;font-family:'Inter',system-ui,sans-serif;color:#fff
   </div>
 </div>
 
-<!-- ═══════════════════════════════════════
-     SCREEN 2 – POLITICIAN DETAIL
-═══════════════════════════════════════ -->
+<!-- ===== SCREEN 2: DETAIL ===== -->
 <div class="screen" id="screen-detail">
   <div style="flex-shrink:0;position:relative">
     <div class="pol-hero">
-      <div class="pol-hero-bg" id="polHeroEmoji">👨‍⚖️</div>
+      <div class="pol-hero-bg">👨‍⚖️</div>
       <button class="pol-backbtn" onclick="goScreen('home')">← Volver</button>
       <button class="pol-share" onclick="goScreen('share')">⬆ Compartir</button>
       <div class="pol-info">
-        <span class="pill pill-pip" id="polPartyPill">PIP</span>
-        <div class="pol-name" id="polName">Juan Dalmau Pérez</div>
-        <div class="pol-sub" id="polSub">Senador · Distrito 8</div>
+        <span class="pill pill-pip">PIP</span>
+        <div class="pol-name">Juan Dalmau Pérez</div>
+        <div class="pol-sub">Senador · Distrito 8</div>
       </div>
     </div>
   </div>
   <div class="scroll">
     <div class="stats-row">
-      <div class="stat-box"><div class="stat-num" id="detApproval" style="color:var(--green)">72%</div><div class="stat-lbl">Aprobación</div></div>
-      <div class="stat-box"><div class="stat-num" id="detVotos">1,847</div><div class="stat-lbl">Votos</div></div>
-      <div class="stat-box"><div class="stat-num" id="detDen" style="color:var(--red)">12</div><div class="stat-lbl">Denuncias</div></div>
+      <div class="stat-box"><div class="stat-num" style="color:var(--green)">72%</div><div class="stat-lbl">Aprobación</div></div>
+      <div class="stat-box"><div class="stat-num">1,847</div><div class="stat-lbl">Votos</div></div>
+      <div class="stat-box"><div class="stat-num" style="color:var(--red)">12</div><div class="stat-lbl">Denuncias</div></div>
     </div>
-
     <div class="sec" style="padding-bottom:4px">Evaluaciones Detalladas</div>
     <div class="stars-section">
       <div class="star-row"><span class="star-label">Honestidad</span><div style="display:flex;align-items:center;gap:8px"><span class="stars-display">★★★★☆</span><span class="star-val">3.8</span></div></div>
@@ -343,7 +346,6 @@ html,body{background:#060608;font-family:'Inter',system-ui,sans-serif;color:#fff
       <div class="star-row"><span class="star-label">Liderazgo</span><div style="display:flex;align-items:center;gap:8px"><span class="stars-display">★★★★☆</span><span class="star-val">3.9</span></div></div>
       <div class="star-row" style="border:none"><span class="star-label">Transparencia</span><div style="display:flex;align-items:center;gap:8px"><span class="stars-display">★★★☆☆</span><span class="star-val">2.8</span></div></div>
     </div>
-
     <div class="sec" style="padding-bottom:6px">── Evalúalo ──</div>
     <div class="rate-section">
       <div class="rate-title">Tu Evaluación Ciudadana</div>
@@ -351,16 +353,13 @@ html,body{background:#060608;font-family:'Inter',system-ui,sans-serif;color:#fff
         <button class="thumb-btn" id="thumbUp" onclick="setThumb(true)">👍</button>
         <button class="thumb-btn" id="thumbDown" onclick="setThumb(false)">👎</button>
       </div>
-      <div id="starInputs">
-        <div class="star-input-row"><span class="star-input-label">Honestidad</span><span class="star-input-stars" onclick="cycleStar(this)">★★★★☆</span></div>
-        <div class="star-input-row"><span class="star-input-label">Trabajo</span><span class="star-input-stars" onclick="cycleStar(this)">★★★★☆</span></div>
-        <div class="star-input-row"><span class="star-input-label">Liderazgo</span><span class="star-input-stars" onclick="cycleStar(this)">★★★☆☆</span></div>
-        <div class="star-input-row"><span class="star-input-label">Transparencia</span><span class="star-input-stars" onclick="cycleStar(this)">★★★☆☆</span></div>
-      </div>
+      <div class="star-input-row"><span class="star-input-label">Honestidad</span><span class="star-input-stars" onclick="cycleStar(this)">★★★★☆</span></div>
+      <div class="star-input-row"><span class="star-input-label">Trabajo</span><span class="star-input-stars" onclick="cycleStar(this)">★★★★☆</span></div>
+      <div class="star-input-row"><span class="star-input-label">Liderazgo</span><span class="star-input-stars" onclick="cycleStar(this)">★★★☆☆</span></div>
+      <div class="star-input-row"><span class="star-input-label">Transparencia</span><span class="star-input-stars" onclick="cycleStar(this)">★★★☆☆</span></div>
       <textarea class="comment-box" rows="3" placeholder="Comenta tu evaluación (opcional, máx. 500 chars)..." maxlength="500" id="commentBox"></textarea>
       <button class="submit-btn" onclick="submitRating()">Enviar Evaluación 🗳️</button>
     </div>
-
     <div class="sec" style="padding-bottom:4px">── Timeline ──</div>
     <div style="padding:0 18px">
       <div class="tl-item"><div class="tl-dot dot-bill">📋</div><div><div class="tl-date">2026-02-15</div><div class="tl-text">Bill PS-234: Ley de Transparencia Gubernamental – patrocinado, pendiente</div></div></div>
@@ -369,7 +368,6 @@ html,body{background:#060608;font-family:'Inter',system-ui,sans-serif;color:#fff
       <div class="tl-item"><div class="tl-dot dot-achieve">💰</div><div><div class="tl-date">2024-03-05</div><div class="tl-text">Finanzas de Campaña: $180,000 recaudado – 90% donantes pequeños</div></div></div>
       <div class="tl-item"><div class="tl-dot dot-scandal">❌</div><div><div class="tl-date">2023-07-18</div><div class="tl-text">Escándalo: Acusado de conflicto de interés en contrato – investigado, sin cargos</div></div></div>
     </div>
-
     <div class="sec" style="margin-top:6px">── Denuncias (12) ──</div>
     <div class="cmp-card">
       <div class="cmp-header"><span class="cmp-user">@boricua_watch</span><span class="cmp-time">hace 3 días</span></div>
@@ -379,21 +377,18 @@ html,body{background:#060608;font-family:'Inter',system-ui,sans-serif;color:#fff
     </div>
     <div class="cmp-card">
       <div class="cmp-header"><span class="cmp-user">@pr_transparencia</span><span class="cmp-time">hace 1 semana</span></div>
-      <div class="cmp-title">Promesas de campaña incumplidas – Agua Ponce</div>
+      <div class="cmp-title">Promesas de campaña incumplidas</div>
       <div class="cmp-text">Prometió resolución en 6 meses. Han pasado 18 meses sin avance documentado.</div>
       <div class="cmp-footer"><button class="upvote-btn" onclick="upvote(this,54)">▲ 54 votos</button><span style="font-size:11px;color:var(--yellow)">• en revisión</span></div>
     </div>
-
     <div class="complaint-cta" onclick="showModal()">📢 Presentar Denuncia Ciudadana</div>
     <div style="height:8px"></div>
   </div>
-
-  <!-- COMPLAINT MODAL -->
   <div class="modal-overlay" id="cmpModal" style="display:none">
     <div class="modal-sheet">
       <div class="drag-handle"></div>
       <div class="modal-title">📢 Presentar Denuncia</div>
-      <div class="modal-sub" id="modalSub">Contra: Juan Dalmau Pérez</div>
+      <div class="modal-sub">Contra: Juan Dalmau Pérez</div>
       <label class="form-label">Categoría *</label>
       <select class="form-select" id="cmpCat">
         <option value="">Selecciona categoría...</option>
@@ -408,17 +403,16 @@ html,body{background:#060608;font-family:'Inter',system-ui,sans-serif;color:#fff
       <input class="form-input" type="text" placeholder="Título breve (máx. 150 caracteres)" maxlength="150" id="cmpTitle">
       <label class="form-label">Fecha del incidente</label>
       <input class="form-input" type="date" id="cmpDate">
-      <label class="form-label">Descripción *</label>
-      <textarea class="form-textarea" rows="4" placeholder="Describe la situación con detalle (mín. 50 caracteres)..." id="cmpDesc"></textarea>
+      <label class="form-label">Descripción * (mín. 50 chars)</label>
+      <textarea class="form-textarea" rows="4" placeholder="Describe la situación con detalle..." id="cmpDesc"></textarea>
       <div class="char-count" id="cmpCount">0 / 2000 caracteres</div>
-      <div class="modal-warn">⚠️ Una denuncia por político por mes. La información falsa puede resultar en suspensión de cuenta. Sea preciso y responsable.</div>
+      <div class="modal-warn">⚠️ Una denuncia por político por mes. La información falsa puede resultar en suspensión. Sea preciso.</div>
       <div class="modal-btns">
         <button class="btn-red" onclick="submitComplaint()">Confirmar Denuncia</button>
         <button class="btn-outline" onclick="hideModal()">Cancelar</button>
       </div>
     </div>
   </div>
-
   <div class="bnav">
     <div class="bnav-item" onclick="goScreen('home')"><div class="bnav-icon">🏠</div><div>Home</div></div>
     <div class="bnav-item" onclick="goScreen('leaderboard')"><div class="bnav-icon">🏆</div><div>Ranking</div></div>
@@ -428,15 +422,11 @@ html,body{background:#060608;font-family:'Inter',system-ui,sans-serif;color:#fff
   </div>
 </div>
 
-<!-- ═══════════════════════════════════════
-     SCREEN 3 – LEADERBOARD
-═══════════════════════════════════════ -->
+<!-- ===== SCREEN 3: LEADERBOARD ===== -->
 <div class="screen" id="screen-leaderboard">
   <div class="hdr">
     <div class="logo">🏆 Poli<span>RANK</span></div>
-    <div style="display:flex;align-items:center;gap:6px;font-size:12px;color:var(--green);font-weight:700">
-      <div class="live-dot"></div>EN VIVO
-    </div>
+    <div style="display:flex;align-items:center;gap:6px;font-size:12px;color:var(--green);font-weight:700"><div class="live-dot"></div>EN VIVO</div>
   </div>
   <div class="tabs-wrap">
     <div class="tab active" onclick="setTab(this,'all')">🏆 Todos</div>
@@ -455,9 +445,7 @@ html,body{background:#060608;font-family:'Inter',system-ui,sans-serif;color:#fff
   </div>
 </div>
 
-<!-- ═══════════════════════════════════════
-     SCREEN 4 – SEARCH
-═══════════════════════════════════════ -->
+<!-- ===== SCREEN 4: SEARCH ===== -->
 <div class="screen" id="screen-search">
   <div class="hdr"><div class="logo">🔍 Buscar</div></div>
   <div class="search-wrap">
@@ -466,7 +454,7 @@ html,body{background:#060608;font-family:'Inter',system-ui,sans-serif;color:#fff
       <input type="text" id="searchInput" placeholder="Nombre, partido, municipio..." oninput="doSearch(this.value)" autocomplete="off">
     </div>
   </div>
-  <div class="filter-row" id="filterRow">
+  <div class="filter-row">
     <div class="f-pill active" onclick="setFilter(this,'all')">Todos</div>
     <div class="f-pill" onclick="setFilter(this,'PNP')">PNP</div>
     <div class="f-pill" onclick="setFilter(this,'PPD')">PPD</div>
@@ -486,9 +474,7 @@ html,body{background:#060608;font-family:'Inter',system-ui,sans-serif;color:#fff
   </div>
 </div>
 
-<!-- ═══════════════════════════════════════
-     SCREEN 5 – PROFILE
-═══════════════════════════════════════ -->
+<!-- ===== SCREEN 5: PROFILE ===== -->
 <div class="screen" id="screen-profile">
   <div class="hdr"><div class="logo">👤 Mi Perfil</div><div style="font-size:13px;color:var(--muted);cursor:pointer">⚙️ Ajustes</div></div>
   <div class="scroll">
@@ -520,7 +506,6 @@ html,body{background:#060608;font-family:'Inter',system-ui,sans-serif;color:#fff
         <div class="badge-item">🎯 Fact Checker</div>
         <div class="badge-item">🌟 Top Rater</div>
         <div class="badge-item">🗳️ First Vote</div>
-        <span style="font-size:12px;color:var(--muted);cursor:pointer;align-self:center">ver todas →</span>
       </div>
     </div>
     <div class="prof-sec">
@@ -529,19 +514,15 @@ html,body{background:#060608;font-family:'Inter',system-ui,sans-serif;color:#fff
         <div style="display:flex;justify-content:space-between;align-items:center;padding:10px 12px;background:var(--card);border-radius:12px;font-size:13px"><span style="font-weight:600">Juan Dalmau Pérez</span><span style="color:var(--green);font-weight:700">👍 hace 2 días</span></div>
         <div style="display:flex;justify-content:space-between;align-items:center;padding:10px 12px;background:var(--card);border-radius:12px;font-size:13px"><span style="font-weight:600">Pedro López</span><span style="color:var(--red);font-weight:700">👎 hace 5 días</span></div>
         <div style="display:flex;justify-content:space-between;align-items:center;padding:10px 12px;background:var(--card);border-radius:12px;font-size:13px"><span style="font-weight:600">Ana García</span><span style="color:var(--green);font-weight:700">👍 hace 1 semana</span></div>
-        <div style="font-size:12px;color:var(--muted);text-align:center;padding:6px;cursor:pointer">ver historial completo →</div>
       </div>
     </div>
     <div class="prof-sec" style="border:none">
       <div class="prof-sec-title">Referidos</div>
       <div class="ref-box">
-        <div>
-          <div style="font-size:11px;color:var(--muted);margin-bottom:4px">Tu código</div>
-          <div class="ref-code">ABC12345</div>
-        </div>
+        <div><div style="font-size:11px;color:var(--muted);margin-bottom:4px">Tu código</div><div class="ref-code">ABC12345</div></div>
         <div class="ref-btn-row">
           <button class="ref-btn" onclick="showToast('¡Código copiado! 📋')">Copiar</button>
-          <button class="ref-btn" onclick="showToast('¡Abriendo compartir... 📲')">Compartir</button>
+          <button class="ref-btn" onclick="showToast('¡Compartiendo... 📲')">Compartir</button>
         </div>
       </div>
       <div style="font-size:12px;color:var(--muted);margin-top:10px;text-align:center">5 amigos referidos = 🏅 Badge Especial PoliRANK</div>
@@ -557,13 +538,11 @@ html,body{background:#060608;font-family:'Inter',system-ui,sans-serif;color:#fff
   </div>
 </div>
 
-<!-- ═══════════════════════════════════════
-     SCREEN 6 – SHARE CARD
-═══════════════════════════════════════ -->
+<!-- ===== SCREEN 6: SHARE ===== -->
 <div class="screen" id="screen-share">
   <div class="hdr">
     <div style="display:flex;align-items:center;gap:8px">
-      <button onclick="goScreen('detail')" style="background:none;border:none;color:var(--muted);font-size:18px;cursor:pointer;padding:0">←</button>
+      <button onclick="goScreen('detail')" style="background:none;border:none;color:var(--muted);font-size:20px;cursor:pointer;padding:0;line-height:1">←</button>
       <span style="font-size:16px;font-weight:800">Tarjeta Viral</span>
     </div>
     <div style="font-size:12px;color:var(--muted)">Comparte en redes</div>
@@ -583,24 +562,20 @@ html,body{background:#060608;font-family:'Inter',system-ui,sans-serif;color:#fff
           <div class="sc-pct">72%</div>
           <div class="sc-bar"><div class="bar-wrap"><div class="bar-fill bar-green" style="width:72%"></div></div></div>
           <div class="sc-pct-lbl">APROBACIÓN CIUDADANA</div>
-          <div class="sc-stats">
-            <span>👍 1,234</span>
-            <span>👎 480</span>
-            <span>📢 12 denuncias</span>
-          </div>
+          <div class="sc-stats"><span>👍 1,234</span><span>👎 480</span><span>📢 12 denuncias</span></div>
           <div class="sc-domain">polirank.pr</div>
         </div>
         <div class="sc-actions">
-          <button class="sc-btn sc-primary" onclick="showToast('¡Abriendo WhatsApp... 📲')">📲 WhatsApp</button>
-          <button class="sc-btn sc-secondary" onclick="showToast('¡Enlace copiado! 📋')">📋 Copiar enlace</button>
+          <button class="sc-btn sc-primary" onclick="showToast('¡Abriendo WhatsApp! 📲')">📲 WhatsApp</button>
+          <button class="sc-btn sc-secondary" onclick="showToast('¡Enlace copiado! 📋')">📋 Copiar</button>
         </div>
       </div>
       <div style="background:var(--card);border:1px solid var(--border);border-radius:16px;padding:16px;width:100%;max-width:360px">
-        <div style="font-size:12px;color:var(--muted);font-weight:700;margin-bottom:10px;text-transform:uppercase;letter-spacing:.5px">También puedes compartir en</div>
-        <div style="display:flex;gap:10px">
-          <button class="sc-btn sc-secondary" style="flex:1;padding:10px" onclick="showToast('¡Abriendo Instagram... 📸')">📸 Instagram</button>
-          <button class="sc-btn sc-secondary" style="flex:1;padding:10px" onclick="showToast('¡Abriendo X/Twitter... 🐦')">🐦 X / Twitter</button>
-          <button class="sc-btn sc-secondary" style="flex:1;padding:10px" onclick="showToast('¡Abriendo Facebook... 👥')">👥 Facebook</button>
+        <div style="font-size:11px;color:var(--muted);font-weight:700;margin-bottom:10px;text-transform:uppercase;letter-spacing:.5px">También compartir en</div>
+        <div style="display:flex;gap:8px">
+          <button class="sc-btn sc-secondary" style="padding:10px;font-size:13px" onclick="showToast('📸 Instagram')">Instagram</button>
+          <button class="sc-btn sc-secondary" style="padding:10px;font-size:13px" onclick="showToast('🐦 X/Twitter')">X / Twitter</button>
+          <button class="sc-btn sc-secondary" style="padding:10px;font-size:13px" onclick="showToast('👥 Facebook')">Facebook</button>
         </div>
       </div>
     </div>
@@ -618,183 +593,156 @@ html,body{background:#060608;font-family:'Inter',system-ui,sans-serif;color:#fff
 <!-- TOAST -->
 <div class="toast" id="toast"></div>
 
-</div>
+</div><!-- end .app -->
 
 <script>
-const POLS = [
-  {id:'juan-dalmau',name:'Juan Dalmau Pérez',party:'PIP',pos:'Senador D8',cat:'senador',pct:72,votes:1847,den:12,emoji:'👨‍⚖️'},
-  {id:'ana-garcia',name:'Ana García',party:'PNP',pos:'Senadora',cat:'senador',pct:89,votes:2341,den:2,emoji:'👩‍💼'},
-  {id:'pedro-lopez',name:'Pedro López',party:'PPD',pos:'Representante Cámara',cat:'represent',pct:38,votes:987,den:21,emoji:'👨‍💼'},
-  {id:'maria-torres',name:'María Torres',party:'PIP',pos:'Senadora',cat:'senador',pct:78,votes:1560,den:4,emoji:'👩‍🏫'},
-  {id:'carlos-ruiz',name:'Carlos Ruiz',party:'MVC',pos:'Alcalde de Ponce',cat:'alcalde',pct:71,votes:890,den:7,emoji:'👨‍💻'},
-  {id:'rosa-diaz',name:'Rosa Díaz',party:'PNP',pos:'Representante',cat:'represent',pct:68,votes:1100,den:5,emoji:'👩‍⚕️'},
-  {id:'jose-martinez',name:'José Martínez',party:'PPD',pos:'Alcalde de Caguas',cat:'alcalde',pct:55,votes:430,den:9,emoji:'🧑‍💼'},
-  {id:'carmen-vega',name:'Carmen Vega',party:'PNP',pos:'Senadora',cat:'senador',pct:82,votes:1700,den:1,emoji:'👩‍💼'},
-  {id:'roberto-flores',name:'Roberto Flores',party:'PPD',pos:'Representante',cat:'represent',pct:29,votes:320,den:18,emoji:'👨‍🦱'},
-  {id:'luis-soto',name:'Luis Soto',party:'PPD',pos:'Representante',cat:'represent',pct:8,votes:210,den:34,emoji:'🧑‍💼'},
-  {id:'gov-pierluisi',name:'Pedro Pierluisi',party:'PNP',pos:'Gobernador',cat:'senador',pct:41,votes:5200,den:45,emoji:'🏛️'},
-  {id:'ivan-melendez',name:'Iván Meléndez',party:'PPD',pos:'Alcalde de Mayagüez',cat:'alcalde',pct:63,votes:720,den:8,emoji:'👨‍💼'},
+var POLS=[
+  {id:'juan-dalmau',name:'Juan Dalmau P\u00e9rez',party:'PIP',pos:'Senador D8',cat:'senador',pct:72,votes:1847,den:12,emoji:'\ud83d\udc68\u200d\u2696\ufe0f'},
+  {id:'ana-garcia',name:'Ana Garc\u00eda',party:'PNP',pos:'Senadora',cat:'senador',pct:89,votes:2341,den:2,emoji:'\ud83d\udc69\u200d\ud83d\udcbc'},
+  {id:'pedro-lopez',name:'Pedro L\u00f3pez',party:'PPD',pos:'Representante C\u00e1mara',cat:'represent',pct:38,votes:987,den:21,emoji:'\ud83d\udc68\u200d\ud83d\udcbc'},
+  {id:'maria-torres',name:'Mar\u00eda Torres',party:'PIP',pos:'Senadora',cat:'senador',pct:78,votes:1560,den:4,emoji:'\ud83d\udc69\u200d\ud83c\udfeb'},
+  {id:'carlos-ruiz',name:'Carlos Ruiz',party:'MVC',pos:'Alcalde de Ponce',cat:'alcalde',pct:71,votes:890,den:7,emoji:'\ud83d\udc68\u200d\ud83d\udcbb'},
+  {id:'rosa-diaz',name:'Rosa D\u00edaz',party:'PNP',pos:'Representante',cat:'represent',pct:68,votes:1100,den:5,emoji:'\ud83d\udc69\u200d\u2695\ufe0f'},
+  {id:'jose-martinez',name:'Jos\u00e9 Mart\u00ednez',party:'PPD',pos:'Alcalde de Caguas',cat:'alcalde',pct:55,votes:430,den:9,emoji:'\ud83e\uddd1\u200d\ud83d\udcbc'},
+  {id:'carmen-vega',name:'Carmen Vega',party:'PNP',pos:'Senadora',cat:'senador',pct:82,votes:1700,den:1,emoji:'\ud83d\udc69\u200d\ud83d\udcbc'},
+  {id:'roberto-flores',name:'Roberto Flores',party:'PPD',pos:'Representante',cat:'represent',pct:29,votes:320,den:18,emoji:'\ud83d\udc68\u200d\ud83e\uddb1'},
+  {id:'luis-soto',name:'Luis Soto',party:'PPD',pos:'Representante',cat:'represent',pct:8,votes:210,den:34,emoji:'\ud83e\uddd1\u200d\ud83d\udcbc'},
+  {id:'gov-pierluisi',name:'Pedro Pierluisi',party:'PNP',pos:'Gobernador',cat:'senador',pct:41,votes:5200,den:45,emoji:'\ud83c\udfdb\ufe0f'},
+  {id:'ivan-melendez',name:'Iv\u00e1n Mel\u00e9ndez',party:'PPD',pos:'Alcalde de Mayag\u00fcez',cat:'alcalde',pct:63,votes:720,den:8,emoji:'\ud83d\udc68\u200d\ud83d\udcbc'}
 ];
+var PC={PNP:'pnp',PPD:'ppd',PIP:'pip',MVC:'mvc',Independent:'ind',Other:'ind'};
+var medals=['\ud83e\udd47','\ud83e\udd48','\ud83e\udd49'];
+var currentFilter='all', currentSearch='';
 
-const PC = {PNP:'pnp',PPD:'ppd',PIP:'pip',MVC:'mvc',Independent:'ind',Other:'ind'};
-const medals = ['🥇','🥈','🥉'];
-let currentFilter = 'all';
-let currentSearch = '';
-
-function ac(p){return p>=60?'var(--green)':p>=40?'var(--yellow)':'var(--red)'}
-function bc(p){return p>=60?'bar-green':p>=40?'bar-yellow':'bar-red'}
-function ini(n){return n.split(' ').filter(Boolean).map(w=>w[0].toUpperCase()).slice(0,2).join('')}
+function ac(p){return p>=60?'var(--green)':p>=40?'var(--yellow)':'var(--red)';}
+function bc(p){return p>=60?'bar-green':p>=40?'bar-yellow':'bar-red';}
+function ini(n){return n.split(' ').filter(Boolean).map(function(w){return w[0].toUpperCase();}).slice(0,2).join('');}
 
 function goScreen(id){
-  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
-  document.getElementById('screen-'+id).classList.add('active');
-  document.querySelectorAll('.bnav-item').forEach(b=>b.classList.remove('active'));
-  const navMap={home:0,leaderboard:1,search:2,detail:3,profile:4,share:1};
+  document.querySelectorAll('.screen').forEach(function(s){s.classList.remove('active');});
+  var el=document.getElementById('screen-'+id);
+  if(el) el.classList.add('active');
   if(id==='leaderboard') renderLB('all');
-  if(id==='search'){ currentFilter='all'; currentSearch=''; document.getElementById('searchInput').value=''; document.querySelectorAll('.f-pill').forEach((p,i)=>p.classList.toggle('active',i===0)); renderSearch(); }
+  if(id==='search'){
+    currentFilter='all'; currentSearch='';
+    var si=document.getElementById('searchInput'); if(si) si.value='';
+    document.querySelectorAll('.f-pill').forEach(function(p,i){p.classList.toggle('active',i===0);});
+    renderSearch();
+  }
+  // scroll to top
+  var sc=el && el.querySelector('.scroll');
+  if(sc) sc.scrollTop=0;
 }
 
-// ── HOME ──
 function renderHome(){
-  // Trending cards
-  const top = [...POLS].sort((a,b)=>b.votes-a.votes).slice(0,5);
-  document.getElementById('trendCards').innerHTML = top.map(p=>`
-    <div class="trend-card" onclick="goScreen('detail')">
-      <div class="trend-photo">${p.emoji}<span style="position:absolute;top:8px;left:8px"><span class="pill pill-${PC[p.party]}" style="font-size:10px">${p.party}</span></span></div>
-      <div class="trend-body">
-        <div class="trend-name">${p.name}</div>
-        <div class="trend-sub">${p.pos}</div>
-        <div class="bar-wrap"><div class="bar-fill ${bc(p.pct)}" style="width:${p.pct}%"></div></div>
-        <div class="trend-pct"><span style="color:${ac(p.pct)};font-weight:700">${p.pct}% 👍</span><span style="color:var(--muted)">${p.votes.toLocaleString()} votos</span></div>
-      </div>
-    </div>`).join('');
-
-  // Top 3 leaderboard
-  const top3 = [...POLS].sort((a,b)=>b.pct-a.pct).slice(0,3);
-  document.getElementById('homeLeaderboard').innerHTML = top3.map((p,i)=>`
-    <div class="lb-row" onclick="goScreen('detail')">
-      <div class="lb-rank">${medals[i]}</div>
-      <div class="lb-avatar" style="background:rgba(255,255,255,.06);font-size:13px">${ini(p.name)}</div>
-      <div class="lb-info"><div class="lb-name">${p.name}</div><div class="lb-sub"><span class="pill pill-${PC[p.party]}" style="font-size:10px">${p.party}</span></div></div>
-      <div class="lb-pct"><div class="lb-pctnum" style="color:${ac(p.pct)}">${p.pct}%</div><div class="lb-votes">${p.votes.toLocaleString()}</div></div>
-    </div>`).join('');
+  var top=[].concat(POLS).sort(function(a,b){return b.votes-a.votes;}).slice(0,5);
+  document.getElementById('trendCards').innerHTML=top.map(function(p){
+    return '<div class="trend-card" onclick="goScreen(\'detail\')">'+'<div class="trend-photo">'+p.emoji+'<span style="position:absolute;top:8px;left:8px"><span class="pill pill-'+PC[p.party]+'" style="font-size:10px">'+p.party+'</span></span></div>'+'<div class="trend-body"><div class="trend-name">'+p.name+'</div><div class="trend-sub">'+p.pos+'</div><div class="bar-wrap"><div class="bar-fill '+bc(p.pct)+'" style="width:'+p.pct+'%"></div></div><div class="trend-pct"><span style="color:'+ac(p.pct)+';font-weight:700">'+p.pct+'% \ud83d\udc4d</span><span style="color:var(--muted)">'+p.votes.toLocaleString()+' votos</span></div></div></div>';
+  }).join('');
+  var top3=[].concat(POLS).sort(function(a,b){return b.pct-a.pct;}).slice(0,3);
+  document.getElementById('homeLeaderboard').innerHTML=top3.map(function(p,i){
+    return '<div class="lb-row" onclick="goScreen(\'detail\')"><div class="lb-rank">'+medals[i]+'</div><div class="lb-avatar">'+ini(p.name)+'</div><div class="lb-info"><div class="lb-name">'+p.name+'</div><div class="lb-sub"><span class="pill pill-'+PC[p.party]+'" style="font-size:10px">'+p.party+'</span></div></div><div class="lb-pct"><div class="lb-pctnum" style="color:'+ac(p.pct)+'">'+p.pct+'%</div><div class="lb-votes">'+p.votes.toLocaleString()+'</div></div></div>';
+  }).join('');
 }
 
-// ── LEADERBOARD ──
 function renderLB(filter){
-  let pols = [...POLS].sort((a,b)=>b.pct-a.pct);
-  if(filter==='senate') pols=pols.filter(p=>p.cat==='senador');
-  if(filter==='house') pols=pols.filter(p=>p.cat==='represent');
-  if(filter==='mayors') pols=pols.filter(p=>p.cat==='alcalde');
-  document.getElementById('lbList').innerHTML = pols.map((p,i)=>`
-    <div class="lb-row" onclick="goScreen('detail')">
-      <div class="lb-rank">${i<3?medals[i]:'#'+(i+1)}</div>
-      <div class="lb-avatar" style="background:rgba(255,255,255,.06);font-size:13px">${ini(p.name)}</div>
-      <div class="lb-info"><div class="lb-name">${p.name}</div><div class="lb-sub"><span class="pill pill-${PC[p.party]}" style="font-size:10px">${p.party}</span> <span>${p.pos}</span></div></div>
-      <div class="lb-pct"><div class="lb-pctnum" style="color:${ac(p.pct)}">${p.pct}%</div><div class="lb-votes">${p.votes.toLocaleString()} votos</div></div>
-    </div>`).join('')+'<div style="height:8px"></div>';
+  var pols=[].concat(POLS).sort(function(a,b){return b.pct-a.pct;});
+  if(filter==='senate') pols=pols.filter(function(p){return p.cat==='senador';});
+  if(filter==='house') pols=pols.filter(function(p){return p.cat==='represent';});
+  if(filter==='mayors') pols=pols.filter(function(p){return p.cat==='alcalde';});
+  document.getElementById('lbList').innerHTML=pols.map(function(p,i){
+    return '<div class="lb-row" onclick="goScreen(\'detail\')"><div class="lb-rank">'+(i<3?medals[i]:'#'+(i+1))+'</div><div class="lb-avatar">'+ini(p.name)+'</div><div class="lb-info"><div class="lb-name">'+p.name+'</div><div class="lb-sub"><span class="pill pill-'+PC[p.party]+'" style="font-size:10px">'+p.party+'</span> <span>'+p.pos+'</span></div></div><div class="lb-pct"><div class="lb-pctnum" style="color:'+ac(p.pct)+'">'+p.pct+'%</div><div class="lb-votes">'+p.votes.toLocaleString()+' votos</div></div></div>';
+  }).join('')+'<div style="height:8px"></div>';
 }
 
 function setTab(el,filter){
-  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+  document.querySelectorAll('.tab').forEach(function(t){t.classList.remove('active');});
   el.classList.add('active');
   renderLB(filter);
 }
 
-// ── SEARCH ──
 function renderSearch(){
-  let pols = [...POLS];
-  if(currentSearch) pols=pols.filter(p=>p.name.toLowerCase().includes(currentSearch)||p.party.toLowerCase().includes(currentSearch)||p.pos.toLowerCase().includes(currentSearch));
-  if(currentFilter!=='all') pols=pols.filter(p=>p.party.toLowerCase()===currentFilter||p.cat.includes(currentFilter));
-  pols.sort((a,b)=>b.pct-a.pct);
-  document.getElementById('searchResults').innerHTML = pols.length ? pols.map(p=>`
-    <div class="sr-item" onclick="goScreen('detail')">
-      <div class="sr-ava">${p.emoji}</div>
-      <div style="flex:1;min-width:0">
-        <div style="font-size:14px;font-weight:700">${p.name}</div>
-        <div style="font-size:12px;color:var(--muted);margin-top:2px;display:flex;gap:6px;align-items:center">
-          <span class="pill pill-${PC[p.party]}" style="font-size:10px">${p.party}</span>
-          <span>${p.pos}</span>
-        </div>
-      </div>
-      <div style="text-align:right;flex-shrink:0">
-        <div style="font-size:18px;font-weight:900;color:${ac(p.pct)}">${p.pct}%</div>
-        <div style="font-size:11px;color:var(--muted)">${p.votes.toLocaleString()} votos</div>
-      </div>
-    </div>`).join('')+'<div style="height:8px"></div>'
-  : '<div style="padding:40px;text-align:center;color:var(--muted);font-size:14px">Sin resultados encontrados</div>';
+  var pols=[].concat(POLS);
+  if(currentSearch) pols=pols.filter(function(p){return p.name.toLowerCase().indexOf(currentSearch)>-1||p.party.toLowerCase().indexOf(currentSearch)>-1||p.pos.toLowerCase().indexOf(currentSearch)>-1;});
+  if(currentFilter!=='all') pols=pols.filter(function(p){return p.party.toLowerCase()===currentFilter.toLowerCase()||p.cat.indexOf(currentFilter)>-1;});
+  pols.sort(function(a,b){return b.pct-a.pct;});
+  document.getElementById('searchResults').innerHTML=pols.length?pols.map(function(p){
+    return '<div class="sr-item" onclick="goScreen(\'detail\')"><div class="sr-ava">'+p.emoji+'</div><div style="flex:1;min-width:0"><div style="font-size:14px;font-weight:700">'+p.name+'</div><div style="font-size:12px;color:var(--muted);margin-top:2px;display:flex;gap:6px;align-items:center"><span class="pill pill-'+PC[p.party]+'" style="font-size:10px">'+p.party+'</span><span>'+p.pos+'</span></div></div><div style="text-align:right;flex-shrink:0"><div style="font-size:18px;font-weight:900;color:'+ac(p.pct)+'">'+p.pct+'%</div><div style="font-size:11px;color:var(--muted)">'+p.votes.toLocaleString()+' votos</div></div></div>';
+  }).join('')+'<div style="height:8px"></div>':'<div style="padding:40px;text-align:center;color:var(--muted);font-size:14px">Sin resultados encontrados</div>';
 }
 
-function doSearch(val){ currentSearch=val.toLowerCase(); renderSearch(); }
+function doSearch(val){currentSearch=val.toLowerCase();renderSearch();}
 function setFilter(el,f){
-  document.querySelectorAll('.f-pill').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.f-pill').forEach(function(p){p.classList.remove('active');});
   el.classList.add('active');
   currentFilter=f;
   renderSearch();
 }
 
-// ── RATING FORM ──
-let thumbSel = null;
+var thumbSel=null;
 function setThumb(up){
   thumbSel=up;
   document.getElementById('thumbUp').className='thumb-btn'+(up?' active-up':'');
   document.getElementById('thumbDown').className='thumb-btn'+(!up?' active-down':'');
 }
 function cycleStar(el){
-  const filled = (el.textContent.match(/★/g)||[]).length;
-  const next = filled>=5?1:filled+1;
-  el.textContent='★'.repeat(next)+'☆'.repeat(5-next);
+  var filled=(el.textContent.match(/\u2605/g)||[]).length;
+  var next=filled>=5?1:filled+1;
+  el.textContent='\u2605'.repeat(next)+'\u2606'.repeat(5-next);
 }
 function submitRating(){
-  if(thumbSel===null){showToast('Selecciona 👍 o 👎 primero'); return;}
-  showToast('¡Voto registrado! 🗳️');
-  setTimeout(()=>{ thumbSel=null; document.getElementById('thumbUp').className='thumb-btn'; document.getElementById('thumbDown').className='thumb-btn'; document.getElementById('commentBox').value=''; document.querySelectorAll('.star-input-stars').forEach(s=>s.textContent='★★★☆☆'); },1500);
+  if(thumbSel===null){showToast('Selecciona \ud83d\udc4d o \ud83d\udc4e primero');return;}
+  showToast('\u00a1Voto registrado! \ud83d\uddf3\ufe0f');
+  setTimeout(function(){
+    thumbSel=null;
+    document.getElementById('thumbUp').className='thumb-btn';
+    document.getElementById('thumbDown').className='thumb-btn';
+    var cb=document.getElementById('commentBox'); if(cb) cb.value='';
+    document.querySelectorAll('.star-input-stars').forEach(function(s){s.textContent='\u2605\u2605\u2605\u2606\u2606';});
+  },1500);
 }
 
-// ── COMPLAINTS ──
-function showModal(){ document.getElementById('cmpModal').style.display='flex'; }
-function hideModal(){ document.getElementById('cmpModal').style.display='none'; }
+function showModal(){var m=document.getElementById('cmpModal');if(m)m.style.display='flex';}
+function hideModal(){var m=document.getElementById('cmpModal');if(m)m.style.display='none';}
 function submitComplaint(){
-  const cat=document.getElementById('cmpCat').value;
-  const title=document.getElementById('cmpTitle').value;
-  const desc=document.getElementById('cmpDesc').value;
-  if(!cat){showToast('Selecciona una categoría'); return;}
-  if(!title.trim()){showToast('Agrega un título'); return;}
-  if(desc.length<50){showToast('La descripción debe tener al menos 50 caracteres'); return;}
+  var cat=document.getElementById('cmpCat').value;
+  var title=document.getElementById('cmpTitle').value;
+  var desc=document.getElementById('cmpDesc').value;
+  if(!cat){showToast('Selecciona una categor\u00eda');return;}
+  if(!title.trim()){showToast('Agrega un t\u00edtulo');return;}
+  if(desc.length<50){showToast('Descripci\u00f3n muy corta (m\u00edn. 50 chars)');return;}
   hideModal();
-  showToast('¡Denuncia presentada! 📢');
-  document.getElementById('cmpCat').value=''; document.getElementById('cmpTitle').value=''; document.getElementById('cmpDesc').value=''; document.getElementById('cmpCount').textContent='0 / 2000 caracteres';
+  showToast('\u00a1Denuncia presentada! \ud83d\udce2');
+  document.getElementById('cmpCat').value='';
+  document.getElementById('cmpTitle').value='';
+  document.getElementById('cmpDesc').value='';
+  document.getElementById('cmpCount').textContent='0 / 2000 caracteres';
 }
-document.getElementById('cmpDesc') && document.getElementById('cmpDesc').addEventListener('input',function(){
-  document.getElementById('cmpCount').textContent=this.value.length+' / 2000 caracteres';
-});
+var descEl=document.getElementById('cmpDesc');
+if(descEl) descEl.addEventListener('input',function(){document.getElementById('cmpCount').textContent=this.value.length+' / 2000 caracteres';});
 
-// ── UPVOTE ──
 function upvote(btn,n){
-  if(btn.classList.contains('voted')){ showToast('Ya votaste en esta denuncia'); return; }
+  if(btn.classList.contains('voted')){showToast('Ya votaste en esta denuncia');return;}
   btn.classList.add('voted');
-  btn.textContent='▲ '+(n+1)+' votos';
+  btn.textContent='\u25b2 '+(n+1)+' votos';
 }
 
-// ── TOAST ──
-let toastT;
+var toastT;
 function showToast(msg){
-  const t=document.getElementById('toast');
+  var t=document.getElementById('toast');
   t.textContent=msg; t.classList.add('show');
   clearTimeout(toastT);
-  toastT=setTimeout(()=>t.classList.remove('show'),2500);
+  toastT=setTimeout(function(){t.classList.remove('show');},2500);
 }
 
-// ── INIT ──
 renderHome();
 renderLB('all');
 renderSearch();
 
-setTimeout(()=>{
-  const s=document.getElementById('splash');
-  s.style.opacity='0';
-  setTimeout(()=>s.remove(),400);
-},1200);
-<\/script>
+setTimeout(function(){
+  var s=document.getElementById('splash');
+  if(s){s.classList.add('hidden');setTimeout(function(){s.remove();},500);}
+},1400);
+</script>
 </body>
 </html>
