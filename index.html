@@ -6,7 +6,7 @@
 <title>GobiStats 🇵🇷 – Evalúa a tus políticos</title>
 <meta name="description" content="La plataforma ciudadana para evaluar, calificar y denunciar a los políticos de Puerto Rico.">
 <meta property="og:title" content="GobiStats 🇵🇷">
-<meta property="og:description" content="Estadísticas ciudadanas de tus gobernantes. Puerto Rico.">
+<meta property="og:description" content="Estadísticas ciudadanas de tus gobernantes. gobistats.com">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
@@ -161,7 +161,7 @@ body{display:flex;justify-content:center;align-items:flex-start;padding:0}
 <!-- HOME -->
 <div class="scr on" id="s-home">
 <div class="hdr">
-  <div class="logo">🇵🇷 Gobi<b>Stats</b><span>gobistats.com</span></div>
+  <div class="logo">🔍 Gobi<b>Stats</b><span>gobistats.com</span></div>
   <div style="display:flex;gap:14px;font-size:20px">🔔 <span onclick="go('profile')" style="cursor:pointer">👤</span></div>
 </div>
 <div class="scroll">
@@ -172,7 +172,6 @@ body{display:flex;justify-content:center;align-items:flex-start;padding:0}
   <div class="sec">📢 Denuncias Recientes</div>
   <div class="cc"><div class="cc-h"><span>@ciudadano_pr</span><span>hace 2h</span></div><div class="cc-t">Corrupción en contratos municipales</div><div class="cc-d">Documentos muestran favorecimiento en licitaciones de $2M sin proceso competitivo...</div><div class="cc-f"><button class="uvb" onclick="uv(this,47)">▲ 47 votos</button><span class="pill ppd" style="font-size:10px">Pedro López</span></div></div>
   <div class="cc"><div class="cc-h"><span>@watchdog787</span><span>hace 5h</span></div><div class="cc-t">Ausentismo en sesiones legislativas</div><div class="cc-d">Faltó a 12 de las últimas 15 sesiones sin justificación pública verificable...</div><div class="cc-f"><button class="uvb" onclick="uv(this,23)">▲ 23 votos</button><span class="pill pnp" style="font-size:10px">Luis Soto</span></div></div>
-  <div class="cc"><div class="cc-h"><span>@boricua_watch</span><span>hace 8h</span></div><div class="cc-t">Incumplimiento de promesas de campaña</div><div class="cc-d">Prometió reducir deuda municipal en 20% — aumentó 8% en su primer año...</div><div class="cc-f"><button class="uvb" onclick="uv(this,61)">▲ 61 votos</button><span class="pill mvc" style="font-size:10px">Carlos Ruiz</span></div></div>
   <div onclick="go('search')" style="margin:10px 18px 18px;background:var(--card);border:1px solid var(--bdr);border-radius:12px;padding:12px 16px;display:flex;align-items:center;gap:10px;color:var(--mut);font-size:14px;cursor:pointer">🔍 Buscar político...</div>
   <div style="height:6px"></div>
 </div>
@@ -188,10 +187,10 @@ body{display:flex;justify-content:center;align-items:flex-start;padding:0}
 <!-- DETAIL -->
 <div class="scr" id="s-detail">
 <div style="flex-shrink:0;position:relative">
-<div class="hero"><div class="hero-bg" id="hbg">👨‍⚖️</div><button class="hback" onclick="go('home')">← Volver</button><button class="hshare" onclick="go('share')">⬆ Compartir</button><div style="position:relative;z-index:2"><span class="pill pip" id="dpill">PIP</span><div style="font-size:21px;font-weight:900;margin-top:5px" id="dname">Juan Dalmau S.</div><div style="font-size:13px;color:rgba(255,255,255,.6);margin-top:2px" id="dpos">Senador · Distrito 8</div></div></div>
+<div class="hero"><div class="hero-bg" id="hbg">👨‍⚖️</div><button class="hback" onclick="go('home')">← Volver</button><button class="hshare" onclick="go('share')">⬆ Compartir</button><div style="position:relative;z-index:2"><span class="pill pip" id="dpill">PIP</span><div style="font-size:21px;font-weight:900;margin-top:5px" id="dname">Juan Dalmau</div><div style="font-size:13px;color:rgba(255,255,255,.6);margin-top:2px" id="dpos">Senador</div></div></div>
 </div>
 <div class="scroll">
-  <div class="srow"><div class="sb"><div class="sbn" id="dpct" style="color:var(--grn)">72%</div><div class="sbl">Aprobación</div></div><div class="sb"><div class="sbn" id="dvotes">1,847</div><div class="sbl">Votos</div></div><div class="sb"><div class="sbn" id="dden" style="color:var(--red)">12</div><div class="sbl">Denuncias</div></div></div>
+  <div class="srow"><div class="sb"><div class="sbn" id="dpct" style="color:var(--grn)">72%</div><div class="sbl">Aprobación</div></div><div class="sb"><div class="sbn" id="dvotes">0</div><div class="sbl">Votos</div></div><div class="sb"><div class="sbn" id="dden" style="color:var(--red)">0</div><div class="sbl">Denuncias</div></div></div>
   <div class="sec" style="padding-bottom:2px">Evaluaciones Detalladas</div>
   <div style="padding:0 18px">
     <div class="starrow"><span class="starlbl">Honestidad</span><div style="display:flex;align-items:center;gap:7px"><span class="stars">★★★★☆</span><span class="starval">3.8</span></div></div>
@@ -214,7 +213,7 @@ body{display:flex;justify-content:center;align-items:flex-start;padding:0}
   <div class="sec" style="padding-bottom:3px">── Timeline ──</div>
   <div style="padding:0 18px" id="dtl"></div>
   <div class="sec">── Denuncias <span id="ddencount">(0)</span> ──</div>
-  <div class="cc"><div class="cc-h"><span>@boricua_watch</span><span>hace 3 días</span></div><div class="cc-t">Ausencia en comisión de presupuesto</div><div class="cc-d">No asistió a 3 sesiones críticas sobre fondos FEMA.</div><div class="cc-f"><button class="uvb" onclick="uv(this,89)">▲ 89 votos</button></div></div>
+  <div class="cc"><div class="cc-h"><span>@ciudadano_pr</span><span>hace 3 días</span></div><div class="cc-t">Ausentismo reportado</div><div class="cc-d">No asistió a sesiones sin justificación pública documentada.</div><div class="cc-f"><button class="uvb" onclick="uv(this,12)">▲ 12 votos</button></div></div>
   <div class="dcta" onclick="showMol()">📢 Presentar Denuncia Ciudadana</div>
   <div style="height:6px"></div>
 </div>
@@ -222,7 +221,7 @@ body{display:flex;justify-content:center;align-items:flex-start;padding:0}
 <div class="ms">
   <div class="dh"></div>
   <div style="font-size:17px;font-weight:800;color:var(--red);margin-bottom:3px">📢 Presentar Denuncia</div>
-  <div style="font-size:13px;color:var(--mut);margin-bottom:16px" id="molsub">Contra: Juan Dalmau S.</div>
+  <div style="font-size:13px;color:var(--mut);margin-bottom:16px" id="molsub">Contra: ...</div>
   <label class="ml">Categoría *</label>
   <select class="mi" id="mcat"><option value="">Selecciona...</option><option>Falta de respuesta</option><option>Incumplimiento de promesas</option><option>Corrupción</option><option>Ausentismo</option><option>Abuso de poder</option><option>Otros</option></select>
   <label class="ml">Título *</label>
@@ -248,8 +247,8 @@ body{display:flex;justify-content:center;align-items:flex-start;padding:0}
 <!-- LEADERBOARD -->
 <div class="scr" id="s-lb">
 <div class="hdr"><div class="logo">🏆 Gobi<b>Stats</b><span>gobistats.com</span></div><div style="display:flex;align-items:center;gap:6px;font-size:12px;font-weight:700;color:var(--grn)"><div class="dot"></div>EN VIVO</div></div>
-<div class="tabs"><div class="tab on" onclick="setTab(this,'all')">🏆 Todos</div><div class="tab" onclick="setTab(this,'senate')">🏛️ Senado</div><div class="tab" onclick="setTab(this,'house')">🏠 Cámara</div><div class="tab" onclick="setTab(this,'mayors')">🏙️ Alcaldes</div><div class="tab" onclick="setTab(this,'exec')">🏕️ Ejecutivo</div></div>
-<div class="sbanner"><div class="dot"></div>🏅 TEMPORADA: ABRIL 2026 &nbsp;·&nbsp; 147 funcionarios registrados</div>
+<div class="tabs"><div class="tab on" onclick="setTab(this,'all')">🏆 Todos</div><div class="tab" onclick="setTab(this,'exec')">🏕️ Ejecutivo</div><div class="tab" onclick="setTab(this,'senate')">🏛️ Senado</div><div class="tab" onclick="setTab(this,'house')">🏠 Cámara</div><div class="tab" onclick="setTab(this,'mayors')">🏙️ Alcaldes</div></div>
+<div class="sbanner"><div class="dot"></div>🏅 TEMPORADA: ABRIL 2026 &nbsp;·&nbsp; <span id="totalCount">147</span> funcionarios</div>
 <div class="scroll" id="lbl"></div>
 <div class="nav">
   <div class="ni" onclick="go('home')"><div class="ni-ico">🏠</div><div>Home</div></div>
@@ -263,8 +262,8 @@ body{display:flex;justify-content:center;align-items:flex-start;padding:0}
 <!-- SEARCH -->
 <div class="scr" id="s-search">
 <div class="hdr"><div class="logo">🔍 Gobi<b>Stats</b></div></div>
-<div class="sbar"><div class="sinp"><span style="font-size:17px">🔍</span><input type="text" id="sinput" placeholder="Nombre, partido, municipio..." oninput="doS(this.value)"></div></div>
-<div class="fpills"><div class="fp on" onclick="sf(this,'all')">Todos</div><div class="fp" onclick="sf(this,'PNP')">PNP</div><div class="fp" onclick="sf(this,'PPD')">PPD</div><div class="fp" onclick="sf(this,'PIP')">PIP</div><div class="fp" onclick="sf(this,'MVC')">MVC</div><div class="fp" onclick="sf(this,'IND')">Independiente</div><div class="fp" onclick="sf(this,'senador')">Senado</div><div class="fp" onclick="sf(this,'represent')">Cámara</div><div class="fp" onclick="sf(this,'alcalde')">Alcaldes</div><div class="fp" onclick="sf(this,'exec')">Ejecutivo</div></div>
+<div class="sbar"><div class="sinp"><span style="font-size:17px">🔍</span><input type="text" id="sinput" placeholder="Nombre, partido, municipio, distrito..." oninput="doS(this.value)" autocomplete="off" autocorrect="off" spellcheck="false"></div></div>
+<div class="fpills"><div class="fp on" onclick="sf(this,'all')">Todos</div><div class="fp" onclick="sf(this,'PNP')">PNP</div><div class="fp" onclick="sf(this,'PPD')">PPD</div><div class="fp" onclick="sf(this,'PIP')">PIP</div><div class="fp" onclick="sf(this,'MVC')">MVC</div><div class="fp" onclick="sf(this,'IND')">Independiente</div><div class="fp" onclick="sf(this,'exec')">Ejecutivo</div><div class="fp" onclick="sf(this,'senador')">Senado</div><div class="fp" onclick="sf(this,'represent')">Cámara</div><div class="fp" onclick="sf(this,'alcalde')">Alcaldes</div></div>
 <div class="scroll" id="sres"></div>
 <div class="nav">
   <div class="ni" onclick="go('home')"><div class="ni-ico">🏠</div><div>Home</div></div>
@@ -283,7 +282,6 @@ body{display:flex;justify-content:center;align-items:flex-start;padding:0}
   <div class="psec"><div class="pst">Tags de Partido</div><div style="display:flex;gap:8px;flex-wrap:wrap"><span class="pill pip" style="cursor:pointer">PIP Supporter ×</span><span style="border:1px dashed var(--bdr);padding:3px 12px;border-radius:999px;font-size:11px;color:var(--mut);cursor:pointer">+ Agregar</span></div></div>
   <div class="psec"><div class="pst">Estadísticas</div><div class="sgrid"><div class="sm"><div class="smn">847</div><div class="sml">📊 Evaluaciones</div></div><div class="sm"><div class="smn">23</div><div class="sml">📢 Denuncias</div></div><div class="sm" style="grid-column:1/-1"><div class="smn" style="color:var(--gld)">12,400</div><div class="sml">🌟 Impact Score</div></div></div></div>
   <div class="psec"><div class="pst">Mis Insignias</div><div class="bwrap"><div class="bi">🏆 Whistleblower</div><div class="bi">🔥 10-day streak</div><div class="bi">🎯 Fact Checker</div><div class="bi">🌟 Top Rater</div><div class="bi">🗳️ First Vote</div></div></div>
-  <div class="psec"><div class="pst">Historial</div><div style="display:flex;flex-direction:column;gap:7px"><div style="display:flex;justify-content:space-between;padding:9px 11px;background:var(--card);border-radius:11px;font-size:13px"><span style="font-weight:700">Juan Dalmau S.</span><span style="color:var(--grn);font-weight:700">👍 hace 2 días</span></div><div style="display:flex;justify-content:space-between;padding:9px 11px;background:var(--card);border-radius:11px;font-size:13px"><span style="font-weight:700">Pedro López</span><span style="color:var(--red);font-weight:700">👎 hace 5 días</span></div></div></div>
   <div class="psec" style="border:none"><div class="pst">Referidos</div><div class="rbox"><div><div style="font-size:11px;color:var(--mut);margin-bottom:3px">Tu código</div><div class="rcode">ABC12345</div></div><div style="display:flex;gap:8px"><button class="rbtn" onclick="toast('¡Copiado! 📋')">Copiar</button><button class="rbtn" onclick="toast('¡Compartiendo! 📲')">Compartir</button></div></div></div>
   <div style="height:6px"></div>
 </div>
@@ -305,19 +303,15 @@ body{display:flex;justify-content:center;align-items:flex-start;padding:0}
       <div class="sch"><span style="font-size:19px">🇵🇷</span><span style="font-size:14px;font-weight:900;color:var(--gld)">GobiStats</span><span style="margin-left:auto;font-size:11px;color:var(--mut)">gobistats.com</span></div>
       <div class="scph" id="scp">👨‍⚖️</div>
       <div class="scb">
-        <div class="scn" id="scn">JUAN DALMAU S.</div>
-        <div class="scs" id="scs">Senador &middot; <span class="pill pip">PIP</span></div>
-        <div class="scpct" id="scpct">72%</div>
-        <div class="scbar"><div class="bar"><div class="bfill bg" id="scbar" style="width:72%"></div></div></div>
+        <div class="scn" id="scn">NOMBRE</div>
+        <div class="scs" id="scs">Cargo</div>
+        <div class="scpct" id="scpct">0%</div>
+        <div class="scbar"><div class="bar"><div class="bfill bg" id="scbar" style="width:0%"></div></div></div>
         <div class="scpl">APROBACIÓN CIUDADANA</div>
-        <div class="scst" id="scst"><span>👍 1,234</span><span>👎 480</span><span>📢 12 denuncias</span></div>
+        <div class="scst" id="scst"></div>
         <div style="text-align:center;font-size:12px;color:var(--mut);letter-spacing:1px">gobistats.com</div>
       </div>
       <div class="sca"><button class="scbtn scpri" onclick="toast('¡WhatsApp! 📲')">📲 WhatsApp</button><button class="scbtn scsec" onclick="toast('¡Copiado! 📋')">📋 Copiar</button></div>
-    </div>
-    <div style="background:var(--card);border:1px solid var(--bdr);border-radius:14px;padding:14px;width:100%;max-width:350px">
-      <div style="font-size:11px;color:var(--mut);font-weight:700;margin-bottom:9px;text-transform:uppercase;letter-spacing:.5px">También compartir en</div>
-      <div style="display:flex;gap:8px"><button class="scbtn scsec" style="padding:10px;font-size:13px" onclick="toast('📸 Instagram')">Instagram</button><button class="scbtn scsec" style="padding:10px;font-size:13px" onclick="toast('🐦 X/Twitter')">X / Twitter</button><button class="scbtn scsec" style="padding:10px;font-size:13px" onclick="toast('👥 Facebook')">Facebook</button></div>
     </div>
   </div>
   <div style="height:6px"></div>
@@ -334,164 +328,158 @@ body{display:flex;justify-content:center;align-items:flex-start;padding:0}
 <div class="toast" id="tst"></div>
 </div>
 <script>
-// ─── 147 OFFICIAL POLITICIANS ───
+// ============================================================
+// ALL 147 OFFICIAL POLITICIANS – gobistats.com
+// Sources: senado.pr.gov | camara.pr.gov | CEE 2024 | fortaleza.pr.gov
+// ============================================================
 var P=[
-// EXECUTIVE (2)
-{id:'jenniffer-gonzalez',n:'Jenniffer Gonz\u00e1lez-Col\u00f3n',p:'PNP',pos:'Gobernadora',c:'exec',pct:58,v:8200,d:31,e:'\ud83c\udfd5\ufe0f'},
-{id:'pablo-hernandez',n:'Pablo Jos\u00e9 Hern\u00e1ndez',p:'PPD',pos:'Comisionado Residente',c:'exec',pct:61,v:4100,d:8,e:'\ud83c\udfdb\ufe0f'},
-// SENATORS – PNP (19)
-{id:'thomas-rivera-schatz',n:'Thomas Rivera Schatz',p:'PNP',pos:'Senador (Pdte.)',c:'senador',pct:44,v:3200,d:28,e:'\u2696\ufe0f'},
-{id:'carmelo-rios',n:'Carmelo J. R\u00edos Santiago',p:'PNP',pos:'Senador',c:'senador',pct:51,v:1800,d:12,e:'\ud83d\udc68\u200d\ud83d\udcbc'},
-{id:'marissa-jimenez',n:'Marissa Jim\u00e9nez Santoni',p:'PNP',pos:'Senadora',c:'senador',pct:55,v:1600,d:7,e:'\ud83d\udc69\u200d\ud83d\udcbc'},
-{id:'gregorio-matias',n:'Gregorio Mat\u00edas Rosario',p:'PNP',pos:'Senador',c:'senador',pct:48,v:1100,d:9,e:'\ud83d\udc68\u200d\u2696\ufe0f'},
-{id:'juan-oscar-morales',n:'Juan Oscar Morales Rodr\u00edguez',p:'PNP',pos:'Senador',c:'senador',pct:49,v:980,d:6,e:'\ud83d\udc68\u200d\ud83d\udcbc'},
-{id:'nitza-moran',n:'Nitza Mor\u00e1n Trinidad',p:'PNP',pos:'Senadora',c:'senador',pct:52,v:870,d:4,e:'\ud83d\udc69\u200d\u2696\ufe0f'},
-{id:'migdalia-padilla',n:'Migdalia Padilla Alvelo',p:'PNP',pos:'Senadora',c:'senador',pct:50,v:810,d:5,e:'\ud83d\udc69\u200d\ud83d\udcbc'},
-{id:'brenda-perez',n:'Brenda P\u00e9rez Soto',p:'PNP',pos:'Senadora',c:'senador',pct:54,v:920,d:3,e:'\ud83d\udc69\u200d\u2696\ufe0f'},
-{id:'hector-gonzalez',n:'H\u00e9ctor Gabriel Gonz\u00e1lez L\u00f3pez',p:'PNP',pos:'Senador',c:'senador',pct:47,v:760,d:8,e:'\ud83d\udc68\u200d\ud83d\udcbb'},
-{id:'karen-roman',n:'Karen Michelle Rom\u00e1n Rodr\u00edguez',p:'PNP',pos:'Senadora',c:'senador',pct:56,v:840,d:2,e:'\ud83d\udc69\u200d\ud83c\udfeb'},
-{id:'jeison-rosa',n:'Jeison Rosa Ramos',p:'PNP',pos:'Senador',c:'senador',pct:45,v:680,d:7,e:'\ud83d\udc68\u200d\ud83d\udcbc'},
-{id:'jamie-barlucea',n:'Jamie Barlucea Rodr\u00edguez',p:'PNP',pos:'Senador',c:'senador',pct:46,v:700,d:6,e:'\ud83d\udc68\u200d\ud83d\udcbc'},
-{id:'wilmer-reyes',n:'Wilmer Reyes Berr\u00edos',p:'PNP',pos:'Senador',c:'senador',pct:43,v:650,d:9,e:'\ud83d\udc68\u200d\ud83d\udcbc'},
-{id:'rafael-santos',n:'Rafael Santos Ortiz',p:'PNP',pos:'Senador',c:'senador',pct:48,v:720,d:5,e:'\ud83d\udc68\u200d\u2696\ufe0f'},
-{id:'wanda-soto',n:'Wanda M. Soto Tolentino',p:'PNP',pos:'Senadora',c:'senador',pct:51,v:780,d:4,e:'\ud83d\udc69\u200d\ud83d\udcbc'},
-{id:'luis-colon',n:'Luis Daniel Col\u00f3n La Santa',p:'PNP',pos:'Senador',c:'senador',pct:46,v:690,d:7,e:'\ud83d\udc68\u200d\ud83d\udcbc'},
-{id:'hector-sanchez',n:'H\u00e9ctor Joaqu\u00edn S\u00e1nchez \u00c1lvarez',p:'PNP',pos:'Senador',c:'senador',pct:44,v:660,d:8,e:'\ud83d\udc68\u200d\ud83d\udcbc'},
-{id:'angel-toledo',n:'\u00c1ngel Toledo L\u00f3pez',p:'PNP',pos:'Senador',c:'senador',pct:47,v:710,d:6,e:'\ud83d\udc68\u200d\ud83d\udcbc'},
-{id:'roxanna-soto',n:'Roxanna I. Soto Agil\u00fa',p:'PNP',pos:'Senadora',c:'senador',pct:53,v:790,d:3,e:'\ud83d\udc69\u200d\ud83d\udcbc'},
-// SENATORS – PPD (4)
-{id:'luis-hernandez',n:'Luis Javier Hern\u00e1ndez Ortiz',p:'PPD',pos:'Senador (Portavoz)',c:'senador',pct:62,v:1400,d:5,e:'\ud83d\udc68\u200d\u2696\ufe0f'},
-{id:'marially-gonzalez',n:'Marially Gonz\u00e1lez Huertas',p:'PPD',pos:'Senadora',c:'senador',pct:64,v:1200,d:3,e:'\ud83d\udc69\u200d\ud83d\udcbc'},
-{id:'jose-dalmau',n:'Jos\u00e9 L. Dalmau Santiago',p:'PPD',pos:'Senador',c:'senador',pct:68,v:1500,d:4,e:'\ud83d\udc68\u200d\u2696\ufe0f'},
-{id:'jose-santiago',n:'Jos\u00e9 A. Santiago Rivera',p:'PPD',pos:'Senador',c:'senador',pct:60,v:1100,d:6,e:'\ud83d\udc68\u200d\ud83d\udcbc'},
-{id:'ada-alvarez',n:'Ada M. \u00c1lvarez Conde',p:'PPD',pos:'Senadora',c:'senador',pct:65,v:1050,d:3,e:'\ud83d\udc69\u200d\u2696\ufe0f'},
-// SENATORS – PIP (2)
-{id:'maria-santiago-negron',n:'Mar\u00eda De L. Santiago Negr\u00f3n',p:'PIP',pos:'Senadora (Portavoz)',c:'senador',pct:74,v:1300,d:2,e:'\ud83d\udc69\u200d\u2696\ufe0f'},
-{id:'adrian-gonzalez',n:'Adri\u00e1n Gonz\u00e1lez Costa',p:'PIP',pos:'Senador',c:'senador',pct:71,v:1100,d:2,e:'\ud83d\udc68\u200d\u2696\ufe0f'},
-// SENATORS – Independientes (2)
-{id:'joanne-rodriguez',n:'Joanne M. Rodr\u00edguez Veve',p:'IND',pos:'Senadora (Independiente)',c:'senador',pct:69,v:1600,d:1,e:'\ud83d\udc69\u200d\u2696\ufe0f'},
-{id:'eliezer-molina',n:'Eliezer Molina P\u00e9rez',p:'IND',pos:'Senador (Independiente)',c:'senador',pct:66,v:1400,d:2,e:'\ud83d\udc68\u200d\ud83d\udcbc'},
-// REPRESENTATIVES – sample of 40 (abbreviated for space, full list in main branch)
-{id:'carlos-bianchi',n:'Carlos Bianchi Anglero',p:'PNP',pos:'Representante D1',c:'represent',pct:45,v:620,d:8,e:'\ud83d\udc68\u200d\ud83d\udcbc'},
-{id:'jose-aponte',n:'Jos\u00e9 "Memo" Aponte Dalmau',p:'PPD',pos:'Representante D2',c:'represent',pct:63,v:740,d:4,e:'\ud83d\udc68\u200d\u2696\ufe0f'},
-{id:'lydia-mendez',n:'Lydia M\u00e9ndez Silva',p:'PNP',pos:'Representante D3',c:'represent',pct:51,v:580,d:6,e:'\ud83d\udc69\u200d\ud83d\udcbc'},
-{id:'jesus-santa',n:'Jes\u00fas Santa Ramos',p:'PNP',pos:'Representante D4',c:'represent',pct:48,v:560,d:7,e:'\ud83d\udc68\u200d\ud83d\udcbc'},
-{id:'ana-irma',n:'Ana Irma Rivera Lassen',p:'PIP',pos:'Representante D5',c:'represent',pct:72,v:810,d:1,e:'\ud83d\udc69\u200d\u2696\ufe0f'},
-{id:'jorge-navarro',n:'Jorge Navarro Suárez',p:'PNP',pos:'Representante D6',c:'represent',pct:46,v:540,d:9,e:'\ud83d\udc68\u200d\ud83d\udcbc'},
-{id:'pedro-julio',n:'Pedro Julio Rodríguez',p:'PPD',pos:'Representante D7',c:'represent',pct:61,v:700,d:5,e:'\ud83d\udc68\u200d\ud83d\udcbc'},
-{id:'nelson-dejesus',n:'Nelson DeJesús Colón',p:'PNP',pos:'Representante D8',c:'represent',pct:44,v:510,d:10,e:'\ud83d\udc68\u200d\ud83d\udcbb'},
-{id:'maria-milagros',n:'María Milagros Charbonier',p:'PNP',pos:'Representante D9',c:'represent',pct:52,v:600,d:5,e:'\ud83d\udc69\u200d\ud83d\udcbc'},
-{id:'angel-matos',n:'Ángel Matos García',p:'PPD',pos:'Representante D10',c:'represent',pct:59,v:670,d:6,e:'\ud83d\udc68\u200d\ud83d\udcbc'},
-{id:'pablo-crespo',n:'Pablo Crespo Hernández',p:'PNP',pos:'Representante D11',c:'represent',pct:47,v:530,d:8,e:'\ud83d\udc68\u200d\ud83d\udcbc'},
-{id:'lisie-burgos',n:'Lisie Burgos Muñiz',p:'PNP',pos:'Representante D12',c:'represent',pct:50,v:570,d:6,e:'\ud83d\udc69\u200d\ud83d\udcbc'},
-{id:'oscar-santiago',n:'Óscar Santiago Meléndez',p:'PPD',pos:'Representante D13',c:'represent',pct:64,v:720,d:3,e:'\ud83d\udc68\u200d\ud83d\udcbc'},
-{id:'jimmy-gonzalez',n:'Jimmy González Núñez',p:'PNP',pos:'Representante D14',c:'represent',pct:46,v:520,d:9,e:'\ud83d\udc68\u200d\ud83d\udcbc'},
-{id:'jose-bernardo',n:'José Bernardo Márquez',p:'PPD',pos:'Representante D15',c:'represent',pct:60,v:680,d:5,e:'\ud83d\udc68\u200d\u2696\ufe0f'},
-{id:'david-huertas',n:'David Huertas Morales',p:'PNP',pos:'Representante D16',c:'represent',pct:48,v:540,d:7,e:'\ud83d\udc68\u200d\ud83d\udcbc'},
-{id:'iraida-gonzalez',n:'Iraida González Torres',p:'PNP',pos:'Representante D17',c:'represent',pct:49,v:560,d:6,e:'\ud83d\udc69\u200d\ud83d\udcbc'},
-{id:'jose-perez',n:'José Pérez Cordero',p:'PPD',pos:'Representante D18',c:'represent',pct:62,v:710,d:4,e:'\ud83d\udc68\u200d\ud83d\udcbc'},
-{id:'melissa-vargas',n:'Melissa Vargas Ferrer',p:'PNP',pos:'Representante D19',c:'represent',pct:53,v:590,d:5,e:'\ud83d\udc69\u200d\ud83d\udcbc'},
-{id:'manuel-natal',n:'Manuel Natal Albelo',p:'IND',pos:'Representante D20',c:'represent',pct:75,v:890,d:1,e:'\ud83d\udc68\u200d\u2696\ufe0f'},
-{id:'arnaldo-irizarry',n:'Arnaldo Irizarry Pabón',p:'PNP',pos:'Representante D21',c:'represent',pct:44,v:500,d:10,e:'\ud83d\udc68\u200d\ud83d\udcbc'},
-{id:'jose-santiago-r2',n:'José Santiago Rivera',p:'PPD',pos:'Representante D22',c:'represent',pct:58,v:650,d:6,e:'\ud83d\udc68\u200d\ud83d\udcbc'},
-{id:'eric-morales',n:'Éric Morales Cardona',p:'PNP',pos:'Representante D23',c:'represent',pct:46,v:510,d:8,e:'\ud83d\udc68\u200d\ud83d\udcbc'},
-{id:'felix-rodriguez',n:'Félix Rodríguez Fuentes',p:'PPD',pos:'Representante D24',c:'represent',pct:61,v:690,d:4,e:'\ud83d\udc68\u200d\ud83d\udcbc'},
-{id:'jose-morales',n:'José Morales Rodríguez',p:'PNP',pos:'Representante D25',c:'represent',pct:45,v:510,d:9,e:'\ud83d\udc68\u200d\ud83d\udcbc'},
-{id:'wanda-ivelisse',n:'Wanda Ivelisse Serrano',p:'PPD',pos:'Representante D26',c:'represent',pct:63,v:700,d:3,e:'\ud83d\udc69\u200d\ud83d\udcbc'},
-{id:'victor-paredes',n:'Víctor Paredes Maisonet',p:'PNP',pos:'Representante D27',c:'represent',pct:47,v:530,d:7,e:'\ud83d\udc68\u200d\ud83d\udcbc'},
-{id:'rafael-hernandez',n:'Rafael Hernández Montañez',p:'PPD',pos:'Representante D28',c:'represent',pct:65,v:730,d:3,e:'\ud83d\udc68\u200d\u2696\ufe0f'},
-{id:'jose-torres',n:'José Torres Cruz',p:'PNP',pos:'Representante D29',c:'represent',pct:44,v:490,d:10,e:'\ud83d\udc68\u200d\ud83d\udcbc'},
-{id:'carlos-irizarry',n:'Carlos Irizarry Pagán',p:'PPD',pos:'Representante D30',c:'represent',pct:60,v:670,d:5,e:'\ud83d\udc68\u200d\ud83d\udcbc'},
-{id:'aida-garcia',n:'Aida García Torres',p:'PNP',pos:'Representante D31',c:'represent',pct:50,v:570,d:6,e:'\ud83d\udc69\u200d\ud83d\udcbc'},
-{id:'jose-aponte-r2',n:'José Aponte Hernández',p:'PPD',pos:'Representante D32',c:'represent',pct:59,v:660,d:5,e:'\ud83d\udc68\u200d\ud83d\udcbc'},
-{id:'carmelo-rios-r',n:'Carmelo Ríos Rosario',p:'PNP',pos:'Representante D33',c:'represent',pct:46,v:510,d:8,e:'\ud83d\udc68\u200d\ud83d\udcbc'},
-{id:'noel-torres',n:'Noel Torres Rodríguez',p:'PPD',pos:'Representante D34',c:'represent',pct:62,v:700,d:4,e:'\ud83d\udc68\u200d\ud83d\udcbc'},
-{id:'jose-colon',n:'José Colón Ramos',p:'PNP',pos:'Representante D35',c:'represent',pct:48,v:540,d:7,e:'\ud83d\udc68\u200d\ud83d\udcbc'},
-{id:'melinda-romero',n:'Melinda Romero Donaldson',p:'PNP',pos:'Representante D36',c:'represent',pct:51,v:580,d:5,e:'\ud83d\udc69\u200d\ud83d\udcbc'},
-{id:'jose-vargas',n:'José Vargas Vidot',p:'IND',pos:'Representante D37',c:'represent',pct:77,v:920,d:1,e:'\ud83d\udc68\u200d\u2695\ufe0f'},
-{id:'omar-rivera',n:'Omar Rivera Reyes',p:'PNP',pos:'Representante D38',c:'represent',pct:43,v:480,d:11,e:'\ud83d\udc68\u200d\ud83d\udcbc'},
-{id:'miriam-santiago',n:'Miriam Santiago Cruz',p:'PPD',pos:'Representante D39',c:'represent',pct:64,v:720,d:3,e:'\ud83d\udc69\u200d\u2696\ufe0f'},
-{id:'christian-sobrino',n:'Christian Sobrino Vega',p:'PNP',pos:'Representante D40',c:'represent',pct:46,v:510,d:8,e:'\ud83d\udc68\u200d\ud83d\udcbb'},
-// MAYORS – 78 municipalities
-{id:'miguel-romero',n:'Miguel Romero Lugo',p:'PNP',pos:'Alcalde San Juan',c:'alcalde',pct:52,v:4200,d:18,e:'\ud83c\udfd9\ufe0f'},
-{id:'carlos-molina',n:'Carlos Molina Rodríguez',p:'PNP',pos:'Alcalde Bayamón',c:'alcalde',pct:55,v:3100,d:12,e:'\ud83c\udfd9\ufe0f'},
-{id:'carlos-delgado',n:'Carlos Delgado Altieri',p:'PPD',pos:'Alcalde Carolina',c:'alcalde',pct:68,v:2800,d:6,e:'\ud83c\udfd9\ufe0f'},
-{id:'javier-jimenez',n:'Javier Jiménez García',p:'PNP',pos:'Alcalde Ponce',c:'alcalde',pct:54,v:2600,d:14,e:'\ud83c\udfd9\ufe0f'},
-{id:'ivan-melendez',n:'Iván Meléndez Ortiz',p:'PPD',pos:'Alcalde Mayagüez',c:'alcalde',pct:63,v:1900,d:8,e:'\ud83c\udfd9\ufe0f'},
-{id:'pedro-garcia',n:'Pedro García Figueroa',p:'PNP',pos:'Alcalde Guaynabo',c:'alcalde',pct:58,v:1700,d:9,e:'\ud83c\udfd9\ufe0f'},
-{id:'william-alicea',n:'William Alicea Pérez',p:'PPD',pos:'Alcalde Caguas',c:'alcalde',pct:66,v:2100,d:5,e:'\ud83c\udfd9\ufe0f'},
-{id:'carlos-mendez',n:'Carlos Méndez Martínez',p:'PPD',pos:'Alcalde Arecibo',c:'alcalde',pct:61,v:1500,d:7,e:'\ud83c\udfd9\ufe0f'},
-{id:'jorge-morales',n:'Jorge Morales Wiscovitch',p:'PNP',pos:'Alcalde Toa Baja',c:'alcalde',pct:49,v:1100,d:11,e:'\ud83c\udfd9\ufe0f'},
-{id:'jose-santiago-m',n:'José Santiago Cintrón',p:'PPD',pos:'Alcalde Humacao',c:'alcalde',pct:65,v:1200,d:4,e:'\ud83c\udfd9\ufe0f'},
-{id:'jose-colon-m',n:'José Colón Hernández',p:'PNP',pos:'Alcalde Toa Alta',c:'alcalde',pct:51,v:950,d:8,e:'\ud83c\udfd9\ufe0f'},
-{id:'luz-rivera',n:'Luz Rivera Fuentes',p:'PNP',pos:'Alcaldesa Vega Baja',c:'alcalde',pct:53,v:900,d:7,e:'\ud83c\udfd9\ufe0f'},
-{id:'alejandro-garcia',n:'Alejandro García Padilla',p:'PPD',pos:'Alcalde Guayama',c:'alcalde',pct:62,v:880,d:5,e:'\ud83c\udfd9\ufe0f'},
-{id:'carlos-ruiz-m',n:'Carlos Ruiz Torres',p:'MVC',pos:'Alcalde Ponce (MVC)',c:'alcalde',pct:71,v:890,d:7,e:'\ud83c\udfd9\ufe0f'},
-{id:'jose-lopez',n:'José López Feliciano',p:'PPD',pos:'Alcalde Añasco',c:'alcalde',pct:64,v:720,d:3,e:'\ud83c\udfd9\ufe0f'},
-{id:'rafael-surillo',n:'Rafael Surillo Ruiz',p:'PNP',pos:'Alcalde Cabo Rojo',c:'alcalde',pct:55,v:810,d:8,e:'\ud83c\udfd9\ufe0f'},
-{id:'jose-rodriguez-m',n:'José Rodríguez Cruz',p:'PPD',pos:'Alcalde Coamo',c:'alcalde',pct:67,v:760,d:3,e:'\ud83c\udfd9\ufe0f'},
-{id:'wanda-velez',n:'Wanda Vélez Tejada',p:'PNP',pos:'Alcaldesa Dorado',c:'alcalde',pct:56,v:700,d:6,e:'\ud83c\udfd9\ufe0f'},
-{id:'elvin-santana',n:'Elvin Santana Reyes',p:'PPD',pos:'Alcalde Naranjito',c:'alcalde',pct:63,v:680,d:4,e:'\ud83c\udfd9\ufe0f'},
-{id:'jorge-colon',n:'Jorge Colón Sánchez',p:'PNP',pos:'Alcalde Cidra',c:'alcalde',pct:50,v:640,d:9,e:'\ud83c\udfd9\ufe0f'},
-{id:'jose-flores',n:'José Flores Cruz',p:'PPD',pos:'Alcalde Moca',c:'alcalde',pct:65,v:620,d:3,e:'\ud83c\udfd9\ufe0f'},
-{id:'juan-garcia',n:'Juan García Vélez',p:'PNP',pos:'Alcalde San Sebastián',c:'alcalde',pct:52,v:610,d:7,e:'\ud83c\udfd9\ufe0f'},
-{id:'angel-rosario',n:'Ángel Rosario Torres',p:'PPD',pos:'Alcalde Aibonito',c:'alcalde',pct:66,v:590,d:3,e:'\ud83c\udfd9\ufe0f'},
-{id:'carlos-rodriguez-m',n:'Carlos Rodríguez Mateo',p:'PNP',pos:'Alcalde Gurabo',c:'alcalde',pct:53,v:580,d:7,e:'\ud83c\udfd9\ufe0f'},
-{id:'felix-delgado',n:'Félix Delgado Montalvo',p:'PPD',pos:'Alcalde Isabela',c:'alcalde',pct:67,v:570,d:4,e:'\ud83c\udfd9\ufe0f'},
-{id:'jose-mendez-m',n:'José Méndez Sánchez',p:'PNP',pos:'Alcalde Juncos',c:'alcalde',pct:50,v:560,d:8,e:'\ud83c\udfd9\ufe0f'},
-{id:'gabriel-colon',n:'Gabriel Colón Jiménez',p:'PPD',pos:'Alcalde Las Piedras',c:'alcalde',pct:64,v:540,d:3,e:'\ud83c\udfd9\ufe0f'},
-{id:'carlos-soto-m',n:'Carlos Soto Pagán',p:'PNP',pos:'Alcalde Luquillo',c:'alcalde',pct:54,v:530,d:6,e:'\ud83c\udfd9\ufe0f'},
-{id:'gilbert-gonzalez',n:'Gilbert González Cruz',p:'PPD',pos:'Alcalde Manatí',c:'alcalde',pct:62,v:520,d:5,e:'\ud83c\udfd9\ufe0f'},
-{id:'jos-soto-m',n:'José Soto Colón',p:'PNP',pos:'Alcalde Naguabo',c:'alcalde',pct:49,v:500,d:9,e:'\ud83c\udfd9\ufe0f'},
-{id:'hector-colon-m',n:'Héctor Colón Ortiz',p:'PPD',pos:'Alcalde Orocovis',c:'alcalde',pct:66,v:490,d:3,e:'\ud83c\udfd9\ufe0f'},
-{id:'angel-garcia-m',n:'Ángel García Torres',p:'PNP',pos:'Alcalde Salinas',c:'alcalde',pct:51,v:480,d:8,e:'\ud83c\udfd9\ufe0f'},
-{id:'jose-rivera-m',n:'José Rivera Madera',p:'PPD',pos:'Alcalde San Lorenzo',c:'alcalde',pct:63,v:470,d:5,e:'\ud83c\udfd9\ufe0f'},
-{id:'jorge-rivera-m',n:'Jorge Rivera Báez',p:'PNP',pos:'Alcalde Santa Isabel',c:'alcalde',pct:52,v:460,d:7,e:'\ud83c\udfd9\ufe0f'},
-{id:'luis-soto-m',n:'Luis Soto García',p:'PPD',pos:'Alcalde Vieques',c:'alcalde',pct:8,v:210,d:34,e:'\ud83c\udfd9\ufe0f'},
-{id:'carlos-garcia-m',n:'Carlos García Ortiz',p:'PNP',pos:'Alcalde Yabucoa',c:'alcalde',pct:48,v:450,d:9,e:'\ud83c\udfd9\ufe0f'},
-{id:'victor-rodriguez-m',n:'Víctor Rodríguez Rivera',p:'PPD',pos:'Alcalde Yauco',c:'alcalde',pct:65,v:440,d:4,e:'\ud83c\udfd9\ufe0f'},
-{id:'jose-aponte-m',n:'José Aponte Torres',p:'PNP',pos:'Alcalde Aguas Buenas',c:'alcalde',pct:50,v:430,d:8,e:'\ud83c\udfd9\ufe0f'},
-{id:'jose-melendez-m',n:'José Meléndez Cruz',p:'PPD',pos:'Alcalde Aguadilla',c:'alcalde',pct:61,v:420,d:5,e:'\ud83c\udfd9\ufe0f'},
-{id:'carlos-colon-m',n:'Carlos Colón Rosario',p:'PNP',pos:'Alcalde Aibonito-N',c:'alcalde',pct:49,v:410,d:8,e:'\ud83c\udfd9\ufe0f'},
-{id:'marcos-irizarry',n:'Marcos Irizarry Pérez',p:'PPD',pos:'Alcalde Arroyo',c:'alcalde',pct:62,v:400,d:5,e:'\ud83c\udfd9\ufe0f'},
-{id:'jose-colon-m2',n:'José Colón Matta',p:'PNP',pos:'Alcalde Barceloneta',c:'alcalde',pct:51,v:390,d:7,e:'\ud83c\udfd9\ufe0f'},
-{id:'victor-morales-m',n:'Víctor Morales Cruz',p:'PPD',pos:'Alcalde Barranquitas',c:'alcalde',pct:64,v:380,d:4,e:'\ud83c\udfd9\ufe0f'},
-{id:'angel-colon-m',n:'Ángel Colón Pérez',p:'PNP',pos:'Alcalde Canóvanas',c:'alcalde',pct:50,v:370,d:8,e:'\ud83c\udfd9\ufe0f'},
-{id:'william-rodriguez-m',n:'William Rodríguez Torres',p:'PPD',pos:'Alcalde Cayey',c:'alcalde',pct:63,v:360,d:5,e:'\ud83c\udfd9\ufe0f'},
-{id:'jose-gonzalez-m',n:'José González Ortiz',p:'PNP',pos:'Alcalde Ceiba',c:'alcalde',pct:48,v:350,d:9,e:'\ud83c\udfd9\ufe0f'},
-{id:'hector-torres-m',n:'Héctor Torres Vélez',p:'PPD',pos:'Alcalde Ciales',c:'alcalde',pct:65,v:340,d:3,e:'\ud83c\udfd9\ufe0f'},
-{id:'carlos-hernandez-m',n:'Carlos Hernández Cruz',p:'PNP',pos:'Alcalde Comerío',c:'alcalde',pct:51,v:330,d:7,e:'\ud83c\udfd9\ufe0f'},
-{id:'jose-santiago-m2',n:'José Santiago Morales',p:'PPD',pos:'Alcalde Corozal',c:'alcalde',pct:64,v:320,d:4,e:'\ud83c\udfd9\ufe0f'},
-{id:'jose-rodriguez-m2',n:'José Rodríguez García',p:'PNP',pos:'Alcalde Culebra',c:'alcalde',pct:70,v:310,d:2,e:'\ud83c\udfd9\ufe0f'},
-{id:'angel-garcia-m2',n:'Ángel García Rosario',p:'PPD',pos:'Alcalde Fajardo',c:'alcalde',pct:62,v:300,d:5,e:'\ud83c\udfd9\ufe0f'},
-{id:'carlos-figueroa-m',n:'Carlos Figueroa Cruz',p:'PNP',pos:'Alcalde Florida',c:'alcalde',pct:52,v:290,d:7,e:'\ud83c\udfd9\ufe0f'},
-{id:'jose-jimenez-m',n:'José Jiménez Torres',p:'PPD',pos:'Alcalde Guánica',c:'alcalde',pct:63,v:280,d:4,e:'\ud83c\udfd9\ufe0f'},
-{id:'ramon-santos',n:'Ramón Santos Cruz',p:'PNP',pos:'Alcalde Guayanilla',c:'alcalde',pct:50,v:270,d:8,e:'\ud83c\udfd9\ufe0f'},
-{id:'jose-hernandez-m',n:'José Hernández Ortiz',p:'PPD',pos:'Alcalde Guaynabo-B',c:'alcalde',pct:65,v:260,d:3,e:'\ud83c\udfd9\ufe0f'},
-{id:'carlos-martinez-m',n:'Carlos Martínez Torres',p:'PNP',pos:'Alcalde Hatillo',c:'alcalde',pct:53,v:250,d:7,e:'\ud83c\udfd9\ufe0f'},
-{id:'jose-ortiz-m',n:'José Ortiz Colón',p:'PPD',pos:'Alcalde Hormigueros',c:'alcalde',pct:64,v:240,d:4,e:'\ud83c\udfd9\ufe0f'},
-{id:'victor-colon-m',n:'Víctor Colón Vázquez',p:'PNP',pos:'Alcalde Jayuya',c:'alcalde',pct:51,v:230,d:7,e:'\ud83c\udfd9\ufe0f'},
-{id:'jose-rivera-m2',n:'José Rivera Torres',p:'PPD',pos:'Alcalde Juana Díaz',c:'alcalde',pct:63,v:220,d:5,e:'\ud83c\udfd9\ufe0f'},
-{id:'angel-ortiz-m',n:'Ángel Ortiz García',p:'PNP',pos:'Alcalde Lajas',c:'alcalde',pct:50,v:210,d:8,e:'\ud83c\udfd9\ufe0f'},
-{id:'carlos-perez-m',n:'Carlos Pérez Torres',p:'PPD',pos:'Alcalde Lares',c:'alcalde',pct:62,v:200,d:5,e:'\ud83c\udfd9\ufe0f'},
-{id:'jose-garcia-m',n:'José García Ortiz',p:'PNP',pos:'Alcalde Las Marías',c:'alcalde',pct:49,v:190,d:9,e:'\ud83c\udfd9\ufe0f'},
-{id:'victor-garcia-m',n:'Víctor García Torres',p:'PPD',pos:'Alcalde Loíza',c:'alcalde',pct:65,v:180,d:3,e:'\ud83c\udfd9\ufe0f'},
-{id:'jose-colon-m3',n:'José Colón Ortiz',p:'PNP',pos:'Alcalde Maricao',c:'alcalde',pct:52,v:170,d:7,e:'\ud83c\udfd9\ufe0f'},
-{id:'hector-ortiz-m',n:'Héctor Ortiz Pérez',p:'PPD',pos:'Alcalde Maunabo',c:'alcalde',pct:64,v:160,d:4,e:'\ud83c\udfd9\ufe0f'},
-{id:'jose-hernandez-m2',n:'José Hernández García',p:'PNP',pos:'Alcalde Morovis',c:'alcalde',pct:51,v:150,d:7,e:'\ud83c\udfd9\ufe0f'},
-{id:'carlos-torres-m',n:'Carlos Torres Colón',p:'PPD',pos:'Alcalde Patillas',c:'alcalde',pct:63,v:140,d:5,e:'\ud83c\udfd9\ufe0f'},
-{id:'jose-perez-m',n:'José Pérez García',p:'PNP',pos:'Alcalde Peñuelas',c:'alcalde',pct:50,v:130,d:8,e:'\ud83c\udfd9\ufe0f'},
-{id:'victor-rosa-m',n:'Víctor Rosa Torres',p:'PPD',pos:'Alcalde Ponce-B',c:'alcalde',pct:62,v:120,d:5,e:'\ud83c\udfd9\ufe0f'},
-{id:'jose-martinez-m',n:'José Martínez Cruz',p:'PPD',pos:'Alcalde Quebradillas',c:'alcalde',pct:55,v:430,d:9,e:'\ud83c\udfd9\ufe0f'},
-{id:'carlos-ortiz-m',n:'Carlos Ortiz Medina',p:'PNP',pos:'Alcalde Rincón',c:'alcalde',pct:53,v:410,d:7,e:'\ud83c\udfd9\ufe0f'},
-{id:'angel-santos-m',n:'Ángel Santos Morales',p:'PPD',pos:'Alcalde Río Grande',c:'alcalde',pct:64,v:390,d:4,e:'\ud83c\udfd9\ufe0f'},
-{id:'jose-collazo',n:'José Collazo Torres',p:'PNP',pos:'Alcalde Sabana Grande',c:'alcalde',pct:50,v:370,d:8,e:'\ud83c\udfd9\ufe0f'},
-{id:'carlos-valentin',n:'Carlos Valentín Cruz',p:'PPD',pos:'Alcalde San Germán',c:'alcalde',pct:63,v:350,d:5,e:'\ud83c\udfd9\ufe0f'},
-{id:'jose-rodriguez-m3',n:'José Rodríguez Hernández',p:'PNP',pos:'Alcalde Toa Baja-B',c:'alcalde',pct:48,v:330,d:9,e:'\ud83c\udfd9\ufe0f'},
-{id:'victor-rivera-m',n:'Víctor Rivera Torres',p:'PPD',pos:'Alcalde Trujillo Alto',c:'alcalde',pct:62,v:310,d:5,e:'\ud83c\udfd9\ufe0f'},
-{id:'jose-ortiz-m2',n:'José Ortiz Rodríguez',p:'PNP',pos:'Alcalde Utuado',c:'alcalde',pct:51,v:290,d:7,e:'\ud83c\udfd9\ufe0f'},
-{id:'hector-morales-m',n:'Héctor Morales García',p:'PPD',pos:'Alcalde Vega Alta',c:'alcalde',pct:64,v:270,d:4,e:'\ud83c\udfd9\ufe0f'},
-{id:'carlos-colon-m2',n:'Carlos Colón Cruz',p:'PNP',pos:'Alcalde Villalba',c:'alcalde',pct:50,v:250,d:8,e:'\ud83c\udfd9\ufe0f'}
+// EXECUTIVE
+{id:'jenniffer-gonzalez',n:'Jenniffer Gonz\u00e1lez-Col\u00f3n',p:'PNP',pos:'Gobernadora',c:'exec',pct:58,v:8200,d:31,e:'\ud83c\udfd5\ufe0f',tags:'gobernadora ejecutivo fortaleza'},
+{id:'pablo-hernandez',n:'Pablo Jos\u00e9 Hern\u00e1ndez Rivera',p:'PPD',pos:'Comisionado Residente',c:'exec',pct:61,v:4100,d:8,e:'\ud83c\udfdb\ufe0f',tags:'comisionado washington dc federal'},
+// SENATE – PNP (19)
+{id:'thomas-rivera-schatz',n:'Thomas Rivera Schatz',p:'PNP',pos:'Senador – Presidente',c:'senador',pct:44,v:3200,d:28,e:'\u2696\ufe0f',tags:'senado presidente'},
+{id:'carmelo-rios-santiago',n:'Carmelo J. R\u00edos Santiago',p:'PNP',pos:'Senador',c:'senador',pct:51,v:1800,d:12,e:'\ud83d\udc68\u200d\ud83d\udcbc',tags:'senado'},
+{id:'marissa-jimenez-santoni',n:'Marissa Jim\u00e9nez Santoni',p:'PNP',pos:'Senadora',c:'senador',pct:55,v:1600,d:7,e:'\ud83d\udc69\u200d\ud83d\udcbc',tags:'senado'},
+{id:'gregorio-matias-rosario',n:'Gregorio Mat\u00edas Rosario',p:'PNP',pos:'Senador',c:'senador',pct:48,v:1100,d:9,e:'\ud83d\udc68\u200d\u2696\ufe0f',tags:'senado'},
+{id:'juan-oscar-morales',n:'Juan Oscar Morales Rodr\u00edguez',p:'PNP',pos:'Senador',c:'senador',pct:49,v:980,d:6,e:'\ud83d\udc68\u200d\ud83d\udcbc',tags:'senado'},
+{id:'nitza-moran',n:'Nitza Mor\u00e1n Trinidad',p:'PNP',pos:'Senadora',c:'senador',pct:52,v:870,d:4,e:'\ud83d\udc69\u200d\u2696\ufe0f',tags:'senado'},
+{id:'migdalia-padilla',n:'Migdalia Padilla Alvelo',p:'PNP',pos:'Senadora',c:'senador',pct:50,v:810,d:5,e:'\ud83d\udc69\u200d\ud83d\udcbc',tags:'senado'},
+{id:'brenda-perez',n:'Brenda P\u00e9rez Soto',p:'PNP',pos:'Senadora',c:'senador',pct:54,v:920,d:3,e:'\ud83d\udc69\u200d\u2696\ufe0f',tags:'senado'},
+{id:'hector-gonzalez-lopez',n:'H\u00e9ctor Gabriel Gonz\u00e1lez L\u00f3pez',p:'PNP',pos:'Senador',c:'senador',pct:47,v:760,d:8,e:'\ud83d\udc68\u200d\ud83d\udcbb',tags:'senado'},
+{id:'karen-roman',n:'Karen Michelle Rom\u00e1n Rodr\u00edguez',p:'PNP',pos:'Senadora',c:'senador',pct:56,v:840,d:2,e:'\ud83d\udc69\u200d\ud83c\udfeb',tags:'senado'},
+{id:'jeison-rosa',n:'Jeison Rosa Ramos',p:'PNP',pos:'Senador',c:'senador',pct:45,v:680,d:7,e:'\ud83d\udc68\u200d\ud83d\udcbc',tags:'senado'},
+{id:'jamie-barlucea',n:'Jamie Barlucea Rodr\u00edguez',p:'PNP',pos:'Senador',c:'senador',pct:46,v:700,d:6,e:'\ud83d\udc68\u200d\ud83d\udcbc',tags:'senado'},
+{id:'wilmer-reyes',n:'Wilmer Reyes Berr\u00edos',p:'PNP',pos:'Senador',c:'senador',pct:43,v:650,d:9,e:'\ud83d\udc68\u200d\ud83d\udcbc',tags:'senado'},
+{id:'rafael-santos',n:'Rafael Santos Ortiz',p:'PNP',pos:'Senador',c:'senador',pct:48,v:720,d:5,e:'\ud83d\udc68\u200d\u2696\ufe0f',tags:'senado'},
+{id:'wanda-soto',n:'Wanda M. Soto Tolentino',p:'PNP',pos:'Senadora',c:'senador',pct:51,v:780,d:4,e:'\ud83d\udc69\u200d\ud83d\udcbc',tags:'senado'},
+{id:'luis-colon-santa',n:'Luis Daniel Col\u00f3n La Santa',p:'PNP',pos:'Senador',c:'senador',pct:46,v:690,d:7,e:'\ud83d\udc68\u200d\ud83d\udcbc',tags:'senado'},
+{id:'hector-sanchez',n:'H\u00e9ctor Joaqu\u00edn S\u00e1nchez \u00c1lvarez',p:'PNP',pos:'Senador',c:'senador',pct:44,v:660,d:8,e:'\ud83d\udc68\u200d\ud83d\udcbc',tags:'senado'},
+{id:'angel-toledo',n:'\u00c1ngel Toledo L\u00f3pez',p:'PNP',pos:'Senador',c:'senador',pct:47,v:710,d:6,e:'\ud83d\udc68\u200d\ud83d\udcbc',tags:'senado'},
+{id:'roxanna-soto',n:'Roxanna I. Soto Aguil\u00fa',p:'PNP',pos:'Senadora',c:'senador',pct:53,v:790,d:3,e:'\ud83d\udc69\u200d\ud83d\udcbc',tags:'senado'},
+// SENATE – PPD (5)
+{id:'luis-hernandez-ortiz',n:'Luis Javier Hern\u00e1ndez Ortiz',p:'PPD',pos:'Senador – Portavoz PPD',c:'senador',pct:62,v:1400,d:5,e:'\ud83d\udc68\u200d\u2696\ufe0f',tags:'senado portavoz ppd'},
+{id:'marially-gonzalez',n:'Marially Gonz\u00e1lez Huertas',p:'PPD',pos:'Senadora',c:'senador',pct:64,v:1200,d:3,e:'\ud83d\udc69\u200d\ud83d\udcbc',tags:'senado'},
+{id:'jose-dalmau-santiago',n:'Jos\u00e9 L. Dalmau Santiago',p:'PPD',pos:'Senador',c:'senador',pct:68,v:1500,d:4,e:'\ud83d\udc68\u200d\u2696\ufe0f',tags:'senado'},
+{id:'jose-santiago-rivera-s',n:'Jos\u00e9 A. Santiago Rivera',p:'PPD',pos:'Senador',c:'senador',pct:60,v:1100,d:6,e:'\ud83d\udc68\u200d\ud83d\udcbc',tags:'senado'},
+{id:'ada-alvarez-conde',n:'Ada M. \u00c1lvarez Conde',p:'PPD',pos:'Senadora',c:'senador',pct:65,v:1050,d:3,e:'\ud83d\udc69\u200d\u2696\ufe0f',tags:'senado'},
+// SENATE – PIP (2)
+{id:'maria-santiago-negron',n:'Mar\u00eda De L. Santiago Negr\u00f3n',p:'PIP',pos:'Senadora – Portavoz PIP',c:'senador',pct:74,v:1300,d:2,e:'\ud83d\udc69\u200d\u2696\ufe0f',tags:'senado pip portavoz'},
+{id:'adrian-gonzalez-costa',n:'Adri\u00e1n Gonz\u00e1lez Costa',p:'PIP',pos:'Senador',c:'senador',pct:71,v:1100,d:2,e:'\ud83d\udc68\u200d\u2696\ufe0f',tags:'senado pip'},
+// SENATE – Independientes (2)
+{id:'joanne-rodriguez-veve',n:'Joanne M. Rodr\u00edguez Veve',p:'IND',pos:'Senadora Independiente',c:'senador',pct:69,v:1600,d:1,e:'\ud83d\udc69\u200d\u2696\ufe0f',tags:'senado independiente'},
+{id:'eliezer-molina-perez',n:'Eliezer Molina P\u00e9rez',p:'IND',pos:'Senador Independiente',c:'senador',pct:66,v:1400,d:2,e:'\ud83d\udc68\u200d\ud83d\udcbc',tags:'senado independiente'},
+// REPRESENTATIVES – D1-D36 + At-Large
+{id:'carlos-berdiel',n:'Carlos Berdiel Torres',p:'PNP',pos:'Presidente C\u00e1mara',c:'represent',pct:48,v:1200,d:12,e:'\ud83c\udfdb\ufe0f',tags:'camara representante presidente'},
+{id:'carlos-bianchi',n:'Carlos Bianchi Anglero',p:'PNP',pos:'Representante D1',c:'represent',pct:45,v:620,d:8,e:'\ud83d\udc68\u200d\ud83d\udcbc',tags:'camara representante distrito 1'},
+{id:'jose-aponte-dalmau',n:'Jos\u00e9 "Memo" Aponte Dalmau',p:'PPD',pos:'Representante D2',c:'represent',pct:63,v:740,d:4,e:'\ud83d\udc68\u200d\u2696\ufe0f',tags:'camara representante distrito 2 memo'},
+{id:'lydia-mendez',n:'Lydia M\u00e9ndez Silva',p:'PNP',pos:'Representante D3',c:'represent',pct:51,v:580,d:6,e:'\ud83d\udc69\u200d\ud83d\udcbc',tags:'camara representante distrito 3'},
+{id:'jesus-santa',n:'Jes\u00fas Santa Ramos',p:'PNP',pos:'Representante D4',c:'represent',pct:48,v:560,d:7,e:'\ud83d\udc68\u200d\ud83d\udcbc',tags:'camara representante distrito 4'},
+{id:'ana-irma-rivera',n:'Ana Irma Rivera Lassen',p:'PIP',pos:'Representante D5',c:'represent',pct:72,v:810,d:1,e:'\ud83d\udc69\u200d\u2696\ufe0f',tags:'camara representante distrito 5 pip'},
+{id:'jorge-navarro',n:'Jorge Navarro Su\u00e1rez',p:'PNP',pos:'Representante D6',c:'represent',pct:46,v:540,d:9,e:'\ud83d\udc68\u200d\ud83d\udcbc',tags:'camara representante distrito 6'},
+{id:'pedro-julio',n:'Pedro Julio Rodr\u00edguez',p:'PPD',pos:'Representante D7',c:'represent',pct:61,v:700,d:5,e:'\ud83d\udc68\u200d\ud83d\udcbc',tags:'camara representante distrito 7'},
+{id:'nelson-dejesus',n:'Nelson DeJes\u00fas Col\u00f3n',p:'PNP',pos:'Representante D8',c:'represent',pct:44,v:510,d:10,e:'\ud83d\udc68\u200d\ud83d\udcbb',tags:'camara representante distrito 8'},
+{id:'maria-charbonier',n:'Mar\u00eda Milagros Charbonier',p:'PNP',pos:'Representante D9',c:'represent',pct:52,v:600,d:5,e:'\ud83d\udc69\u200d\ud83d\udcbc',tags:'camara representante distrito 9'},
+{id:'angel-matos',n:'\u00c1ngel Matos Garc\u00eda',p:'PPD',pos:'Representante D10',c:'represent',pct:59,v:670,d:6,e:'\ud83d\udc68\u200d\ud83d\udcbc',tags:'camara representante distrito 10'},
+{id:'pablo-crespo',n:'Pablo Crespo Hern\u00e1ndez',p:'PNP',pos:'Representante D11',c:'represent',pct:47,v:530,d:8,e:'\ud83d\udc68\u200d\ud83d\udcbc',tags:'camara representante distrito 11'},
+{id:'lisie-burgos',n:'Lisie Burgos Mu\u00f1iz',p:'PNP',pos:'Representante D12',c:'represent',pct:50,v:570,d:6,e:'\ud83d\udc69\u200d\ud83d\udcbc',tags:'camara representante distrito 12'},
+{id:'oscar-santiago',n:'\u00d3scar Santiago Mel\u00e9ndez',p:'PPD',pos:'Representante D13',c:'represent',pct:64,v:720,d:3,e:'\ud83d\udc68\u200d\ud83d\udcbc',tags:'camara representante distrito 13'},
+{id:'edgar-robles-rivera',n:'Edgar Robles Rivera',p:'PNP',pos:'Representante D14 – Arecibo/Hatillo',c:'represent',pct:55,v:680,d:2,e:'\ud83d\udc68\u200d\ud83d\udcbc',tags:'camara representante distrito 14 arecibo hatillo edgar robles'},
+{id:'jimmy-gonzalez',n:'Jimmy Gonz\u00e1lez N\u00fa\u00f1ez',p:'PNP',pos:'Representante D15',c:'represent',pct:46,v:520,d:9,e:'\ud83d\udc68\u200d\ud83d\udcbc',tags:'camara representante distrito 15'},
+{id:'jose-bernardo',n:'Jos\u00e9 Bernardo M\u00e1rquez',p:'PPD',pos:'Representante D16',c:'represent',pct:60,v:680,d:5,e:'\ud83d\udc68\u200d\u2696\ufe0f',tags:'camara representante distrito 16'},
+{id:'david-huertas',n:'David Huertas Morales',p:'PNP',pos:'Representante D17',c:'represent',pct:48,v:540,d:7,e:'\ud83d\udc68\u200d\ud83d\udcbc',tags:'camara representante distrito 17'},
+{id:'iraida-gonzalez',n:'Iraida Gonz\u00e1lez Torres',p:'PNP',pos:'Representante D18',c:'represent',pct:49,v:560,d:6,e:'\ud83d\udc69\u200d\ud83d\udcbc',tags:'camara representante distrito 18'},
+{id:'jose-perez-cordero',n:'Jos\u00e9 P\u00e9rez Cordero',p:'PPD',pos:'Representante D19',c:'represent',pct:62,v:710,d:4,e:'\ud83d\udc68\u200d\ud83d\udcbc',tags:'camara representante distrito 19'},
+{id:'melissa-vargas',n:'Melissa Vargas Ferrer',p:'PNP',pos:'Representante D20',c:'represent',pct:53,v:590,d:5,e:'\ud83d\udc69\u200d\ud83d\udcbc',tags:'camara representante distrito 20'},
+{id:'manuel-natal',n:'Manuel Natal Albelo',p:'IND',pos:'Representante D21 – Independiente',c:'represent',pct:75,v:890,d:1,e:'\ud83d\udc68\u200d\u2696\ufe0f',tags:'camara representante distrito 21 independiente ciudadanos'},
+{id:'arnaldo-irizarry',n:'Arnaldo Irizarry Pab\u00f3n',p:'PNP',pos:'Representante D22',c:'represent',pct:44,v:500,d:10,e:'\ud83d\udc68\u200d\ud83d\udcbc',tags:'camara representante distrito 22'},
+{id:'eric-morales',n:'\u00c9ric Morales Cardona',p:'PNP',pos:'Representante D23',c:'represent',pct:46,v:510,d:8,e:'\ud83d\udc68\u200d\ud83d\udcbc',tags:'camara representante distrito 23'},
+{id:'felix-rodriguez-r',n:'F\u00e9lix Rodr\u00edguez Fuentes',p:'PPD',pos:'Representante D24',c:'represent',pct:61,v:690,d:4,e:'\ud83d\udc68\u200d\ud83d\udcbc',tags:'camara representante distrito 24'},
+{id:'wanda-serrano',n:'Wanda Ivelisse Serrano',p:'PPD',pos:'Representante D25',c:'represent',pct:63,v:700,d:3,e:'\ud83d\udc69\u200d\ud83d\udcbc',tags:'camara representante distrito 25 wanda'},
+{id:'victor-paredes',n:'V\u00edctor Paredes Maisonet',p:'PNP',pos:'Representante D26',c:'represent',pct:47,v:530,d:7,e:'\ud83d\udc68\u200d\ud83d\udcbc',tags:'camara representante distrito 26'},
+{id:'rafael-hernandez-r',n:'Rafael Hern\u00e1ndez Monta\u00f1ez',p:'PPD',pos:'Representante D27 – Portavoz PPD',c:'represent',pct:65,v:730,d:3,e:'\ud83d\udc68\u200d\u2696\ufe0f',tags:'camara representante distrito 27 portavoz ppd'},
+{id:'jose-torres-r',n:'Jos\u00e9 Torres Cruz',p:'PNP',pos:'Representante D28',c:'represent',pct:44,v:490,d:10,e:'\ud83d\udc68\u200d\ud83d\udcbc',tags:'camara representante distrito 28'},
+{id:'carlos-irizarry-r',n:'Carlos Irizarry Pag\u00e1n',p:'PPD',pos:'Representante D29',c:'represent',pct:60,v:670,d:5,e:'\ud83d\udc68\u200d\ud83d\udcbc',tags:'camara representante distrito 29'},
+{id:'aida-garcia-r',n:'Aida Garc\u00eda Torres',p:'PNP',pos:'Representante D30',c:'represent',pct:50,v:570,d:6,e:'\ud83d\udc69\u200d\ud83d\udcbc',tags:'camara representante distrito 30'},
+{id:'noel-torres-r',n:'Noel Torres Rodr\u00edguez',p:'PPD',pos:'Representante D31',c:'represent',pct:62,v:700,d:4,e:'\ud83d\udc68\u200d\ud83d\udcbc',tags:'camara representante distrito 31'},
+{id:'melinda-romero',n:'Melinda Romero Donaldson',p:'PNP',pos:'Representante D32',c:'represent',pct:51,v:580,d:5,e:'\ud83d\udc69\u200d\ud83d\udcbc',tags:'camara representante distrito 32'},
+{id:'jose-vargas-vidot',n:'Jos\u00e9 Vargas Vidot',p:'IND',pos:'Representante D33 – Independiente',c:'represent',pct:77,v:920,d:1,e:'\ud83d\udc68\u200d\u2695\ufe0f',tags:'camara representante distrito 33 independiente medico'},
+{id:'omar-rivera-r',n:'Omar Rivera Reyes',p:'PNP',pos:'Representante D34',c:'represent',pct:43,v:480,d:11,e:'\ud83d\udc68\u200d\ud83d\udcbc',tags:'camara representante distrito 34'},
+{id:'miriam-santiago-r',n:'Miriam Santiago Cruz',p:'PPD',pos:'Representante D35',c:'represent',pct:64,v:720,d:3,e:'\ud83d\udc69\u200d\u2696\ufe0f',tags:'camara representante distrito 35'},
+{id:'christian-sobrino',n:'Christian Sobrino Vega',p:'PNP',pos:'Representante D36',c:'represent',pct:46,v:510,d:8,e:'\ud83d\udc68\u200d\ud83d\udcbb',tags:'camara representante distrito 36'},
+{id:'wilmarie-gonzalez',n:'Wilmarie Gonz\u00e1lez Col\u00f3n',p:'PNP',pos:'Representante Acumulaci\u00f3n',c:'represent',pct:49,v:460,d:4,e:'\ud83d\udc69\u200d\ud83d\udcbc',tags:'camara representante acumulacion'},
+{id:'luis-raul-torres',n:'Luis Ra\u00fal Torres Cruz',p:'PPD',pos:'Representante Acumulaci\u00f3n',c:'represent',pct:58,v:510,d:5,e:'\ud83d\udc68\u200d\ud83d\udcbc',tags:'camara representante acumulacion ppd'},
+// MAYORS – 78 municipios
+{id:'miguel-romero',n:'Miguel Romero Lugo',p:'PNP',pos:'Alcalde San Juan',c:'alcalde',pct:52,v:4200,d:18,e:'\ud83c\udfd9\ufe0f',tags:'alcalde san juan'},
+{id:'carlos-molina',n:'Carlos Molina Rodr\u00edguez',p:'PNP',pos:'Alcalde Bayam\u00f3n',c:'alcalde',pct:55,v:3100,d:12,e:'\ud83c\udfd9\ufe0f',tags:'alcalde bayamon'},
+{id:'carlos-delgado',n:'Carlos Delgado Altieri',p:'PPD',pos:'Alcalde Carolina',c:'alcalde',pct:68,v:2800,d:6,e:'\ud83c\udfd9\ufe0f',tags:'alcalde carolina'},
+{id:'javier-jimenez-ponce',n:'Javier Jim\u00e9nez Garc\u00eda',p:'PNP',pos:'Alcalde Ponce',c:'alcalde',pct:54,v:2600,d:14,e:'\ud83c\udfd9\ufe0f',tags:'alcalde ponce'},
+{id:'ivan-melendez-mayor',n:'Iv\u00e1n Mel\u00e9ndez Ortiz',p:'PPD',pos:'Alcalde Mayag\u00fcez',c:'alcalde',pct:63,v:1900,d:8,e:'\ud83c\udfd9\ufe0f',tags:'alcalde mayaguez'},
+{id:'pedro-garcia-guaynabo',n:'Pedro Garc\u00eda Figueroa',p:'PNP',pos:'Alcalde Guaynabo',c:'alcalde',pct:58,v:1700,d:9,e:'\ud83c\udfd9\ufe0f',tags:'alcalde guaynabo'},
+{id:'william-alicea',n:'William Alicea P\u00e9rez',p:'PPD',pos:'Alcalde Caguas',c:'alcalde',pct:66,v:2100,d:5,e:'\ud83c\udfd9\ufe0f',tags:'alcalde caguas'},
+{id:'carlos-mendez-arecibo',n:'Carlos M\u00e9ndez Mart\u00ednez',p:'PPD',pos:'Alcalde Arecibo',c:'alcalde',pct:61,v:1500,d:7,e:'\ud83c\udfd9\ufe0f',tags:'alcalde arecibo'},
+{id:'jose-santiago-humacao',n:'Jos\u00e9 Santiago Cintr\u00f3n',p:'PPD',pos:'Alcalde Humacao',c:'alcalde',pct:65,v:1200,d:4,e:'\ud83c\udfd9\ufe0f',tags:'alcalde humacao'},
+{id:'jorge-morales-toa-baja',n:'Jorge Morales Wiscovitch',p:'PNP',pos:'Alcalde Toa Baja',c:'alcalde',pct:49,v:1100,d:11,e:'\ud83c\udfd9\ufe0f',tags:'alcalde toa baja'},
+{id:'jose-colon-toa-alta',n:'Jos\u00e9 Col\u00f3n Hern\u00e1ndez',p:'PNP',pos:'Alcalde Toa Alta',c:'alcalde',pct:51,v:950,d:8,e:'\ud83c\udfd9\ufe0f',tags:'alcalde toa alta'},
+{id:'luz-rivera-vega-baja',n:'Luz Rivera Fuentes',p:'PNP',pos:'Alcaldesa Vega Baja',c:'alcalde',pct:53,v:900,d:7,e:'\ud83c\udfd9\ufe0f',tags:'alcalde vega baja'},
+{id:'alejandro-garcia-guayama',n:'Alejandro Garc\u00eda Padilla',p:'PPD',pos:'Alcalde Guayama',c:'alcalde',pct:62,v:880,d:5,e:'\ud83c\udfd9\ufe0f',tags:'alcalde guayama'},
+{id:'jose-lopez-anasco',n:'Jos\u00e9 L\u00f3pez Feliciano',p:'PPD',pos:'Alcalde A\u00f1asco',c:'alcalde',pct:64,v:720,d:3,e:'\ud83c\udfd9\ufe0f',tags:'alcalde anasco'},
+{id:'rafael-surillo-cabo-rojo',n:'Rafael Surillo Ruiz',p:'PNP',pos:'Alcalde Cabo Rojo',c:'alcalde',pct:55,v:810,d:8,e:'\ud83c\udfd9\ufe0f',tags:'alcalde cabo rojo'},
+{id:'jose-rodriguez-coamo',n:'Jos\u00e9 Rodr\u00edguez Cruz',p:'PPD',pos:'Alcalde Coamo',c:'alcalde',pct:67,v:760,d:3,e:'\ud83c\udfd9\ufe0f',tags:'alcalde coamo'},
+{id:'wanda-velez-dorado',n:'Wanda V\u00e9lez Tejada',p:'PNP',pos:'Alcaldesa Dorado',c:'alcalde',pct:56,v:700,d:6,e:'\ud83c\udfd9\ufe0f',tags:'alcalde dorado'},
+{id:'elvin-santana-naranjito',n:'Elvin Santana Reyes',p:'PPD',pos:'Alcalde Naranjito',c:'alcalde',pct:63,v:680,d:4,e:'\ud83c\udfd9\ufe0f',tags:'alcalde naranjito'},
+{id:'jorge-colon-cidra',n:'Jorge Col\u00f3n S\u00e1nchez',p:'PNP',pos:'Alcalde Cidra',c:'alcalde',pct:50,v:640,d:9,e:'\ud83c\udfd9\ufe0f',tags:'alcalde cidra'},
+{id:'jose-flores-moca',n:'Jos\u00e9 Flores Cruz',p:'PPD',pos:'Alcalde Moca',c:'alcalde',pct:65,v:620,d:3,e:'\ud83c\udfd9\ufe0f',tags:'alcalde moca'},
+{id:'juan-garcia-san-sebastian',n:'Juan Garc\u00eda V\u00e9lez',p:'PNP',pos:'Alcalde San Sebasti\u00e1n',c:'alcalde',pct:52,v:610,d:7,e:'\ud83c\udfd9\ufe0f',tags:'alcalde san sebastian'},
+{id:'angel-rosario-aibonito',n:'\u00c1ngel Rosario Torres',p:'PPD',pos:'Alcalde Aibonito',c:'alcalde',pct:66,v:590,d:3,e:'\ud83c\udfd9\ufe0f',tags:'alcalde aibonito'},
+{id:'felix-delgado-isabela',n:'F\u00e9lix Delgado Montalvo',p:'PPD',pos:'Alcalde Isabela',c:'alcalde',pct:67,v:570,d:4,e:'\ud83c\udfd9\ufe0f',tags:'alcalde isabela'},
+{id:'gabriel-colon-las-piedras',n:'Gabriel Col\u00f3n Jim\u00e9nez',p:'PPD',pos:'Alcalde Las Piedras',c:'alcalde',pct:64,v:540,d:3,e:'\ud83c\udfd9\ufe0f',tags:'alcalde las piedras'},
+{id:'gilbert-gonzalez-manati',n:'Gilbert Gonz\u00e1lez Cruz',p:'PPD',pos:'Alcalde Manat\u00ed',c:'alcalde',pct:62,v:520,d:5,e:'\ud83c\udfd9\ufe0f',tags:'alcalde manati'},
+{id:'hector-colon-orocovis',n:'H\u00e9ctor Col\u00f3n Ortiz',p:'PPD',pos:'Alcalde Orocovis',c:'alcalde',pct:66,v:490,d:3,e:'\ud83c\udfd9\ufe0f',tags:'alcalde orocovis'},
+{id:'jose-rivera-san-lorenzo',n:'Jos\u00e9 Rivera Madera',p:'PPD',pos:'Alcalde San Lorenzo',c:'alcalde',pct:63,v:470,d:5,e:'\ud83c\udfd9\ufe0f',tags:'alcalde san lorenzo'},
+{id:'victor-rodriguez-yauco',n:'V\u00edctor Rodr\u00edguez Rivera',p:'PPD',pos:'Alcalde Yauco',c:'alcalde',pct:65,v:440,d:4,e:'\ud83c\udfd9\ufe0f',tags:'alcalde yauco'},
+{id:'jose-melendez-aguadilla',n:'Jos\u00e9 Mel\u00e9ndez Cruz',p:'PPD',pos:'Alcalde Aguadilla',c:'alcalde',pct:61,v:420,d:5,e:'\ud83c\udfd9\ufe0f',tags:'alcalde aguadilla'},
+{id:'marcos-irizarry-arroyo',n:'Marcos Irizarry P\u00e9rez',p:'PPD',pos:'Alcalde Arroyo',c:'alcalde',pct:62,v:400,d:5,e:'\ud83c\udfd9\ufe0f',tags:'alcalde arroyo'},
+{id:'victor-morales-barranquitas',n:'V\u00edctor Morales Cruz',p:'PPD',pos:'Alcalde Barranquitas',c:'alcalde',pct:64,v:380,d:4,e:'\ud83c\udfd9\ufe0f',tags:'alcalde barranquitas'},
+{id:'william-rodriguez-cayey',n:'William Rodr\u00edguez Torres',p:'PPD',pos:'Alcalde Cayey',c:'alcalde',pct:63,v:360,d:5,e:'\ud83c\udfd9\ufe0f',tags:'alcalde cayey'},
+{id:'hector-torres-ciales',n:'H\u00e9ctor Torres V\u00e9lez',p:'PPD',pos:'Alcalde Ciales',c:'alcalde',pct:65,v:340,d:3,e:'\ud83c\udfd9\ufe0f',tags:'alcalde ciales'},
+{id:'jose-santiago-corozal',n:'Jos\u00e9 Santiago Morales',p:'PPD',pos:'Alcalde Corozal',c:'alcalde',pct:64,v:320,d:4,e:'\ud83c\udfd9\ufe0f',tags:'alcalde corozal'},
+{id:'jose-rodriguez-culebra',n:'Jos\u00e9 Rodr\u00edguez Garc\u00eda',p:'PNP',pos:'Alcalde Culebra',c:'alcalde',pct:70,v:310,d:2,e:'\ud83c\udfd9\ufe0f',tags:'alcalde culebra'},
+{id:'angel-garcia-fajardo',n:'\u00c1ngel Garc\u00eda Rosario',p:'PPD',pos:'Alcalde Fajardo',c:'alcalde',pct:62,v:300,d:5,e:'\ud83c\udfd9\ufe0f',tags:'alcalde fajardo'},
+{id:'jose-jimenez-guanica',n:'Jos\u00e9 Jim\u00e9nez Torres',p:'PPD',pos:'Alcalde Gu\u00e1nica',c:'alcalde',pct:63,v:280,d:4,e:'\ud83c\udfd9\ufe0f',tags:'alcalde guanica'},
+{id:'jose-ortiz-hormigueros',n:'Jos\u00e9 Ortiz Col\u00f3n',p:'PPD',pos:'Alcalde Hormigueros',c:'alcalde',pct:64,v:240,d:4,e:'\ud83c\udfd9\ufe0f',tags:'alcalde hormigueros'},
+{id:'jose-rivera-juana-diaz',n:'Jos\u00e9 Rivera Torres',p:'PPD',pos:'Alcalde Juana D\u00edaz',c:'alcalde',pct:63,v:220,d:5,e:'\ud83c\udfd9\ufe0f',tags:'alcalde juana diaz'},
+{id:'carlos-perez-lares',n:'Carlos P\u00e9rez Torres',p:'PPD',pos:'Alcalde Lares',c:'alcalde',pct:62,v:200,d:5,e:'\ud83c\udfd9\ufe0f',tags:'alcalde lares'},
+{id:'victor-garcia-loiza',n:'V\u00edctor Garc\u00eda Torres',p:'PPD',pos:'Alcalde Lo\u00edza',c:'alcalde',pct:65,v:180,d:3,e:'\ud83c\udfd9\ufe0f',tags:'alcalde loiza'},
+{id:'hector-ortiz-maunabo',n:'H\u00e9ctor Ortiz P\u00e9rez',p:'PPD',pos:'Alcalde Maunabo',c:'alcalde',pct:64,v:160,d:4,e:'\ud83c\udfd9\ufe0f',tags:'alcalde maunabo'},
+{id:'carlos-torres-patillas',n:'Carlos Torres Col\u00f3n',p:'PPD',pos:'Alcalde Patillas',c:'alcalde',pct:63,v:140,d:5,e:'\ud83c\udfd9\ufe0f',tags:'alcalde patillas'},
+{id:'carlos-ortiz-rincon',n:'Carlos Ortiz Medina',p:'PNP',pos:'Alcalde Rinc\u00f3n',c:'alcalde',pct:53,v:410,d:7,e:'\ud83c\udfd9\ufe0f',tags:'alcalde rincon'},
+{id:'angel-santos-rio-grande',n:'\u00c1ngel Santos Morales',p:'PPD',pos:'Alcalde R\u00edo Grande',c:'alcalde',pct:64,v:390,d:4,e:'\ud83c\udfd9\ufe0f',tags:'alcalde rio grande'},
+{id:'carlos-valentin-san-german',n:'Carlos Valent\u00edn Cruz',p:'PPD',pos:'Alcalde San Germ\u00e1n',c:'alcalde',pct:63,v:350,d:5,e:'\ud83c\udfd9\ufe0f',tags:'alcalde san german'},
+{id:'victor-rivera-trujillo',n:'V\u00edctor Rivera Torres',p:'PPD',pos:'Alcalde Trujillo Alto',c:'alcalde',pct:62,v:310,d:5,e:'\ud83c\udfd9\ufe0f',tags:'alcalde trujillo alto'},
+{id:'jose-ortiz-utuado',n:'Jos\u00e9 Ortiz Rodr\u00edguez',p:'PNP',pos:'Alcalde Utuado',c:'alcalde',pct:51,v:290,d:7,e:'\ud83c\udfd9\ufe0f',tags:'alcalde utuado'},
+{id:'hector-morales-vega-alta',n:'H\u00e9ctor Morales Garc\u00eda',p:'PPD',pos:'Alcalde Vega Alta',c:'alcalde',pct:64,v:270,d:4,e:'\ud83c\udfd9\ufe0f',tags:'alcalde vega alta'},
+{id:'jose-martinez-quebradillas',n:'Jos\u00e9 Mart\u00ednez Cruz',p:'PPD',pos:'Alcalde Quebradillas',c:'alcalde',pct:55,v:430,d:9,e:'\ud83c\udfd9\ufe0f',tags:'alcalde quebradillas'},
+{id:'carlos-soto-luquillo',n:'Carlos Soto Pag\u00e1n',p:'PNP',pos:'Alcalde Luquillo',c:'alcalde',pct:54,v:530,d:6,e:'\ud83c\udfd9\ufe0f',tags:'alcalde luquillo'},
+{id:'jose-collazo-sabana-grande',n:'Jos\u00e9 Collazo Torres',p:'PNP',pos:'Alcalde Sabana Grande',c:'alcalde',pct:50,v:370,d:8,e:'\ud83c\udfd9\ufe0f',tags:'alcalde sabana grande'},
+{id:'jose-mendez-juncos',n:'Jos\u00e9 M\u00e9ndez S\u00e1nchez',p:'PNP',pos:'Alcalde Juncos',c:'alcalde',pct:50,v:560,d:8,e:'\ud83c\udfd9\ufe0f',tags:'alcalde juncos'},
+{id:'carlos-garcia-yabucoa',n:'Carlos Garc\u00eda Ortiz',p:'PNP',pos:'Alcalde Yabucoa',c:'alcalde',pct:48,v:450,d:9,e:'\ud83c\udfd9\ufe0f',tags:'alcalde yabucoa'},
+{id:'jose-aponte-aguas-buenas',n:'Jos\u00e9 Aponte Torres',p:'PNP',pos:'Alcalde Aguas Buenas',c:'alcalde',pct:50,v:430,d:8,e:'\ud83c\udfd9\ufe0f',tags:'alcalde aguas buenas'},
+{id:'jose-colon-barceloneta',n:'Jos\u00e9 Col\u00f3n Matta',p:'PNP',pos:'Alcalde Barceloneta',c:'alcalde',pct:51,v:390,d:7,e:'\ud83c\udfd9\ufe0f',tags:'alcalde barceloneta'},
+{id:'angel-colon-canovanas',n:'\u00c1ngel Col\u00f3n P\u00e9rez',p:'PNP',pos:'Alcalde Can\u00f3vanas',c:'alcalde',pct:50,v:370,d:8,e:'\ud83c\udfd9\ufe0f',tags:'alcalde canovanas'},
+{id:'jose-gonzalez-ceiba',n:'Jos\u00e9 Gonz\u00e1lez Ortiz',p:'PNP',pos:'Alcalde Ceiba',c:'alcalde',pct:48,v:350,d:9,e:'\ud83c\udfd9\ufe0f',tags:'alcalde ceiba'},
+{id:'carlos-hernandez-comerio',n:'Carlos Hern\u00e1ndez Cruz',p:'PNP',pos:'Alcalde Comer\u00edo',c:'alcalde',pct:51,v:330,d:7,e:'\ud83c\udfd9\ufe0f',tags:'alcalde comerio'},
+{id:'carlos-figueroa-florida',n:'Carlos Figueroa Cruz',p:'PNP',pos:'Alcalde Florida',c:'alcalde',pct:52,v:290,d:7,e:'\ud83c\udfd9\ufe0f',tags:'alcalde florida'},
+{id:'ramon-santos-guayanilla',n:'Ram\u00f3n Santos Cruz',p:'PNP',pos:'Alcalde Guayanilla',c:'alcalde',pct:50,v:270,d:8,e:'\ud83c\udfd9\ufe0f',tags:'alcalde guayanilla'},
+{id:'carlos-martinez-hatillo',n:'Carlos Mart\u00ednez Torres',p:'PNP',pos:'Alcalde Hatillo',c:'alcalde',pct:53,v:250,d:7,e:'\ud83c\udfd9\ufe0f',tags:'alcalde hatillo'},
+{id:'victor-colon-jayuya',n:'V\u00edctor Col\u00f3n V\u00e1zquez',p:'PNP',pos:'Alcalde Jayuya',c:'alcalde',pct:51,v:230,d:7,e:'\ud83c\udfd9\ufe0f',tags:'alcalde jayuya'},
+{id:'angel-ortiz-lajas',n:'\u00c1ngel Ortiz Garc\u00eda',p:'PNP',pos:'Alcalde Lajas',c:'alcalde',pct:50,v:210,d:8,e:'\ud83c\udfd9\ufe0f',tags:'alcalde lajas'},
+{id:'jose-garcia-las-marias',n:'Jos\u00e9 Garc\u00eda Ortiz',p:'PNP',pos:'Alcalde Las Mar\u00edas',c:'alcalde',pct:49,v:190,d:9,e:'\ud83c\udfd9\ufe0f',tags:'alcalde las marias'},
+{id:'jose-colon-maricao',n:'Jos\u00e9 Col\u00f3n Ortiz',p:'PNP',pos:'Alcalde Maricao',c:'alcalde',pct:52,v:170,d:7,e:'\ud83c\udfd9\ufe0f',tags:'alcalde maricao'},
+{id:'jose-hernandez-morovis',n:'Jos\u00e9 Hern\u00e1ndez Garc\u00eda',p:'PNP',pos:'Alcalde Morovis',c:'alcalde',pct:51,v:150,d:7,e:'\ud83c\udfd9\ufe0f',tags:'alcalde morovis'},
+{id:'jose-perez-penuelas',n:'Jos\u00e9 P\u00e9rez Garc\u00eda',p:'PNP',pos:'Alcalde Pe\u00f1uelas',c:'alcalde',pct:50,v:130,d:8,e:'\ud83c\udfd9\ufe0f',tags:'alcalde penuelas'},
+{id:'jorge-rivera-santa-isabel',n:'Jorge Rivera B\u00e1ez',p:'PNP',pos:'Alcalde Santa Isabel',c:'alcalde',pct:52,v:460,d:7,e:'\ud83c\udfd9\ufe0f',tags:'alcalde santa isabel'},
+{id:'carlos-colon-villalba',n:'Carlos Col\u00f3n Cruz',p:'PNP',pos:'Alcalde Villalba',c:'alcalde',pct:50,v:250,d:8,e:'\ud83c\udfd9\ufe0f',tags:'alcalde villalba'},
+{id:'luis-soto-vieques',n:'Luis Soto Garc\u00eda',p:'PPD',pos:'Alcalde Vieques',c:'alcalde',pct:58,v:210,d:4,e:'\ud83c\udfd9\ufe0f',tags:'alcalde vieques'}
 ];
 
 var PC={PNP:'pnp',PPD:'ppd',PIP:'pip',MVC:'mvc',IND:'ind',Independent:'ind'};
@@ -499,7 +487,8 @@ var M=['\ud83e\udd47','\ud83e\udd48','\ud83e\udd49'];
 var cf='all',cs2='',curPol=null;
 function ac(p){return p>=60?'var(--grn)':p>=40?'var(--ylw)':'var(--red)'}
 function bc(p){return p>=60?'bg':p>=40?'by':'br'}
-function ini(n){return n.split(' ').map(function(w){return w[0];}).slice(0,2).join('').toUpperCase()}
+function ini(n){return n.replace(/["]/g,'').split(' ').filter(Boolean).map(function(w){return w[0].toUpperCase();}).slice(0,2).join('')}
+
 function go(id){
   document.querySelectorAll('.scr').forEach(function(s){s.classList.remove('on');});
   var el=document.getElementById('s-'+id);
@@ -507,7 +496,11 @@ function go(id){
   if(id==='lb')renderLB('all');
   if(id==='search'){cf='all';cs2='';var si=document.getElementById('sinput');if(si)si.value='';document.querySelectorAll('.fp').forEach(function(p,i){p.classList.toggle('on',i===0);});renderS();}
 }
-function openPol(pol){
+
+function openPol(id){
+  var pol=null;
+  for(var i=0;i<P.length;i++){if(P[i].id===id){pol=P[i];break;}}
+  if(!pol)return;
   curPol=pol;
   var pc=PC[pol.p]||'ind';
   document.getElementById('dpill').className='pill '+pc;
@@ -526,59 +519,107 @@ function openPol(pol){
   document.getElementById('scpct').textContent=pol.pct+'%';
   document.getElementById('scbar').style.width=pol.pct+'%';
   document.getElementById('scp').textContent=pol.e;
-  document.getElementById('scst').innerHTML='<span>\ud83d\udc4d '+Math.round(pol.v*pol.pct/100).toLocaleString()+'</span><span>\ud83d\udc4e '+Math.round(pol.v*(100-pol.pct)/100).toLocaleString()+'</span><span>\ud83d\udce2 '+pol.d+' denuncias</span>';
-  var tls=['2026-02-10 Proyecto de Ley presentado en comisi\u00f3n','2025-11-05 Vot\u00f3 en sesi\u00f3n plenaria','2025-07-20 Actividad distrital en su municipio','2024-12-01 Electoci\u00f3n o juramentaci\u00f3n'];
-  document.getElementById('dtl').innerHTML=tls.map(function(t,i){
-    var cls=['db','dg','dy','dg'][i],ico=['\ud83d\udccb','\u2705','\ud83c\udfd7\ufe0f','\ud83c\udfc5'][i];
-    var parts=t.split(' ');
-    return '<div class="tli"><div class="tld '+cls+'">'+ico+'</div><div><div class="tldate">'+parts[0]+'</div><div class="tltxt">'+parts.slice(1).join(' ')+'</div></div></div>';
+  document.getElementById('scst').innerHTML='<span>\ud83d\udc4d '+Math.round(pol.v*pol.pct/100).toLocaleString()+'</span><span>\ud83d\udc4e '+Math.round(pol.v*(100-pol.pct)/100).toLocaleString()+'</span><span>\ud83d\udce2 '+pol.d+'</span>';
+  var tls=[
+    {cls:'db',ico:'\ud83d\udccb',d:'2025-01-13',t:'Juramentado/a en el cargo oficial'},
+    {cls:'dg',ico:'\u2705',d:'2025-03-10',t:'Participaci\u00f3n en sesi\u00f3n legislativa'},
+    {cls:'dy',ico:'\ud83c\udfd7\ufe0f',d:'2024-11-05',t:'Elegido/a en elecciones generales 2024'}
+  ];
+  document.getElementById('dtl').innerHTML=tls.map(function(t){
+    return '<div class="tli"><div class="tld '+t.cls+'">'+t.ico+'</div><div><div class="tldate">'+t.d+'</div><div class="tltxt">'+t.t+'</div></div></div>';
   }).join('');
   go('detail');
 }
+
 function renderHome(){
   var top=[].concat(P).sort(function(a,b){return b.v-a.v;}).slice(0,6);
   document.getElementById('trend').innerHTML=top.map(function(x){
-    return '<div class="tc" onclick="openPol(P.find(function(p){return p.id===\''+x.id+'\'}));"><div class="tc-photo">'+x.e+'<span style="position:absolute;top:7px;left:7px"><span class="pill '+(PC[x.p]||'ind')+'" style="font-size:10px">'+x.p+'</span></span></div><div class="tc-body"><div class="tc-name">'+x.n+'</div><div class="tc-sub">'+x.pos+'</div><div class="bar"><div class="bfill '+bc(x.pct)+'" style="width:'+x.pct+'%"></div></div><div style="display:flex;justify-content:space-between;margin-top:4px;font-size:11px"><span style="color:'+ac(x.pct)+';font-weight:700">'+x.pct+'% \ud83d\udc4d</span><span style="color:var(--mut)">'+x.v.toLocaleString()+'</span></div></div></div>';
+    return '<div class="tc" onclick="openPol(\''+x.id+'\');"><div class="tc-photo">'+x.e+'<span style="position:absolute;top:7px;left:7px"><span class="pill '+(PC[x.p]||'ind')+'" style="font-size:10px">'+x.p+'</span></span></div><div class="tc-body"><div class="tc-name">'+x.n+'</div><div class="tc-sub">'+x.pos+'</div><div class="bar"><div class="bfill '+bc(x.pct)+'" style="width:'+x.pct+'%"></div></div><div style="display:flex;justify-content:space-between;margin-top:4px;font-size:11px"><span style="color:'+ac(x.pct)+';font-weight:700">'+x.pct+'%</span><span style="color:var(--mut)">'+x.v.toLocaleString()+'</span></div></div></div>';
   }).join('');
   var t3=[].concat(P).sort(function(a,b){return b.pct-a.pct;}).slice(0,3);
   document.getElementById('hlb').innerHTML=t3.map(function(x,i){
-    return '<div class="lbr" onclick="openPol(P.find(function(p){return p.id===\''+x.id+'\'}));"><div class="lbrank">'+M[i]+'</div><div class="lbava">'+ini(x.n)+'</div><div class="lbi"><div class="lbn">'+x.n+'</div><div class="lbs"><span class="pill '+(PC[x.p]||'ind')+'" style="font-size:10px">'+x.p+'</span></div></div><div class="lbp"><div class="lbpn" style="color:'+ac(x.pct)+'">'+x.pct+'%</div><div style="font-size:11px;color:var(--mut)">'+x.v.toLocaleString()+'</div></div></div>';
+    return '<div class="lbr" onclick="openPol(\''+x.id+'\');"><div class="lbrank">'+M[i]+'</div><div class="lbava">'+ini(x.n)+'</div><div class="lbi"><div class="lbn">'+x.n+'</div><div class="lbs"><span class="pill '+(PC[x.p]||'ind')+'" style="font-size:10px">'+x.p+'</span></div></div><div class="lbp"><div class="lbpn" style="color:'+ac(x.pct)+'">'+x.pct+'%</div><div style="font-size:11px;color:var(--mut)">'+x.v.toLocaleString()+'</div></div></div>';
   }).join('');
 }
+
 function renderLB(f){
   var pols=[].concat(P).sort(function(a,b){return b.pct-a.pct;});
+  if(f==='exec')pols=pols.filter(function(x){return x.c==='exec';});
   if(f==='senate')pols=pols.filter(function(x){return x.c==='senador';});
   if(f==='house')pols=pols.filter(function(x){return x.c==='represent';});
   if(f==='mayors')pols=pols.filter(function(x){return x.c==='alcalde';});
-  if(f==='exec')pols=pols.filter(function(x){return x.c==='exec';});
+  var cnt=document.getElementById('totalCount');
+  if(cnt)cnt.textContent=pols.length;
   document.getElementById('lbl').innerHTML=pols.map(function(x,i){
-    return '<div class="lbr" onclick="openPol(P.find(function(p){return p.id===\''+x.id+'\'}));"><div class="lbrank">'+(i<3?M[i]:'#'+(i+1))+'</div><div class="lbava">'+ini(x.n)+'</div><div class="lbi"><div class="lbn">'+x.n+'</div><div class="lbs"><span class="pill '+(PC[x.p]||'ind')+'" style="font-size:10px">'+x.p+'</span> '+x.pos+'</div></div><div class="lbp"><div class="lbpn" style="color:'+ac(x.pct)+'">'+x.pct+'%</div><div style="font-size:11px;color:var(--mut)">'+x.v.toLocaleString()+'</div></div></div>';
+    return '<div class="lbr" onclick="openPol(\''+x.id+'\');"><div class="lbrank">'+(i<3?M[i]:'#'+(i+1))+'</div><div class="lbava">'+ini(x.n)+'</div><div class="lbi"><div class="lbn">'+x.n+'</div><div class="lbs"><span class="pill '+(PC[x.p]||'ind')+'" style="font-size:10px">'+x.p+'</span> '+x.pos+'</div></div><div class="lbp"><div class="lbpn" style="color:'+ac(x.pct)+'">'+x.pct+'%</div><div style="font-size:11px;color:var(--mut)">'+x.v.toLocaleString()+'</div></div></div>';
   }).join('')+'<div style="height:6px"></div>';
 }
+
 function setTab(el,f){
   document.querySelectorAll('.tab').forEach(function(t){t.classList.remove('on');});
   el.classList.add('on');
   renderLB(f);
 }
+
 function renderS(){
+  var q=cs2.toLowerCase().trim();
   var pols=[].concat(P);
-  if(cs2)pols=pols.filter(function(x){return x.n.toLowerCase().indexOf(cs2)>-1||x.p.toLowerCase().indexOf(cs2)>-1||x.pos.toLowerCase().indexOf(cs2)>-1;});
-  if(cf!=='all')pols=pols.filter(function(x){return x.p===cf||x.p.toLowerCase()===cf||x.c===cf||x.c.indexOf(cf)>-1;});
+  if(q) pols=pols.filter(function(x){
+    return x.n.toLowerCase().indexOf(q)>-1||
+           x.pos.toLowerCase().indexOf(q)>-1||
+           (x.tags&&x.tags.toLowerCase().indexOf(q)>-1)||
+           x.p.toLowerCase()===q||
+           x.c.indexOf(q)>-1;
+  });
+  if(cf!=='all') pols=pols.filter(function(x){
+    return x.p===cf||(cf==='IND'&&(x.p==='IND'||x.p==='Independent'))||x.c===cf||x.c.indexOf(cf)>-1;
+  });
   pols.sort(function(a,b){return b.pct-a.pct;});
-  document.getElementById('sres').innerHTML=pols.length?pols.map(function(x){
-    return '<div class="sri" onclick="openPol(P.find(function(p){return p.id===\''+x.id+'\'}));"><div class="sravo">'+x.e+'</div><div style="flex:1;min-width:0"><div style="font-size:14px;font-weight:700">'+x.n+'</div><div style="font-size:12px;color:var(--mut);margin-top:2px;display:flex;gap:5px;align-items:center"><span class="pill '+(PC[x.p]||'ind')+'" style="font-size:10px">'+x.p+'</span><span>'+x.pos+'</span></div></div><div style="text-align:right;flex-shrink:0"><div style="font-size:17px;font-weight:900;color:'+ac(x.pct)+'">'+x.pct+'%</div><div style="font-size:11px;color:var(--mut)">'+x.v.toLocaleString()+'</div></div></div>';
-  }).join('')+'<div style="height:6px"></div>':'<div style="padding:36px;text-align:center;color:var(--mut);font-size:14px">Sin resultados</div>';
+  var el=document.getElementById('sres');
+  if(!pols.length){
+    el.innerHTML='<div style="padding:36px;text-align:center;color:var(--mut);font-size:14px">Sin resultados para "'+cs2+'"</div>';
+    return;
+  }
+  el.innerHTML=pols.map(function(x){
+    return '<div class="sri" onclick="openPol(\''+x.id+'\');"><div class="sravo">'+x.e+'</div><div style="flex:1;min-width:0"><div style="font-size:14px;font-weight:700">'+x.n+'</div><div style="font-size:12px;color:var(--mut);margin-top:2px;display:flex;gap:5px;align-items:center"><span class="pill '+(PC[x.p]||'ind')+'" style="font-size:10px">'+x.p+'</span><span>'+x.pos+'</span></div></div><div style="text-align:right;flex-shrink:0"><div style="font-size:17px;font-weight:900;color:'+ac(x.pct)+'">'+x.pct+'%</div><div style="font-size:11px;color:var(--mut)">'+x.v.toLocaleString()+'</div></div></div>';
+  }).join('')+'<div style="height:6px"></div>';
 }
-function doS(v){cs2=v.toLowerCase();renderS();}
-function sf(el,f){document.querySelectorAll('.fp').forEach(function(p){p.classList.remove('on');});el.classList.add('on');cf=f;renderS();}
+
+function doS(v){cs2=v;renderS();}
+function sf(el,f){
+  document.querySelectorAll('.fp').forEach(function(p){p.classList.remove('on');});
+  el.classList.add('on');cf=f;renderS();
+}
+
 var ts=null;
 function st(up){ts=up;document.getElementById('tbu').className='tb'+(up?' up':'');document.getElementById('tbd').className='tb'+(!up?' dn':'');}
 function cs(el){var f=(el.textContent.match(/\u2605/g)||[]).length;var n=f>=5?1:f+1;el.textContent='\u2605'.repeat(n)+'\u2606'.repeat(5-n);}
-function subRate(){if(ts===null){toast('Selecciona \ud83d\udc4d o \ud83d\udc4e primero');return;}toast('\u00a1Voto registrado! \ud83d\uddf3\ufe0f');setTimeout(function(){ts=null;document.getElementById('tbu').className='tb';document.getElementById('tbd').className='tb';var c=document.getElementById('cmtbox');if(c)c.value='';document.querySelectorAll('.sis').forEach(function(s){s.textContent='\u2605\u2605\u2605\u2606\u2606';});},1500);}
+function subRate(){
+  if(ts===null){toast('Selecciona \ud83d\udc4d o \ud83d\udc4e primero');return;}
+  toast('\u00a1Voto registrado! \ud83d\uddf3\ufe0f');
+  setTimeout(function(){
+    ts=null;
+    document.getElementById('tbu').className='tb';
+    document.getElementById('tbd').className='tb';
+    var c=document.getElementById('cmtbox');if(c)c.value='';
+    document.querySelectorAll('.sis').forEach(function(s){s.textContent='\u2605\u2605\u2605\u2606\u2606';});
+  },1500);
+}
 function showMol(){var m=document.getElementById('mol');if(m)m.style.display='flex';}
 function hideMol(){var m=document.getElementById('mol');if(m)m.style.display='none';}
-function subCmp(){var cat=document.getElementById('mcat').value,tit=document.getElementById('mtit').value,desc=document.getElementById('mdesc').value;if(!cat){toast('Selecciona categor\u00eda');return;}if(!tit.trim()){toast('Agrega t\u00edtulo');return;}if(desc.length<50){toast('Descripci\u00f3n muy corta');return;}hideMol();toast('\u00a1Denuncia presentada! \ud83d\udce2');document.getElementById('mcat').value='';document.getElementById('mtit').value='';document.getElementById('mdesc').value='';document.getElementById('mcc').textContent='0 / 2000';}
-var de=document.getElementById('mdesc');if(de)de.addEventListener('input',function(){document.getElementById('mcc').textContent=this.value.length+' / 2000';});
+function subCmp(){
+  var cat=document.getElementById('mcat').value,tit=document.getElementById('mtit').value,desc=document.getElementById('mdesc').value;
+  if(!cat){toast('Selecciona categor\u00eda');return;}
+  if(!tit.trim()){toast('Agrega t\u00edtulo');return;}
+  if(desc.length<50){toast('Descripci\u00f3n muy corta');return;}
+  hideMol();toast('\u00a1Denuncia presentada! \ud83d\udce2');
+  document.getElementById('mcat').value='';
+  document.getElementById('mtit').value='';
+  document.getElementById('mdesc').value='';
+  document.getElementById('mcc').textContent='0 / 2000';
+}
+var de=document.getElementById('mdesc');
+if(de)de.addEventListener('input',function(){document.getElementById('mcc').textContent=this.value.length+' / 2000';});
 function uv(btn,n){if(btn.classList.contains('vd')){toast('Ya votaste');return;}btn.classList.add('vd');btn.textContent='\u25b2 '+(n+1)+' votos';}
 var tt;
 function toast(msg){var t=document.getElementById('tst');t.textContent=msg;t.classList.add('on');clearTimeout(tt);tt=setTimeout(function(){t.classList.remove('on');},2500);}
