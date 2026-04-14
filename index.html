@@ -1,1 +1,660 @@
-PLACEHOLDER
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<title>GobiStats — Transparencia Ciudadana Puerto Rico</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Sans:wght@400;500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+<!-- FIREBASE SDK -->
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+  import { getFirestore, doc, getDoc, setDoc, updateDoc, increment, collection, addDoc, onSnapshot, query, orderBy, limit, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyCcyQXqyiyz_Wo_KNxLxyY6sccsuc3oWAs",
+    authDomain: "gobistats.firebaseapp.com",
+    projectId: "gobistats",
+    storageBucket: "gobistats.firebasestorage.app",
+    messagingSenderId: "480638641964",
+    appId: "1:480638641964:web:aec01b40d7d0ddb77bae89"
+  };
+
+  try {
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+    window._db = db;
+    window._fs = { doc, getDoc, setDoc, updateDoc, increment, collection, addDoc, onSnapshot, query, orderBy, limit, serverTimestamp };
+    window._fbReady = true;
+    document.dispatchEvent(new Event('firebase-ready'));
+  } catch(e) {
+    console.warn('Firebase init failed:', e.message);
+  }
+</script>
+
+<style>
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+:root{
+  --bg:#080810;--s1:#10101C;--s2:#18182A;--s3:#202035;
+  --border:rgba(255,255,255,0.07);--border2:rgba(255,255,255,0.12);
+  --txt:#F0F0F8;--txt2:#A0A0C0;--txt3:#606080;
+  --gold:#FFD166;--gold2:rgba(255,209,102,0.15);
+  --green:#06D6A0;--green2:rgba(6,214,160,0.12);
+  --red:#FF4757;--red2:rgba(255,71,87,0.12);
+  --orange:#FF9F43;--cyan:#06D6F5;--purple:#A29BFE;--pink:#FF6B9D;
+}
+html,body{background:var(--bg);font-family:'DM Sans',sans-serif;color:var(--txt);min-height:100vh}
+body{display:flex;justify-content:center}
+#app{width:100%;max-width:430px;min-height:100vh;background:var(--bg);position:relative;display:flex;flex-direction:column}
+@media(min-width:500px){
+  body{align-items:center;padding:20px 0;background:radial-gradient(ellipse 60% 40% at 50% 0%,rgba(255,209,102,0.05) 0%,transparent 70%),var(--bg)}
+  #app{min-height:0;height:900px;border-radius:24px;border:1px solid var(--border2);box-shadow:0 60px 120px rgba(0,0,0,0.9)}
+}
+.nav-top{display:flex;align-items:center;justify-content:space-between;padding:14px 18px;border-bottom:1px solid var(--border);background:rgba(8,8,16,0.96);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);position:sticky;top:0;z-index:50;flex-shrink:0}
+.logo-txt{font-family:'Syne',sans-serif;font-size:20px;font-weight:800}
+.logo-txt span{color:var(--gold)}
+.logo-sub{font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--txt3);letter-spacing:2px;margin-left:6px;vertical-align:middle}
+.nav-right{display:flex;gap:8px}
+.icon-btn{width:36px;height:36px;border-radius:10px;border:1px solid var(--border2);background:var(--s2);display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:15px}
+.tabs{position:absolute;bottom:0;left:0;right:0;background:rgba(8,8,16,0.97);backdrop-filter:blur(20px);border-top:1px solid var(--border);display:flex;z-index:50;padding:8px 0 max(10px,env(safe-area-inset-bottom))}
+.tab{flex:1;display:flex;flex-direction:column;align-items:center;gap:2px;cursor:pointer;padding:2px 0;user-select:none}
+.tab-ico{font-size:20px;line-height:1}
+.tab-lbl{font-size:9px;font-weight:500;color:var(--txt3)}
+.tab.active .tab-lbl{color:var(--gold)}
+.scr{display:none;flex-direction:column;flex:1;overflow:hidden;min-height:0}
+.scr.on{display:flex}
+.scroll{overflow-y:auto;flex:1;padding-bottom:80px;-webkit-overflow-scrolling:touch}
+.sec-title{padding:20px 18px 10px;font-family:'Syne',sans-serif;font-size:11px;font-weight:700;color:var(--txt3);letter-spacing:3px;text-transform:uppercase;display:flex;justify-content:space-between;align-items:center}
+.sec-link{font-family:'DM Sans',sans-serif;font-size:12px;color:var(--gold);font-weight:500;letter-spacing:0;text-transform:none;cursor:pointer}
+.hero{margin:14px 14px 0;background:var(--s1);border:1px solid var(--border2);border-radius:18px;padding:20px;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;top:-40px;right:-40px;width:160px;height:160px;border-radius:50%;background:radial-gradient(circle,rgba(255,209,102,0.08) 0%,transparent 70%)}
+.hero-tag{font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--gold);letter-spacing:2px;text-transform:uppercase;display:flex;align-items:center;gap:6px;margin-bottom:10px}
+.pulse{width:6px;height:6px;border-radius:50%;background:var(--green);animation:pulse 2s infinite;flex-shrink:0}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.4;transform:scale(.7)}}
+.hero-h{font-family:'Syne',sans-serif;font-size:24px;font-weight:800;line-height:1.15;margin-bottom:16px}
+.hero-h em{color:var(--gold);font-style:normal}
+.hero-nums{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.hnum-n{font-family:'Syne',sans-serif;font-size:28px;font-weight:800;line-height:1}
+.hnum-l{font-size:11px;color:var(--txt3);margin-top:2px}
+.hscroll{display:flex;gap:10px;padding:0 14px;overflow-x:auto;scrollbar-width:none;padding-bottom:4px}
+.hscroll::-webkit-scrollbar{display:none}
+.pol-card{flex-shrink:0;width:150px;background:var(--s1);border:1px solid var(--border);border-radius:14px;overflow:hidden;cursor:pointer;transition:border-color .15s,transform .15s}
+.pol-card:hover{border-color:var(--border2);transform:translateY(-2px)}
+.pol-card:active{transform:scale(0.97)}
+.pc-top{height:80px;background:var(--s2);display:flex;align-items:center;justify-content:center;font-size:36px;position:relative}
+.pc-badge{position:absolute;top:7px;left:7px}
+.pc-body{padding:10px 11px}
+.pc-name{font-family:'Syne',sans-serif;font-size:12px;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-bottom:2px}
+.pc-pos{font-size:10px;color:var(--txt3);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-bottom:6px}
+.pc-pct{font-family:'Syne',sans-serif;font-size:17px;font-weight:800;color:var(--txt3)}
+.pc-pct.has-data{color:var(--green)}
+.badge{display:inline-flex;align-items:center;padding:2px 7px;border-radius:4px;font-family:'JetBrains Mono',monospace;font-size:9px;font-weight:500;white-space:nowrap}
+.b-PNP{background:rgba(37,99,235,.18);color:#93B4FF;border:1px solid rgba(37,99,235,.3)}
+.b-PPD{background:rgba(192,57,43,.18);color:#F4A0A0;border:1px solid rgba(192,57,43,.3)}
+.b-PIP{background:rgba(22,163,74,.18);color:#6EE7B7;border:1px solid rgba(22,163,74,.3)}
+.b-MVC{background:rgba(124,58,237,.18);color:#C4A6FF;border:1px solid rgba(124,58,237,.3)}
+.b-IND{background:rgba(82,82,91,.18);color:#A1A1AA;border:1px solid rgba(82,82,91,.3)}
+.news-card{margin:0 14px 10px;background:var(--s1);border:1px solid var(--border);border-radius:16px;overflow:hidden;cursor:pointer;transition:border-color .15s}
+.news-card:hover{border-color:var(--border2)}
+.nc-accent{height:3px}
+.nc-body{padding:14px}
+.nc-cat{font-family:'JetBrains Mono',monospace;font-size:9px;font-weight:500;letter-spacing:2px;text-transform:uppercase;margin-bottom:7px;display:flex;align-items:center;gap:6px}
+.nc-title{font-family:'Syne',sans-serif;font-size:15px;font-weight:700;line-height:1.3;margin-bottom:6px}
+.nc-lead{font-size:12px;color:var(--txt2);line-height:1.55;margin-bottom:12px}
+.nc-foot{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px}
+.nc-meta{font-size:10px;color:var(--txt3);display:flex;gap:8px}
+.nc-votes{display:flex;gap:6px}
+.vote-btn{display:flex;align-items:center;gap:4px;padding:5px 10px;border-radius:8px;border:1px solid var(--border2);background:var(--s2);font-size:12px;font-weight:500;cursor:pointer;transition:all .15s;color:var(--txt2);font-family:'DM Sans',sans-serif}
+.vote-btn.up:hover{background:var(--green2);border-color:rgba(6,214,160,.3);color:var(--green)}
+.vote-btn.dn:hover{background:var(--red2);border-color:rgba(255,71,87,.3);color:var(--red)}
+.vote-btn.voted-up{background:var(--green2);border-color:rgba(6,214,160,.4);color:var(--green);pointer-events:none}
+.vote-btn.voted-dn{background:var(--red2);border-color:rgba(255,71,87,.4);color:var(--red);pointer-events:none}
+.lb-row{display:flex;align-items:center;gap:12px;padding:12px 18px;border-bottom:1px solid var(--border);cursor:pointer;transition:background .12s}
+.lb-row:hover{background:var(--s1)}
+.lb-rank{font-family:'Syne',sans-serif;font-size:13px;font-weight:700;color:var(--txt3);width:26px;text-align:center;flex-shrink:0}
+.lb-ava{width:44px;height:44px;border-radius:10px;background:var(--s2);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0}
+.lb-info{flex:1;min-width:0}
+.lb-name{font-family:'Syne',sans-serif;font-size:14px;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.lb-sub{font-size:11px;color:var(--txt3);margin-top:3px;display:flex;align-items:center;gap:5px}
+.lb-right{text-align:right;flex-shrink:0}
+.lb-pct{font-family:'Syne',sans-serif;font-size:18px;font-weight:800}
+.lb-cnt{font-size:10px;color:var(--txt3);margin-top:1px}
+.lb-tabs{display:flex;gap:6px;padding:12px 14px;border-bottom:1px solid var(--border);overflow-x:auto;scrollbar-width:none;flex-shrink:0}
+.lb-tabs::-webkit-scrollbar{display:none}
+.lbt{padding:6px 14px;border-radius:8px;font-family:'Syne',sans-serif;font-size:11px;font-weight:700;border:1px solid var(--border2);color:var(--txt3);cursor:pointer;white-space:nowrap;transition:all .15s}
+.lbt.on{background:var(--gold);color:#000;border-color:var(--gold)}
+.search-wrap{padding:12px 14px}
+.search-box{background:var(--s2);border:1px solid var(--border2);border-radius:12px;padding:11px 14px;display:flex;align-items:center;gap:10px}
+.search-box input{background:none;border:none;color:var(--txt);font-size:14px;flex:1;outline:none;font-family:'DM Sans',sans-serif}
+.search-box input::placeholder{color:var(--txt3)}
+.filter-row{display:flex;gap:6px;padding:0 14px 12px;overflow-x:auto;scrollbar-width:none}
+.filter-row::-webkit-scrollbar{display:none}
+.chip{padding:5px 12px;border-radius:6px;font-family:'JetBrains Mono',monospace;font-size:10px;border:1px solid var(--border);color:var(--txt3);cursor:pointer;white-space:nowrap;transition:all .15s}
+.chip.on{background:var(--s3);color:var(--txt);border-color:var(--border2)}
+.det-hero{height:190px;background:var(--s2);display:flex;align-items:flex-end;padding:18px;position:relative;overflow:hidden;flex-shrink:0}
+.det-bg{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:90px;opacity:.1;filter:blur(1px);pointer-events:none}
+.det-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(8,8,16,.97) 0%,rgba(8,8,16,.2) 60%,transparent 100%)}
+.det-back{position:absolute;top:14px;left:14px;z-index:2;background:rgba(0,0,0,.6);backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,.12);border-radius:8px;padding:6px 13px;font-size:13px;color:var(--txt2);cursor:pointer}
+.det-id{position:relative;z-index:2}
+.det-name{font-family:'Syne',sans-serif;font-size:20px;font-weight:800;margin-top:5px;line-height:1.2}
+.det-pos{font-size:12px;color:var(--txt2);margin-top:3px}
+.det-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border);border-bottom:1px solid var(--border);flex-shrink:0}
+.dstat{background:var(--bg);padding:14px;text-align:center}
+.dstat-n{font-family:'Syne',sans-serif;font-size:22px;font-weight:800}
+.dstat-l{font-size:9px;color:var(--txt3);text-transform:uppercase;letter-spacing:.5px;margin-top:2px}
+.det-section{padding:20px 18px 0}
+.det-sec-t{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--txt3);letter-spacing:2px;text-transform:uppercase;margin-bottom:12px;padding-bottom:10px;border-bottom:1px solid var(--border)}
+.tl-item{display:flex;gap:12px;padding:12px 0;border-bottom:1px solid var(--border)}
+.tl-item:last-child{border:none}
+.tl-icon{width:34px;height:34px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:15px;flex-shrink:0}
+.ti-law{background:rgba(37,99,235,.15)}.ti-win{background:var(--green2)}.ti-scan{background:var(--red2)}.ti-proj{background:rgba(255,159,67,.1)}.ti-elec{background:var(--gold2)}
+.tl-body{flex:1}
+.tl-d{font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--gold);margin-bottom:3px}
+.tl-t{font-family:'Syne',sans-serif;font-size:13px;font-weight:700;margin-bottom:3px}
+.tl-desc{font-size:12px;color:var(--txt2);line-height:1.5}
+.comments-feed{margin-top:8px}
+.comment-item{background:var(--s2);border:1px solid var(--border);border-radius:12px;padding:12px 14px;margin-bottom:8px}
+.comment-meta{display:flex;justify-content:space-between;margin-bottom:6px}
+.comment-user{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--gold)}
+.comment-time{font-size:10px;color:var(--txt3)}
+.comment-stars{font-size:13px;margin-bottom:6px}
+.comment-body{font-size:12px;color:var(--txt2);line-height:1.5}
+.comment-thumb{font-size:16px;margin-bottom:4px}
+.rate-box{background:var(--s1);border:1px solid var(--border);border-radius:14px;padding:18px;margin-bottom:18px}
+.rate-t{font-family:'Syne',sans-serif;font-size:14px;font-weight:700;text-align:center;margin-bottom:14px}
+.thumb-row{display:flex;gap:10px;margin-bottom:14px}
+.thumb-btn{flex:1;padding:13px;border-radius:12px;border:1px solid var(--border2);background:var(--s2);font-size:22px;cursor:pointer;text-align:center;transition:all .15s}
+.thumb-btn.sel-up{border-color:var(--green);background:var(--green2);box-shadow:0 0 20px rgba(6,214,160,.1)}
+.thumb-btn.sel-dn{border-color:var(--red);background:var(--red2)}
+.stars-row{display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid var(--border)}
+.stars-row:last-child{border:none}
+.sr-label{font-size:13px;color:var(--txt2)}
+.sr-stars{font-size:18px;cursor:pointer;letter-spacing:2px;line-height:1}
+.rate-ta{width:100%;background:var(--s2);border:1px solid var(--border);border-radius:10px;padding:11px 13px;color:var(--txt);font-size:13px;resize:none;font-family:'DM Sans',sans-serif;line-height:1.5;margin:12px 0}
+.rate-ta:focus{outline:none;border-color:var(--border2)}
+.rate-name{width:100%;background:var(--s2);border:1px solid var(--border);border-radius:10px;padding:11px 13px;color:var(--txt);font-size:13px;font-family:'DM Sans',sans-serif;margin-bottom:8px}
+.rate-name:focus{outline:none;border-color:var(--border2)}
+.submit-btn{width:100%;padding:13px;border-radius:12px;background:var(--gold);border:none;color:#000;font-family:'Syne',sans-serif;font-size:14px;font-weight:700;cursor:pointer;transition:all .15s}
+.submit-btn:disabled{opacity:.5;cursor:not-allowed}
+.submit-btn.saving{background:var(--green);color:#000}
+.perturb-box{background:rgba(255,71,87,.04);border:1px solid rgba(255,71,87,.18);border-radius:12px;padding:14px;margin-bottom:14px}
+.perturb-hdr{display:flex;align-items:center;gap:7px;margin-bottom:10px}
+.perturb-dot{width:5px;height:5px;border-radius:50%;background:var(--red)}
+.perturb-lbl{font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--red);letter-spacing:1.5px;text-transform:uppercase}
+.perturb-item{font-size:12px;color:rgba(255,180,180,.8);line-height:1.55;padding:7px 0;border-bottom:1px solid rgba(255,71,87,.1)}
+.perturb-item:last-child{border:none;padding-bottom:0}
+.denuncia-btn{width:100%;padding:13px;border-radius:12px;border:1px solid rgba(255,71,87,.35);background:transparent;color:var(--red);font-family:'Syne',sans-serif;font-size:13px;font-weight:700;cursor:pointer;margin-bottom:18px;transition:background .15s}
+.denuncia-btn:hover{background:var(--red2)}
+.modal{position:absolute;inset:0;background:rgba(0,0,0,.85);z-index:100;display:flex;align-items:flex-end;backdrop-filter:blur(4px)}
+.modal-sheet{background:var(--s1);border-top:1px solid var(--border2);border-radius:20px 20px 0 0;width:100%;padding:18px 18px 30px;max-height:90%;overflow-y:auto}
+.modal-handle{width:34px;height:3px;background:var(--border2);border-radius:2px;margin:0 auto 16px}
+.modal-title{font-family:'Syne',sans-serif;font-size:16px;font-weight:800;color:var(--red);margin-bottom:3px}
+.modal-sub{font-size:13px;color:var(--txt3);margin-bottom:16px}
+.field-lbl{font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--txt3);letter-spacing:1.5px;text-transform:uppercase;display:block;margin-bottom:5px}
+.field-inp{width:100%;background:var(--s2);border:1px solid var(--border);border-radius:10px;padding:11px 13px;color:var(--txt);font-size:14px;font-family:'DM Sans',sans-serif;margin-bottom:12px;-webkit-appearance:none}
+.field-inp:focus{outline:none;border-color:var(--border2)}
+.field-ta{resize:none;line-height:1.5}
+.warn-box{background:rgba(255,159,67,.06);border:1px solid rgba(255,159,67,.2);border-radius:8px;padding:10px 12px;font-size:11px;color:rgba(255,200,120,.8);line-height:1.55;margin-bottom:14px}
+.modal-btns{display:flex;gap:8px}
+.btn-red{flex:1;padding:13px;border-radius:12px;background:var(--red);border:none;color:#fff;font-family:'Syne',sans-serif;font-size:14px;font-weight:700;cursor:pointer}
+.btn-ghost{flex:1;padding:13px;border-radius:12px;background:transparent;border:1px solid var(--border);color:var(--txt3);font-size:13px;cursor:pointer}
+.prof-top{padding:28px 18px 20px;text-align:center;border-bottom:1px solid var(--border)}
+.prof-ava{width:76px;height:76px;border-radius:18px;background:var(--s2);border:1px solid var(--border2);display:flex;align-items:center;justify-content:center;font-size:30px;margin:0 auto 12px}
+.prof-name{font-family:'Syne',sans-serif;font-size:18px;font-weight:800}
+.prof-handle{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--txt3);margin-top:2px}
+.prof-badge{display:inline-block;padding:4px 13px;border-radius:6px;background:var(--gold2);color:var(--gold);border:1px solid rgba(255,209,102,.25);font-family:'JetBrains Mono',monospace;font-size:10px;margin-top:8px}
+.prof-sec{padding:16px 18px;border-bottom:1px solid var(--border)}
+.prof-sec-t{font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--txt3);text-transform:uppercase;letter-spacing:2px;margin-bottom:12px}
+.stat-grid2{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.stat-card{background:var(--s1);border:1px solid var(--border);border-radius:10px;padding:13px;text-align:center}
+.sc-n{font-family:'Syne',sans-serif;font-size:24px;font-weight:800}
+.sc-l{font-size:11px;color:var(--txt3);margin-top:3px}
+.toast{position:absolute;bottom:88px;left:50%;transform:translateX(-50%);background:var(--s3);border:1px solid var(--border2);color:var(--txt);padding:10px 18px;border-radius:10px;font-size:13px;font-weight:500;z-index:200;white-space:nowrap;opacity:0;pointer-events:none;transition:opacity .2s;box-shadow:0 8px 30px rgba(0,0,0,.6)}
+.toast.on{opacity:1}
+.cat-escandalo .nc-accent{background:linear-gradient(90deg,#FF4757,#FF6B9D)}.cat-escandalo .nc-cat{color:#FF4757}
+.cat-logro .nc-accent{background:linear-gradient(90deg,#06D6A0,#06D6F5)}.cat-logro .nc-cat{color:#06D6A0}
+.cat-economia .nc-accent{background:linear-gradient(90deg,#FFD166,#FF9F43)}.cat-economia .nc-cat{color:#FFD166}
+.cat-energia .nc-accent{background:linear-gradient(90deg,#06D6F5,#A29BFE)}.cat-energia .nc-cat{color:#06D6F5}
+.cat-legislacion .nc-accent{background:linear-gradient(90deg,#A29BFE,#FF6B9D)}.cat-legislacion .nc-cat{color:#A29BFE}
+.cat-corrupcion .nc-accent{background:linear-gradient(90deg,#FF9F43,#FF4757)}.cat-corrupcion .nc-cat{color:#FF9F43}
+</style>
+</head>
+<body>
+<div id="app">
+
+<div class="scr on" id="s-home">
+  <div class="nav-top">
+    <div><span class="logo-txt">Gobi<span>Stats</span></span><span class="logo-sub">PR 2026</span></div>
+    <div class="nav-right"><div class="icon-btn">&#128276;</div><div class="icon-btn" onclick="showScr('profile')">&#128100;</div></div>
+  </div>
+  <div class="scroll">
+    <div class="hero">
+      <div class="hero-tag"><div class="pulse"></div>TRANSPARENCIA CIUDADANA EN TIEMPO REAL</div>
+      <div class="hero-h">Eval&#250;a a tus <em>147 funcionarios</em> electos de Puerto Rico</div>
+      <div class="hero-nums">
+        <div><div class="hnum-n">147</div><div class="hnum-l">Funcionarios</div></div>
+        <div><div class="hnum-n" id="h-evals">&#8212;</div><div class="hnum-l">Evaluaciones</div></div>
+        <div><div class="hnum-n" id="h-denuncias">&#8212;</div><div class="hnum-l">Denuncias</div></div>
+      </div>
+    </div>
+    <div class="sec-title">&#9654; PERFIL DEL EJECUTIVO</div>
+    <div class="hscroll" id="exec-row"></div>
+    <div class="sec-title">&#9654; TENDENCIA HOY <span class="sec-link" onclick="showScr('lb')">Ver ranking &#8594;</span></div>
+    <div class="hscroll" id="trend-row"></div>
+    <div class="sec-title">&#9654; NOTICIAS &amp; INSIGHTS</div>
+    <div id="home-news"></div>
+    <div style="margin:4px 14px 6px"><div class="search-box" onclick="showScr('search')" style="cursor:pointer"><span style="font-size:15px;color:var(--txt3)">&#128269;</span><span style="color:var(--txt3);font-size:13px">Buscar funcionario, partido, municipio...</span></div></div>
+    <div style="height:8px"></div>
+  </div>
+  <div class="tabs">
+    <div class="tab active" onclick="showScr('home')"><div class="tab-ico">&#127968;</div><div class="tab-lbl">Inicio</div></div>
+    <div class="tab" onclick="showScr('lb')"><div class="tab-ico">&#127942;</div><div class="tab-lbl">Ranking</div></div>
+    <div class="tab" onclick="showScr('news')"><div class="tab-ico">&#128240;</div><div class="tab-lbl">Noticias</div></div>
+    <div class="tab" onclick="showScr('search')"><div class="tab-ico">&#128269;</div><div class="tab-lbl">Buscar</div></div>
+    <div class="tab" onclick="showScr('profile')"><div class="tab-ico">&#128100;</div><div class="tab-lbl">Perfil</div></div>
+  </div>
+</div>
+
+<div class="scr" id="s-news">
+  <div class="nav-top">
+    <div><span class="logo-txt">Gobi<span>Stats</span></span><span class="logo-sub">NOTICIAS</span></div>
+    <div style="display:flex;align-items:center;gap:6px"><div class="pulse"></div><span style="font-family:'JetBrains Mono',monospace;font-size:9px;color:#06D6A0;letter-spacing:1px">EN VIVO</span></div>
+  </div>
+  <div style="display:flex;gap:8px;padding:12px 14px;overflow-x:auto;scrollbar-width:none;flex-shrink:0;border-bottom:1px solid var(--border)" id="news-filters">
+    <div class="chip on" onclick="filterNews(this,'all')">Todos</div>
+    <div class="chip" onclick="filterNews(this,'escandalo')">&#128308; Esc&#225;ndalo</div>
+    <div class="chip" onclick="filterNews(this,'logro')">&#129351; Logros</div>
+    <div class="chip" onclick="filterNews(this,'economia')">&#128188; Econom&#237;a</div>
+    <div class="chip" onclick="filterNews(this,'energia')">&#9889; Energ&#237;a</div>
+    <div class="chip" onclick="filterNews(this,'legislacion')">&#128212; Legislaci&#243;n</div>
+    <div class="chip" onclick="filterNews(this,'corrupcion')">&#128081; Corrupci&#243;n</div>
+  </div>
+  <div class="scroll" id="news-list"></div>
+  <div class="tabs">
+    <div class="tab" onclick="showScr('home')"><div class="tab-ico">&#127968;</div><div class="tab-lbl">Inicio</div></div>
+    <div class="tab" onclick="showScr('lb')"><div class="tab-ico">&#127942;</div><div class="tab-lbl">Ranking</div></div>
+    <div class="tab active"><div class="tab-ico">&#128240;</div><div class="tab-lbl">Noticias</div></div>
+    <div class="tab" onclick="showScr('search')"><div class="tab-ico">&#128269;</div><div class="tab-lbl">Buscar</div></div>
+    <div class="tab" onclick="showScr('profile')"><div class="tab-ico">&#128100;</div><div class="tab-lbl">Perfil</div></div>
+  </div>
+</div>
+
+<div class="scr" id="s-lb">
+  <div class="nav-top">
+    <div><span class="logo-txt">Gobi<span>Stats</span></span><span class="logo-sub">RANKING</span></div>
+    <div style="display:flex;align-items:center;gap:6px"><div class="pulse"></div><span style="font-family:'JetBrains Mono',monospace;font-size:9px;color:#06D6A0;letter-spacing:1px">VIVO</span></div>
+  </div>
+  <div class="lb-tabs"><div class="lbt on" onclick="setLbTab(this,'all')">Todos</div><div class="lbt" onclick="setLbTab(this,'exec')">Ejecutivo</div><div class="lbt" onclick="setLbTab(this,'senador')">Senado</div><div class="lbt" onclick="setLbTab(this,'represent')">C&#225;mara</div><div class="lbt" onclick="setLbTab(this,'alcalde')">Alcaldes</div></div>
+  <div class="scroll" id="lb-list"></div>
+  <div class="tabs">
+    <div class="tab" onclick="showScr('home')"><div class="tab-ico">&#127968;</div><div class="tab-lbl">Inicio</div></div>
+    <div class="tab active"><div class="tab-ico">&#127942;</div><div class="tab-lbl">Ranking</div></div>
+    <div class="tab" onclick="showScr('news')"><div class="tab-ico">&#128240;</div><div class="tab-lbl">Noticias</div></div>
+    <div class="tab" onclick="showScr('search')"><div class="tab-ico">&#128269;</div><div class="tab-lbl">Buscar</div></div>
+    <div class="tab" onclick="showScr('profile')"><div class="tab-ico">&#128100;</div><div class="tab-lbl">Perfil</div></div>
+  </div>
+</div>
+
+<div class="scr" id="s-search">
+  <div class="nav-top"><div><span class="logo-txt">Gobi<span>Stats</span></span><span class="logo-sub">BUSCAR</span></div></div>
+  <div class="search-wrap"><div class="search-box"><span style="font-size:16px;color:var(--txt3)">&#128269;</span><input type="text" id="sinput" placeholder="Nombre, cargo, partido, municipio..." oninput="doSearch(this.value)" autocomplete="off" autocorrect="off" spellcheck="false"></div></div>
+  <div class="filter-row" id="search-filters">
+    <div class="chip on" onclick="setFilter(this,'all')">Todos</div><div class="chip" onclick="setFilter(this,'PNP')">PNP</div><div class="chip" onclick="setFilter(this,'PPD')">PPD</div><div class="chip" onclick="setFilter(this,'PIP')">PIP</div><div class="chip" onclick="setFilter(this,'MVC')">MVC</div><div class="chip" onclick="setFilter(this,'IND')">Independiente</div><div class="chip" onclick="setFilter(this,'exec')">Ejecutivo</div><div class="chip" onclick="setFilter(this,'senador')">Senado</div><div class="chip" onclick="setFilter(this,'represent')">C&#225;mara</div><div class="chip" onclick="setFilter(this,'alcalde')">Alcaldes</div>
+  </div>
+  <div class="scroll" id="search-res"></div>
+  <div class="tabs">
+    <div class="tab" onclick="showScr('home')"><div class="tab-ico">&#127968;</div><div class="tab-lbl">Inicio</div></div>
+    <div class="tab" onclick="showScr('lb')"><div class="tab-ico">&#127942;</div><div class="tab-lbl">Ranking</div></div>
+    <div class="tab" onclick="showScr('news')"><div class="tab-ico">&#128240;</div><div class="tab-lbl">Noticias</div></div>
+    <div class="tab active"><div class="tab-ico">&#128269;</div><div class="tab-lbl">Buscar</div></div>
+    <div class="tab" onclick="showScr('profile')"><div class="tab-ico">&#128100;</div><div class="tab-lbl">Perfil</div></div>
+  </div>
+</div>
+
+<div class="scr" id="s-detail">
+  <div class="det-hero" style="flex-shrink:0">
+    <div class="det-bg" id="det-bg">&#128104;</div>
+    <div class="det-overlay"></div>
+    <button class="det-back" onclick="showScr('home')">&#8592; Volver</button>
+    <div class="det-id"><span class="badge" id="det-badge">PNP</span><div class="det-name" id="det-name">Nombre</div><div class="det-pos" id="det-pos">Cargo</div></div>
+  </div>
+  <div class="det-stats" style="flex-shrink:0">
+    <div class="dstat"><div class="dstat-n" id="det-pct" style="color:var(--txt3)">&#8212;</div><div class="dstat-l">Aprobaci&#243;n</div></div>
+    <div class="dstat"><div class="dstat-n" id="det-votes">0</div><div class="dstat-l">Votos</div></div>
+    <div class="dstat"><div class="dstat-n" id="det-den" style="color:#FF4757">0</div><div class="dstat-l">Denuncias</div></div>
+  </div>
+  <div class="scroll">
+    <div class="det-section"><div class="det-sec-t">Historial &amp; Proyectos Verificados</div><div id="det-tl"></div></div>
+    <div class="det-section">
+      <div class="det-sec-t">&#128172; Opiniones de la Comunidad <span id="comment-count" style="color:var(--gold);font-size:9px"></span></div>
+      <div id="comments-feed" class="comments-feed"><div style="color:var(--txt3);font-size:12px;padding:10px 0">Cargando opiniones...</div></div>
+    </div>
+    <div class="det-section">
+      <div class="det-sec-t">&#8212; Deja Tu Evaluaci&#243;n</div>
+      <div class="rate-box">
+        <div class="rate-t">Tu Evaluaci&#243;n Ciudadana</div>
+        <input class="rate-name" type="text" id="rate-name" placeholder="Tu nombre o apodo (opcional)" maxlength="30">
+        <div class="thumb-row"><div class="thumb-btn" id="tbup" onclick="pickThumb(true)">&#128077;</div><div class="thumb-btn" id="tbdn" onclick="pickThumb(false)">&#128078;</div></div>
+        <div>
+          <div class="stars-row"><span class="sr-label">Honestidad</span><span class="sr-stars" onclick="cycleStar(this)">&#9733;&#9733;&#9733;&#9734;&#9734;</span></div>
+          <div class="stars-row"><span class="sr-label">Trabajo realizado</span><span class="sr-stars" onclick="cycleStar(this)">&#9733;&#9733;&#9733;&#9734;&#9734;</span></div>
+          <div class="stars-row"><span class="sr-label">Accesibilidad</span><span class="sr-stars" onclick="cycleStar(this)">&#9733;&#9733;&#9733;&#9734;&#9734;</span></div>
+          <div class="stars-row"><span class="sr-label">Transparencia</span><span class="sr-stars" onclick="cycleStar(this)">&#9733;&#9733;&#9734;&#9734;&#9734;</span></div>
+        </div>
+        <textarea class="rate-ta" rows="3" id="rate-comment" placeholder="Comenta tu evaluaci&#243;n (opcional)..."></textarea>
+        <button class="submit-btn" id="submit-rating" onclick="submitRating()">&#10003; Guardar Evaluaci&#243;n</button>
+      </div>
+    </div>
+    <div class="det-section">
+      <div class="det-sec-t">Conductas Perturbadoras</div>
+      <div id="det-perturb"></div>
+      <button class="denuncia-btn" onclick="openModal()">&#128226; Presentar Denuncia Ciudadana</button>
+    </div>
+    <div style="height:8px"></div>
+  </div>
+  <div class="tabs">
+    <div class="tab" onclick="showScr('home')"><div class="tab-ico">&#127968;</div><div class="tab-lbl">Inicio</div></div>
+    <div class="tab" onclick="showScr('lb')"><div class="tab-ico">&#127942;</div><div class="tab-lbl">Ranking</div></div>
+    <div class="tab" onclick="showScr('news')"><div class="tab-ico">&#128240;</div><div class="tab-lbl">Noticias</div></div>
+    <div class="tab" onclick="showScr('search')"><div class="tab-ico">&#128269;</div><div class="tab-lbl">Buscar</div></div>
+    <div class="tab" onclick="showScr('profile')"><div class="tab-ico">&#128100;</div><div class="tab-lbl">Perfil</div></div>
+  </div>
+  <div class="modal" id="modal" style="display:none">
+    <div class="modal-sheet">
+      <div class="modal-handle"></div>
+      <div class="modal-title">&#128226; Presentar Denuncia</div>
+      <div class="modal-sub" id="modal-sub">Contra: ...</div>
+      <label class="field-lbl">Categor&#237;a *</label>
+      <select class="field-inp" id="m-cat"><option value="">Selecciona...</option><option>Falta de respuesta ciudadana</option><option>Incumplimiento de promesas</option><option>Corrupci&#243;n o malversaci&#243;n</option><option>Ausentismo legislativo</option><option>Abuso de poder</option><option>Conflicto de inter&#233;s</option><option>Contratos sin licitaci&#243;n</option><option>Otros</option></select>
+      <label class="field-lbl">Tu nombre</label>
+      <input class="field-inp" type="text" id="m-name" placeholder="Opcional" maxlength="30">
+      <label class="field-lbl">T&#237;tulo *</label>
+      <input class="field-inp" type="text" id="m-title" placeholder="T&#237;tulo claro y conciso" maxlength="150">
+      <label class="field-lbl">Descripci&#243;n *</label>
+      <textarea class="field-inp field-ta" rows="4" id="m-desc" placeholder="M&#237;nimo 50 caracteres."></textarea>
+      <div class="warn-box">&#9888;&#65039; Informaci&#243;n falsa puede resultar en suspensi&#243;n.</div>
+      <div class="modal-btns"><button class="btn-red" onclick="submitComplaint()">Confirmar Denuncia</button><button class="btn-ghost" onclick="closeModal()">Cancelar</button></div>
+    </div>
+  </div>
+</div>
+
+<div class="scr" id="s-profile">
+  <div class="nav-top"><div><span class="logo-txt">Gobi<span>Stats</span></span><span class="logo-sub">MI PERFIL</span></div></div>
+  <div class="scroll">
+    <div class="prof-top"><div class="prof-ava">&#128100;</div><div class="prof-name">Boricua Activo</div><div class="prof-handle">@usuario_pr</div><div class="prof-badge">WATCHDOG &#8226; NIVEL 4</div></div>
+    <div class="prof-sec"><div class="prof-sec-t">Mis Estad&#237;sticas</div>
+      <div class="stat-grid2">
+        <div class="stat-card"><div class="sc-n" id="my-evals">0</div><div class="sc-l">Evaluaciones</div></div>
+        <div class="stat-card"><div class="sc-n" id="my-denuncias">0</div><div class="sc-l">Denuncias</div></div>
+        <div class="stat-card" style="grid-column:1/-1"><div class="sc-n" style="color:#FFD166" id="my-score">0</div><div class="sc-l">Impact Score</div></div>
+      </div>
+    </div>
+    <div class="prof-sec"><div class="prof-sec-t">Mis Evaluaciones Recientes</div><div id="my-history"><div style="color:var(--txt3);font-size:13px">Sin evaluaciones a&#250;n. &#128072; &#161;Comienza hoy!</div></div></div>
+    <div class="prof-sec" style="border:none"><div class="prof-sec-t">C&#243;digo Referido</div>
+      <div style="background:var(--s1);border:1px solid var(--border);border-radius:10px;padding:14px;display:flex;justify-content:space-between;align-items:center">
+        <div><div style="font-size:10px;color:var(--txt3);margin-bottom:4px">Tu c&#243;digo</div><div style="font-family:'JetBrains Mono',monospace;font-size:20px;font-weight:700;color:#FFD166;letter-spacing:2px">GS-PR26</div></div>
+        <button onclick="toast('&#128203; &#161;Copiado!')" style="padding:8px 14px;border-radius:8px;border:1px solid var(--border2);background:var(--s2);color:var(--txt);font-size:12px;cursor:pointer">Copiar</button>
+      </div>
+    </div>
+    <div style="height:8px"></div>
+  </div>
+  <div class="tabs">
+    <div class="tab" onclick="showScr('home')"><div class="tab-ico">&#127968;</div><div class="tab-lbl">Inicio</div></div>
+    <div class="tab" onclick="showScr('lb')"><div class="tab-ico">&#127942;</div><div class="tab-lbl">Ranking</div></div>
+    <div class="tab" onclick="showScr('news')"><div class="tab-ico">&#128240;</div><div class="tab-lbl">Noticias</div></div>
+    <div class="tab" onclick="showScr('search')"><div class="tab-ico">&#128269;</div><div class="tab-lbl">Buscar</div></div>
+    <div class="tab active"><div class="tab-ico">&#128100;</div><div class="tab-lbl">Perfil</div></div>
+  </div>
+</div>
+
+<div class="toast" id="toast-el"></div>
+</div>
+
+<script>
+var POLS=[{id:'jenniffer',n:'Jenniffer Gonz\u00e1lez-Col\u00f3n',p:'PNP',pos:'Gobernadora de Puerto Rico',c:'exec',e:'\ud83c\udfd5\ufe0f',tl:[{t:'ti-elec',d:'Ene 2025',ti:'Juramentaci\u00f3n como Gobernadora',ds:'Segunda gobernadora electa en la historia de PR. Primera del PNP.'},{t:'ti-proj',d:'Abr 2025',ti:'Primeros 100 d\u00edas: +1,200 MW',ds:'A\u00f1adi\u00f3 1,200 megavatios. Inici\u00f3 3 demandas contra LUMA Energy.'},{t:'ti-law',d:'Jul 2025',ti:'Firma ley anti-terapia de g\u00e9nero en menores',ds:'Polemic\u00f3 nacional e internacionalmente.'},{t:'ti-proj',d:'Dic 2025',ti:'Meta energ\u00e9tica 2026: 3,800 MW',ds:'800 MW temporeros + 3,000 MW permanentes.'},{t:'ti-win',d:'Ene 2026',ti:'Cumbre Estadidad 2026',ds:'Puerto Rico Equality and Statehood Summit.'},{t:'ti-proj',d:'Abr 2026',ti:'$900M IIJA infraestructura vial',ds:'$900M carreteras + $225M puentes.'}],perturb:['Cr\u00edticas por lentitud en cancelaci\u00f3n del contrato LUMA.','Pol\u00e9mica internacional por ley anti-trans en menores.','Apoyo p\u00fablico a expansionismo territorial de Trump.']},{id:'pablo-hernandez',n:'Pablo Jos\u00e9 Hern\u00e1ndez Rivera',p:'PPD',pos:'Comisionado Residente en Washington',c:'exec',e:'\ud83c\udfdb\ufe0f',tl:[{t:'ti-elec',d:'Ene 2025',ti:'Juramentado Comisionado Residente',ds:'Primer Comisionado del PPD en d\u00e9cadas.'},{t:'ti-proj',d:'Mar 2025',ti:'Proyectos federales FEMA',ds:'Fondos para recuperaci\u00f3n post-hurac\u00e1n.'}],perturb:[]},{id:'trs',n:'Thomas Rivera Schatz',p:'PNP',pos:'Presidente del Senado',c:'senador',e:'\u2696\ufe0f',tl:[{t:'ti-elec',d:'Ene 2025',ti:'3ra Presidencia del Senado \u2014 hist\u00f3rico',ds:'Primer senador en presidir el Senado en 3 cuatrienios.'},{t:'ti-law',d:'Feb 2025',ti:'Ley 14-2025: Libertad Religiosa',ds:'Controversial. Posible discriminaci\u00f3n.'},{t:'ti-win',d:'Jun 2025',ti:'Presupuesto 2025-2026',ds:'Aprobado con Gobernadora y JSF.'},{t:'ti-proj',d:'Oct 2025',ti:'Instituto de IA de PR',ds:'AI Congress 2025 en Bayam\u00f3n.'},{t:'ti-win',d:'Ene 2026',ti:'Cheque Alivio $554M',ds:'Para trabajadores y clase media.'},{t:'ti-law',d:'Mar 2026',ti:'PS 1096: Reforma Judicial',ds:'Controversia constitucional.'}],perturb:['Empleados fantasma: colaboradores cercanos convictos.','Ley 14-2025 criticada por constitucionalistas.','Opacidad en contrataciones.']},{id:'brenda',n:'Brenda P\u00e9rez Soto',p:'PNP',pos:'Senadora Distrito Arecibo',c:'senador',e:'\ud83d\udc69\u200d\u2696\ufe0f',tl:[{t:'ti-elec',d:'Nov 2024',ti:'Elegida Senadora Arecibo',ds:''},{t:'ti-law',d:'Ago 2025',ti:'Ley PS-289: Agua Potable',ds:'Un\u00e1nime. Norte de PR.'},{t:'ti-proj',d:'Feb 2026',ti:'Licencias en escuelas',ds:'Licencias de conducir en planteles.'}],perturb:[]},{id:'wilmer',n:'Wilmer Reyes Berr\u00edos',p:'PNP',pos:'Senador \u2022 Pdte. Comisi\u00f3n IA',c:'senador',e:'\ud83e\udd16',tl:[{t:'ti-elec',d:'Nov 2024',ti:'Elegido Senador',ds:''},{t:'ti-proj',d:'Oct 2025',ti:'Presidente Comisi\u00f3n IA',ds:'AI Congress 2025.'}],perturb:[]},{id:'luis-hdo',n:'Luis Javier Hern\u00e1ndez Ortiz',p:'PPD',pos:'Portavoz PPD \u2022 Senado',c:'senador',e:'\ud83d\udc68\u200d\u2696\ufe0f',tl:[{t:'ti-elec',d:'Ene 2025',ti:'Portavoz PPD en el Senado',ds:''},{t:'ti-proj',d:'Mar 2026',ti:'Objeta PS 1096 inconstitucional',ds:''}],perturb:[]},{id:'maria-pip',n:'Mar\u00eda De L. Santiago Negr\u00f3n',p:'PIP',pos:'Portavoz PIP \u2022 Senado',c:'senador',e:'\ud83d\udc69\u200d\u2696\ufe0f',tl:[{t:'ti-elec',d:'Nov 2024',ti:'1ra Portavoz PIP en Senado en 20 a\u00f1os',ds:''}],perturb:[]},{id:'joanne',n:'Joanne M. Rodr\u00edguez Veve',p:'IND',pos:'Senadora Independiente',c:'senador',e:'\ud83d\udc69\u200d\u2696\ufe0f',tl:[{t:'ti-elec',d:'Nov 2024',ti:'Elegida Senadora Independiente',ds:''}],perturb:[]},{id:'eliezer',n:'Eliezer Molina P\u00e9rez',p:'IND',pos:'Senador Independiente',c:'senador',e:'\ud83d\udc68\u200d\ud83d\udcbc',tl:[{t:'ti-elec',d:'Nov 2024',ti:'Elegido Senador Independiente',ds:''}],perturb:['Posiciones contra matrimonio igualitario y aborto.']},{id:'berdiel',n:'Carlos Berdiel Torres',p:'PNP',pos:'Presidente de la C\u00e1mara',c:'represent',e:'\ud83c\udfdb\ufe0f',tl:[{t:'ti-elec',d:'Ene 2025',ti:'Elegido Presidente de la C\u00e1mara',ds:''}],perturb:[]},{id:'edgar-robles',n:'Edgar Robles Rivera',p:'PNP',pos:'Representante D14 \u2022 Arecibo/Hatillo',c:'represent',e:'\ud83d\udc68\u200d\ud83d\udcbc',tl:[{t:'ti-elec',d:'Ene 2025',ti:'Representante D14 \u2014 Primer t\u00e9rmino',ds:'Nacido 21 sept 1975, Arecibo.'},{t:'ti-proj',d:'2022',ti:'Ex-Legislador Municipal Arecibo',ds:''}],perturb:[]},{id:'ana-irma',n:'Ana Irma Rivera Lassen',p:'PIP',pos:'Representante D5',c:'represent',e:'\ud83d\udc69\u200d\u2696\ufe0f',tl:[{t:'ti-elec',d:'Nov 2024',ti:'Elegida Representante D5 (PIP)',ds:''}],perturb:[]},{id:'vargas-vidot',n:'Jos\u00e9 Vargas Vidot',p:'IND',pos:'Representante D33 \u2022 Independiente',c:'represent',e:'\ud83d\udc68\u200d\u2695\ufe0f',tl:[{t:'ti-elec',d:'Nov 2024',ti:'Re-elegido Representante Independiente',ds:'M\u00e9dico y activista.'}],perturb:[]},{id:'miguel-romero',n:'Miguel Romero Lugo',p:'PNP',pos:'Alcalde San Juan',c:'alcalde',e:'\ud83c\udfd9\ufe0f',tl:[{t:'ti-elec',d:'Nov 2024',ti:'Re-elegido Alcalde San Juan',ds:'Derrot\u00f3 a Natal Albelo (MVC) 2da vez.'}],perturb:[]},{id:'carlos-delgado',n:'Carlos Delgado Altieri',p:'PPD',pos:'Alcalde Carolina',c:'alcalde',e:'\ud83c\udfd9\ufe0f',tl:[{t:'ti-elec',d:'Nov 2024',ti:'Re-elegido Alcalde Carolina',ds:''}],perturb:[]},{id:'javier-jimenez',n:'Javier Jim\u00e9nez Garc\u00eda',p:'PNP',pos:'Alcalde Ponce',c:'alcalde',e:'\ud83c\udfd9\ufe0f',tl:[{t:'ti-elec',d:'Nov 2024',ti:'Elegido Alcalde Ponce',ds:''}],perturb:[]},{id:'ivan-mel',n:'Iv\u00e1n Mel\u00e9ndez Ortiz',p:'PPD',pos:'Alcalde Mayag\u00fcez',c:'alcalde',e:'\ud83c\udfd9\ufe0f',tl:[{t:'ti-elec',d:'Nov 2024',ti:'Re-elegido Alcalde Mayag\u00fcez',ds:''}],perturb:[]},{id:'carlos-molina-bay',n:'Carlos Molina Rodr\u00edguez',p:'PNP',pos:'Alcalde Bayam\u00f3n',c:'alcalde',e:'\ud83c\udfd9\ufe0f',tl:[{t:'ti-elec',d:'Nov 2024',ti:'Elegido Alcalde Bayam\u00f3n',ds:''}],perturb:[]},{id:'william-alicea',n:'William Alicea P\u00e9rez',p:'PPD',pos:'Alcalde Caguas',c:'alcalde',e:'\ud83c\udfd9\ufe0f',tl:[{t:'ti-elec',d:'Nov 2024',ti:'Re-elegido Alcalde Caguas',ds:''}],perturb:[]},{id:'carlos-mendez-ar',n:'Carlos M\u00e9ndez Mart\u00ednez',p:'PPD',pos:'Alcalde Arecibo',c:'alcalde',e:'\ud83c\udfd9\ufe0f',tl:[{t:'ti-elec',d:'Nov 2024',ti:'Elegido Alcalde Arecibo',ds:''}],perturb:[]},{id:'pedro-garcia-gy',n:'Pedro Garc\u00eda Figueroa',p:'PNP',pos:'Alcalde Guaynabo',c:'alcalde',e:'\ud83c\udfd9\ufe0f',tl:[{t:'ti-elec',d:'Nov 2024',ti:'Re-elegido Alcalde Guaynabo',ds:''}],perturb:[]},{id:'hat-martinez',n:'Carlos Mart\u00ednez Torres',p:'PNP',pos:'Alcalde Hatillo',c:'alcalde',e:'\ud83c\udf3f',tl:[{t:'ti-elec',d:'Nov 2024',ti:'Re-elegido Alcalde Hatillo',ds:''}],perturb:[]},{id:'loiza-victor',n:'V\u00edctor Garc\u00eda Torres',p:'PPD',pos:'Alcalde Lo\u00edza',c:'alcalde',e:'\ud83c\udfaf',tl:[{t:'ti-elec',d:'Nov 2024',ti:'Re-elegido Alcalde Lo\u00edza',ds:''}],perturb:[]},{id:'rincon-ortiz',n:'Carlos Ortiz Medina',p:'PNP',pos:'Alcalde Rinc\u00f3n',c:'alcalde',e:'\ud83c\udfc4',tl:[{t:'ti-elec',d:'Nov 2024',ti:'Re-elegido Alcalde Rinc\u00f3n',ds:''}],perturb:[]}];
+var NEWS=[{id:'n1',cat:'escandalo',icon:'&#128308;',title:'ESC\u00c1NDALO',h:'Rivera Schatz y los Empleados Fantasma: El Legado Que No Desaparece',body:'A pesar de tres presidencias del Senado, Thomas Rivera Schatz sigue cargando el peso de los esc\u00e1ndalos de empleados fantasma. M\u00faltiples colaboradores cercanos han sido convictos. \u00bfPuede un l\u00edder legislativo ser efectivo cuando su c\u00edrculo \u00edntimo ha enfrentado cargos criminales?',author:'Redacci\u00f3n GobiStats',time:'hace 1h',pol:'trs'},{id:'n2',cat:'energia',icon:'&#9889;',title:'ENERG\u00cdA',h:'LUMA vs. Jenniffer: 3 Demandas y A\u00fan Pagamos $400 al Mes',body:'La Gobernadora present\u00f3 tres demandas contra LUMA y cre\u00f3 un Energy Czar. Pero las facturas siguen disparadas.',author:'An\u00e1lisis Editorial',time:'hace 3h',pol:'jenniffer'},{id:'n3',cat:'economia',icon:'&#128188;',title:'ECONOM\u00cdA',h:'$554 Millones en Cheques: \u00bfRegalo Electoral o Necesidad Real?',body:'El Senado aprob\u00f3 $554M en cheques de alivio para la clase media en 2026.',author:'GobiStats Econom\u00eda',time:'hace 5h',pol:'trs'},{id:'n4',cat:'legislacion',icon:'&#128212;',title:'LEGISLACI\u00d3N',h:'Ley de Libertad Religiosa: \u00bfProtecci\u00f3n de Fe o Puerta para Discriminar?',body:'La Ley 14-2025 proh\u00edbe vacunar ni\u00f1os sin consentimiento informado por razones religiosas.',author:'An\u00e1lisis Legal',time:'hace 8h',pol:'trs'},{id:'n5',cat:'escandalo',icon:'&#128308;',title:'ESC\u00c1NDALO',h:'Ley Anti-Trans en Menores: Puerto Rico se Alinea con Florida y Texas',body:'La Gobernadora firm\u00f3 en julio 2025 una ley que proh\u00edbe terapias hormonales en menores.',author:'GobiStats Social',time:'hace 12h',pol:'jenniffer'},{id:'n6',cat:'logro',icon:'&#129351;',title:'LOGROS',h:'El Instituto de IA de Puerto Rico: \u00bfEl Silicon Caribbean?',body:'Rivera Schatz anunci\u00f3 en AI Congress 2025 el Instituto de IA de PR.',author:'Tech Puerto Rico',time:'hace 1d',pol:'trs'},{id:'n7',cat:'corrupcion',icon:'&#128081;',title:'CORRUPCI\u00d3N',h:'Contratos Municipales sin Licitaci\u00f3n: El OIG Investiga',body:'La Oficina del Inspector General document\u00f3 patrones de adjudicaci\u00f3n directa sin licitaci\u00f3n.',author:'GobiStats Investiga',time:'hace 2d',pol:null},{id:'n8',cat:'logro',icon:'&#129351;',title:'LOGROS',h:'Brenda P\u00e9rez Soto: La Senadora de Arecibo que S\u00ed Est\u00e1 Trabajando',body:'Aprob\u00f3 la Ley PS-289 de Agua Potable y lanz\u00f3 licencias en escuelas superiores.',author:'GobiStats Norte',time:'hace 3d',pol:'brenda'},{id:'n9',cat:'escandalo',icon:'&#128308;',title:'ESC\u00c1NDALO',h:'Eliezer Molina: El Senador que Divide a Puerto Rico en Dos',body:'Declaraciones en contra del matrimonio igualitario y el aborto.',author:'GobiStats Opini\u00f3n',time:'hace 4d',pol:'eliezer'},{id:'n10',cat:'logro',icon:'&#129351;',title:'LOGROS',h:'Mar\u00eda Santiago Negr\u00f3n: Primera Portavoz del PIP en el Senado en 20 A\u00f1os',body:'Por primera vez en d\u00e9cadas el PIP tiene voz directa en el Senado.',author:'Historia Pol\u00edtica PR',time:'hace 5d',pol:'maria-pip'},{id:'n11',cat:'legislacion',icon:'&#128212;',title:'LEGISLACI\u00d3N',h:'PS 1096: \u00bfRivera Schatz Quiere Controlar los Tribunales?',body:'El PS 1096 reorganiza el Poder Judicial. El PPD lo declara inconstitucional.',author:'An\u00e1lisis Judicial',time:'hace 6d',pol:'trs'},{id:'n12',cat:'economia',icon:'&#128188;',title:'ECONOM\u00cdA',h:'Joanne Rodr\u00edguez Veve: La Independiente que Pide Transparencia Total',body:'La Senadora impulsa transmisiones en vivo del Senado y mayor acceso ciudadano.',author:'Transparencia PR',time:'hace 6d',pol:'joanne'}];
+
+var curNewsFilter='all',curSearchQ='',curSearchFilter='all',curPol=null,curThumb=null,DB_READY=false,unsubComments=null;
+var localVotes={},myHistory=[];
+try{var sv=localStorage.getItem('gs_nv');if(sv)localVotes=JSON.parse(sv);}catch(e){}
+try{var sh=localStorage.getItem('gs_hist');if(sh)myHistory=JSON.parse(sh);}catch(e){}
+function saveVotes(){try{localStorage.setItem('gs_nv',JSON.stringify(localVotes));}catch(e){}}
+function saveHistory(){try{localStorage.setItem('gs_hist',JSON.stringify(myHistory));}catch(e){}}
+
+function getById(id){for(var i=0;i<POLS.length;i++){if(POLS[i].id===id)return POLS[i];}return null;}
+function bc(p){var m={PNP:'b-PNP',PPD:'b-PPD',PIP:'b-PIP',MVC:'b-MVC',IND:'b-IND',Independent:'b-IND'};return m[p]||'b-IND';}
+function acColor(v){if(!v||v<=0)return 'var(--txt3)';if(v>=60)return 'var(--green)';if(v>=40)return 'var(--orange)';return 'var(--red)';}
+var ttmr;
+function toast(msg){var el=document.getElementById('toast-el');el.innerHTML=msg;el.classList.add('on');clearTimeout(ttmr);ttmr=setTimeout(function(){el.classList.remove('on');},2500);}
+
+function showScr(id){
+  document.querySelectorAll('.scr').forEach(function(s){s.classList.remove('on');});
+  var el=document.getElementById('s-'+id);
+  if(el){el.classList.add('on');var sc=el.querySelector('.scroll');if(sc)sc.scrollTop=0;}
+  if(id==='lb')renderLB('all');
+  if(id==='news')renderNews();
+  if(id==='search'){curSearchQ='';curSearchFilter='all';var si=document.getElementById('sinput');if(si)si.value='';document.querySelectorAll('#search-filters .chip').forEach(function(c,i){c.classList.toggle('on',i===0);});renderSearch();}
+  if(id==='profile')renderProfile();
+}
+
+function polCardHTML(pol){
+  return '<div class="pol-card" onclick="openPol(\''+pol.id+'\')">'+'<div class="pc-top">'+pol.e+'<div class="pc-badge"><span class="badge '+bc(pol.p)+'">'+pol.p+'</span></div></div>'+'<div class="pc-body"><div class="pc-name">'+pol.n+'</div><div class="pc-pos">'+pol.pos+'</div><div class="pc-pct" id="pct-'+pol.id+'">&#8212;</div></div></div>';
+}
+
+function newsCardHTML(n){
+  var vu=localVotes[n.id]==='up',vd=localVotes[n.id]==='dn';
+  return '<div class="news-card cat-'+n.cat+'" onclick="openNewsCard(\''+n.id+'\')">'+'<div class="nc-accent"></div>'+'<div class="nc-body">'+'<div class="nc-cat">'+n.icon+' '+n.title+'</div>'+'<div class="nc-title">'+n.h+'</div>'+'<div class="nc-lead">'+n.body.substring(0,160)+'...</div>'+'<div class="nc-foot"><div class="nc-meta"><span>'+n.author+'</span><span>'+n.time+'</span></div>'+'<div class="nc-votes">'+'<button class="vote-btn up'+(vu?' voted-up':'')+' " id="vup-'+n.id+'" onclick="voteNews(event,\''+n.id+'\',\'up\')">&#128077; <span id="vupn-'+n.id+'">'+(n.up||0)+'</span></button>'+'<button class="vote-btn dn'+(vd?' voted-dn':'')+' " id="vdn-'+n.id+'" onclick="voteNews(event,\''+n.id+'\',\'dn\')">&#128078; <span id="vdnn-'+n.id+'">'+(n.dn||0)+'</span></button>'+'</div></div></div></div>';
+}
+
+function renderHome(){
+  document.getElementById('exec-row').innerHTML=POLS.filter(function(p){return p.c==='exec';}).map(polCardHTML).join('');
+  document.getElementById('trend-row').innerHTML=POLS.filter(function(p){return p.c!=='exec';}).slice(0,8).map(polCardHTML).join('');
+  document.getElementById('home-news').innerHTML=NEWS.slice(0,3).map(newsCardHTML).join('');
+  if(DB_READY){loadGlobalStats();loadPolCounts(POLS.slice(0,8));}
+}
+
+function loadGlobalStats(){
+  if(!DB_READY)return;
+  var db=window._db,fs=window._fs;
+  fs.getDoc(fs.doc(db,'meta','global')).then(function(d){if(d.exists()){var data=d.data();var e=document.getElementById('h-evals'),den=document.getElementById('h-denuncias');if(e)e.textContent=data.totalRatings||0;if(den)den.textContent=data.totalComplaints||0;}}).catch(function(){});
+}
+
+function loadPolCounts(pols){
+  if(!DB_READY)return;
+  var db=window._db,fs=window._fs;
+  pols.forEach(function(pol){
+    fs.getDoc(fs.doc(db,'politicians',pol.id)).then(function(d){
+      if(d.exists()){var data=d.data(),total=(data.up||0)+(data.dn||0),pct=total>0?Math.round((data.up||0)/total*100):0,color=acColor(pct);
+        document.querySelectorAll('[id="pct-'+pol.id+'"]').forEach(function(e){e.textContent=total>0?pct+'%':'\u2014';e.style.color=color;if(total>0)e.classList.add('has-data');});
+        document.querySelectorAll('[id="lb-pct-'+pol.id+'"]').forEach(function(e){e.textContent=total>0?pct+'%':'\u2014';e.style.color=color;});
+        document.querySelectorAll('[id="lb-cnt-'+pol.id+'"]').forEach(function(e){e.textContent=total+' votos';});
+      }}).catch(function(){});
+  });
+}
+
+function renderNews(){
+  var list=curNewsFilter==='all'?NEWS:NEWS.filter(function(n){return n.cat===curNewsFilter;});
+  var el=document.getElementById('news-list');
+  el.innerHTML=list.length?list.map(newsCardHTML).join('')+'<div style="height:8px"></div>':'<div style="padding:40px 18px;text-align:center;color:var(--txt3)">Sin noticias.</div>';
+  if(DB_READY)loadNewsCounts(list);
+}
+
+function loadNewsCounts(list){
+  if(!DB_READY)return;
+  var db=window._db,fs=window._fs;
+  list.forEach(function(n){
+    fs.getDoc(fs.doc(db,'news_votes',n.id)).then(function(d){
+      if(d.exists()){var data=d.data();
+        document.querySelectorAll('[id="vupn-'+n.id+'"]').forEach(function(e){e.textContent=data.up||0;});
+        document.querySelectorAll('[id="vdnn-'+n.id+'"]').forEach(function(e){e.textContent=data.dn||0;});
+      }}).catch(function(){});
+  });
+}
+
+function filterNews(el,cat){curNewsFilter=cat;document.querySelectorAll('#news-filters .chip').forEach(function(c){c.classList.remove('on');});el.classList.add('on');renderNews();}
+
+function voteNews(evt,nid,dir){
+  evt.stopPropagation();
+  if(localVotes[nid]){toast('\u00a1Ya votaste en esta noticia!');return;}
+  localVotes[nid]=dir;saveVotes();
+  document.querySelectorAll('[id="vup-'+nid+'"]').forEach(function(b){if(dir==='up'){b.className='vote-btn up voted-up';}});
+  document.querySelectorAll('[id="vdn-'+nid+'"]').forEach(function(b){if(dir==='dn'){b.className='vote-btn dn voted-dn';}});
+  document.querySelectorAll('[id="'+(dir==='up'?'vupn':'vdnn')+'-'+nid+'"]').forEach(function(e){e.textContent=parseInt(e.textContent||'0')+1;});
+  toast(dir==='up'?'&#128077; Voto guardado!':'&#128078; Voto guardado!');
+  if(DB_READY){var db=window._db,fs=window._fs,ref=fs.doc(db,'news_votes',nid),upd={};upd[dir]=fs.increment(1);fs.getDoc(ref).then(function(d){return d.exists()?fs.updateDoc(ref,upd):(function(){var i={up:0,dn:0};i[dir]=1;return fs.setDoc(ref,i);})();}).catch(function(){});}
+}
+
+function openNewsCard(nid){for(var i=0;i<NEWS.length;i++){if(NEWS[i].id===nid&&NEWS[i].pol){openPol(NEWS[i].pol);return;}}}
+
+function renderLB(filter){
+  var pols=POLS.slice();
+  if(filter==='exec')pols=pols.filter(function(p){return p.c==='exec';});
+  else if(filter!=='all')pols=pols.filter(function(p){return p.c===filter;});
+  pols.sort(function(a,b){return (b.tl?b.tl.length:0)-(a.tl?a.tl.length:0);});
+  document.getElementById('lb-list').innerHTML=pols.map(function(pol,i){
+    var medal=i===0?'&#129351;':i===1?'&#129352;':i===2?'&#129353;':'#'+(i+1);
+    return '<div class="lb-row" onclick="openPol(\''+pol.id+'\')">'+'<div class="lb-rank">'+medal+'</div>'+'<div class="lb-ava">'+pol.e+'</div>'+'<div class="lb-info"><div class="lb-name">'+pol.n+'</div><div class="lb-sub"><span class="badge '+bc(pol.p)+'">'+pol.p+'</span><span>'+pol.pos.split('\u2022')[0].trim()+'</span></div></div>'+'<div class="lb-right"><div class="lb-pct" id="lb-pct-'+pol.id+'" style="font-size:13px;color:var(--txt3)">&#8212;</div><div class="lb-cnt" id="lb-cnt-'+pol.id+'">0 votos</div></div></div>';
+  }).join('')+'<div style="height:8px"></div>';
+  if(DB_READY)loadPolCounts(pols);
+}
+function setLbTab(el,filter){document.querySelectorAll('.lbt').forEach(function(t){t.classList.remove('on');});el.classList.add('on');renderLB(filter);}
+
+function renderSearch(){
+  var q=curSearchQ.toLowerCase().trim();
+  var pols=POLS.slice();
+  if(q)pols=pols.filter(function(p){return p.n.toLowerCase().indexOf(q)>-1||p.pos.toLowerCase().indexOf(q)>-1||p.p.toLowerCase()===q||p.c.indexOf(q)>-1;});
+  if(curSearchFilter!=='all')pols=pols.filter(function(p){if(curSearchFilter==='IND')return p.p==='IND'||p.p==='Independent';if(['PNP','PPD','PIP','MVC'].indexOf(curSearchFilter)>-1)return p.p===curSearchFilter;return p.c===curSearchFilter;});
+  var el=document.getElementById('search-res');
+  if(!pols.length){el.innerHTML='<div style="padding:48px 18px;text-align:center;color:var(--txt3)">Sin resultados.</div>';return;}
+  el.innerHTML=pols.map(function(pol){return '<div class="lb-row" onclick="openPol(\''+pol.id+'\')">'+'<div class="lb-ava" style="border-radius:10px">'+pol.e+'</div><div class="lb-info"><div class="lb-name">'+pol.n+'</div><div class="lb-sub"><span class="badge '+bc(pol.p)+'">'+pol.p+'</span><span>'+pol.pos+'</span></div></div><div style="color:var(--txt3);font-size:20px">&#8250;</div></div>';}).join('')+'<div style="height:8px"></div>';
+}
+function doSearch(val){curSearchQ=val;renderSearch();}
+function setFilter(el,f){curSearchFilter=f;document.querySelectorAll('#search-filters .chip').forEach(function(c){c.classList.remove('on');});el.classList.add('on');renderSearch();}
+
+var tiI={'ti-law':'&#9889;','ti-win':'&#9989;','ti-scan':'&#9888;&#65039;','ti-proj':'&#128202;','ti-elec':'&#127891;'};
+
+function openPol(id){
+  var pol=getById(id);if(!pol)return;
+  curPol=pol;
+  document.getElementById('det-bg').textContent=pol.e;
+  document.getElementById('det-badge').className='badge '+bc(pol.p);
+  document.getElementById('det-badge').textContent=pol.p;
+  document.getElementById('det-name').textContent=pol.n;
+  document.getElementById('det-pos').textContent=pol.pos;
+  document.getElementById('det-pct').textContent='\u2014';document.getElementById('det-pct').style.color='var(--txt3)';
+  document.getElementById('det-votes').textContent='0';document.getElementById('det-den').textContent='0';
+  document.getElementById('modal-sub').textContent='Contra: '+pol.n;
+  document.getElementById('det-tl').innerHTML=(pol.tl||[]).length?(pol.tl||[]).map(function(t){var ico=tiI[t.t]||'&#128204;';return '<div class="tl-item"><div class="tl-icon '+t.t+'">'+ico+'</div><div class="tl-body"><div class="tl-d">'+t.d+'</div><div class="tl-t">'+t.ti+'</div>'+(t.ds?'<div class="tl-desc">'+t.ds+'</div>':'')+'</div></div>';}).join(''):'<div style="color:var(--txt3);font-size:13px;padding:10px 0">Datos en verificaci\u00f3n.</div>';
+  var pp=pol.perturb||[];
+  document.getElementById('det-perturb').innerHTML=pp.length?'<div class="perturb-box"><div class="perturb-hdr"><div class="perturb-dot"></div><div class="perturb-lbl">Conductas Documentadas</div></div>'+pp.map(function(s){return '<div class="perturb-item">'+s+'</div>';}).join('')+'</div>':'<div style="color:var(--txt3);font-size:12px;margin-bottom:12px">Sin conductas documentadas.</div>';
+  curThumb=null;
+  document.getElementById('tbup').className='thumb-btn';document.getElementById('tbdn').className='thumb-btn';
+  document.getElementById('rate-comment').value='';document.getElementById('rate-name').value='';
+  document.querySelectorAll('.sr-stars').forEach(function(s,i){s.textContent=i<2?'\u2605\u2605\u2605\u2606\u2606':'\u2605\u2605\u2606\u2606\u2606';});
+  var btn=document.getElementById('submit-rating');if(btn){btn.innerHTML='&#10003; Guardar Evaluaci\u00f3n';btn.disabled=false;btn.className='submit-btn';}
+  showScr('detail');
+  if(DB_READY){loadPolStats(id);subscribeComments(id);}
+  else{document.getElementById('comments-feed').innerHTML='<div style="color:var(--txt3);font-size:12px;padding:12px 0">Conectando a Firebase...</div>';}
+}
+
+function loadPolStats(id){
+  var db=window._db,fs=window._fs;
+  fs.getDoc(fs.doc(db,'politicians',id)).then(function(d){
+    if(d.exists()){var data=d.data(),total=(data.up||0)+(data.dn||0),pct=total>0?Math.round((data.up||0)/total*100):0;
+      document.getElementById('det-pct').textContent=total>0?pct+'%':'\u2014';
+      document.getElementById('det-pct').style.color=acColor(pct);
+      document.getElementById('det-votes').textContent=total;
+      document.getElementById('det-den').textContent=data.complaints||0;
+    }}).catch(function(){});
+}
+
+function subscribeComments(polId){
+  if(unsubComments){try{unsubComments();}catch(e){} unsubComments=null;}
+  var feedEl=document.getElementById('comments-feed'),cntEl=document.getElementById('comment-count');
+  feedEl.innerHTML='<div style="color:var(--txt3);font-size:12px;padding:10px 0">Cargando...</div>';
+  var db=window._db,fs=window._fs;
+  var q=fs.query(fs.collection(db,'politicians',polId,'ratings'),fs.orderBy('ts','desc'),fs.limit(20));
+  unsubComments=fs.onSnapshot(q,function(snap){
+    if(cntEl)cntEl.textContent=snap.size?'('+snap.size+')':'';
+    if(snap.empty){feedEl.innerHTML='<div style="color:var(--txt3);font-size:12px;padding:10px 0">\u00a1S\u00e9 el primero en evaluar!</div>';return;}
+    var html='';
+    snap.forEach(function(doc){
+      var d=doc.data(),thumb=d.thumb===true?'&#128077;':d.thumb===false?'&#128078;':'',name=d.name||'An\u00f3nimo',ago=d.ts?timeAgo(d.ts.toDate?d.ts.toDate():new Date(d.ts)):'';
+      var stars='';
+      if(d.stars&&d.stars.length){
+        stars='<div class="comment-stars">';
+        ['H','T','A','Tr'].forEach(function(lbl,i){var v=d.stars[i]||0;stars+='\u2605'.repeat(v)+'\u2606'.repeat(5-v)+' <span style="font-size:9px;color:var(--txt3)">'+lbl+'</span>&nbsp;';});
+        stars+='</div>';
+      }
+      html+='<div class="comment-item"><div class="comment-meta"><span class="comment-user">@'+sanitize(name)+'</span><span class="comment-time">'+ago+'</span></div>'+(thumb?'<div class="comment-thumb">'+thumb+'</div>':'')+stars+(d.comment?'<div class="comment-body">'+sanitize(d.comment)+'</div>':'')+'</div>';
+    });
+    feedEl.innerHTML=html;
+  },function(){feedEl.innerHTML='<div style="color:var(--txt3);font-size:12px;padding:10px 0">Error cargando.</div>';});
+}
+
+function sanitize(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+function timeAgo(d){var s=Math.floor((new Date()-d)/1000);if(s<60)return 'ahora';if(s<3600)return Math.floor(s/60)+'m';if(s<86400)return Math.floor(s/3600)+'h';return Math.floor(s/86400)+'d';}
+
+function pickThumb(up){curThumb=up;document.getElementById('tbup').className='thumb-btn'+(up?' sel-up':'');document.getElementById('tbdn').className='thumb-btn'+(!up?' sel-dn':'');}
+function cycleStar(el){var c=(el.textContent.match(/\u2605/g)||[]).length,n=c>=5?1:c+1;el.textContent='\u2605'.repeat(n)+'\u2606'.repeat(5-n);}
+
+function submitRating(){
+  if(curThumb===null){toast('Selecciona &#128077; o &#128078; primero');return;}
+  if(!DB_READY){toast('&#9888; Conectando... reintenta en un momento');return;}
+  var btn=document.getElementById('submit-rating');btn.innerHTML='Guardando...';btn.disabled=true;btn.className='submit-btn saving';
+  var name=(document.getElementById('rate-name').value||'').trim()||'An\u00f3nimo';
+  var comment=(document.getElementById('rate-comment').value||'').trim();
+  var stars=[];document.querySelectorAll('.sr-stars').forEach(function(s){stars.push((s.textContent.match(/\u2605/g)||[]).length);});
+  var db=window._db,fs=window._fs,polId=curPol.id;
+  fs.addDoc(fs.collection(db,'politicians',polId,'ratings'),{name:name,thumb:curThumb,stars:stars,comment:comment,ts:fs.serverTimestamp()})
+  .then(function(){
+    var ref=fs.doc(db,'politicians',polId),upd={};upd[curThumb?'up':'dn']=fs.increment(1);
+    return fs.getDoc(ref).then(function(d){return d.exists()?fs.updateDoc(ref,upd):(function(){var i={up:0,dn:0,complaints:0};i[curThumb?'up':'dn']=1;return fs.setDoc(ref,i);})();});
+  }).then(function(){
+    var mRef=fs.doc(db,'meta','global');
+    return fs.getDoc(mRef).then(function(d){return d.exists()?fs.updateDoc(mRef,{totalRatings:fs.increment(1)}):fs.setDoc(mRef,{totalRatings:1,totalComplaints:0});});
+  }).then(function(){
+    toast('\u2705 \u00a1Evaluaci\u00f3n guardada para todos!');
+    btn.innerHTML='\u2713 \u00a1Enviada!';loadPolStats(polId);
+    myHistory.unshift({polId:polId,polName:curPol.n,thumb:curThumb,ts:new Date().toISOString()});
+    if(myHistory.length>50)myHistory.length=50;saveHistory();
+    setTimeout(function(){curThumb=null;document.getElementById('tbup').className='thumb-btn';document.getElementById('tbdn').className='thumb-btn';document.getElementById('rate-comment').value='';document.getElementById('rate-name').value='';document.querySelectorAll('.sr-stars').forEach(function(s,i){s.textContent=i<2?'\u2605\u2605\u2605\u2606\u2606':'\u2605\u2605\u2606\u2606\u2606';});btn.innerHTML='&#10003; Guardar Evaluaci\u00f3n';btn.disabled=false;btn.className='submit-btn';},2000);
+  }).catch(function(e){toast('Error: '+e.code);btn.innerHTML='&#10003; Guardar Evaluaci\u00f3n';btn.disabled=false;btn.className='submit-btn';});
+}
+
+function openModal(){document.getElementById('modal').style.display='flex';}
+function closeModal(){document.getElementById('modal').style.display='none';}
+function submitComplaint(){
+  var cat=document.getElementById('m-cat').value,title=document.getElementById('m-title').value.trim(),desc=document.getElementById('m-desc').value.trim(),name=(document.getElementById('m-name').value||'').trim()||'An\u00f3nimo';
+  if(!cat){toast('Selecciona categor\u00eda');return;}if(!title){toast('Escribe un t\u00edtulo');return;}if(desc.length<50){toast('M\u00edn. 50 caracteres');return;}
+  closeModal();
+  if(DB_READY&&curPol){
+    var db=window._db,fs=window._fs;
+    fs.addDoc(fs.collection(db,'complaints'),{polId:curPol.id,polName:curPol.n,name:name,cat:cat,title:title,desc:desc,ts:fs.serverTimestamp()})
+    .then(function(){var ref=fs.doc(db,'politicians',curPol.id);return fs.getDoc(ref).then(function(d){return d.exists()?fs.updateDoc(ref,{complaints:fs.increment(1)}):(function(){return fs.setDoc(ref,{up:0,dn:0,complaints:1});})();});})
+    .then(function(){toast('&#128226; \u00a1Denuncia guardada!');loadPolStats(curPol.id);var mRef=fs.doc(db,'meta','global');fs.getDoc(mRef).then(function(d){d.exists()?fs.updateDoc(mRef,{totalComplaints:fs.increment(1)}):fs.setDoc(mRef,{totalRatings:0,totalComplaints:1});});})
+    .catch(function(){toast('&#128226; Denuncia registrada');});
+  }else{toast('&#128226; \u00a1Denuncia registrada!');}
+  document.getElementById('m-cat').value='';document.getElementById('m-title').value='';document.getElementById('m-desc').value='';document.getElementById('m-name').value='';
+}
+
+function renderProfile(){
+  document.getElementById('my-evals').textContent=myHistory.length;
+  document.getElementById('my-score').textContent=myHistory.length*10;
+  if(myHistory.length){
+    document.getElementById('my-history').innerHTML=myHistory.slice(0,5).map(function(h){return '<div style="display:flex;justify-content:space-between;align-items:center;padding:10px 12px;background:var(--s1);border:1px solid var(--border);border-radius:8px;margin-bottom:8px"><span style="font-size:13px">'+h.polName+'</span><span style="font-size:18px">'+(h.thumb?'&#128077;':'&#128078;')+'</span></div>';}).join('');
+  }
+}
+
+document.addEventListener('firebase-ready',function(){
+  if(window._db&&window._fs){
+    DB_READY=true;
+    console.log('GobiStats: Firebase Firestore connected!');
+    renderHome();loadGlobalStats();
+  }
+});
+
+renderHome();renderLB('all');renderSearch();
+</script>
+</body>
+</html>
