@@ -1,19 +1,11 @@
 ---
 slug: jose-perez-cordero
-full_name: José Pérez Cordero
-position: representative_district
-district: Distrito 19
-party: PPD
+full_name: José J. Pérez Cordero
+position: representative_at_large
+district: Acumulación
+party: PNP
+photo_url: https://www.camara.pr.gov/wp-content/uploads/2025/06/Jose-Che-Perez-747x1024.jpg
+gov_url: https://www.camara.pr.gov/team/jose-j-perez-cordero-2/
+email: joperez@camara.pr.gov
+phone: (787) 721-5007
 ---
-### Basic Info
-- Full Name: José Pérez Cordero
-- Position: Representante Distrito 19
-- District: Distrito 19
-- Party: PPD
-### Timeline
-- 2024-11-05 Election: Elegido Representante Distrito 19
-### Contact Info
-- Email: jperez@camara.pr.gov
-### Complaints & Public Grievances
-<!-- AUTO-INJECTED BY GOBISTATS SYNC – DO NOT EDIT MANUALLY -->
-<!-- Total complaints: 4 | Pending: 1 | Resolved: 3 -->

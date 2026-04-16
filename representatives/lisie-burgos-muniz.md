@@ -1,19 +1,11 @@
 ---
 slug: lisie-burgos-muniz
-full_name: Lisie Burgos Muñiz
-position: representative_district
-district: Distrito 12
-party: PNP
+full_name: Lisie J. Burgos Muñiz
+position: representative_at_large
+district: Acumulación (Portavoz PD)
+party: PD
+photo_url: https://www.camara.pr.gov/wp-content/uploads/2025/06/Lissie-Burgos-747x1024.jpg
+gov_url: https://www.camara.pr.gov/team/lisie-j-burgos-muniz/
+email: lburgos@camara.pr.gov
+phone: (787) 622-4979
 ---
-### Basic Info
-- Full Name: Lisie Burgos Muñiz
-- Position: Representante Distrito 12
-- District: Distrito 12
-- Party: PNP
-### Timeline
-- 2024-11-05 Election: Elegida Representante Distrito 12
-### Contact Info
-- Email: lburgos@camara.pr.gov
-### Complaints & Public Grievances
-<!-- AUTO-INJECTED BY GOBISTATS SYNC – DO NOT EDIT MANUALLY -->
-<!-- Total complaints: 6 | Pending: 1 | Resolved: 5 -->
