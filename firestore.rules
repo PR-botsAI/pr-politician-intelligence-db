@@ -3,8 +3,10 @@ service cloud.firestore {
   match /databases/{database}/documents {
 
     function isAdmin() {
-      return request.auth != null &&
-             exists(/databases/$(database)/documents/admins/$(request.auth.uid));
+      return request.auth != null && (
+        request.auth.uid == 'eGjKT3AHFKg1sJcFkJaroYoySJX2' ||
+        exists(/databases/$(database)/documents/admins/$(request.auth.uid))
+      );
     }
 
     function isBanned() {
@@ -62,8 +64,6 @@ service cloud.firestore {
       allow update, delete: if false;
     }
 
-    // Politician submissions: authed Google users can create (own),
-    // anyone authed can read own, admin can read all + update status
     match /submissions/{sid} {
       allow create: if request.auth != null && !isBanned()
         && request.auth.token.email != null
@@ -74,7 +74,6 @@ service cloud.firestore {
       allow delete: if isAdmin();
     }
 
-    // Approved politicians added by admin: public read, admin write
     match /approvedPoliticians/{pid} {
       allow read: if true;
       allow write: if isAdmin();
