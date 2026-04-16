@@ -102,6 +102,7 @@ body{background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSy
 .login-sub{font-size:14px;color:var(--muted);margin-bottom:24px;line-height:1.5;}
 .login-btn{width:100%;padding:13px;border-radius:var(--r);font-size:15px;font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:10px;border:1px solid;margin-bottom:10px;}
 .google-btn{background:white;border-color:rgba(0,0,0,0.15);color:#1a1a1a;}.google-icon{width:20px;height:20px;flex-shrink:0;}
+.login-btn:disabled{opacity:0.5;cursor:wait;}
 .modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.7);z-index:200;display:flex;align-items:flex-end;justify-content:center;opacity:0;pointer-events:none;transition:opacity 0.25s;backdrop-filter:blur(4px);}
 .modal-overlay.open{opacity:1;pointer-events:all;}
 .modal{background:var(--surface);border-radius:22px 22px 0 0;padding:8px 0 0;width:100%;max-width:480px;max-height:82vh;overflow-y:auto;transform:translateY(100%);transition:transform 0.3s cubic-bezier(0.34,1.1,0.64,1);}
@@ -136,9 +137,12 @@ body{background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSy
 .empty-state{text-align:center;padding:40px 20px;color:var(--muted);font-size:14px;}.empty-icon{font-size:38px;margin-bottom:10px;}
 .hero-banner{margin:14px 16px;background:linear-gradient(135deg,rgba(124,111,232,0.18) 0%,rgba(79,70,229,0.08) 100%);border:1px solid rgba(124,111,232,0.18);border-radius:var(--r2);padding:14px;display:flex;align-items:center;justify-content:space-between;}
 .hero-text{font-size:13px;font-weight:600;}.hero-sub{font-size:11px;color:var(--muted);margin-top:2px;}.hero-icon{font-size:34px;}
+.boot-overlay{position:fixed;inset:0;background:var(--bg);z-index:500;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:12px;color:var(--muted);font-size:13px;transition:opacity 0.3s;}
+.boot-overlay.hide{opacity:0;pointer-events:none;}
 </style>
 </head>
 <body>
+<div class="boot-overlay" id="boot"><div class="dot-pulse"><span></span><span></span><span></span></div><div>Conectando con GobiStats...</div></div>
 <div class="header">
   <div style="display:flex;align-items:center;">
     <div class="logo">Gobi<span>Stats</span></div>
@@ -209,7 +213,25 @@ body{background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSy
   </div>
 </div>
 <div class="toast" id="toast"></div>
-<script>
+<script type="module">
+import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js';
+import { getAuth, GoogleAuthProvider, signInWithPopup, signInAnonymously, onAuthStateChanged, signOut } from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js';
+import { getFirestore, doc, setDoc, getDoc, updateDoc, deleteDoc, onSnapshot, collection, increment, serverTimestamp, addDoc } from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js';
+
+const firebaseConfig = {
+  apiKey: "AIzaSyCcyQXqyiyz_Wo_KNxLxyY6sccsuc3oWAs",
+  authDomain: "gobistats.firebaseapp.com",
+  projectId: "gobistats",
+  storageBucket: "gobistats.firebasestorage.app",
+  messagingSenderId: "480638641964",
+  appId: "1:480638641964:web:aec01b40d7d0ddb77bae89",
+  measurementId: "G-T2NCFZQ4K8"
+};
+
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const db = getFirestore(app);
+
 const POLITICIANS=[
 {id:'gov-jgc',name:'Jenniffer González-Colón',role:'Gobernadora de Puerto Rico',party:'PNP',cat:'ejecutivo',pos:'gobernadora',municipio:'',district:''},
 {id:'com-pjhr',name:'Pablo José Hernández Rivera',role:'Comisionado Residente en Washington',party:'PPD',cat:'ejecutivo',pos:'comisionado',municipio:'',district:''},
@@ -370,48 +392,166 @@ const POLITICIANS=[
 {id:'alc-pen',name:'Rafael Cintrón Ortiz',role:'Alcalde',party:'PPD',cat:'alcalde',pos:'alcalde',municipio:'Peñuelas',district:''},
 {id:'alc-sit',name:'Luis R. Ortiz Lugo',role:'Alcalde',party:'PPD',cat:'alcalde',pos:'alcalde',municipio:'Santa Isabel',district:''},
 ];
+
+// State
 let currentPage='home',currentPoliticianId=null,prevPage='home',rankTab='all',selectedCat='',complaintPoliticianId=null,activeFilter='all';
-function gs(k,d){try{const v=localStorage.getItem(k);return v?JSON.parse(v):d;}catch(e){return d;}}
-function ss(k,v){try{localStorage.setItem(k,JSON.stringify(v));}catch(e){}}
-function getUser(){return gs('gs_user',null);}
-function setUser(u){ss('gs_user',u);updateHeaderAvatar();}
-function getRatings(){return gs('gs_ratings_v2',{});}
-function setRatings(r){ss('gs_ratings_v2',r);}
-function getComplaints(){return gs('gs_complaints_v2',[]);}
-function setComplaints(c){ss('gs_complaints_v2',c);}
-function getScores(){return gs('gs_scores_v2',{});}
-function setScores(s){ss('gs_scores_v2',s);}
-function getApproval(id){const s=getScores()[id]||{up:0,down:0};const t=s.up+s.down;return t===0?null:Math.round((s.up/t)*100);}
-function getUserStats(){if(!getUser())return{evaluaciones:0,denuncias:0,impact:0};const ev=Object.keys(getRatings()).length;const dn=getComplaints().length;return{evaluaciones:ev,denuncias:dn,impact:ev*10+dn*30};}
-function getLevel(s){const sc=s.evaluaciones*10+s.denuncias*30;if(sc>=500)return{name:'Leyenda',next:1000,color:'#F5C518'};if(sc>=200)return{name:'Watchdog',next:500,color:'#A392FF'};if(sc>=75)return{name:'Activista',next:200,color:'#22C55E'};if(sc>=20)return{name:'Ciudadano',next:75,color:'#60A5FA'};return{name:'Rookie',next:20,color:'#8B8CA0'};}
+let currentUser=null, currentUserStats=null, userVotes={}, politicianScores={}, allComplaints={};
+let userSubs=[];
+
+// --- Helpers
+function getApproval(id){const s=politicianScores[id]||{up:0,down:0};const t=(s.up||0)+(s.down||0);return t===0?null:Math.round(((s.up||0)/t)*100);}
+function getUserStats(){if(!currentUser||!currentUserStats)return{evaluaciones:0,denuncias:0,impact:0};return{evaluaciones:currentUserStats.evaluaciones||0,denuncias:currentUserStats.denuncias||0,impact:currentUserStats.impact||0};}
+function getLevel(s){const sc=s.impact||0;if(sc>=500)return{name:'Leyenda',next:1000,color:'#F5C518'};if(sc>=200)return{name:'Watchdog',next:500,color:'#A392FF'};if(sc>=75)return{name:'Activista',next:200,color:'#22C55E'};if(sc>=20)return{name:'Ciudadano',next:75,color:'#60A5FA'};return{name:'Rookie',next:20,color:'#8B8CA0'};}
 function getEmoji(p){if(p.cat==='ejecutivo')return p.pos==='gobernadora'?'🏝️':'🏛️';if(p.cat==='senado')return'⚖️';if(p.cat==='camara')return'🏛️';return'🏙️';}
+
+function rerenderCurrent(){if(currentPage==='home')renderHome();if(currentPage==='search')renderSearch(document.getElementById('search-input').value.toLowerCase().trim());if(currentPage==='ranking')renderRanking();if(currentPage==='profile')renderProfile();if(currentPage==='detail'&&currentPoliticianId)renderDetail(currentPoliticianId);}
+
 function showPage(page){document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));document.querySelectorAll('.nav-btn').forEach(b=>b.classList.remove('active'));document.getElementById('page-'+page).classList.add('active');const nb=document.getElementById('nav-'+page);if(nb)nb.classList.add('active');currentPage=page;document.getElementById('header-sub').textContent={home:'PR 2026',search:'BUSCAR',ranking:'RANKING',profile:'MI PERFIL',detail:''}[page]||'PR 2026';if(page==='search')renderSearch();if(page==='ranking')renderRanking();if(page==='profile')renderProfile();}
 function goDetail(id){prevPage=currentPage;currentPoliticianId=id;renderDetail(id);document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));document.getElementById('page-detail').classList.add('active');document.querySelectorAll('.nav-btn').forEach(b=>b.classList.remove('active'));currentPage='detail';document.getElementById('header-sub').textContent='';}
 function goBack(){if(prevPage==='detail')prevPage='home';showPage(prevPage);}
 function goProfile(){showPage('profile');}
 function goSearchCategory(cat){activeFilter=cat;showPage('search');document.getElementById('search-input').value='';renderSearch('',cat);}
-function updateHeaderAvatar(){const u=getUser();const el=document.getElementById('header-avatar');if(u&&u.avatar){el.innerHTML=`<img src="${u.avatar}" class="avatar-img" onerror="this.parentNode.innerHTML='👤'">`;}else{el.textContent='👤';}}
+function updateHeaderAvatar(){const u=currentUser;const el=document.getElementById('header-avatar');if(u&&u.avatar){el.innerHTML=`<img src="${u.avatar}" class="avatar-img" onerror="this.parentNode.innerHTML='👤'">`;}else{el.textContent='👤';}}
+
 function makeCard(p){const ap=getApproval(p.id);const sc=ap!==null?`<div class="pol-score"><div class="score-bar-bg"><div class="score-bar" style="width:${ap}%"></div></div><div class="score-num">${ap}% aprob.</div></div>`:`<div class="pol-score"><div class="score-num">Sin votos</div></div>`;const n=p.name.split(' ').slice(0,2).join(' ');const r=p.role.length>22?p.role.substring(0,20)+'…':p.role;return`<div class="pol-card ${p.party.toLowerCase()}" onclick="goDetail('${p.id}')"><div class="pol-card-top"><span class="party-badge ${p.party.toLowerCase()}">${p.party}</span><span style="font-size:22px">${getEmoji(p)}</span></div><div class="pol-name">${n}</div><div class="pol-role">${r}</div>${sc}</div>`;}
 function renderHome(){document.getElementById('scroll-ejecutivo').innerHTML=POLITICIANS.filter(p=>p.cat==='ejecutivo').map(makeCard).join('');document.getElementById('scroll-senado').innerHTML=POLITICIANS.filter(p=>p.cat==='senado').slice(0,10).map(makeCard).join('');document.getElementById('scroll-camara').innerHTML=POLITICIANS.filter(p=>p.cat==='camara').slice(0,10).map(makeCard).join('');document.getElementById('scroll-alcaldes').innerHTML=POLITICIANS.filter(p=>p.cat==='alcalde').slice(0,12).map(makeCard).join('');}
 function setFilter(f,el){activeFilter=f;document.querySelectorAll('.chip').forEach(c=>{c.classList.remove('all','active');c.classList.add('inactive');});el.classList.remove('inactive');if(f==='all')el.classList.add('all');else el.classList.add('active');doSearch();}
 function doSearch(){renderSearch(document.getElementById('search-input').value.toLowerCase().trim());}
 function renderSearch(q='',catFilter=null){let list=POLITICIANS;const f=catFilter||activeFilter;if(['PNP','PPD','PIP','MVC'].includes(f))list=list.filter(p=>p.party===f);else if(f&&f!=='all')list=list.filter(p=>p.cat===f);if(q)list=list.filter(p=>p.name.toLowerCase().includes(q)||p.role.toLowerCase().includes(q)||p.party.toLowerCase().includes(q)||p.municipio.toLowerCase().includes(q)||p.district.toLowerCase().includes(q)||p.cat.toLowerCase().includes(q));const c=document.getElementById('search-list');if(!list.length){c.innerHTML=`<div class="empty-state"><div class="empty-icon">🔍</div>No se encontraron resultados</div>`;return;}c.innerHTML=list.map(p=>{const ap=getApproval(p.id);const ab=ap!==null?`<span style="font-size:11px;color:var(--green);font-weight:700;margin-left:5px">${ap}%</span>`:'';return`<div class="search-item" onclick="goDetail('${p.id}')"><div class="si-emoji">${getEmoji(p)}</div><div class="si-info"><div class="si-name">${p.name}${ab}</div><div class="si-role"><span class="party-badge ${p.party.toLowerCase()}" style="margin-right:4px">${p.party}</span>${p.role}${p.municipio?' · '+p.municipio:''}</div></div><span class="si-arrow">›</span></div>`;}).join('');}
-function renderDetail(id){const p=POLITICIANS.find(x=>x.id===id);if(!p)return;const voted=getRatings()[id];const s=getScores()[id]||{up:0,down:0};const total=s.up+s.down;const ap=total>0?Math.round((s.up/total)*100):0;const complaints=getComplaints().filter(c=>c.politicianId===id);const di=p.municipio?`<span class="detail-district-badge">📍 ${p.municipio}</span>`:(p.district?`<span class="detail-district-badge">${p.district}</span>`:'');document.getElementById('detail-content').innerHTML=`<div class="detail-header"><button class="detail-back" onclick="goBack()">‹ Volver</button><div class="detail-hero"><div class="detail-emoji">${getEmoji(p)}</div><div class="detail-info"><div class="detail-name">${p.name}</div><div class="detail-role">${p.role}</div><div class="detail-badges"><span class="detail-party-badge party-badge ${p.party.toLowerCase()}">${p.party}</span>${di}</div></div></div></div><div class="stats-row"><div class="stat-box"><div class="stat-val" style="color:${ap>=50?'var(--green)':'var(--red)'}">${total?ap+'%':'—'}</div><div class="stat-lbl">Aprobación</div></div><div class="stat-box"><div class="stat-val">${total}</div><div class="stat-lbl">Evaluaciones</div></div><div class="stat-box"><div class="stat-val" style="color:var(--orange)">${complaints.length}</div><div class="stat-lbl">Denuncias</div></div></div><div class="action-row"><button class="action-btn btn-up ${voted==='up'?'voted':''}" onclick="vote('${id}','up')">👍 ${s.up}</button><button class="action-btn btn-down ${voted==='down'?'voted':''}" onclick="vote('${id}','down')">👎 ${s.down}</button><button class="action-btn btn-report" onclick="openReport('${id}')">📢 Denunciar</button></div><div class="news-section"><div class="news-header">Noticias recientes</div><button class="news-btn" id="news-btn-${id}" onclick="loadNews('${id}','${p.name.replace(/'/g,"\\'").replace(/"/g,'\\"')}')">🔎 Buscar noticias sobre ${p.name.split(' ')[0]}</button><div id="news-results-${id}"></div></div>${complaints.length>0?`<div style="padding:0 16px 18px"><div class="news-header">Denuncias</div>${complaints.map(c=>`<div class="news-item"><div class="news-title">${c.title}</div><div class="news-meta">${c.cat} · ${new Date(c.ts).toLocaleDateString('es-PR')}</div></div>`).join('')}</div>`:''}`;}
-function vote(id,dir){if(!getUser()){showToast('Inicia sesión para votar');return;}const ratings=getRatings();const scores=getScores();const prev=ratings[id];if(!scores[id])scores[id]={up:0,down:0};if(prev===dir){delete ratings[id];scores[id][dir]--;showToast('Voto removido');}else{if(prev)scores[id][prev]--;ratings[id]=dir;scores[id][dir]++;showToast(dir==='up'?'👍 Aprobaste':'👎 Desaprobaste');}setRatings(ratings);setScores(scores);renderDetail(id);renderHome();}
+function renderDetail(id){const p=POLITICIANS.find(x=>x.id===id);if(!p)return;const voted=userVotes[id];const s=politicianScores[id]||{up:0,down:0};const up=s.up||0,down=s.down||0;const total=up+down;const ap=total>0?Math.round((up/total)*100):0;const complaints=allComplaints[id]||[];const di=p.municipio?`<span class="detail-district-badge">📍 ${p.municipio}</span>`:(p.district?`<span class="detail-district-badge">${p.district}</span>`:'');document.getElementById('detail-content').innerHTML=`<div class="detail-header"><button class="detail-back" onclick="goBack()">‹ Volver</button><div class="detail-hero"><div class="detail-emoji">${getEmoji(p)}</div><div class="detail-info"><div class="detail-name">${p.name}</div><div class="detail-role">${p.role}</div><div class="detail-badges"><span class="detail-party-badge party-badge ${p.party.toLowerCase()}">${p.party}</span>${di}</div></div></div></div><div class="stats-row"><div class="stat-box"><div class="stat-val" style="color:${ap>=50?'var(--green)':'var(--red)'}">${total?ap+'%':'—'}</div><div class="stat-lbl">Aprobación</div></div><div class="stat-box"><div class="stat-val">${total}</div><div class="stat-lbl">Evaluaciones</div></div><div class="stat-box"><div class="stat-val" style="color:var(--orange)">${complaints.length}</div><div class="stat-lbl">Denuncias</div></div></div><div class="action-row"><button class="action-btn btn-up ${voted==='up'?'voted':''}" onclick="vote('${id}','up')">👍 ${up}</button><button class="action-btn btn-down ${voted==='down'?'voted':''}" onclick="vote('${id}','down')">👎 ${down}</button><button class="action-btn btn-report" onclick="openReport('${id}')">📢 Denunciar</button></div><div class="news-section"><div class="news-header">Noticias recientes</div><button class="news-btn" id="news-btn-${id}" onclick="loadNews('${id}','${p.name.replace(/'/g,"\\'").replace(/"/g,'\\"')}')">🔎 Buscar noticias sobre ${p.name.split(' ')[0]}</button><div id="news-results-${id}"></div></div>${complaints.length>0?`<div style="padding:0 16px 18px"><div class="news-header">Denuncias</div>${complaints.map(c=>`<div class="news-item"><div class="news-title">${c.title}</div><div class="news-meta">${c.cat} · ${c.createdAt&&c.createdAt.toDate?c.createdAt.toDate().toLocaleDateString('es-PR'):''}</div></div>`).join('')}</div>`:''}`;}
+
+async function vote(id,dir){
+  if(!currentUser){showToast('Inicia sesión para votar');return;}
+  const uid=currentUser.id;
+  const prev=userVotes[id];
+  const voteRef=doc(db,'users',uid,'votes',id);
+  const scoreRef=doc(db,'politicianScores',id);
+  const userRef=doc(db,'users',uid);
+  try{
+    const scoreSnap=await getDoc(scoreRef);
+    if(!scoreSnap.exists())await setDoc(scoreRef,{up:0,down:0});
+    if(prev===dir){
+      await deleteDoc(voteRef);
+      await updateDoc(scoreRef,{[dir]:increment(-1)});
+      await updateDoc(userRef,{evaluaciones:increment(-1),impact:increment(-10)});
+      showToast('Voto removido');
+    }else if(prev){
+      await setDoc(voteRef,{direction:dir,updatedAt:serverTimestamp()});
+      await updateDoc(scoreRef,{[prev]:increment(-1),[dir]:increment(1)});
+      showToast(dir==='up'?'👍 Aprobaste':'👎 Desaprobaste');
+    }else{
+      await setDoc(voteRef,{direction:dir,updatedAt:serverTimestamp()});
+      await updateDoc(scoreRef,{[dir]:increment(1)});
+      await updateDoc(userRef,{evaluaciones:increment(1),impact:increment(10)});
+      showToast(dir==='up'?'👍 Aprobaste':'👎 Desaprobaste');
+    }
+  }catch(e){console.error(e);showToast('Error: '+(e.message||e.code||'sin conexión'));}
+}
+
 async function loadNews(id,name){const btn=document.getElementById(`news-btn-${id}`);const res=document.getElementById(`news-results-${id}`);if(!btn||!res)return;btn.style.display='none';res.innerHTML=`<div class="news-loading"><div class="dot-pulse"><span></span><span></span><span></span></div><div style="margin-top:10px">Buscando noticias...</div></div>`;try{const r=await fetch('https://api.anthropic.com/v1/messages',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:1000,tools:[{type:'web_search_20250305',name:'web_search'}],messages:[{role:'user',content:`Search for the latest news about Puerto Rico politician "${name}" from 2025-2026. Return ONLY a JSON array with up to 5 items: [{"title":"...","summary":"...","date":"...","source":"..."}]. Respond in Spanish.`}]})});const data=await r.json();let items=[];for(const b of(data.content||[])){if(b.type==='text'&&b.text){try{const c=b.text.replace(/```json|```/g,'').trim();const p=JSON.parse(c);if(Array.isArray(p)){items=p;break;}}catch(e){}const m=b.text.match(/\[[\s\S]*\]/);if(m){try{items=JSON.parse(m[0]);break;}catch(e2){}}}}if(!items.length){res.innerHTML=`<div class="news-loading">No se encontraron noticias recientes.</div>`;return;}res.innerHTML=items.map(n=>`<div class="news-item"><div class="news-title">${n.title||''}</div><div class="news-meta">${n.source||''}${n.date?' · '+n.date:''}</div>${n.summary?`<div style="font-size:12px;color:var(--muted);margin-top:4px;line-height:1.4">${n.summary}</div>`:''}</div>`).join('');}catch(e){res.innerHTML=`<div class="news-loading">Error al cargar noticias.</div>`;btn.style.display='flex';}}
+
 function setRankTab(tab,el){rankTab=tab;document.querySelectorAll('#rank-tabs .tab').forEach(t=>t.classList.remove('active'));el.classList.add('active');renderRanking();}
-function renderRanking(){let list=rankTab==='all'?[...POLITICIANS]:POLITICIANS.filter(p=>p.cat===rankTab);list=list.map(p=>({...p,approval:getApproval(p.id)}));list.sort((a,b)=>{if(a.approval===null&&b.approval===null)return 0;if(a.approval===null)return 1;if(b.approval===null)return -1;return b.approval-a.approval;});document.getElementById('rank-list').innerHTML=list.map((p,i)=>{const rank=i+1;const cls=rank===1?'top1':rank===2?'top2':rank===3?'top3':'';const s=getScores()[p.id]||{up:0,down:0};const total=s.up+s.down;return`<div class="rank-item" onclick="goDetail('${p.id}')"><div class="rank-num ${cls}">#${rank}</div><div class="rank-emoji">${getEmoji(p)}</div><div class="rank-info"><div class="rank-name">${p.name}</div><div class="rank-role"><span class="party-badge ${p.party.toLowerCase()}">${p.party}</span> ${p.role.split('·')[0].trim()}</div></div><div class="rank-score"><div class="rank-pct">${p.approval!==null?p.approval+'%':'—'}</div><div class="rank-votes">${total} votos</div></div></div>`;}).join('');}
-function openReport(id){if(!getUser()){showToast('Inicia sesión para denunciar');return;}complaintPoliticianId=id;selectedCat='';document.getElementById('complaint-title').value='';document.getElementById('complaint-desc').value='';document.querySelectorAll('.cat-btn').forEach(b=>b.classList.remove('selected'));const p=POLITICIANS.find(x=>x.id===id);document.getElementById('report-politician-name').textContent='Contra: '+(p?p.name:'');document.getElementById('report-modal').classList.add('open');}
+function renderRanking(){let list=rankTab==='all'?[...POLITICIANS]:POLITICIANS.filter(p=>p.cat===rankTab);list=list.map(p=>({...p,approval:getApproval(p.id)}));list.sort((a,b)=>{if(a.approval===null&&b.approval===null)return 0;if(a.approval===null)return 1;if(b.approval===null)return -1;return b.approval-a.approval;});document.getElementById('rank-list').innerHTML=list.map((p,i)=>{const rank=i+1;const cls=rank===1?'top1':rank===2?'top2':rank===3?'top3':'';const s=politicianScores[p.id]||{up:0,down:0};const total=(s.up||0)+(s.down||0);return`<div class="rank-item" onclick="goDetail('${p.id}')"><div class="rank-num ${cls}">#${rank}</div><div class="rank-emoji">${getEmoji(p)}</div><div class="rank-info"><div class="rank-name">${p.name}</div><div class="rank-role"><span class="party-badge ${p.party.toLowerCase()}">${p.party}</span> ${p.role.split('·')[0].trim()}</div></div><div class="rank-score"><div class="rank-pct">${p.approval!==null?p.approval+'%':'—'}</div><div class="rank-votes">${total} votos</div></div></div>`;}).join('');}
+
+function openReport(id){if(!currentUser){showToast('Inicia sesión para denunciar');return;}complaintPoliticianId=id;selectedCat='';document.getElementById('complaint-title').value='';document.getElementById('complaint-desc').value='';document.querySelectorAll('.cat-btn').forEach(b=>b.classList.remove('selected'));const p=POLITICIANS.find(x=>x.id===id);document.getElementById('report-politician-name').textContent='Contra: '+(p?p.name:'');document.getElementById('report-modal').classList.add('open');}
 function closeModal(id){document.getElementById(id).classList.remove('open');}
 function selectCat(el,cat){selectedCat=cat;document.querySelectorAll('.cat-btn').forEach(b=>b.classList.remove('selected'));el.classList.add('selected');}
-function submitComplaint(){if(!selectedCat){showToast('Selecciona una categoría');return;}const title=document.getElementById('complaint-title').value.trim();const desc=document.getElementById('complaint-desc').value.trim();if(!title){showToast('Escribe un título');return;}if(desc.length<50){showToast('Mínimo 50 caracteres');return;}const c=getComplaints();c.push({id:Date.now().toString(),politicianId:complaintPoliticianId,cat:selectedCat,title,desc,ts:Date.now()});setComplaints(c);closeModal('report-modal');showToast('📢 Denuncia registrada');if(currentPoliticianId)renderDetail(currentPoliticianId);}
-function renderProfile(){const user=getUser();const container=document.getElementById('profile-content');if(!user){container.innerHTML=`<div class="login-section"><div style="font-size:52px;margin-bottom:14px">🇵🇷</div><div class="login-title">Únete a GobiStats</div><div class="login-sub">Evalúa a tus representantes,<br>presenta denuncias y sigue el ranking.</div><button class="login-btn google-btn" onclick="loginGoogle()"><svg class="google-icon" viewBox="0 0 24 24"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg>Continuar con Google</button><button class="login-btn" style="background:var(--card);border-color:var(--border);color:var(--text)" onclick="loginDemo()">⚡ Entrar como Demo</button><div style="font-size:11px;color:var(--muted);margin-top:14px">Datos guardados localmente en este dispositivo</div></div>`;return;}const stats=getUserStats();const level=getLevel(stats);const score=stats.evaluaciones*10+stats.denuncias*30;const pct=Math.min(100,Math.round((score/level.next)*100));container.innerHTML=`<div class="profile-hero">${user.avatar?`<img src="${user.avatar}" class="profile-avatar" onerror="this.style.display='none'">`:`<div class="profile-avatar-placeholder">👤</div>`}<div class="profile-name">${user.name}</div><div class="profile-email">${user.email}</div><div class="profile-auth-badge">✅ ${user.provider||'Google'}</div></div><div class="profile-stats"><div class="pstat"><div class="pstat-val green">${stats.evaluaciones}</div><div class="pstat-lbl">Evaluaciones</div></div><div class="pstat"><div class="pstat-val red">${stats.denuncias}</div><div class="pstat-lbl">Denuncias</div></div><div class="pstat"><div class="pstat-val gold">${stats.impact.toLocaleString()}</div><div class="pstat-lbl">Impact Score</div></div></div><div class="level-section"><div class="level-card"><div class="level-label">Mi Nivel</div><div class="level-row"><div class="level-badge">${level.name.toUpperCase()}</div><div class="level-bar-wrap"><div class="level-bar-bg"><div class="level-bar-fill" style="width:${pct}%;background:${level.color}"></div></div><div class="level-bar-label">${score} / ${level.next} pts</div></div></div></div></div><button class="logout-btn" onclick="logout()">← Cerrar Sesión</button>`;}
-function loginGoogle(){const name=prompt('Tu nombre:','Usuario GobiStats');if(!name)return;const email=prompt('Tu email:','');setUser({id:'google-'+Date.now(),name:name,email:email||'usuario@gmail.com',avatar:'',provider:'Google'});showToast('✅ Sesión iniciada');renderProfile();}
-function loginDemo(){setUser({id:'demo-user',name:'PRbots AI',email:'prbots.ai@gmail.com',avatar:'',provider:'Demo'});showToast('⚡ Modo demo activo');renderProfile();}
-function logout(){setUser(null);showToast('Sesión cerrada');renderProfile();updateHeaderAvatar();}
-function showToast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2500);}
+
+async function submitComplaint(){
+  if(!currentUser){showToast('Inicia sesión');return;}
+  if(!selectedCat){showToast('Selecciona una categoría');return;}
+  const title=document.getElementById('complaint-title').value.trim();
+  const desc=document.getElementById('complaint-desc').value.trim();
+  if(!title){showToast('Escribe un título');return;}
+  if(desc.length<50){showToast('Mínimo 50 caracteres');return;}
+  try{
+    await addDoc(collection(db,'complaints'),{politicianId:complaintPoliticianId,userId:currentUser.id,cat:selectedCat,title,desc,createdAt:serverTimestamp()});
+    await updateDoc(doc(db,'users',currentUser.id),{denuncias:increment(1),impact:increment(30)});
+    closeModal('report-modal');
+    showToast('📢 Denuncia registrada');
+  }catch(e){console.error(e);showToast('Error: '+(e.message||e.code));}
+}
+
+function renderProfile(){const user=currentUser;const container=document.getElementById('profile-content');if(!user){container.innerHTML=`<div class="login-section"><div style="font-size:52px;margin-bottom:14px">🇵🇷</div><div class="login-title">Únete a GobiStats</div><div class="login-sub">Evalúa a tus representantes,<br>presenta denuncias y sigue el ranking.</div><button class="login-btn google-btn" onclick="loginGoogle()"><svg class="google-icon" viewBox="0 0 24 24"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg>Continuar con Google</button><button class="login-btn" style="background:var(--card);border-color:var(--border);color:var(--text)" onclick="loginDemo()">⚡ Entrar como Demo</button><div style="font-size:11px;color:var(--muted);margin-top:14px">Tus datos se sincronizan con tu cuenta Google en todos tus dispositivos</div></div>`;return;}const stats=getUserStats();const level=getLevel(stats);const score=stats.impact||0;const pct=Math.min(100,Math.round((score/level.next)*100));container.innerHTML=`<div class="profile-hero">${user.avatar?`<img src="${user.avatar}" class="profile-avatar" onerror="this.style.display='none'">`:`<div class="profile-avatar-placeholder">👤</div>`}<div class="profile-name">${user.name}</div><div class="profile-email">${user.email}</div><div class="profile-auth-badge">✅ ${user.provider||'Google'}</div></div><div class="profile-stats"><div class="pstat"><div class="pstat-val green">${stats.evaluaciones}</div><div class="pstat-lbl">Evaluaciones</div></div><div class="pstat"><div class="pstat-val red">${stats.denuncias}</div><div class="pstat-lbl">Denuncias</div></div><div class="pstat"><div class="pstat-val gold">${stats.impact.toLocaleString()}</div><div class="pstat-lbl">Impact Score</div></div></div><div class="level-section"><div class="level-card"><div class="level-label">Mi Nivel</div><div class="level-row"><div class="level-badge">${level.name.toUpperCase()}</div><div class="level-bar-wrap"><div class="level-bar-bg"><div class="level-bar-fill" style="width:${pct}%;background:${level.color}"></div></div><div class="level-bar-label">${score} / ${level.next} pts</div></div></div></div></div><button class="logout-btn" onclick="logout()">← Cerrar Sesión</button>`;}
+
+// --- AUTH
+async function loginGoogle(){
+  try{
+    const provider=new GoogleAuthProvider();
+    provider.setCustomParameters({prompt:'select_account'});
+    await signInWithPopup(auth,provider);
+  }catch(e){
+    console.error('Google sign-in error',e);
+    showToast('Error: '+(e.code||e.message||'no se pudo iniciar sesión'));
+  }
+}
+async function loginDemo(){
+  try{
+    await signInAnonymously(auth);
+  }catch(e){
+    console.error('Anonymous sign-in error',e);
+    showToast('Error: '+(e.code||e.message));
+  }
+}
+async function logout(){
+  try{await signOut(auth);showToast('Sesión cerrada');}
+  catch(e){showToast('Error al cerrar sesión');}
+}
+
+onAuthStateChanged(auth,async(user)=>{
+  // Clean up per-user subscriptions
+  userSubs.forEach(u=>{try{u();}catch(e){}});
+  userSubs=[];
+
+  if(user){
+    currentUser={
+      id:user.uid,
+      name:user.displayName||(user.isAnonymous?'PRbots Demo':'Usuario'),
+      email:user.email||(user.isAnonymous?'demo@gobistats.app':''),
+      avatar:user.photoURL||'',
+      provider:user.isAnonymous?'Demo':'Google'
+    };
+    try{
+      const userRef=doc(db,'users',user.uid);
+      const userSnap=await getDoc(userRef);
+      if(!userSnap.exists()){
+        await setDoc(userRef,{
+          name:currentUser.name,email:currentUser.email,avatar:currentUser.avatar,
+          provider:currentUser.provider,createdAt:serverTimestamp(),
+          evaluaciones:0,denuncias:0,impact:0
+        });
+      }else{
+        // Refresh display fields from Google on each login
+        await updateDoc(userRef,{name:currentUser.name,email:currentUser.email,avatar:currentUser.avatar,provider:currentUser.provider}).catch(()=>{});
+      }
+      // Subscribe to user stats doc
+      userSubs.push(onSnapshot(userRef,(snap)=>{if(snap.exists()){currentUserStats=snap.data();if(currentPage==='profile')renderProfile();}}));
+      // Subscribe to user's votes
+      userSubs.push(onSnapshot(collection(db,'users',user.uid,'votes'),(snap)=>{const next={};snap.forEach(d=>{next[d.id]=d.data().direction;});userVotes=next;rerenderCurrent();}));
+    }catch(e){console.error('User init error',e);showToast('Error de conexión con Firestore');}
+  }else{
+    currentUser=null;currentUserStats=null;userVotes={};
+  }
+  updateHeaderAvatar();
+  rerenderCurrent();
+});
+
+// Public subscriptions (no auth required)
+onSnapshot(collection(db,'politicianScores'),(snap)=>{const next={};snap.forEach(d=>{next[d.id]=d.data();});politicianScores=next;rerenderCurrent();},(err)=>{console.error('Scores subscription error',err);});
+onSnapshot(collection(db,'complaints'),(snap)=>{const next={};snap.forEach(d=>{const data=d.data();const pid=data.politicianId;if(!next[pid])next[pid]=[];next[pid].push({id:d.id,...data});});allComplaints=next;rerenderCurrent();},(err)=>{console.error('Complaints subscription error',err);});
+
+// --- Toast
+function showToast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2800);}
+
+// Expose handlers to window for inline onclick
+window.goProfile=goProfile;window.showPage=showPage;window.goDetail=goDetail;window.goBack=goBack;window.goSearchCategory=goSearchCategory;window.setFilter=setFilter;window.doSearch=doSearch;window.setRankTab=setRankTab;window.vote=vote;window.openReport=openReport;window.closeModal=closeModal;window.selectCat=selectCat;window.submitComplaint=submitComplaint;window.loginGoogle=loginGoogle;window.loginDemo=loginDemo;window.logout=logout;window.loadNews=loadNews;
+
+// Modal click outside to close
 document.querySelectorAll('.modal-overlay').forEach(o=>o.addEventListener('click',e=>{if(e.target===o)o.classList.remove('open');}));
-renderHome();renderSearch();updateHeaderAvatar();
+
+// Boot
+renderHome();renderSearch();renderRanking();updateHeaderAvatar();
+setTimeout(()=>{const b=document.getElementById('boot');if(b){b.classList.add('hide');setTimeout(()=>b.remove(),400);}},800);
 </script>
 </body>
 </html>
