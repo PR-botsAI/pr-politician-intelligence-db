@@ -7,22 +7,28 @@ service cloud.firestore {
              exists(/databases/$(database)/documents/admins/$(request.auth.uid));
     }
 
-    // Admins: anyone authed can check admin status; write is manual via Firebase Console
+    function isBanned() {
+      return exists(/databases/$(database)/documents/bannedUsers/$(request.auth.uid));
+    }
+
     match /admins/{uid} {
       allow read: if request.auth != null;
       allow write: if false;
     }
 
-    // Politician aggregate scores: public read, authed write
-    match /politicianScores/{pid} {
-      allow read: if true;
-      allow write: if request.auth != null;
+    match /bannedUsers/{uid} {
+      allow read: if request.auth != null;
+      allow write: if isAdmin();
     }
 
-    // Complaints: public read, authed create (own only), owner or admin delete
+    match /politicianScores/{pid} {
+      allow read: if true;
+      allow write: if request.auth != null && !isBanned();
+    }
+
     match /complaints/{cid} {
       allow read: if true;
-      allow create: if request.auth != null
+      allow create: if request.auth != null && !isBanned()
         && request.resource.data.userId == request.auth.uid
         && request.resource.data.title is string
         && request.resource.data.desc is string
@@ -33,11 +39,9 @@ service cloud.firestore {
         && (resource.data.userId == request.auth.uid || isAdmin());
     }
 
-    // Comments: public read, email-verified authed create only (no Demo/anon),
-    // owner can edit/delete, admin can delete any
     match /comments/{cid} {
       allow read: if true;
-      allow create: if request.auth != null
+      allow create: if request.auth != null && !isBanned()
         && request.auth.token.email != null
         && request.auth.token.email is string
         && request.auth.token.email.size() > 0
@@ -51,7 +55,6 @@ service cloud.firestore {
         && (resource.data.userId == request.auth.uid || isAdmin());
     }
 
-    // Login logs: authed user can create own record; only admins can read; immutable otherwise
     match /loginLogs/{id} {
       allow create: if request.auth != null
         && request.resource.data.userId == request.auth.uid;
@@ -59,15 +62,12 @@ service cloud.firestore {
       allow update, delete: if false;
     }
 
-    // User public profile: public read (name, avatar, stats — NO email).
-    // Owner-only write.
     match /users/{uid} {
       allow read: if true;
       allow write: if request.auth != null && request.auth.uid == uid;
 
-      // Votes are private to the user
       match /votes/{pid} {
-        allow read, write: if request.auth != null && request.auth.uid == uid;
+        allow read, write: if request.auth != null && request.auth.uid == uid && !isBanned();
       }
     }
   }
