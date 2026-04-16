@@ -1,21 +1,11 @@
 ---
 slug: wanda-soto-tolentino
 full_name: Wanda M. Soto Tolentino
-position: Senadora de Distrito
-district: Distrito 26
+position: senator_at_large
+district: Acumulación
 party: PNP
+photo_url: https://senado.pr.gov/images/senadores/SWanda-Soto-Tolentino.webp
+gov_url: https://senado.pr.gov/hon-wanda-m-soto-tolentino
+email: wsoto@senado.pr.gov
+phone: (787) 724-2030
 ---
-### Basic Info
-- Full Name: Wanda M. Soto Tolentino
-- Position: Senadora Distrito 26
-- District: Distrito 26
-- Party: PNP
-### Timeline
-- 2024-11-05 Election: Elegida Senadora Distrito 26
-### Belief System Summary
-Wanda M. Soto Tolentino se especializa en turismo y cultura puertorriqueña.
-### Contact Info
-- Email: wsoto@senado.pr.gov
-### Complaints & Public Grievances
-<!-- AUTO-INJECTED BY GOBISTATS SYNC – DO NOT EDIT MANUALLY -->
-<!-- Total complaints: 4 | Pending: 1 | Resolved: 3 -->

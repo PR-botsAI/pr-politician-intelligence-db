@@ -1,21 +1,11 @@
 ---
 slug: rafael-santos-ortiz
 full_name: Rafael Santos Ortiz
-position: Senador de Distrito
-district: Distrito 24
+position: senator_at_large
+district: Acumulación
 party: PNP
+photo_url: https://senado.pr.gov/images/senadores/ec55e22e-5997-400e-9dd3-06679b05264f.jpg
+gov_url: https://senado.pr.gov/rafael-santos-ortiz
+email: rsantos@senado.pr.gov
+phone: (787) 724-2030
 ---
-### Basic Info
-- Full Name: Rafael Santos Ortiz
-- Position: Senador Distrito 24
-- District: Distrito 24
-- Party: PNP
-### Timeline
-- 2024-11-05 Election: Re-elegido Senador Distrito 24
-### Belief System Summary
-Rafael Santos Ortiz es veterano del Senado con enfoque en agricultura y medio ambiente.
-### Contact Info
-- Email: rsantos@senado.pr.gov
-### Complaints & Public Grievances
-<!-- AUTO-INJECTED BY GOBISTATS SYNC – DO NOT EDIT MANUALLY -->
-<!-- Total complaints: 5 | Pending: 1 | Resolved: 4 -->

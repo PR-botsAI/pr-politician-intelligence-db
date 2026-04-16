@@ -1,21 +1,11 @@
 ---
 slug: ada-alvarez-conde
 full_name: Ada M. Álvarez Conde
-position: Senadora de Distrito
-district: Distrito 15
+position: senator_at_large
+district: Acumulación
 party: PPD
+photo_url: https://senado.pr.gov/images/senadores/Ada-Alvarez-Conde.jpg
+gov_url: https://senado.pr.gov/hon-ada-m-álvarez-conde
+email: aalvarez@senado.pr.gov
+phone: (787) 724-2030
 ---
-### Basic Info
-- Full Name: Ada M. Álvarez Conde
-- Position: Senadora Distrito 15
-- District: Distrito 15
-- Party: PPD
-### Timeline
-- 2024-11-05 Election: Elegida Senadora Distrito 15
-### Belief System Summary
-Ada M. Álvarez Conde es especialista en derecho laboral y derechos de las personas con discapacidad.
-### Contact Info
-- Email: aalvarez@senado.pr.gov
-### Complaints & Public Grievances
-<!-- AUTO-INJECTED BY GOBISTATS SYNC – DO NOT EDIT MANUALLY -->
-<!-- Total complaints: 3 | Pending: 0 | Resolved: 3 -->
