@@ -74,6 +74,7 @@ body{background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSy
 .news-section{padding:0 16px 18px;}
 .news-header{font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);margin-bottom:10px;display:flex;align-items:center;gap:6px;}
 .news-header::before{content:'';width:3px;height:14px;background:var(--gold);border-radius:2px;}
+.news-header.comments::before{background:var(--accent2);}
 .news-btn{width:100%;padding:12px;background:rgba(245,197,24,0.07);border:1px solid rgba(245,197,24,0.2);border-radius:var(--r);color:var(--gold);font-size:13px;font-weight:600;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:7px;}
 .news-item{background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:11px 13px;margin-bottom:7px;}
 .news-item:hover{background:var(--card2);}
@@ -82,6 +83,24 @@ body{background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSy
 .dot-pulse{display:inline-flex;gap:4px;}.dot-pulse span{width:6px;height:6px;background:var(--accent2);border-radius:50%;animation:dp 1.2s infinite;}
 .dot-pulse span:nth-child(2){animation-delay:.2s}.dot-pulse span:nth-child(3){animation-delay:.4s}
 @keyframes dp{0%,100%{opacity:.3;transform:scale(.8)}50%{opacity:1;transform:scale(1)}}
+.comment-item{background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:11px 13px;margin-bottom:7px;display:flex;gap:10px;align-items:flex-start;}
+.comment-avatar{width:32px;height:32px;border-radius:50%;object-fit:cover;flex-shrink:0;background:var(--accent);display:flex;align-items:center;justify-content:center;color:white;font-weight:800;font-size:13px;}
+.comment-body{flex:1;min-width:0;}
+.comment-head{display:flex;align-items:center;gap:6px;margin-bottom:2px;flex-wrap:wrap;}
+.comment-name{font-size:13px;font-weight:700;}
+.comment-admin-email{font-size:10px;color:var(--orange);font-weight:500;word-break:break-all;}
+.comment-date{font-size:10px;color:var(--muted);margin-bottom:5px;}
+.comment-text{font-size:13px;line-height:1.4;word-break:break-word;color:var(--text);}
+.comment-del{background:none;border:none;color:var(--red);cursor:pointer;font-size:13px;padding:4px 6px;border-radius:6px;flex-shrink:0;}
+.comment-del:hover{background:rgba(239,68,68,0.12);}
+.comment-box{background:var(--card);border:1px solid var(--border2);border-radius:var(--r);padding:10px;margin-top:10px;}
+.comment-textarea{width:100%;background:transparent;border:none;color:var(--text);font-size:14px;outline:none;resize:none;height:56px;font-family:inherit;}
+.comment-actions{display:flex;justify-content:space-between;align-items:center;margin-top:6px;}
+.comment-count{font-size:10px;color:var(--muted);}
+.comment-submit{background:var(--accent);border:none;color:white;font-size:12px;font-weight:700;padding:7px 16px;border-radius:18px;cursor:pointer;}
+.comment-submit:disabled{opacity:.5;cursor:not-allowed;}
+.comment-locked{background:rgba(124,111,232,0.05);border:1px dashed rgba(124,111,232,0.25);border-radius:var(--r);padding:14px;text-align:center;margin-top:10px;color:var(--muted);font-size:12px;}
+.comment-locked b{color:var(--accent2);}
 .profile-hero{background:linear-gradient(135deg,var(--accent) 0%,#4F46E5 50%,#7C3AED 100%);padding:36px 20px 48px;text-align:center;position:relative;overflow:hidden;}
 .profile-hero::before{content:'';position:absolute;top:-30px;right:-30px;width:120px;height:120px;background:rgba(255,255,255,0.05);border-radius:50%;}
 .profile-avatar{width:76px;height:76px;border-radius:50%;border:3px solid rgba(255,255,255,0.5);margin:0 auto 10px;display:block;object-fit:cover;}
@@ -99,12 +118,31 @@ body{background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSy
 .level-bar-wrap{flex:1;}.level-bar-bg{height:5px;background:rgba(255,255,255,0.06);border-radius:3px;}
 .level-bar-fill{height:5px;border-radius:3px;background:linear-gradient(90deg,var(--accent),var(--accent2));transition:width 0.8s ease;}
 .level-bar-label{font-size:10px;color:var(--muted);margin-top:4px;}
+.admin-section{padding:0 14px 14px;}
+.admin-card{background:var(--card);border:1px solid rgba(249,115,22,0.25);border-radius:var(--r2);padding:14px;}
+.admin-title{font-size:12px;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;color:var(--orange);margin-bottom:10px;display:flex;align-items:center;gap:6px;}
+.admin-tabs{display:flex;gap:6px;margin-bottom:12px;overflow-x:auto;scrollbar-width:none;}
+.admin-tabs::-webkit-scrollbar{display:none;}
+.admin-tab{flex-shrink:0;padding:5px 11px;border-radius:14px;font-size:11px;font-weight:700;cursor:pointer;border:1px solid var(--border);background:transparent;color:var(--muted);}
+.admin-tab.active{background:var(--orange);border-color:var(--orange);color:white;}
+.log-row{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:9px 11px;margin-bottom:6px;font-size:11px;}
+.log-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:3px;gap:8px;}
+.log-email{font-weight:700;color:var(--text);word-break:break-all;font-size:12px;}
+.log-time{color:var(--muted);font-size:10px;white-space:nowrap;}
+.log-meta{display:flex;flex-wrap:wrap;gap:6px;color:var(--muted);font-size:10px;}
+.log-ip{color:var(--accent2);font-family:monospace;}
+.log-ua{margin-top:3px;color:var(--muted);font-size:10px;word-break:break-all;opacity:.7;}
+.log-badge{font-size:9px;font-weight:800;padding:1px 5px;border-radius:3px;background:rgba(34,197,94,0.15);color:var(--green);}
+.log-badge.demo{background:rgba(139,140,160,0.15);color:var(--muted);}
+.admin-empty{text-align:center;padding:18px;color:var(--muted);font-size:12px;}
 .logout-btn{margin:0 14px 16px;width:calc(100% - 28px);padding:13px;background:rgba(239,68,68,0.08);border:1px solid rgba(239,68,68,0.2);border-radius:var(--r);color:var(--red);font-size:14px;font-weight:700;cursor:pointer;display:block;}
 .login-section{padding:36px 20px;text-align:center;}.login-title{font-size:22px;font-weight:800;margin-bottom:8px;}
 .login-sub{font-size:14px;color:var(--muted);margin-bottom:24px;line-height:1.5;}
 .login-btn{width:100%;padding:13px;border-radius:var(--r);font-size:15px;font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:10px;border:1px solid;margin-bottom:10px;}
 .google-btn{background:white;border-color:rgba(0,0,0,0.15);color:#1a1a1a;}.google-icon{width:20px;height:20px;flex-shrink:0;}
 .login-btn:disabled{opacity:0.5;cursor:wait;}
+.privacy-notice{font-size:10px;color:var(--muted);padding:14px 20px 0;text-align:center;line-height:1.4;}
+.privacy-notice a{color:var(--accent2);text-decoration:underline;}
 .modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.7);z-index:200;display:flex;align-items:flex-end;justify-content:center;opacity:0;pointer-events:none;transition:opacity 0.25s;backdrop-filter:blur(4px);}
 .modal-overlay.open{opacity:1;pointer-events:all;}
 .modal{background:var(--surface);border-radius:22px 22px 0 0;padding:8px 0 0;width:100%;max-width:480px;max-height:82vh;overflow-y:auto;transform:translateY(100%);transition:transform 0.3s cubic-bezier(0.34,1.1,0.64,1);}
@@ -218,7 +256,7 @@ body{background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSy
 <script type="module">
 import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js';
 import { getAuth, GoogleAuthProvider, signInWithPopup, signInAnonymously, onAuthStateChanged, signOut } from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js';
-import { getFirestore, doc, setDoc, getDoc, updateDoc, deleteDoc, onSnapshot, collection, increment, serverTimestamp, addDoc } from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js';
+import { getFirestore, doc, setDoc, getDoc, updateDoc, deleteDoc, onSnapshot, collection, increment, serverTimestamp, addDoc, query, orderBy, limit, getDocs, where } from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js';
 
 const firebaseConfig = {
   apiKey: "AIzaSyCcyQXqyiyz_Wo_KNxLxyY6sccsuc3oWAs",
@@ -240,6 +278,11 @@ const REPO_NAME = 'pr-politician-intelligence-db';
 const FOLDERS = { executive: 'ejecutivo', senators: 'senado', representatives: 'camara', mayors: 'alcalde' };
 const CACHE_KEY = 'gs_politicians_cache_v2';
 const CACHE_TTL = 60 * 60 * 1000;
+
+function escapeHtml(s) {
+  if (s == null) return '';
+  return String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+}
 
 function parseFrontmatter(text) {
   const m = text.match(/^---\s*\n([\s\S]*?)\n---/);
@@ -349,13 +392,18 @@ function loadStaleCache() {
 }
 
 let currentPage='home',currentPoliticianId=null,prevPage='home',rankTab='all',selectedCat='',complaintPoliticianId=null,activeFilter='all';
-let currentUser=null, currentUserStats=null, userVotes={}, politicianScores={}, allComplaints={};
+let currentUser=null, currentUserStats=null, userVotes={}, politicianScores={}, allComplaints={}, allComments={};
 let userSubs=[];
+let isAdmin = false;
+let adminTab = 'logins';
+let adminLogs = [], adminAllComments = [];
+let adminDataLoaded = false;
 
 function getApproval(id){const s=politicianScores[id]||{up:0,down:0};const t=(s.up||0)+(s.down||0);return t===0?null:Math.round(((s.up||0)/t)*100);}
 function getUserStats(){if(!currentUser||!currentUserStats)return{evaluaciones:0,denuncias:0,impact:0};return{evaluaciones:currentUserStats.evaluaciones||0,denuncias:currentUserStats.denuncias||0,impact:currentUserStats.impact||0};}
 function getLevel(s){const sc=s.impact||0;if(sc>=500)return{name:'Leyenda',next:1000,color:'#F5C518'};if(sc>=200)return{name:'Watchdog',next:500,color:'#A392FF'};if(sc>=75)return{name:'Activista',next:200,color:'#22C55E'};if(sc>=20)return{name:'Ciudadano',next:75,color:'#60A5FA'};return{name:'Rookie',next:20,color:'#8B8CA0'};}
 function getEmoji(p){if(p.cat==='ejecutivo')return p.pos==='gobernadora'?'🏝️':'🏛️';if(p.cat==='senado')return'⚖️';if(p.cat==='camara')return'🏛️';return'🏙️';}
+function canComment(){ return currentUser && currentUser.provider === 'Google' && !!currentUser.email; }
 
 function rerenderCurrent(){if(currentPage==='home')renderHome();if(currentPage==='search')renderSearch(document.getElementById('search-input').value.toLowerCase().trim());if(currentPage==='ranking')renderRanking();if(currentPage==='profile')renderProfile();if(currentPage==='detail'&&currentPoliticianId)renderDetail(currentPoliticianId);}
 
@@ -364,9 +412,9 @@ function goDetail(id){prevPage=currentPage;currentPoliticianId=id;renderDetail(i
 function goBack(){if(prevPage==='detail')prevPage='home';showPage(prevPage);}
 function goProfile(){showPage('profile');}
 function goSearchCategory(cat){activeFilter=cat;showPage('search');document.getElementById('search-input').value='';renderSearch('',cat);}
-function updateHeaderAvatar(){const u=currentUser;const el=document.getElementById('header-avatar');if(u&&u.avatar){el.innerHTML=`<img src="${u.avatar}" class="avatar-img" onerror="this.parentNode.innerHTML='👤'">`;}else{el.textContent='👤';}}
+function updateHeaderAvatar(){const u=currentUser;const el=document.getElementById('header-avatar');if(u&&u.avatar){el.innerHTML=`<img src="${escapeHtml(u.avatar)}" class="avatar-img" onerror="this.parentNode.innerHTML='👤'">`;}else{el.textContent='👤';}}
 
-function makeCard(p){const ap=getApproval(p.id);const sc=ap!==null?`<div class="pol-score"><div class="score-bar-bg"><div class="score-bar" style="width:${ap}%"></div></div><div class="score-num">${ap}% aprob.</div></div>`:`<div class="pol-score"><div class="score-num">Sin votos</div></div>`;const n=p.name.split(' ').slice(0,2).join(' ');const r=p.role.length>22?p.role.substring(0,20)+'…':p.role;return`<div class="pol-card ${p.party.toLowerCase()}" onclick="goDetail('${p.id}')"><div class="pol-card-top"><span class="party-badge ${p.party.toLowerCase()}">${p.party}</span><span style="font-size:22px">${getEmoji(p)}</span></div><div class="pol-name">${n}</div><div class="pol-role">${r}</div>${sc}</div>`;}
+function makeCard(p){const ap=getApproval(p.id);const sc=ap!==null?`<div class="pol-score"><div class="score-bar-bg"><div class="score-bar" style="width:${ap}%"></div></div><div class="score-num">${ap}% aprob.</div></div>`:`<div class="pol-score"><div class="score-num">Sin votos</div></div>`;const n=escapeHtml(p.name.split(' ').slice(0,2).join(' '));const r=escapeHtml(p.role.length>22?p.role.substring(0,20)+'…':p.role);return`<div class="pol-card ${p.party.toLowerCase()}" onclick="goDetail('${p.id}')"><div class="pol-card-top"><span class="party-badge ${p.party.toLowerCase()}">${p.party}</span><span style="font-size:22px">${getEmoji(p)}</span></div><div class="pol-name">${n}</div><div class="pol-role">${r}</div>${sc}</div>`;}
 
 function renderHome(){
   const total = POLITICIANS.length;
@@ -379,9 +427,49 @@ function renderHome(){
 
 function setFilter(f,el){activeFilter=f;document.querySelectorAll('.chip').forEach(c=>{c.classList.remove('all','active');c.classList.add('inactive');});el.classList.remove('inactive');if(f==='all')el.classList.add('all');else el.classList.add('active');doSearch();}
 function doSearch(){renderSearch(document.getElementById('search-input').value.toLowerCase().trim());}
-function renderSearch(q='',catFilter=null){let list=POLITICIANS;const f=catFilter||activeFilter;if(['PNP','PPD','PIP','MVC'].includes(f))list=list.filter(p=>p.party===f);else if(f&&f!=='all')list=list.filter(p=>p.cat===f);if(q)list=list.filter(p=>p.name.toLowerCase().includes(q)||p.role.toLowerCase().includes(q)||p.party.toLowerCase().includes(q)||(p.municipio||'').toLowerCase().includes(q)||(p.district||'').toLowerCase().includes(q)||p.cat.toLowerCase().includes(q));const c=document.getElementById('search-list');if(!list.length){c.innerHTML=`<div class="empty-state"><div class="empty-icon">🔍</div>No se encontraron resultados${POLITICIANS.length===0?' — datos aún cargando':''}</div>`;return;}c.innerHTML=list.map(p=>{const ap=getApproval(p.id);const ab=ap!==null?`<span style="font-size:11px;color:var(--green);font-weight:700;margin-left:5px">${ap}%</span>`:'';return`<div class="search-item" onclick="goDetail('${p.id}')"><div class="si-emoji">${getEmoji(p)}</div><div class="si-info"><div class="si-name">${p.name}${ab}</div><div class="si-role"><span class="party-badge ${p.party.toLowerCase()}" style="margin-right:4px">${p.party}</span>${p.role}${p.municipio?' · '+p.municipio:''}</div></div><span class="si-arrow">›</span></div>`;}).join('');}
+function renderSearch(q='',catFilter=null){let list=POLITICIANS;const f=catFilter||activeFilter;if(['PNP','PPD','PIP','MVC'].includes(f))list=list.filter(p=>p.party===f);else if(f&&f!=='all')list=list.filter(p=>p.cat===f);if(q)list=list.filter(p=>p.name.toLowerCase().includes(q)||p.role.toLowerCase().includes(q)||p.party.toLowerCase().includes(q)||(p.municipio||'').toLowerCase().includes(q)||(p.district||'').toLowerCase().includes(q)||p.cat.toLowerCase().includes(q));const c=document.getElementById('search-list');if(!list.length){c.innerHTML=`<div class="empty-state"><div class="empty-icon">🔍</div>No se encontraron resultados${POLITICIANS.length===0?' — datos aún cargando':''}</div>`;return;}c.innerHTML=list.map(p=>{const ap=getApproval(p.id);const ab=ap!==null?`<span style="font-size:11px;color:var(--green);font-weight:700;margin-left:5px">${ap}%</span>`:'';return`<div class="search-item" onclick="goDetail('${p.id}')"><div class="si-emoji">${getEmoji(p)}</div><div class="si-info"><div class="si-name">${escapeHtml(p.name)}${ab}</div><div class="si-role"><span class="party-badge ${p.party.toLowerCase()}" style="margin-right:4px">${p.party}</span>${escapeHtml(p.role)}${p.municipio?' · '+escapeHtml(p.municipio):''}</div></div><span class="si-arrow">›</span></div>`;}).join('');}
 
-function renderDetail(id){const p=POLITICIANS.find(x=>x.id===id);if(!p){document.getElementById('detail-content').innerHTML='<div class="empty-state">Candidato no encontrado</div>';return;}const voted=userVotes[id];const s=politicianScores[id]||{up:0,down:0};const up=s.up||0,down=s.down||0;const total=up+down;const ap=total>0?Math.round((up/total)*100):0;const complaints=allComplaints[id]||[];const di=p.municipio?`<span class="detail-district-badge">📍 ${p.municipio}</span>`:(p.district?`<span class="detail-district-badge">${p.district}</span>`:'');document.getElementById('detail-content').innerHTML=`<div class="detail-header"><button class="detail-back" onclick="goBack()">‹ Volver</button><div class="detail-hero"><div class="detail-emoji">${getEmoji(p)}</div><div class="detail-info"><div class="detail-name">${p.name}</div><div class="detail-role">${p.role}</div><div class="detail-badges"><span class="detail-party-badge party-badge ${p.party.toLowerCase()}">${p.party}</span>${di}</div></div></div></div><div class="stats-row"><div class="stat-box"><div class="stat-val" style="color:${ap>=50?'var(--green)':'var(--red)'}">${total?ap+'%':'—'}</div><div class="stat-lbl">Aprobación</div></div><div class="stat-box"><div class="stat-val">${total}</div><div class="stat-lbl">Evaluaciones</div></div><div class="stat-box"><div class="stat-val" style="color:var(--orange)">${complaints.length}</div><div class="stat-lbl">Denuncias</div></div></div><div class="action-row"><button class="action-btn btn-up ${voted==='up'?'voted':''}" onclick="vote('${id}','up')">👍 ${up}</button><button class="action-btn btn-down ${voted==='down'?'voted':''}" onclick="vote('${id}','down')">👎 ${down}</button><button class="action-btn btn-report" onclick="openReport('${id}')">📢 Denunciar</button></div><div class="news-section"><div class="news-header">Noticias recientes</div><button class="news-btn" id="news-btn-${id}" onclick="loadNews('${id}','${p.name.replace(/'/g,"\\'").replace(/"/g,'\\"')}')">🔎 Buscar noticias sobre ${p.name.split(' ')[0]}</button><div id="news-results-${id}"></div></div>${complaints.length>0?`<div style="padding:0 16px 18px"><div class="news-header">Denuncias</div>${complaints.map(c=>`<div class="news-item"><div class="news-title">${c.title}</div><div class="news-meta">${c.cat} · ${c.createdAt&&c.createdAt.toDate?c.createdAt.toDate().toLocaleDateString('es-PR'):''}</div></div>`).join('')}</div>`:''}`;}
+function renderCommentsSection(politicianId) {
+  const list = allComments[politicianId] || [];
+  const n = list.length;
+  let body = '';
+  if (n === 0) {
+    body = `<div class="news-loading" style="padding:14px">Sé el primero en comentar.</div>`;
+  } else {
+    body = list.map(c => {
+      const iOwn = currentUser && c.userId === currentUser.id;
+      const canDel = iOwn || isAdmin;
+      const d = c.createdAt && c.createdAt.toDate ? c.createdAt.toDate().toLocaleDateString('es-PR', { month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' }) : '';
+      const initial = (c.userName || '?').trim().charAt(0).toUpperCase();
+      const avatar = c.userAvatar
+        ? `<img src="${escapeHtml(c.userAvatar)}" class="comment-avatar" onerror="this.outerHTML='<div class=&quot;comment-avatar&quot;>${escapeHtml(initial)}</div>'">`
+        : `<div class="comment-avatar">${escapeHtml(initial)}</div>`;
+      return `<div class="comment-item">${avatar}<div class="comment-body"><div class="comment-head"><span class="comment-name">${escapeHtml(c.userName || 'Usuario')}</span>${iOwn ? '<span style="font-size:10px;color:var(--accent2);font-weight:600">(tú)</span>' : ''}</div><div class="comment-date">${d}</div><div class="comment-text">${escapeHtml(c.text)}</div></div>${canDel ? `<button class="comment-del" onclick="deleteComment('${c.id}')" title="Eliminar">🗑️</button>` : ''}</div>`;
+    }).join('');
+  }
+
+  let box = '';
+  if (canComment()) {
+    box = `<div class="comment-box"><textarea class="comment-textarea" id="comment-input-${politicianId}" maxlength="500" placeholder="Tu opinión pública (máx. 500 caracteres)..."></textarea><div class="comment-actions"><span class="comment-count"><span id="cc-${politicianId}">0</span>/500</span><button class="comment-submit" onclick="submitComment('${politicianId}')">💬 Publicar</button></div></div>`;
+  } else if (currentUser && currentUser.provider === 'Demo') {
+    box = `<div class="comment-locked">Los comentarios requieren <b>inicio con Google</b> (email verificado). La cuenta Demo solo puede leer.</div>`;
+  } else if (!currentUser) {
+    box = `<div class="comment-locked">Inicia sesión con <b>Google</b> en Perfil para comentar.</div>`;
+  }
+
+  return `<div class="news-section"><div class="news-header comments">Comentarios (${n})</div>${body}${box}</div>`;
+}
+
+function renderDetail(id){const p=POLITICIANS.find(x=>x.id===id);if(!p){document.getElementById('detail-content').innerHTML='<div class="empty-state">Candidato no encontrado</div>';return;}const voted=userVotes[id];const s=politicianScores[id]||{up:0,down:0};const up=s.up||0,down=s.down||0;const total=up+down;const ap=total>0?Math.round((up/total)*100):0;const complaints=allComplaints[id]||[];const di=p.municipio?`<span class="detail-district-badge">📍 ${escapeHtml(p.municipio)}</span>`:(p.district?`<span class="detail-district-badge">${escapeHtml(p.district)}</span>`:'');const nameEsc = escapeHtml(p.name);const firstName = escapeHtml(p.name.split(' ')[0]);const nameForJs = p.name.replace(/'/g,"\\'").replace(/"/g,'\\"');document.getElementById('detail-content').innerHTML=`<div class="detail-header"><button class="detail-back" onclick="goBack()">‹ Volver</button><div class="detail-hero"><div class="detail-emoji">${getEmoji(p)}</div><div class="detail-info"><div class="detail-name">${nameEsc}</div><div class="detail-role">${escapeHtml(p.role)}</div><div class="detail-badges"><span class="detail-party-badge party-badge ${p.party.toLowerCase()}">${p.party}</span>${di}</div></div></div></div><div class="stats-row"><div class="stat-box"><div class="stat-val" style="color:${ap>=50?'var(--green)':'var(--red)'}">${total?ap+'%':'—'}</div><div class="stat-lbl">Aprobación</div></div><div class="stat-box"><div class="stat-val">${total}</div><div class="stat-lbl">Evaluaciones</div></div><div class="stat-box"><div class="stat-val" style="color:var(--orange)">${complaints.length}</div><div class="stat-lbl">Denuncias</div></div></div><div class="action-row"><button class="action-btn btn-up ${voted==='up'?'voted':''}" onclick="vote('${id}','up')">👍 ${up}</button><button class="action-btn btn-down ${voted==='down'?'voted':''}" onclick="vote('${id}','down')">👎 ${down}</button><button class="action-btn btn-report" onclick="openReport('${id}')">📢 Denunciar</button></div>${renderCommentsSection(id)}<div class="news-section"><div class="news-header">Noticias recientes</div><button class="news-btn" id="news-btn-${id}" onclick="loadNews('${id}','${nameForJs}')">🔎 Buscar noticias sobre ${firstName}</button><div id="news-results-${id}"></div></div>${complaints.length>0?`<div style="padding:0 16px 18px"><div class="news-header">Denuncias</div>${complaints.map(c=>`<div class="news-item"><div class="news-title">${escapeHtml(c.title)}</div><div class="news-meta">${escapeHtml(c.cat)} · ${c.createdAt&&c.createdAt.toDate?c.createdAt.toDate().toLocaleDateString('es-PR'):''}</div></div>`).join('')}</div>`:''}`;
+  // wire up textarea counter
+  const ta = document.getElementById(`comment-input-${id}`);
+  if (ta) {
+    ta.addEventListener('input', () => {
+      const cc = document.getElementById(`cc-${id}`);
+      if (cc) cc.textContent = ta.value.length;
+    });
+  }
+}
 
 async function vote(id,dir){
   if(!currentUser){showToast('Inicia sesión para votar');return;}
@@ -409,6 +497,49 @@ async function vote(id,dir){
       showToast(dir==='up'?'👍 Aprobaste':'👎 Desaprobaste');
     }
   }catch(e){console.error(e);showToast('Error: '+(e.message||e.code||'sin conexión'));}
+}
+
+async function submitComment(politicianId) {
+  if (!currentUser) { showToast('Inicia sesión primero'); return; }
+  if (!canComment()) { showToast('Necesitas cuenta Google con email'); return; }
+  const ta = document.getElementById(`comment-input-${politicianId}`);
+  if (!ta) return;
+  const text = ta.value.trim();
+  if (text.length < 3) { showToast('Mínimo 3 caracteres'); return; }
+  if (text.length > 500) { showToast('Máximo 500 caracteres'); return; }
+  const btn = document.querySelector(`#page-detail .comment-submit`);
+  if (btn) btn.disabled = true;
+  try {
+    await addDoc(collection(db, 'comments'), {
+      politicianId,
+      userId: currentUser.id,
+      userName: currentUser.name || 'Usuario',
+      userAvatar: currentUser.avatar || '',
+      text,
+      createdAt: serverTimestamp()
+    });
+    try { await updateDoc(doc(db, 'users', currentUser.id), { impact: increment(5) }); } catch (e) {}
+    ta.value = '';
+    const cc = document.getElementById(`cc-${politicianId}`);
+    if (cc) cc.textContent = '0';
+    showToast('💬 Comentario publicado');
+  } catch (e) {
+    console.error('Comment error:', e);
+    showToast('Error: ' + (e.code || e.message));
+  } finally {
+    if (btn) btn.disabled = false;
+  }
+}
+
+async function deleteComment(commentId) {
+  if (!confirm('¿Eliminar este comentario?')) return;
+  try {
+    await deleteDoc(doc(db, 'comments', commentId));
+    showToast('Comentario eliminado');
+  } catch (e) {
+    console.error('Delete comment error:', e);
+    showToast('Error: ' + (e.code || e.message));
+  }
 }
 
 async function loadNews(id, name) {
@@ -445,20 +576,17 @@ async function loadNews(id, name) {
 
   try {
     const parser = new DOMParser();
-    const doc = parser.parseFromString(xml, 'text/xml');
-    const items = Array.from(doc.querySelectorAll('item')).slice(0, 8).map(it => ({
+    const docx = parser.parseFromString(xml, 'text/xml');
+    const items = Array.from(docx.querySelectorAll('item')).slice(0, 8).map(it => ({
       title: it.querySelector('title')?.textContent || '',
       link: it.querySelector('link')?.textContent || '',
       date: it.querySelector('pubDate')?.textContent || '',
       source: it.querySelector('source')?.textContent || 'Google News'
     }));
-    if (!items.length) {
-      res.innerHTML = `<div class="news-loading">No se encontraron noticias recientes.</div>`;
-      return;
-    }
+    if (!items.length) { res.innerHTML = `<div class="news-loading">No se encontraron noticias recientes.</div>`; return; }
     res.innerHTML = items.map(n => {
       const d = n.date ? new Date(n.date).toLocaleDateString('es-PR', { year: 'numeric', month: 'short', day: 'numeric' }) : '';
-      return `<a href="${n.link}" target="_blank" rel="noopener" style="text-decoration:none;color:inherit;display:block"><div class="news-item"><div class="news-title">${n.title}</div><div class="news-meta">${n.source}${d ? ' · ' + d : ''}</div></div></a>`;
+      return `<a href="${escapeHtml(n.link)}" target="_blank" rel="noopener" style="text-decoration:none;color:inherit;display:block"><div class="news-item"><div class="news-title">${escapeHtml(n.title)}</div><div class="news-meta">${escapeHtml(n.source)}${d ? ' · ' + d : ''}</div></div></a>`;
     }).join('');
   } catch (e) {
     console.error('News parse error:', e);
@@ -468,7 +596,7 @@ async function loadNews(id, name) {
 }
 
 function setRankTab(tab,el){rankTab=tab;document.querySelectorAll('#rank-tabs .tab').forEach(t=>t.classList.remove('active'));el.classList.add('active');renderRanking();}
-function renderRanking(){let list=rankTab==='all'?[...POLITICIANS]:POLITICIANS.filter(p=>p.cat===rankTab);list=list.map(p=>({...p,approval:getApproval(p.id)}));list.sort((a,b)=>{if(a.approval===null&&b.approval===null)return 0;if(a.approval===null)return 1;if(b.approval===null)return -1;return b.approval-a.approval;});document.getElementById('rank-list').innerHTML=list.map((p,i)=>{const rank=i+1;const cls=rank===1?'top1':rank===2?'top2':rank===3?'top3':'';const s=politicianScores[p.id]||{up:0,down:0};const total=(s.up||0)+(s.down||0);return`<div class="rank-item" onclick="goDetail('${p.id}')"><div class="rank-num ${cls}">#${rank}</div><div class="rank-emoji">${getEmoji(p)}</div><div class="rank-info"><div class="rank-name">${p.name}</div><div class="rank-role"><span class="party-badge ${p.party.toLowerCase()}">${p.party}</span> ${p.role.split('·')[0].trim()}</div></div><div class="rank-score"><div class="rank-pct">${p.approval!==null?p.approval+'%':'—'}</div><div class="rank-votes">${total} votos</div></div></div>`;}).join('')||'<div class="empty-state">No hay candidatos cargados aún</div>';}
+function renderRanking(){let list=rankTab==='all'?[...POLITICIANS]:POLITICIANS.filter(p=>p.cat===rankTab);list=list.map(p=>({...p,approval:getApproval(p.id)}));list.sort((a,b)=>{if(a.approval===null&&b.approval===null)return 0;if(a.approval===null)return 1;if(b.approval===null)return -1;return b.approval-a.approval;});document.getElementById('rank-list').innerHTML=list.map((p,i)=>{const rank=i+1;const cls=rank===1?'top1':rank===2?'top2':rank===3?'top3':'';const s=politicianScores[p.id]||{up:0,down:0};const total=(s.up||0)+(s.down||0);return`<div class="rank-item" onclick="goDetail('${p.id}')"><div class="rank-num ${cls}">#${rank}</div><div class="rank-emoji">${getEmoji(p)}</div><div class="rank-info"><div class="rank-name">${escapeHtml(p.name)}</div><div class="rank-role"><span class="party-badge ${p.party.toLowerCase()}">${p.party}</span> ${escapeHtml(p.role.split('·')[0].trim())}</div></div><div class="rank-score"><div class="rank-pct">${p.approval!==null?p.approval+'%':'—'}</div><div class="rank-votes">${total} votos</div></div></div>`;}).join('')||'<div class="empty-state">No hay candidatos cargados aún</div>';}
 
 function openReport(id){if(!currentUser){showToast('Inicia sesión para denunciar');return;}complaintPoliticianId=id;selectedCat='';document.getElementById('complaint-title').value='';document.getElementById('complaint-desc').value='';document.querySelectorAll('.cat-btn').forEach(b=>b.classList.remove('selected'));const p=POLITICIANS.find(x=>x.id===id);document.getElementById('report-politician-name').textContent='Contra: '+(p?p.name:'');document.getElementById('report-modal').classList.add('open');}
 function closeModal(id){document.getElementById(id).classList.remove('open');}
@@ -489,7 +617,79 @@ async function submitComplaint(){
   }catch(e){console.error(e);showToast('Error: '+(e.message||e.code));}
 }
 
-function renderProfile(){const user=currentUser;const container=document.getElementById('profile-content');if(!user){container.innerHTML=`<div class="login-section"><div style="font-size:52px;margin-bottom:14px">🇵🇷</div><div class="login-title">Únete a GobiStats</div><div class="login-sub">Evalúa a tus representantes,<br>presenta denuncias y sigue el ranking.</div><button class="login-btn google-btn" onclick="loginGoogle()"><svg class="google-icon" viewBox="0 0 24 24"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg>Continuar con Google</button><button class="login-btn" style="background:var(--card);border-color:var(--border);color:var(--text)" onclick="loginDemo()">⚡ Entrar como Demo</button><div style="font-size:11px;color:var(--muted);margin-top:14px">Tus datos se sincronizan con tu cuenta Google en todos tus dispositivos</div></div>`;return;}const stats=getUserStats();const level=getLevel(stats);const score=stats.impact||0;const pct=Math.min(100,Math.round((score/level.next)*100));container.innerHTML=`<div class="profile-hero">${user.avatar?`<img src="${user.avatar}" class="profile-avatar" onerror="this.style.display='none'">`:`<div class="profile-avatar-placeholder">👤</div>`}<div class="profile-name">${user.name}</div><div class="profile-email">${user.email}</div><div class="profile-auth-badge">✅ ${user.provider||'Google'}</div></div><div class="profile-stats"><div class="pstat"><div class="pstat-val green">${stats.evaluaciones}</div><div class="pstat-lbl">Evaluaciones</div></div><div class="pstat"><div class="pstat-val red">${stats.denuncias}</div><div class="pstat-lbl">Denuncias</div></div><div class="pstat"><div class="pstat-val gold">${stats.impact.toLocaleString()}</div><div class="pstat-lbl">Impact Score</div></div></div><div class="level-section"><div class="level-card"><div class="level-label">Mi Nivel</div><div class="level-row"><div class="level-badge">${level.name.toUpperCase()}</div><div class="level-bar-wrap"><div class="level-bar-bg"><div class="level-bar-fill" style="width:${pct}%;background:${level.color}"></div></div><div class="level-bar-label">${score} / ${level.next} pts</div></div></div></div></div><button class="logout-btn" onclick="logout()">← Cerrar Sesión</button>`;}
+function setAdminTab(tab) {
+  adminTab = tab;
+  renderProfile();
+}
+
+async function loadAdminData(force = false) {
+  if (!isAdmin) return;
+  if (adminDataLoaded && !force) return;
+  try {
+    const logsQ = query(collection(db, 'loginLogs'), orderBy('timestamp', 'desc'), limit(50));
+    const logsSnap = await getDocs(logsQ);
+    adminLogs = [];
+    logsSnap.forEach(d => adminLogs.push({ id: d.id, ...d.data() }));
+
+    const commentsQ = query(collection(db, 'comments'), orderBy('createdAt', 'desc'), limit(50));
+    const commentsSnap = await getDocs(commentsQ);
+    adminAllComments = [];
+    commentsSnap.forEach(d => adminAllComments.push({ id: d.id, ...d.data() }));
+
+    adminDataLoaded = true;
+    if (currentPage === 'profile') renderProfile();
+  } catch (e) {
+    console.error('Admin load error:', e);
+    showToast('Error cargando datos admin: ' + (e.code || e.message));
+  }
+}
+
+function renderAdminPanel() {
+  if (!isAdmin) return '';
+  let inner = '';
+  if (!adminDataLoaded) {
+    inner = `<div class="admin-empty"><div class="dot-pulse"><span></span><span></span><span></span></div><div style="margin-top:8px">Cargando datos admin...</div></div>`;
+  } else if (adminTab === 'logins') {
+    if (!adminLogs.length) {
+      inner = `<div class="admin-empty">Sin logins aún.</div>`;
+    } else {
+      inner = adminLogs.map(l => {
+        const t = l.timestamp && l.timestamp.toDate ? l.timestamp.toDate() : null;
+        const tStr = t ? t.toLocaleString('es-PR', { month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' }) : '—';
+        const provCls = l.provider === 'Demo' ? 'demo' : '';
+        return `<div class="log-row"><div class="log-top"><span class="log-email">${escapeHtml(l.email || l.name || '(sin email)')}</span><span class="log-time">${tStr}</span></div><div class="log-meta"><span class="log-badge ${provCls}">${escapeHtml(l.provider || '?')}</span><span class="log-ip">${escapeHtml(l.ip || 'unknown')}</span><span>${escapeHtml((l.name || '').slice(0, 30))}</span></div><div class="log-ua">${escapeHtml((l.userAgent || '').slice(0, 120))}</div></div>`;
+      }).join('');
+    }
+  } else if (adminTab === 'comments') {
+    if (!adminAllComments.length) {
+      inner = `<div class="admin-empty">Sin comentarios aún.</div>`;
+    } else {
+      inner = adminAllComments.map(c => {
+        const t = c.createdAt && c.createdAt.toDate ? c.createdAt.toDate() : null;
+        const tStr = t ? t.toLocaleString('es-PR', { month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' }) : '—';
+        const pol = POLITICIANS.find(p => p.id === c.politicianId);
+        return `<div class="log-row"><div class="log-top"><span class="log-email">${escapeHtml(c.userName || 'Usuario')}</span><span class="log-time">${tStr}</span></div><div style="margin:4px 0;font-size:12px;color:var(--text)">${escapeHtml(c.text)}</div><div class="log-meta"><span style="color:var(--accent2)">Sobre: ${escapeHtml(pol ? pol.name : c.politicianId)}</span><button class="comment-del" style="margin-left:auto" onclick="deleteComment('${c.id}');setTimeout(()=>loadAdminData(true),400)">🗑️ Borrar</button></div></div>`;
+      }).join('');
+    }
+  }
+  return `<div class="admin-section"><div class="admin-card"><div class="admin-title">🛡️ Panel Admin</div><div class="admin-tabs"><div class="admin-tab ${adminTab==='logins'?'active':''}" onclick="setAdminTab('logins')">Logins (${adminLogs.length})</div><div class="admin-tab ${adminTab==='comments'?'active':''}" onclick="setAdminTab('comments')">Comentarios (${adminAllComments.length})</div><button class="admin-tab" onclick="loadAdminData(true)" style="margin-left:auto">↻</button></div>${inner}</div></div>`;
+}
+
+function renderProfile(){
+  const user=currentUser;
+  const container=document.getElementById('profile-content');
+  if(!user){
+    container.innerHTML=`<div class="login-section"><div style="font-size:52px;margin-bottom:14px">🇵🇷</div><div class="login-title">Únete a GobiStats</div><div class="login-sub">Evalúa a tus representantes,<br>comenta y presenta denuncias.</div><button class="login-btn google-btn" onclick="loginGoogle()"><svg class="google-icon" viewBox="0 0 24 24"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg>Continuar con Google</button><button class="login-btn" style="background:var(--card);border-color:var(--border);color:var(--text)" onclick="loginDemo()">⚡ Entrar como Demo (solo lectura)</button><div class="privacy-notice">Al iniciar sesión aceptas que registramos tu email, IP y fecha de acceso para prevención de abuso. Solo tú y los administradores pueden ver esta información.</div></div>`;
+    return;
+  }
+  const stats=getUserStats();
+  const level=getLevel(stats);
+  const score=stats.impact||0;
+  const pct=Math.min(100,Math.round((score/level.next)*100));
+  const avatarHtml = user.avatar ? `<img src="${escapeHtml(user.avatar)}" class="profile-avatar" onerror="this.style.display='none'">` : `<div class="profile-avatar-placeholder">👤</div>`;
+  container.innerHTML=`<div class="profile-hero">${avatarHtml}<div class="profile-name">${escapeHtml(user.name)}</div><div class="profile-email">${escapeHtml(user.email)}</div><div class="profile-auth-badge">✅ ${escapeHtml(user.provider||'Google')}${isAdmin ? ' · 🛡️ Admin' : ''}</div></div><div class="profile-stats"><div class="pstat"><div class="pstat-val green">${stats.evaluaciones}</div><div class="pstat-lbl">Evaluaciones</div></div><div class="pstat"><div class="pstat-val red">${stats.denuncias}</div><div class="pstat-lbl">Denuncias</div></div><div class="pstat"><div class="pstat-val gold">${stats.impact.toLocaleString()}</div><div class="pstat-lbl">Impact Score</div></div></div><div class="level-section"><div class="level-card"><div class="level-label">Mi Nivel</div><div class="level-row"><div class="level-badge">${level.name.toUpperCase()}</div><div class="level-bar-wrap"><div class="level-bar-bg"><div class="level-bar-fill" style="width:${pct}%;background:${level.color}"></div></div><div class="level-bar-label">${score} / ${level.next} pts</div></div></div></div></div>${renderAdminPanel()}<button class="logout-btn" onclick="logout()">← Cerrar Sesión</button>`;
+  if (isAdmin && !adminDataLoaded) loadAdminData();
+}
 
 async function loginGoogle(){
   try{
@@ -503,28 +703,87 @@ async function loginDemo(){
   catch(e){ console.error('Anonymous sign-in error',e); showToast('Error: '+(e.code||e.message)); }
 }
 async function logout(){
-  try{await signOut(auth);showToast('Sesión cerrada');}
-  catch(e){showToast('Error al cerrar sesión');}
+  try{
+    sessionStorage.clear();
+    await signOut(auth);
+    showToast('Sesión cerrada');
+  }catch(e){showToast('Error al cerrar sesión');}
+}
+
+async function checkAdmin(uid) {
+  try {
+    const d = await getDoc(doc(db, 'admins', uid));
+    return d.exists();
+  } catch (e) { return false; }
+}
+
+async function logLoginEvent(user) {
+  const sessionKey = 'gs_login_logged_' + user.uid;
+  if (sessionStorage.getItem(sessionKey)) return;
+  sessionStorage.setItem(sessionKey, '1');
+
+  let ip = 'unknown';
+  try {
+    const r = await fetch('https://api.ipify.org?format=json');
+    if (r.ok) {
+      const d = await r.json();
+      ip = d.ip || 'unknown';
+    }
+  } catch (e) {}
+
+  try {
+    await addDoc(collection(db, 'loginLogs'), {
+      userId: user.uid,
+      email: user.email || '',
+      name: user.displayName || '',
+      provider: user.isAnonymous ? 'Demo' : 'Google',
+      ip,
+      userAgent: (navigator.userAgent || '').slice(0, 500),
+      timestamp: serverTimestamp()
+    });
+  } catch (e) {
+    console.warn('Login log failed (ok if rules not deployed):', e.code || e.message);
+  }
 }
 
 onAuthStateChanged(auth,async(user)=>{
   userSubs.forEach(u=>{try{u();}catch(e){}});
   userSubs=[];
   if(user){
-    currentUser={id:user.uid,name:user.displayName||(user.isAnonymous?'PRbots Demo':'Usuario'),email:user.email||(user.isAnonymous?'demo@gobistats.app':''),avatar:user.photoURL||'',provider:user.isAnonymous?'Demo':'Google'};
+    currentUser={
+      id:user.uid,
+      name:user.displayName||(user.isAnonymous?'PRbots Demo':'Usuario'),
+      email:user.email||'',
+      avatar:user.photoURL||'',
+      provider:user.isAnonymous?'Demo':'Google'
+    };
     try{
       const userRef=doc(db,'users',user.uid);
       const userSnap=await getDoc(userRef);
       if(!userSnap.exists()){
-        await setDoc(userRef,{name:currentUser.name,email:currentUser.email,avatar:currentUser.avatar,provider:currentUser.provider,createdAt:serverTimestamp(),evaluaciones:0,denuncias:0,impact:0});
+        // Public profile only — NO email stored here for privacy
+        await setDoc(userRef,{
+          name:currentUser.name,
+          avatar:currentUser.avatar,
+          provider:currentUser.provider,
+          createdAt:serverTimestamp(),
+          evaluaciones:0,denuncias:0,impact:0
+        });
       }else{
-        await updateDoc(userRef,{name:currentUser.name,email:currentUser.email,avatar:currentUser.avatar,provider:currentUser.provider}).catch(()=>{});
+        await updateDoc(userRef,{name:currentUser.name,avatar:currentUser.avatar,provider:currentUser.provider}).catch(()=>{});
       }
       userSubs.push(onSnapshot(userRef,(snap)=>{if(snap.exists()){currentUserStats=snap.data();if(currentPage==='profile')renderProfile();}}));
       userSubs.push(onSnapshot(collection(db,'users',user.uid,'votes'),(snap)=>{const next={};snap.forEach(d=>{next[d.id]=d.data().direction;});userVotes=next;rerenderCurrent();}));
+
+      // Check admin status (needs to be awaited before render)
+      isAdmin = await checkAdmin(user.uid);
+      adminDataLoaded = false;
+
+      // Log the login event (async, fire and forget)
+      logLoginEvent(user);
     }catch(e){console.error('User init error',e);showToast('Error de conexión con Firestore');}
   }else{
-    currentUser=null;currentUserStats=null;userVotes={};
+    currentUser=null;currentUserStats=null;userVotes={};isAdmin=false;adminDataLoaded=false;adminLogs=[];adminAllComments=[];
   }
   updateHeaderAvatar();
   rerenderCurrent();
@@ -532,10 +791,28 @@ onAuthStateChanged(auth,async(user)=>{
 
 onSnapshot(collection(db,'politicianScores'),(snap)=>{const next={};snap.forEach(d=>{next[d.id]=d.data();});politicianScores=next;rerenderCurrent();},(err)=>{console.error('Scores subscription error',err);});
 onSnapshot(collection(db,'complaints'),(snap)=>{const next={};snap.forEach(d=>{const data=d.data();const pid=data.politicianId;if(!next[pid])next[pid]=[];next[pid].push({id:d.id,...data});});allComplaints=next;rerenderCurrent();},(err)=>{console.error('Complaints subscription error',err);});
+onSnapshot(collection(db,'comments'),(snap)=>{
+  const next={};
+  snap.forEach(d=>{
+    const data=d.data();
+    const pid=data.politicianId;
+    if(!next[pid])next[pid]=[];
+    next[pid].push({id:d.id,...data});
+  });
+  Object.keys(next).forEach(pid=>{
+    next[pid].sort((a,b)=>{
+      const at=a.createdAt&&a.createdAt.toMillis?a.createdAt.toMillis():0;
+      const bt=b.createdAt&&b.createdAt.toMillis?b.createdAt.toMillis():0;
+      return bt-at;
+    });
+  });
+  allComments=next;
+  rerenderCurrent();
+},(err)=>{console.error('Comments subscription error',err);});
 
 function showToast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2800);}
 
-window.goProfile=goProfile;window.showPage=showPage;window.goDetail=goDetail;window.goBack=goBack;window.goSearchCategory=goSearchCategory;window.setFilter=setFilter;window.doSearch=doSearch;window.setRankTab=setRankTab;window.vote=vote;window.openReport=openReport;window.closeModal=closeModal;window.selectCat=selectCat;window.submitComplaint=submitComplaint;window.loginGoogle=loginGoogle;window.loginDemo=loginDemo;window.logout=logout;window.loadNews=loadNews;
+window.goProfile=goProfile;window.showPage=showPage;window.goDetail=goDetail;window.goBack=goBack;window.goSearchCategory=goSearchCategory;window.setFilter=setFilter;window.doSearch=doSearch;window.setRankTab=setRankTab;window.vote=vote;window.openReport=openReport;window.closeModal=closeModal;window.selectCat=selectCat;window.submitComplaint=submitComplaint;window.loginGoogle=loginGoogle;window.loginDemo=loginDemo;window.logout=logout;window.loadNews=loadNews;window.submitComment=submitComment;window.deleteComment=deleteComment;window.setAdminTab=setAdminTab;window.loadAdminData=loadAdminData;
 
 document.querySelectorAll('.modal-overlay').forEach(o=>o.addEventListener('click',e=>{if(e.target===o)o.classList.remove('open');}));
 

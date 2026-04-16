@@ -2,13 +2,24 @@ rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
 
+    function isAdmin() {
+      return request.auth != null &&
+             exists(/databases/$(database)/documents/admins/$(request.auth.uid));
+    }
+
+    // Admins: anyone authed can check admin status; write is manual via Firebase Console
+    match /admins/{uid} {
+      allow read: if request.auth != null;
+      allow write: if false;
+    }
+
     // Politician aggregate scores: public read, authed write
     match /politicianScores/{pid} {
       allow read: if true;
       allow write: if request.auth != null;
     }
 
-    // Complaints: public read, authed create, owner-only delete/update
+    // Complaints: public read, authed create (own only), owner or admin delete
     match /complaints/{cid} {
       allow read: if true;
       allow create: if request.auth != null
@@ -16,16 +27,45 @@ service cloud.firestore {
         && request.resource.data.title is string
         && request.resource.data.desc is string
         && request.resource.data.desc.size() >= 50;
-      allow update, delete: if request.auth != null
+      allow update: if request.auth != null
         && resource.data.userId == request.auth.uid;
+      allow delete: if request.auth != null
+        && (resource.data.userId == request.auth.uid || isAdmin());
     }
 
-    // User profile: public read (for future leaderboards), owner-only write
+    // Comments: public read, email-verified authed create only (no Demo/anon),
+    // owner can edit/delete, admin can delete any
+    match /comments/{cid} {
+      allow read: if true;
+      allow create: if request.auth != null
+        && request.auth.token.email != null
+        && request.auth.token.email is string
+        && request.auth.token.email.size() > 0
+        && request.resource.data.userId == request.auth.uid
+        && request.resource.data.text is string
+        && request.resource.data.text.size() >= 3
+        && request.resource.data.text.size() <= 500;
+      allow update: if request.auth != null
+        && resource.data.userId == request.auth.uid;
+      allow delete: if request.auth != null
+        && (resource.data.userId == request.auth.uid || isAdmin());
+    }
+
+    // Login logs: authed user can create own record; only admins can read; immutable otherwise
+    match /loginLogs/{id} {
+      allow create: if request.auth != null
+        && request.resource.data.userId == request.auth.uid;
+      allow read: if isAdmin();
+      allow update, delete: if false;
+    }
+
+    // User public profile: public read (name, avatar, stats — NO email).
+    // Owner-only write.
     match /users/{uid} {
       allow read: if true;
       allow write: if request.auth != null && request.auth.uid == uid;
 
-      // User's votes subcollection: private to the user
+      // Votes are private to the user
       match /votes/{pid} {
         allow read, write: if request.auth != null && request.auth.uid == uid;
       }
