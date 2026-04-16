@@ -1,1 +1,1 @@
-async function checkAdmin(uid){const HARDCODED_ADMINS=['eGjKT3AHFKg1sJcFkJaroYoySJX2'];if(HARDCODED_ADMINS.includes(uid))return true;try{const d=await getDoc(doc(db,'admins',uid));return d.exists();}catch(e){console.warn('Admin check failed:',e.code,e.message);return false;}}
+async function checkAdmin(uid){const OWNER_UIDS=['eGjKT3AHFKg1sJcFkJaroYoySJX2'];if(OWNER_UIDS.includes(uid))return true;try{return(await getDoc(doc(db,'admins',uid))).exists();}catch(e){console.warn('Admin check error:',e);return false;}}
