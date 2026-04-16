@@ -32,6 +32,7 @@ body{background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSy
 .party-badge{font-size:9px;font-weight:800;padding:2px 6px;border-radius:4px;letter-spacing:0.5px;}
 .party-badge.pnp{background:rgba(37,99,235,0.2);color:#60A5FA;}.party-badge.ppd{background:rgba(220,38,38,0.2);color:#FCA5A5;}
 .party-badge.pip{background:rgba(22,163,74,0.2);color:#86EFAC;}.party-badge.mvc{background:rgba(147,51,234,0.2);color:#D8B4FE;}
+.party-badge.other,.party-badge.independent{background:rgba(139,140,160,0.2);color:#B8B9CC;}
 .pol-name{font-size:12px;font-weight:700;line-height:1.3;margin-bottom:2px;}.pol-role{font-size:10px;color:var(--muted);line-height:1.3;}
 .pol-score{margin-top:7px;}.score-bar-bg{height:3px;background:rgba(255,255,255,0.08);border-radius:2px;}
 .score-bar{height:3px;border-radius:2px;background:var(--green);}.score-num{font-size:10px;color:var(--muted);margin-top:2px;}
@@ -75,6 +76,7 @@ body{background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSy
 .news-header::before{content:'';width:3px;height:14px;background:var(--gold);border-radius:2px;}
 .news-btn{width:100%;padding:12px;background:rgba(245,197,24,0.07);border:1px solid rgba(245,197,24,0.2);border-radius:var(--r);color:var(--gold);font-size:13px;font-weight:600;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:7px;}
 .news-item{background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:11px 13px;margin-bottom:7px;}
+.news-item:hover{background:var(--card2);}
 .news-title{font-size:13px;font-weight:600;line-height:1.4;margin-bottom:3px;}.news-meta{font-size:11px;color:var(--muted);}
 .news-loading{text-align:center;padding:18px;color:var(--muted);font-size:13px;}
 .dot-pulse{display:inline-flex;gap:4px;}.dot-pulse span{width:6px;height:6px;background:var(--accent2);border-radius:50%;animation:dp 1.2s infinite;}
@@ -142,7 +144,7 @@ body{background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSy
 </style>
 </head>
 <body>
-<div class="boot-overlay" id="boot"><div class="dot-pulse"><span></span><span></span><span></span></div><div>Conectando con GobiStats...</div></div>
+<div class="boot-overlay" id="boot"><div class="dot-pulse"><span></span><span></span><span></span></div><div id="boot-msg">Cargando candidatos...</div></div>
 <div class="header">
   <div style="display:flex;align-items:center;">
     <div class="logo">Gobi<span>Stats</span></div>
@@ -151,14 +153,14 @@ body{background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSy
   <div class="avatar-btn" onclick="goProfile()"><span id="header-avatar">👤</span></div>
 </div>
 <div id="page-home" class="page active">
-  <div class="hero-banner"><div><div class="hero-text">🗳️ Legislatura 2025–2029</div><div class="hero-sub">Evalúa a tus representantes</div></div><div class="hero-icon">🇵🇷</div></div>
+  <div class="hero-banner"><div><div class="hero-text">🗳️ Legislatura 2025–2029</div><div class="hero-sub" id="home-count">Cargando datos...</div></div><div class="hero-icon">🇵🇷</div></div>
   <div class="section"><div class="section-header"><div class="section-title">Ejecutivo</div></div></div>
   <div class="h-scroll" id="scroll-ejecutivo"></div>
   <div class="section" style="margin-top:10px"><div class="section-header"><div class="section-title">Senado</div><button class="see-all" onclick="goSearchCategory('senado')">Ver ranking →</button></div></div>
   <div class="h-scroll" id="scroll-senado"></div>
   <div class="section" style="margin-top:10px"><div class="section-header"><div class="section-title">Cámara</div><button class="see-all" onclick="goSearchCategory('camara')">Ver todos →</button></div></div>
   <div class="h-scroll" id="scroll-camara"></div>
-  <div class="section" style="margin-top:10px"><div class="section-header"><div class="section-title">Alcaldes principales</div><button class="see-all" onclick="goSearchCategory('alcalde')">Ver todos →</button></div></div>
+  <div class="section" style="margin-top:10px"><div class="section-header"><div class="section-title">Alcaldes</div><button class="see-all" onclick="goSearchCategory('alcalde')">Ver todos →</button></div></div>
   <div class="h-scroll" id="scroll-alcaldes"></div>
 </div>
 <div id="page-search" class="page">
@@ -232,173 +234,124 @@ const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const db = getFirestore(app);
 
-const POLITICIANS=[
-{id:'gov-jgc',name:'Jenniffer González-Colón',role:'Gobernadora de Puerto Rico',party:'PNP',cat:'ejecutivo',pos:'gobernadora',municipio:'',district:''},
-{id:'com-pjhr',name:'Pablo José Hernández Rivera',role:'Comisionado Residente en Washington',party:'PPD',cat:'ejecutivo',pos:'comisionado',municipio:'',district:''},
-{id:'sen-trs',name:'Thomas Rivera Schatz',role:'Presidente del Senado',party:'PNP',cat:'senado',pos:'senador',municipio:'',district:'Acumulación'},
-{id:'sen-crs',name:'Carmelo Ríos Santiago',role:'1er Vicepresidente Senado',party:'PNP',cat:'senado',pos:'senador',municipio:'',district:'Bayamón'},
-{id:'sen-mmjs',name:'Marissa Jiménez Santoni',role:'2da Vicepresidenta Senado',party:'PNP',cat:'senado',pos:'senador',municipio:'',district:'Carolina'},
-{id:'sen-gmr',name:'Gregorio Matías Rosario',role:'Portavoz PNP · Senado',party:'PNP',cat:'senado',pos:'senador',municipio:'',district:'Acumulación'},
-{id:'sen-atl',name:'Ángel Toledo López',role:'Senador · Acumulación',party:'PNP',cat:'senado',pos:'senador',municipio:'',district:'Acumulación'},
-{id:'sen-rsa',name:'Roxanna Soto Aguiú',role:'Senadora · Acumulación',party:'PNP',cat:'senado',pos:'senador',municipio:'',district:'Acumulación'},
-{id:'sen-jom',name:'Juan Oscar Morales',role:'Portavoz Alterno PNP',party:'PNP',cat:'senado',pos:'senador',municipio:'',district:'San Juan'},
-{id:'sen-nm',name:'Nitza Morán',role:'Senadora',party:'PNP',cat:'senado',pos:'senador',municipio:'',district:'San Juan'},
-{id:'sen-wg',name:'Wanda Gierbolini',role:'Senadora',party:'PNP',cat:'senado',pos:'senador',municipio:'',district:'San Juan'},
-{id:'sen-jrc',name:'Joanne Rodríguez Cintrón',role:'Senadora',party:'PNP',cat:'senado',pos:'senador',municipio:'',district:'San Juan'},
-{id:'sen-efs',name:'Erick Fontánez Santiago',role:'Senador',party:'PNP',cat:'senado',pos:'senador',municipio:'',district:'Guaynabo'},
-{id:'sen-jad',name:'José A. Delgado Montalvo',role:'Senador',party:'PNP',cat:'senado',pos:'senador',municipio:'',district:'Arecibo'},
-{id:'sen-las',name:'Lourdes A. Santiago',role:'Senadora',party:'PNP',cat:'senado',pos:'senador',municipio:'',district:'Ponce'},
-{id:'sen-jmm',name:'Jorge Millán Mirabal',role:'Senador',party:'PNP',cat:'senado',pos:'senador',municipio:'',district:'Bayamón'},
-{id:'sen-ric',name:'Roberto Irizarry Colón',role:'Senador',party:'PNP',cat:'senado',pos:'senador',municipio:'',district:'Mayagüez'},
-{id:'sen-gjr',name:'Gerardo Cruz Rivera',role:'Portavoz PPD · Senado',party:'PPD',cat:'senado',pos:'senador',municipio:'',district:'Acumulación'},
-{id:'sen-alb',name:'Aníbal Lugo Burgos',role:'Senador PPD',party:'PPD',cat:'senado',pos:'senador',municipio:'',district:'Acumulación'},
-{id:'sen-jlt',name:'José Luis Torres Villanueva',role:'Senador PPD',party:'PPD',cat:'senado',pos:'senador',municipio:'',district:'Acumulación'},
-{id:'sen-mrc',name:'Margarita Ramos Cobián',role:'Senadora PPD',party:'PPD',cat:'senado',pos:'senador',municipio:'',district:'Ponce'},
-{id:'sen-yvr',name:'Yashira Valentín Rivera',role:'Senadora PPD',party:'PPD',cat:'senado',pos:'senador',municipio:'',district:'Bayamón'},
-{id:'sen-evr2',name:'Evelyn Vázquez Rodríguez',role:'Senadora PPD',party:'PPD',cat:'senado',pos:'senador',municipio:'',district:'Mayagüez'},
-{id:'sen-mnm',name:'Miguel Natal Albelo',role:'Senador MVC',party:'MVC',cat:'senado',pos:'senador',municipio:'',district:'San Juan'},
-{id:'sen-jdp',name:'Juan Dalmau Pérez',role:'Senador PIP',party:'PIP',cat:'senado',pos:'senador',municipio:'',district:'Acumulación'},
-{id:'sen-mci',name:'María de Lourdes Santiago Negrón',role:'Senadora PIP',party:'PIP',cat:'senado',pos:'senador',municipio:'',district:'Acumulación'},
-{id:'sen-ocr',name:'Orlando Cruz Rivera',role:'Senador PNP',party:'PNP',cat:'senado',pos:'senador',municipio:'',district:'Caguas'},
-{id:'sen-rag',name:'Ramón A. González',role:'Senador PNP',party:'PNP',cat:'senado',pos:'senador',municipio:'',district:'Humacao'},
-{id:'sen-jlf',name:'José L. Figueroa Sancha',role:'Senador PNP',party:'PNP',cat:'senado',pos:'senador',municipio:'',district:'Coamo'},
-{id:'cam-cjt',name:'Carlos Méndez Núñez',role:'Presidente de la Cámara',party:'PNP',cat:'camara',pos:'representante',municipio:'',district:''},
-{id:'cam-ylr',name:'Yashira Lebrón Rivera',role:'Vicepresidenta Cámara',party:'PNP',cat:'camara',pos:'representante',municipio:'',district:''},
-{id:'cam-apt',name:'Ángel Peña Torres',role:'Vicepresidente Cámara',party:'PNP',cat:'camara',pos:'representante',municipio:'',district:''},
-{id:'cam-evr',name:'Eric Vázquez Rivera',role:'Portavoz PNP · Cámara',party:'PNP',cat:'camara',pos:'representante',municipio:'',district:''},
-{id:'cam-mmr',name:'Melissa Mark-Viverito',role:'Portavoz PPD · Cámara',party:'PPD',cat:'camara',pos:'representante',municipio:'',district:''},
-{id:'cam-d1',name:'José González Mercado',role:'Representante PNP',party:'PNP',cat:'camara',pos:'representante',municipio:'',district:'Dist. 1'},
-{id:'cam-d2',name:'Frances Rosa Del Valle',role:'Representante PNP',party:'PNP',cat:'camara',pos:'representante',municipio:'',district:'Dist. 2'},
-{id:'cam-d3',name:'José Luis Muñoz Vargas',role:'Representante PNP',party:'PNP',cat:'camara',pos:'representante',municipio:'',district:'Dist. 3'},
-{id:'cam-d4',name:'Willian Flores Torres',role:'Representante PNP',party:'PNP',cat:'camara',pos:'representante',municipio:'',district:'Dist. 4'},
-{id:'cam-d5',name:'Carlos Méndez Cabán',role:'Representante PNP',party:'PNP',cat:'camara',pos:'representante',municipio:'',district:'Dist. 5'},
-{id:'cam-d6',name:'José Alicea Vázquez',role:'Representante PNP',party:'PNP',cat:'camara',pos:'representante',municipio:'',district:'Dist. 6'},
-{id:'cam-d7',name:'Rafael Pol García',role:'Representante PNP',party:'PNP',cat:'camara',pos:'representante',municipio:'',district:'Dist. 7'},
-{id:'cam-d8',name:'Jorge Coss González',role:'Representante PNP',party:'PNP',cat:'camara',pos:'representante',municipio:'',district:'Dist. 8'},
-{id:'cam-d9',name:'Angel Acosta González',role:'Representante PNP',party:'PNP',cat:'camara',pos:'representante',municipio:'',district:'Dist. 9'},
-{id:'cam-d10',name:'Margie Romero Santiago',role:'Representante PNP',party:'PNP',cat:'camara',pos:'representante',municipio:'',district:'Dist. 10'},
-{id:'cam-d11',name:'Juan Torres Salgado',role:'Representante PNP',party:'PNP',cat:'camara',pos:'representante',municipio:'',district:'Dist. 11'},
-{id:'cam-d12',name:'Luis A. Zayas',role:'Representante PNP',party:'PNP',cat:'camara',pos:'representante',municipio:'',district:'Dist. 12'},
-{id:'cam-d13',name:'José Rojas Vega',role:'Representante PNP',party:'PNP',cat:'camara',pos:'representante',municipio:'',district:'Dist. 13'},
-{id:'cam-d14',name:'Ricardo Maldonado Cruz',role:'Representante PNP',party:'PNP',cat:'camara',pos:'representante',municipio:'',district:'Dist. 14'},
-{id:'cam-d15',name:'Harold Rosario Cruz',role:'Representante PNP',party:'PNP',cat:'camara',pos:'representante',municipio:'',district:'Dist. 15'},
-{id:'cam-d16',name:'Domingo Córdova Rivera',role:'Representante PNP',party:'PNP',cat:'camara',pos:'representante',municipio:'',district:'Dist. 16'},
-{id:'cam-d17',name:'Luis Pérez Guadalupe',role:'Representante PNP',party:'PNP',cat:'camara',pos:'representante',municipio:'',district:'Dist. 17'},
-{id:'cam-d18',name:'José Ortiz Reyes',role:'Representante PNP',party:'PNP',cat:'camara',pos:'representante',municipio:'',district:'Dist. 18'},
-{id:'cam-d19',name:'Ramón Irizarry Valentín',role:'Representante PNP',party:'PNP',cat:'camara',pos:'representante',municipio:'',district:'Dist. 19'},
-{id:'cam-d20',name:'Ednaida Fuentes Rivera',role:'Representante PNP',party:'PNP',cat:'camara',pos:'representante',municipio:'',district:'Dist. 20'},
-{id:'cam-d21',name:'Juan Martínez Rodríguez',role:'Representante PNP',party:'PNP',cat:'camara',pos:'representante',municipio:'',district:'Dist. 21'},
-{id:'cam-d22',name:'José Luis Pérez Cruz',role:'Representante PNP',party:'PNP',cat:'camara',pos:'representante',municipio:'',district:'Dist. 22'},
-{id:'cam-d23',name:'Eduardo Negrón Rivera',role:'Representante PNP',party:'PNP',cat:'camara',pos:'representante',municipio:'',district:'Dist. 23'},
-{id:'cam-d24',name:'Wanda Vicens Rivera',role:'Representante PNP',party:'PNP',cat:'camara',pos:'representante',municipio:'',district:'Dist. 24'},
-{id:'cam-d25',name:'Jesús Alvarado Cruz',role:'Representante PNP',party:'PNP',cat:'camara',pos:'representante',municipio:'',district:'Dist. 25'},
-{id:'cam-d26',name:'Hiram León Díaz',role:'Representante PNP',party:'PNP',cat:'camara',pos:'representante',municipio:'',district:'Dist. 26'},
-{id:'cam-d27',name:'Roberto Rivera Ortiz',role:'Representante PNP',party:'PNP',cat:'camara',pos:'representante',municipio:'',district:'Dist. 27'},
-{id:'cam-d28',name:'José Cruz Estrada',role:'Representante PNP',party:'PNP',cat:'camara',pos:'representante',municipio:'',district:'Dist. 28'},
-{id:'cam-d29',name:'Angel Matos Rodríguez',role:'Representante PNP',party:'PNP',cat:'camara',pos:'representante',municipio:'',district:'Dist. 29'},
-{id:'cam-d30',name:'Juan Mercado González',role:'Representante PPD',party:'PPD',cat:'camara',pos:'representante',municipio:'',district:'Dist. 30'},
-{id:'cam-d31',name:'Marcelino Ramos Ortiz',role:'Representante PPD',party:'PPD',cat:'camara',pos:'representante',municipio:'',district:'Dist. 31'},
-{id:'cam-d32',name:'Néstor Rivera Alvarado',role:'Representante PPD',party:'PPD',cat:'camara',pos:'representante',municipio:'',district:'Dist. 32'},
-{id:'cam-d33',name:'Osvaldo Valentín Agosto',role:'Representante PPD',party:'PPD',cat:'camara',pos:'representante',municipio:'',district:'Dist. 33'},
-{id:'cam-d34',name:'Lydia Guadalupe Pagán',role:'Representante PPD',party:'PPD',cat:'camara',pos:'representante',municipio:'',district:'Dist. 34'},
-{id:'cam-d35',name:'Jesús Colón Merced',role:'Representante PPD',party:'PPD',cat:'camara',pos:'representante',municipio:'',district:'Dist. 35'},
-{id:'cam-d36',name:'José Rodríguez Estrada',role:'Representante PPD',party:'PPD',cat:'camara',pos:'representante',municipio:'',district:'Dist. 36'},
-{id:'cam-d37',name:'Luis Vega Rivera',role:'Representante PPD',party:'PPD',cat:'camara',pos:'representante',municipio:'',district:'Dist. 37'},
-{id:'cam-d38',name:'Jorge Méndez Torres',role:'Representante PPD',party:'PPD',cat:'camara',pos:'representante',municipio:'',district:'Dist. 38'},
-{id:'cam-d39',name:'Carmen Navarro Soto',role:'Representante PPD',party:'PPD',cat:'camara',pos:'representante',municipio:'',district:'Dist. 39'},
-{id:'cam-d40',name:'Roberto García Rosado',role:'Representante PPD',party:'PPD',cat:'camara',pos:'representante',municipio:'',district:'Dist. 40'},
-{id:'cam-ac1',name:'Brenda López de Arrarás',role:'Rep. PNP · Acumulación',party:'PNP',cat:'camara',pos:'representante',municipio:'',district:'Acumulación'},
-{id:'cam-ac2',name:'Lydia Méndez Silva',role:'Rep. PNP · Acumulación',party:'PNP',cat:'camara',pos:'representante',municipio:'',district:'Acumulación'},
-{id:'cam-ac3',name:'Pedro Julio Lebrón',role:'Rep. PPD · Acumulación',party:'PPD',cat:'camara',pos:'representante',municipio:'',district:'Acumulación'},
-{id:'cam-ac4',name:'Joanne Cáceres Martínez',role:'Rep. PPD · Acumulación',party:'PPD',cat:'camara',pos:'representante',municipio:'',district:'Acumulación'},
-{id:'cam-pip1',name:'Denis Márquez Lebrón',role:'Representante PIP',party:'PIP',cat:'camara',pos:'representante',municipio:'',district:'Acumulación'},
-{id:'cam-pip2',name:'Mariana Nogales Molinelli',role:'Representante PIP',party:'PIP',cat:'camara',pos:'representante',municipio:'',district:'Acumulación'},
-{id:'cam-pip3',name:'Estrella Martínez Rodríguez',role:'Representante PIP',party:'PIP',cat:'camara',pos:'representante',municipio:'',district:'Acumulación'},
-{id:'cam-mvc1',name:'Manuel Natal Albelo',role:'Representante MVC',party:'MVC',cat:'camara',pos:'representante',municipio:'',district:'San Juan'},
-{id:'alc-sj',name:'Miguel Romero Lugo',role:'Alcalde',party:'PNP',cat:'alcalde',pos:'alcalde',municipio:'San Juan',district:''},
-{id:'alc-bay',name:'Ramón Luis Rivera Cruz',role:'Alcalde',party:'PNP',cat:'alcalde',pos:'alcalde',municipio:'Bayamón',district:''},
-{id:'alc-car',name:'José Meléndez Ortiz',role:'Alcalde',party:'PNP',cat:'alcalde',pos:'alcalde',municipio:'Carolina',district:''},
-{id:'alc-pon',name:'Luis Irizarry Pabón',role:'Alcalde',party:'PNP',cat:'alcalde',pos:'alcalde',municipio:'Ponce',district:''},
-{id:'alc-cag',name:'William Miranda Torres',role:'Alcalde',party:'PNP',cat:'alcalde',pos:'alcalde',municipio:'Caguas',district:''},
-{id:'alc-may',name:'José Guillermo Rodríguez',role:'Alcalde',party:'PPD',cat:'alcalde',pos:'alcalde',municipio:'Mayagüez',district:''},
-{id:'alc-agu',name:'Carlos Méndez Martínez',role:'Alcalde',party:'PPD',cat:'alcalde',pos:'alcalde',municipio:'Aguadilla',district:''},
-{id:'alc-are',name:'Carlos Delgado Altieri',role:'Alcalde',party:'PPD',cat:'alcalde',pos:'alcalde',municipio:'Arecibo',district:''},
-{id:'alc-toa',name:'Bernardo Márquez García',role:'Alcalde',party:'PNP',cat:'alcalde',pos:'alcalde',municipio:'Toa Baja',district:''},
-{id:'alc-guay',name:'Jorge Rodríguez Feliciano',role:'Alcalde',party:'PNP',cat:'alcalde',pos:'alcalde',municipio:'Guaynabo',district:''},
-{id:'alc-hun',name:'Ángel Luis García',role:'Alcalde',party:'PPD',cat:'alcalde',pos:'alcalde',municipio:'Humacao',district:''},
-{id:'alc-faj',name:'Aníbal Meléndez Rivera',role:'Alcalde',party:'PNP',cat:'alcalde',pos:'alcalde',municipio:'Fajardo',district:''},
-{id:'alc-man',name:'Carlos Delgado Hernández',role:'Alcalde',party:'PPD',cat:'alcalde',pos:'alcalde',municipio:'Manatí',district:''},
-{id:'alc-yab',name:'Luis Javier Hernández Ortiz',role:'Alcalde',party:'PPD',cat:'alcalde',pos:'alcalde',municipio:'Yauco',district:''},
-{id:'alc-isa',name:'Carlos Rodríguez Mateo',role:'Alcalde',party:'PPD',cat:'alcalde',pos:'alcalde',municipio:'Isabela',district:''},
-{id:'alc-jua',name:'Jorge L. Romero Rivera',role:'Alcalde',party:'PPD',cat:'alcalde',pos:'alcalde',municipio:'Juana Díaz',district:''},
-{id:'alc-sge',name:'Javier Jiménez Pérez',role:'Alcalde',party:'PNP',cat:'alcalde',pos:'alcalde',municipio:'San Germán',district:''},
-{id:'alc-gua2',name:'Santos Seda Nazario',role:'Alcalde',party:'PPD',cat:'alcalde',pos:'alcalde',municipio:'Guayanilla',district:''},
-{id:'alc-veg',name:'Marcos Cruz Molina',role:'Alcalde',party:'PPD',cat:'alcalde',pos:'alcalde',municipio:'Vega Baja',district:''},
-{id:'alc-vegA',name:'Oscar Santiago Carmona',role:'Alcalde',party:'PNP',cat:'alcalde',pos:'alcalde',municipio:'Vega Alta',district:''},
-{id:'alc-rio',name:'Rafael Acevedo Esquilín',role:'Alcalde',party:'PPD',cat:'alcalde',pos:'alcalde',municipio:'Río Grande',district:''},
-{id:'alc-toa2',name:'Javier E. Jiménez',role:'Alcalde',party:'PPD',cat:'alcalde',pos:'alcalde',municipio:'Toa Alta',district:''},
-{id:'alc-sal',name:'Karilyn Bonilla Colón',role:'Alcaldesa',party:'PPD',cat:'alcalde',pos:'alcalde',municipio:'Salinas',district:''},
-{id:'alc-moc',name:'Jorge Luis Márquez Pérez',role:'Alcalde',party:'PNP',cat:'alcalde',pos:'alcalde',municipio:'Moca',district:''},
-{id:'alc-hat',name:'Christian Sobrino Vega',role:'Alcalde',party:'PPD',cat:'alcalde',pos:'alcalde',municipio:'Hatillo',district:''},
-{id:'alc-cam',name:'Félix B. Torres Ortiz',role:'Alcalde',party:'PPD',cat:'alcalde',pos:'alcalde',municipio:'Camuy',district:''},
-{id:'alc-agu2',name:'Julio Fumero Soto',role:'Alcalde',party:'PPD',cat:'alcalde',pos:'alcalde',municipio:'Aguada',district:''},
-{id:'alc-add',name:'Carlos Molina Rodríguez',role:'Alcalde',party:'PPD',cat:'alcalde',pos:'alcalde',municipio:'Añasco',district:''},
-{id:'alc-rin',name:'Carlos López Rivera',role:'Alcalde',party:'PNP',cat:'alcalde',pos:'alcalde',municipio:'Rincón',district:''},
-{id:'alc-lab',name:'Pedro A. García Figueroa',role:'Alcalde',party:'PPD',cat:'alcalde',pos:'alcalde',municipio:'Lajas',district:''},
-{id:'alc-cab',name:'José Sánchez González',role:'Alcalde',party:'PPD',cat:'alcalde',pos:'alcalde',municipio:'Cabo Rojo',district:''},
-{id:'alc-sab',name:'Daisy Sánchez Vizcarrondo',role:'Alcaldesa',party:'PPD',cat:'alcalde',pos:'alcalde',municipio:'Sabana Grande',district:''},
-{id:'alc-hor',name:'Ángel González Berrios',role:'Alcalde',party:'PNP',cat:'alcalde',pos:'alcalde',municipio:'Hormigueros',district:''},
-{id:'alc-pat',name:'Iván Báez Ortiz',role:'Alcalde',party:'PNP',cat:'alcalde',pos:'alcalde',municipio:'Patillas',district:''},
-{id:'alc-gua3',name:'Eduardo Cintrón Suárez',role:'Alcalde',party:'PPD',cat:'alcalde',pos:'alcalde',municipio:'Guánica',district:''},
-{id:'alc-arr',name:'Luis Manuel Escudero López',role:'Alcalde',party:'PPD',cat:'alcalde',pos:'alcalde',municipio:'Arroyo',district:''},
-{id:'alc-mau',name:'José Noriega Rodríguez',role:'Alcalde',party:'PPD',cat:'alcalde',pos:'alcalde',municipio:'Maunabo',district:''},
-{id:'alc-yab2',name:'Roberto García Torres',role:'Alcalde',party:'PPD',cat:'alcalde',pos:'alcalde',municipio:'Yabucoa',district:''},
-{id:'alc-nag',name:'José Colón González',role:'Alcalde',party:'PPD',cat:'alcalde',pos:'alcalde',municipio:'Naguabo',district:''},
-{id:'alc-loi',name:'Carlos Torra Viera',role:'Alcalde',party:'PPD',cat:'alcalde',pos:'alcalde',municipio:'Loíza',district:''},
-{id:'alc-luc',name:'Eddie Charbonier Chinea',role:'Alcalde',party:'PPD',cat:'alcalde',pos:'alcalde',municipio:'Luquillo',district:''},
-{id:'alc-cei',name:'Nelson Laboy Rodríguez',role:'Alcalde',party:'PPD',cat:'alcalde',pos:'alcalde',municipio:'Ceiba',district:''},
-{id:'alc-vie',name:'José Corcino Rivera',role:'Alcalde',party:'PPD',cat:'alcalde',pos:'alcalde',municipio:'Vieques',district:''},
-{id:'alc-cul',name:'Edilberto Romero',role:'Alcalde',party:'PPD',cat:'alcalde',pos:'alcalde',municipio:'Culebra',district:''},
-{id:'alc-coa',name:'Juan Carlos García Padilla',role:'Alcalde',party:'PNP',cat:'alcalde',pos:'alcalde',municipio:'Coamo',district:''},
-{id:'alc-vil',name:'Israel Rodríguez Torres',role:'Alcalde',party:'PPD',cat:'alcalde',pos:'alcalde',municipio:'Villalba',district:''},
-{id:'alc-coz',name:'Félix Aponte Deynes',role:'Alcalde',party:'PNP',cat:'alcalde',pos:'alcalde',municipio:'Corozal',district:''},
-{id:'alc-nar',name:'María De Los Ángeles Flores',role:'Alcaldesa',party:'PPD',cat:'alcalde',pos:'alcalde',municipio:'Naranjito',district:''},
-{id:'alc-bar',name:'Nelson Torres Yordán',role:'Alcalde',party:'PPD',cat:'alcalde',pos:'alcalde',municipio:'Barranquitas',district:''},
-{id:'alc-aib',name:'Victor M. Ortiz Sanchez',role:'Alcalde',party:'PPD',cat:'alcalde',pos:'alcalde',municipio:'Aibonito',district:''},
-{id:'alc-oro',name:'Miguel Romero Ortiz',role:'Alcalde',party:'PPD',cat:'alcalde',pos:'alcalde',municipio:'Orocovis',district:''},
-{id:'alc-mor',name:'Pedro Ortíz Álvarez',role:'Alcalde',party:'PPD',cat:'alcalde',pos:'alcalde',municipio:'Morovis',district:''},
-{id:'alc-flo',name:'Yasdel Vélez Rivera',role:'Alcaldesa',party:'PPD',cat:'alcalde',pos:'alcalde',municipio:'Florida',district:''},
-{id:'alc-cia',name:'Abdiel Burgos Santiago',role:'Alcalde',party:'PPD',cat:'alcalde',pos:'alcalde',municipio:'Ciales',district:''},
-{id:'alc-utu',name:'Jorge Elías López Matos',role:'Alcalde',party:'PPD',cat:'alcalde',pos:'alcalde',municipio:'Utuado',district:''},
-{id:'alc-adj',name:'Enrique Meléndez Ortiz',role:'Alcalde',party:'PPD',cat:'alcalde',pos:'alcalde',municipio:'Adjuntas',district:''},
-{id:'alc-lar',name:'Juan Martínez',role:'Alcalde',party:'PPD',cat:'alcalde',pos:'alcalde',municipio:'Lares',district:''},
-{id:'alc-lma',name:'Nelson Torres Negrón',role:'Alcalde',party:'PPD',cat:'alcalde',pos:'alcalde',municipio:'Las Marías',district:''},
-{id:'alc-mar',name:'Víctor Santiago Montalvo',role:'Alcalde',party:'PPD',cat:'alcalde',pos:'alcalde',municipio:'Maricao',district:''},
-{id:'alc-sse',name:'Javier García Pérez',role:'Alcalde',party:'PPD',cat:'alcalde',pos:'alcalde',municipio:'San Sebastián',district:''},
-{id:'alc-slo',name:'Eliezer Molina Pérez',role:'Alcalde',party:'PPD',cat:'alcalde',pos:'alcalde',municipio:'San Lorenzo',district:''},
-{id:'alc-lpi',name:'Luis Arroyo Rodríguez',role:'Alcalde',party:'PPD',cat:'alcalde',pos:'alcalde',municipio:'Las Piedras',district:''},
-{id:'alc-jun',name:'Yadira Molina Seguinot',role:'Alcaldesa',party:'PPD',cat:'alcalde',pos:'alcalde',municipio:'Juncos',district:''},
-{id:'alc-gur',name:'Connie Vargas Pagán',role:'Alcaldesa',party:'PPD',cat:'alcalde',pos:'alcalde',municipio:'Gurabo',district:''},
-{id:'alc-agb',name:'Ivelisse Lebrón Rosario',role:'Alcaldesa',party:'PPD',cat:'alcalde',pos:'alcalde',municipio:'Aguas Buenas',district:''},
-{id:'alc-cid',name:'Edwin Emmanuelli Cintrón',role:'Alcalde',party:'PPD',cat:'alcalde',pos:'alcalde',municipio:'Cidra',district:''},
-{id:'alc-cay',name:'Rolando Ortíz Velázquez',role:'Alcalde',party:'PPD',cat:'alcalde',pos:'alcalde',municipio:'Cayey',district:''},
-{id:'alc-com',name:'Pedro Rodríguez Amill',role:'Alcalde',party:'PPD',cat:'alcalde',pos:'alcalde',municipio:'Comerío',district:''},
-{id:'alc-dor',name:'Ivelisse González Aponte',role:'Alcaldesa',party:'PPD',cat:'alcalde',pos:'alcalde',municipio:'Dorado',district:''},
-{id:'alc-tru',name:'José Aponte Deynes',role:'Alcalde',party:'PNP',cat:'alcalde',pos:'alcalde',municipio:'Trujillo Alto',district:''},
-{id:'alc-can',name:'Lornna Soto Villanueva',role:'Alcaldesa',party:'PPD',cat:'alcalde',pos:'alcalde',municipio:'Canóvanas',district:''},
-{id:'alc-bcl',name:'Jorge Márquez Pérez',role:'Alcalde',party:'PNP',cat:'alcalde',pos:'alcalde',municipio:'Barceloneta',district:''},
-{id:'alc-que',name:'Ángel Santiago Fernández',role:'Alcalde',party:'PPD',cat:'alcalde',pos:'alcalde',municipio:'Quebradillas',district:''},
-{id:'alc-jay',name:'Carlos Rivera Negrón',role:'Alcalde',party:'PPD',cat:'alcalde',pos:'alcalde',municipio:'Jayuya',district:''},
-{id:'alc-pen',name:'Rafael Cintrón Ortiz',role:'Alcalde',party:'PPD',cat:'alcalde',pos:'alcalde',municipio:'Peñuelas',district:''},
-{id:'alc-sit',name:'Luis R. Ortiz Lugo',role:'Alcalde',party:'PPD',cat:'alcalde',pos:'alcalde',municipio:'Santa Isabel',district:''},
-];
+let POLITICIANS = [];
+const REPO_OWNER = 'PR-botsAI';
+const REPO_NAME = 'pr-politician-intelligence-db';
+const FOLDERS = { executive: 'ejecutivo', senators: 'senado', representatives: 'camara', mayors: 'alcalde' };
+const CACHE_KEY = 'gs_politicians_cache_v2';
+const CACHE_TTL = 60 * 60 * 1000;
 
-// State
+function parseFrontmatter(text) {
+  const m = text.match(/^---\s*\n([\s\S]*?)\n---/);
+  if (!m) return null;
+  const out = {};
+  m[1].split('\n').forEach(line => {
+    const i = line.indexOf(':');
+    if (i > 0) {
+      const key = line.slice(0, i).trim();
+      let val = line.slice(i + 1).trim();
+      if (val.startsWith('"') && val.endsWith('"')) val = val.slice(1, -1);
+      if (key && val) out[key] = val;
+    }
+  });
+  return out;
+}
+
+function politicianFromFrontmatter(fm, path) {
+  const folder = path.split('/')[0];
+  const cat = FOLDERS[folder];
+  if (!cat) return null;
+  const p = (fm.position || '').toLowerCase();
+  let pos = '', role = '';
+  if (p === 'governor') { pos = 'gobernadora'; role = 'Gobernadora de Puerto Rico'; }
+  else if (p === 'resident_commissioner') { pos = 'comisionado'; role = 'Comisionado Residente en Washington'; }
+  else if (p === 'senator_at_large') { pos = 'senador'; role = 'Senador · Acumulación'; }
+  else if (p === 'senator_district') { pos = 'senador'; role = 'Senador · ' + (fm.district || ''); }
+  else if (p === 'representative_at_large') { pos = 'representante'; role = 'Representante · Acumulación'; }
+  else if (p === 'representative_district') { pos = 'representante'; role = 'Representante · ' + (fm.district || ''); }
+  else if (p === 'mayor') { pos = 'alcalde'; role = 'Alcalde/sa de ' + (fm.municipio || fm.municipios || ''); }
+  else {
+    pos = cat === 'senado' ? 'senador' : cat === 'camara' ? 'representante' : cat === 'alcalde' ? 'alcalde' : 'ejecutivo';
+    role = fm.position || '';
+  }
+  const municipio = fm.municipio || (fm.municipios ? fm.municipios.split(',')[0].trim() : '');
+  return {
+    id: fm.slug || path.replace(/\.md$/, '').replace(/\//g, '-'),
+    name: fm.full_name || '',
+    role,
+    party: (fm.party || 'Other').toUpperCase(),
+    cat, pos,
+    municipio,
+    district: fm.district || '',
+    photo_url: fm.photo_url || ''
+  };
+}
+
+async function loadPoliticians() {
+  try {
+    const raw = localStorage.getItem(CACHE_KEY);
+    if (raw) {
+      const c = JSON.parse(raw);
+      if (c && c.ts && (Date.now() - c.ts) < CACHE_TTL && Array.isArray(c.data)) {
+        POLITICIANS = c.data;
+        return { fromCache: true };
+      }
+    }
+  } catch (e) {}
+
+  const treeUrl = `https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/git/trees/main?recursive=1`;
+  const treeRes = await fetch(treeUrl);
+  if (!treeRes.ok) throw new Error('GitHub tree fetch failed: ' + treeRes.status);
+  const tree = await treeRes.json();
+
+  const dataFiles = (tree.tree || []).filter(item => {
+    if (item.type !== 'blob') return false;
+    const parts = item.path.split('/');
+    if (parts.length !== 2) return false;
+    if (!FOLDERS[parts[0]]) return false;
+    if (!parts[1].endsWith('.md')) return false;
+    if (parts[1].startsWith('_')) return false;
+    return true;
+  });
+
+  if (!dataFiles.length) throw new Error('No politician files found in repo');
+
+  const raws = await Promise.all(dataFiles.map(f =>
+    fetch(`https://raw.githubusercontent.com/${REPO_OWNER}/${REPO_NAME}/main/${f.path}`)
+      .then(r => r.ok ? r.text() : null)
+      .then(t => ({ path: f.path, text: t }))
+      .catch(() => ({ path: f.path, text: null }))
+  ));
+
+  const loaded = raws.map(({ path, text }) => {
+    if (!text) return null;
+    const fm = parseFrontmatter(text);
+    if (!fm) return null;
+    return politicianFromFrontmatter(fm, path);
+  }).filter(Boolean);
+
+  if (!loaded.length) throw new Error('No valid politicians parsed');
+  POLITICIANS = loaded;
+
+  try { localStorage.setItem(CACHE_KEY, JSON.stringify({ ts: Date.now(), data: loaded })); } catch (e) {}
+  return { fromCache: false, count: loaded.length };
+}
+
+function loadStaleCache() {
+  try {
+    const raw = localStorage.getItem(CACHE_KEY);
+    if (raw) {
+      const c = JSON.parse(raw);
+      if (c && Array.isArray(c.data) && c.data.length) { POLITICIANS = c.data; return true; }
+    }
+  } catch (e) {}
+  return false;
+}
+
 let currentPage='home',currentPoliticianId=null,prevPage='home',rankTab='all',selectedCat='',complaintPoliticianId=null,activeFilter='all';
 let currentUser=null, currentUserStats=null, userVotes={}, politicianScores={}, allComplaints={};
 let userSubs=[];
 
-// --- Helpers
 function getApproval(id){const s=politicianScores[id]||{up:0,down:0};const t=(s.up||0)+(s.down||0);return t===0?null:Math.round(((s.up||0)/t)*100);}
 function getUserStats(){if(!currentUser||!currentUserStats)return{evaluaciones:0,denuncias:0,impact:0};return{evaluaciones:currentUserStats.evaluaciones||0,denuncias:currentUserStats.denuncias||0,impact:currentUserStats.impact||0};}
 function getLevel(s){const sc=s.impact||0;if(sc>=500)return{name:'Leyenda',next:1000,color:'#F5C518'};if(sc>=200)return{name:'Watchdog',next:500,color:'#A392FF'};if(sc>=75)return{name:'Activista',next:200,color:'#22C55E'};if(sc>=20)return{name:'Ciudadano',next:75,color:'#60A5FA'};return{name:'Rookie',next:20,color:'#8B8CA0'};}
@@ -414,11 +367,21 @@ function goSearchCategory(cat){activeFilter=cat;showPage('search');document.getE
 function updateHeaderAvatar(){const u=currentUser;const el=document.getElementById('header-avatar');if(u&&u.avatar){el.innerHTML=`<img src="${u.avatar}" class="avatar-img" onerror="this.parentNode.innerHTML='👤'">`;}else{el.textContent='👤';}}
 
 function makeCard(p){const ap=getApproval(p.id);const sc=ap!==null?`<div class="pol-score"><div class="score-bar-bg"><div class="score-bar" style="width:${ap}%"></div></div><div class="score-num">${ap}% aprob.</div></div>`:`<div class="pol-score"><div class="score-num">Sin votos</div></div>`;const n=p.name.split(' ').slice(0,2).join(' ');const r=p.role.length>22?p.role.substring(0,20)+'…':p.role;return`<div class="pol-card ${p.party.toLowerCase()}" onclick="goDetail('${p.id}')"><div class="pol-card-top"><span class="party-badge ${p.party.toLowerCase()}">${p.party}</span><span style="font-size:22px">${getEmoji(p)}</span></div><div class="pol-name">${n}</div><div class="pol-role">${r}</div>${sc}</div>`;}
-function renderHome(){document.getElementById('scroll-ejecutivo').innerHTML=POLITICIANS.filter(p=>p.cat==='ejecutivo').map(makeCard).join('');document.getElementById('scroll-senado').innerHTML=POLITICIANS.filter(p=>p.cat==='senado').slice(0,10).map(makeCard).join('');document.getElementById('scroll-camara').innerHTML=POLITICIANS.filter(p=>p.cat==='camara').slice(0,10).map(makeCard).join('');document.getElementById('scroll-alcaldes').innerHTML=POLITICIANS.filter(p=>p.cat==='alcalde').slice(0,12).map(makeCard).join('');}
+
+function renderHome(){
+  const total = POLITICIANS.length;
+  document.getElementById('home-count').textContent = total > 0 ? `${total} candidatos · Evalúa a tus representantes` : 'Cargando...';
+  document.getElementById('scroll-ejecutivo').innerHTML=POLITICIANS.filter(p=>p.cat==='ejecutivo').map(makeCard).join('')||'<div style="color:var(--muted);font-size:12px;padding:8px 16px">—</div>';
+  document.getElementById('scroll-senado').innerHTML=POLITICIANS.filter(p=>p.cat==='senado').slice(0,15).map(makeCard).join('')||'<div style="color:var(--muted);font-size:12px;padding:8px 16px">—</div>';
+  document.getElementById('scroll-camara').innerHTML=POLITICIANS.filter(p=>p.cat==='camara').slice(0,15).map(makeCard).join('')||'<div style="color:var(--muted);font-size:12px;padding:8px 16px">—</div>';
+  document.getElementById('scroll-alcaldes').innerHTML=POLITICIANS.filter(p=>p.cat==='alcalde').slice(0,15).map(makeCard).join('')||'<div style="color:var(--muted);font-size:12px;padding:8px 16px">—</div>';
+}
+
 function setFilter(f,el){activeFilter=f;document.querySelectorAll('.chip').forEach(c=>{c.classList.remove('all','active');c.classList.add('inactive');});el.classList.remove('inactive');if(f==='all')el.classList.add('all');else el.classList.add('active');doSearch();}
 function doSearch(){renderSearch(document.getElementById('search-input').value.toLowerCase().trim());}
-function renderSearch(q='',catFilter=null){let list=POLITICIANS;const f=catFilter||activeFilter;if(['PNP','PPD','PIP','MVC'].includes(f))list=list.filter(p=>p.party===f);else if(f&&f!=='all')list=list.filter(p=>p.cat===f);if(q)list=list.filter(p=>p.name.toLowerCase().includes(q)||p.role.toLowerCase().includes(q)||p.party.toLowerCase().includes(q)||p.municipio.toLowerCase().includes(q)||p.district.toLowerCase().includes(q)||p.cat.toLowerCase().includes(q));const c=document.getElementById('search-list');if(!list.length){c.innerHTML=`<div class="empty-state"><div class="empty-icon">🔍</div>No se encontraron resultados</div>`;return;}c.innerHTML=list.map(p=>{const ap=getApproval(p.id);const ab=ap!==null?`<span style="font-size:11px;color:var(--green);font-weight:700;margin-left:5px">${ap}%</span>`:'';return`<div class="search-item" onclick="goDetail('${p.id}')"><div class="si-emoji">${getEmoji(p)}</div><div class="si-info"><div class="si-name">${p.name}${ab}</div><div class="si-role"><span class="party-badge ${p.party.toLowerCase()}" style="margin-right:4px">${p.party}</span>${p.role}${p.municipio?' · '+p.municipio:''}</div></div><span class="si-arrow">›</span></div>`;}).join('');}
-function renderDetail(id){const p=POLITICIANS.find(x=>x.id===id);if(!p)return;const voted=userVotes[id];const s=politicianScores[id]||{up:0,down:0};const up=s.up||0,down=s.down||0;const total=up+down;const ap=total>0?Math.round((up/total)*100):0;const complaints=allComplaints[id]||[];const di=p.municipio?`<span class="detail-district-badge">📍 ${p.municipio}</span>`:(p.district?`<span class="detail-district-badge">${p.district}</span>`:'');document.getElementById('detail-content').innerHTML=`<div class="detail-header"><button class="detail-back" onclick="goBack()">‹ Volver</button><div class="detail-hero"><div class="detail-emoji">${getEmoji(p)}</div><div class="detail-info"><div class="detail-name">${p.name}</div><div class="detail-role">${p.role}</div><div class="detail-badges"><span class="detail-party-badge party-badge ${p.party.toLowerCase()}">${p.party}</span>${di}</div></div></div></div><div class="stats-row"><div class="stat-box"><div class="stat-val" style="color:${ap>=50?'var(--green)':'var(--red)'}">${total?ap+'%':'—'}</div><div class="stat-lbl">Aprobación</div></div><div class="stat-box"><div class="stat-val">${total}</div><div class="stat-lbl">Evaluaciones</div></div><div class="stat-box"><div class="stat-val" style="color:var(--orange)">${complaints.length}</div><div class="stat-lbl">Denuncias</div></div></div><div class="action-row"><button class="action-btn btn-up ${voted==='up'?'voted':''}" onclick="vote('${id}','up')">👍 ${up}</button><button class="action-btn btn-down ${voted==='down'?'voted':''}" onclick="vote('${id}','down')">👎 ${down}</button><button class="action-btn btn-report" onclick="openReport('${id}')">📢 Denunciar</button></div><div class="news-section"><div class="news-header">Noticias recientes</div><button class="news-btn" id="news-btn-${id}" onclick="loadNews('${id}','${p.name.replace(/'/g,"\\'").replace(/"/g,'\\"')}')">🔎 Buscar noticias sobre ${p.name.split(' ')[0]}</button><div id="news-results-${id}"></div></div>${complaints.length>0?`<div style="padding:0 16px 18px"><div class="news-header">Denuncias</div>${complaints.map(c=>`<div class="news-item"><div class="news-title">${c.title}</div><div class="news-meta">${c.cat} · ${c.createdAt&&c.createdAt.toDate?c.createdAt.toDate().toLocaleDateString('es-PR'):''}</div></div>`).join('')}</div>`:''}`;}
+function renderSearch(q='',catFilter=null){let list=POLITICIANS;const f=catFilter||activeFilter;if(['PNP','PPD','PIP','MVC'].includes(f))list=list.filter(p=>p.party===f);else if(f&&f!=='all')list=list.filter(p=>p.cat===f);if(q)list=list.filter(p=>p.name.toLowerCase().includes(q)||p.role.toLowerCase().includes(q)||p.party.toLowerCase().includes(q)||(p.municipio||'').toLowerCase().includes(q)||(p.district||'').toLowerCase().includes(q)||p.cat.toLowerCase().includes(q));const c=document.getElementById('search-list');if(!list.length){c.innerHTML=`<div class="empty-state"><div class="empty-icon">🔍</div>No se encontraron resultados${POLITICIANS.length===0?' — datos aún cargando':''}</div>`;return;}c.innerHTML=list.map(p=>{const ap=getApproval(p.id);const ab=ap!==null?`<span style="font-size:11px;color:var(--green);font-weight:700;margin-left:5px">${ap}%</span>`:'';return`<div class="search-item" onclick="goDetail('${p.id}')"><div class="si-emoji">${getEmoji(p)}</div><div class="si-info"><div class="si-name">${p.name}${ab}</div><div class="si-role"><span class="party-badge ${p.party.toLowerCase()}" style="margin-right:4px">${p.party}</span>${p.role}${p.municipio?' · '+p.municipio:''}</div></div><span class="si-arrow">›</span></div>`;}).join('');}
+
+function renderDetail(id){const p=POLITICIANS.find(x=>x.id===id);if(!p){document.getElementById('detail-content').innerHTML='<div class="empty-state">Candidato no encontrado</div>';return;}const voted=userVotes[id];const s=politicianScores[id]||{up:0,down:0};const up=s.up||0,down=s.down||0;const total=up+down;const ap=total>0?Math.round((up/total)*100):0;const complaints=allComplaints[id]||[];const di=p.municipio?`<span class="detail-district-badge">📍 ${p.municipio}</span>`:(p.district?`<span class="detail-district-badge">${p.district}</span>`:'');document.getElementById('detail-content').innerHTML=`<div class="detail-header"><button class="detail-back" onclick="goBack()">‹ Volver</button><div class="detail-hero"><div class="detail-emoji">${getEmoji(p)}</div><div class="detail-info"><div class="detail-name">${p.name}</div><div class="detail-role">${p.role}</div><div class="detail-badges"><span class="detail-party-badge party-badge ${p.party.toLowerCase()}">${p.party}</span>${di}</div></div></div></div><div class="stats-row"><div class="stat-box"><div class="stat-val" style="color:${ap>=50?'var(--green)':'var(--red)'}">${total?ap+'%':'—'}</div><div class="stat-lbl">Aprobación</div></div><div class="stat-box"><div class="stat-val">${total}</div><div class="stat-lbl">Evaluaciones</div></div><div class="stat-box"><div class="stat-val" style="color:var(--orange)">${complaints.length}</div><div class="stat-lbl">Denuncias</div></div></div><div class="action-row"><button class="action-btn btn-up ${voted==='up'?'voted':''}" onclick="vote('${id}','up')">👍 ${up}</button><button class="action-btn btn-down ${voted==='down'?'voted':''}" onclick="vote('${id}','down')">👎 ${down}</button><button class="action-btn btn-report" onclick="openReport('${id}')">📢 Denunciar</button></div><div class="news-section"><div class="news-header">Noticias recientes</div><button class="news-btn" id="news-btn-${id}" onclick="loadNews('${id}','${p.name.replace(/'/g,"\\'").replace(/"/g,'\\"')}')">🔎 Buscar noticias sobre ${p.name.split(' ')[0]}</button><div id="news-results-${id}"></div></div>${complaints.length>0?`<div style="padding:0 16px 18px"><div class="news-header">Denuncias</div>${complaints.map(c=>`<div class="news-item"><div class="news-title">${c.title}</div><div class="news-meta">${c.cat} · ${c.createdAt&&c.createdAt.toDate?c.createdAt.toDate().toLocaleDateString('es-PR'):''}</div></div>`).join('')}</div>`:''}`;}
 
 async function vote(id,dir){
   if(!currentUser){showToast('Inicia sesión para votar');return;}
@@ -448,10 +411,64 @@ async function vote(id,dir){
   }catch(e){console.error(e);showToast('Error: '+(e.message||e.code||'sin conexión'));}
 }
 
-async function loadNews(id,name){const btn=document.getElementById(`news-btn-${id}`);const res=document.getElementById(`news-results-${id}`);if(!btn||!res)return;btn.style.display='none';res.innerHTML=`<div class="news-loading"><div class="dot-pulse"><span></span><span></span><span></span></div><div style="margin-top:10px">Buscando noticias...</div></div>`;try{const r=await fetch('https://api.anthropic.com/v1/messages',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:1000,tools:[{type:'web_search_20250305',name:'web_search'}],messages:[{role:'user',content:`Search for the latest news about Puerto Rico politician "${name}" from 2025-2026. Return ONLY a JSON array with up to 5 items: [{"title":"...","summary":"...","date":"...","source":"..."}]. Respond in Spanish.`}]})});const data=await r.json();let items=[];for(const b of(data.content||[])){if(b.type==='text'&&b.text){try{const c=b.text.replace(/```json|```/g,'').trim();const p=JSON.parse(c);if(Array.isArray(p)){items=p;break;}}catch(e){}const m=b.text.match(/\[[\s\S]*\]/);if(m){try{items=JSON.parse(m[0]);break;}catch(e2){}}}}if(!items.length){res.innerHTML=`<div class="news-loading">No se encontraron noticias recientes.</div>`;return;}res.innerHTML=items.map(n=>`<div class="news-item"><div class="news-title">${n.title||''}</div><div class="news-meta">${n.source||''}${n.date?' · '+n.date:''}</div>${n.summary?`<div style="font-size:12px;color:var(--muted);margin-top:4px;line-height:1.4">${n.summary}</div>`:''}</div>`).join('');}catch(e){res.innerHTML=`<div class="news-loading">Error al cargar noticias.</div>`;btn.style.display='flex';}}
+async function loadNews(id, name) {
+  const btn = document.getElementById(`news-btn-${id}`);
+  const res = document.getElementById(`news-results-${id}`);
+  if (!btn || !res) return;
+  btn.style.display = 'none';
+  res.innerHTML = `<div class="news-loading"><div class="dot-pulse"><span></span><span></span><span></span></div><div style="margin-top:10px">Buscando noticias...</div></div>`;
+
+  const query = `"${name}" Puerto Rico`;
+  const rssUrl = `https://news.google.com/rss/search?q=${encodeURIComponent(query)}&hl=es-419&gl=PR&ceid=PR:es-419`;
+  const proxies = [
+    `https://corsproxy.io/?url=${encodeURIComponent(rssUrl)}`,
+    `https://api.allorigins.win/raw?url=${encodeURIComponent(rssUrl)}`
+  ];
+
+  let xml = null;
+  for (const url of proxies) {
+    try {
+      const r = await fetch(url);
+      if (r.ok) {
+        xml = await r.text();
+        if (xml && xml.includes('<item>')) break;
+      }
+    } catch (e) {}
+  }
+
+  if (!xml) {
+    const fallbackUrl = `https://news.google.com/search?q=${encodeURIComponent(query)}&hl=es-419&gl=PR`;
+    res.innerHTML = `<div class="news-loading">No se pudo cargar noticias inline. <a href="${fallbackUrl}" target="_blank" rel="noopener" style="color:var(--accent2);font-weight:700">Abrir Google News ↗</a></div>`;
+    btn.style.display = 'flex';
+    return;
+  }
+
+  try {
+    const parser = new DOMParser();
+    const doc = parser.parseFromString(xml, 'text/xml');
+    const items = Array.from(doc.querySelectorAll('item')).slice(0, 8).map(it => ({
+      title: it.querySelector('title')?.textContent || '',
+      link: it.querySelector('link')?.textContent || '',
+      date: it.querySelector('pubDate')?.textContent || '',
+      source: it.querySelector('source')?.textContent || 'Google News'
+    }));
+    if (!items.length) {
+      res.innerHTML = `<div class="news-loading">No se encontraron noticias recientes.</div>`;
+      return;
+    }
+    res.innerHTML = items.map(n => {
+      const d = n.date ? new Date(n.date).toLocaleDateString('es-PR', { year: 'numeric', month: 'short', day: 'numeric' }) : '';
+      return `<a href="${n.link}" target="_blank" rel="noopener" style="text-decoration:none;color:inherit;display:block"><div class="news-item"><div class="news-title">${n.title}</div><div class="news-meta">${n.source}${d ? ' · ' + d : ''}</div></div></a>`;
+    }).join('');
+  } catch (e) {
+    console.error('News parse error:', e);
+    res.innerHTML = `<div class="news-loading">Error al procesar noticias.</div>`;
+    btn.style.display = 'flex';
+  }
+}
 
 function setRankTab(tab,el){rankTab=tab;document.querySelectorAll('#rank-tabs .tab').forEach(t=>t.classList.remove('active'));el.classList.add('active');renderRanking();}
-function renderRanking(){let list=rankTab==='all'?[...POLITICIANS]:POLITICIANS.filter(p=>p.cat===rankTab);list=list.map(p=>({...p,approval:getApproval(p.id)}));list.sort((a,b)=>{if(a.approval===null&&b.approval===null)return 0;if(a.approval===null)return 1;if(b.approval===null)return -1;return b.approval-a.approval;});document.getElementById('rank-list').innerHTML=list.map((p,i)=>{const rank=i+1;const cls=rank===1?'top1':rank===2?'top2':rank===3?'top3':'';const s=politicianScores[p.id]||{up:0,down:0};const total=(s.up||0)+(s.down||0);return`<div class="rank-item" onclick="goDetail('${p.id}')"><div class="rank-num ${cls}">#${rank}</div><div class="rank-emoji">${getEmoji(p)}</div><div class="rank-info"><div class="rank-name">${p.name}</div><div class="rank-role"><span class="party-badge ${p.party.toLowerCase()}">${p.party}</span> ${p.role.split('·')[0].trim()}</div></div><div class="rank-score"><div class="rank-pct">${p.approval!==null?p.approval+'%':'—'}</div><div class="rank-votes">${total} votos</div></div></div>`;}).join('');}
+function renderRanking(){let list=rankTab==='all'?[...POLITICIANS]:POLITICIANS.filter(p=>p.cat===rankTab);list=list.map(p=>({...p,approval:getApproval(p.id)}));list.sort((a,b)=>{if(a.approval===null&&b.approval===null)return 0;if(a.approval===null)return 1;if(b.approval===null)return -1;return b.approval-a.approval;});document.getElementById('rank-list').innerHTML=list.map((p,i)=>{const rank=i+1;const cls=rank===1?'top1':rank===2?'top2':rank===3?'top3':'';const s=politicianScores[p.id]||{up:0,down:0};const total=(s.up||0)+(s.down||0);return`<div class="rank-item" onclick="goDetail('${p.id}')"><div class="rank-num ${cls}">#${rank}</div><div class="rank-emoji">${getEmoji(p)}</div><div class="rank-info"><div class="rank-name">${p.name}</div><div class="rank-role"><span class="party-badge ${p.party.toLowerCase()}">${p.party}</span> ${p.role.split('·')[0].trim()}</div></div><div class="rank-score"><div class="rank-pct">${p.approval!==null?p.approval+'%':'—'}</div><div class="rank-votes">${total} votos</div></div></div>`;}).join('')||'<div class="empty-state">No hay candidatos cargados aún</div>';}
 
 function openReport(id){if(!currentUser){showToast('Inicia sesión para denunciar');return;}complaintPoliticianId=id;selectedCat='';document.getElementById('complaint-title').value='';document.getElementById('complaint-desc').value='';document.querySelectorAll('.cat-btn').forEach(b=>b.classList.remove('selected'));const p=POLITICIANS.find(x=>x.id===id);document.getElementById('report-politician-name').textContent='Contra: '+(p?p.name:'');document.getElementById('report-modal').classList.add('open');}
 function closeModal(id){document.getElementById(id).classList.remove('open');}
@@ -474,24 +491,16 @@ async function submitComplaint(){
 
 function renderProfile(){const user=currentUser;const container=document.getElementById('profile-content');if(!user){container.innerHTML=`<div class="login-section"><div style="font-size:52px;margin-bottom:14px">🇵🇷</div><div class="login-title">Únete a GobiStats</div><div class="login-sub">Evalúa a tus representantes,<br>presenta denuncias y sigue el ranking.</div><button class="login-btn google-btn" onclick="loginGoogle()"><svg class="google-icon" viewBox="0 0 24 24"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg>Continuar con Google</button><button class="login-btn" style="background:var(--card);border-color:var(--border);color:var(--text)" onclick="loginDemo()">⚡ Entrar como Demo</button><div style="font-size:11px;color:var(--muted);margin-top:14px">Tus datos se sincronizan con tu cuenta Google en todos tus dispositivos</div></div>`;return;}const stats=getUserStats();const level=getLevel(stats);const score=stats.impact||0;const pct=Math.min(100,Math.round((score/level.next)*100));container.innerHTML=`<div class="profile-hero">${user.avatar?`<img src="${user.avatar}" class="profile-avatar" onerror="this.style.display='none'">`:`<div class="profile-avatar-placeholder">👤</div>`}<div class="profile-name">${user.name}</div><div class="profile-email">${user.email}</div><div class="profile-auth-badge">✅ ${user.provider||'Google'}</div></div><div class="profile-stats"><div class="pstat"><div class="pstat-val green">${stats.evaluaciones}</div><div class="pstat-lbl">Evaluaciones</div></div><div class="pstat"><div class="pstat-val red">${stats.denuncias}</div><div class="pstat-lbl">Denuncias</div></div><div class="pstat"><div class="pstat-val gold">${stats.impact.toLocaleString()}</div><div class="pstat-lbl">Impact Score</div></div></div><div class="level-section"><div class="level-card"><div class="level-label">Mi Nivel</div><div class="level-row"><div class="level-badge">${level.name.toUpperCase()}</div><div class="level-bar-wrap"><div class="level-bar-bg"><div class="level-bar-fill" style="width:${pct}%;background:${level.color}"></div></div><div class="level-bar-label">${score} / ${level.next} pts</div></div></div></div></div><button class="logout-btn" onclick="logout()">← Cerrar Sesión</button>`;}
 
-// --- AUTH
 async function loginGoogle(){
   try{
     const provider=new GoogleAuthProvider();
     provider.setCustomParameters({prompt:'select_account'});
     await signInWithPopup(auth,provider);
-  }catch(e){
-    console.error('Google sign-in error',e);
-    showToast('Error: '+(e.code||e.message||'no se pudo iniciar sesión'));
-  }
+  }catch(e){ console.error('Google sign-in error',e); showToast('Error: '+(e.code||e.message||'no se pudo iniciar sesión')); }
 }
 async function loginDemo(){
-  try{
-    await signInAnonymously(auth);
-  }catch(e){
-    console.error('Anonymous sign-in error',e);
-    showToast('Error: '+(e.code||e.message));
-  }
+  try{ await signInAnonymously(auth); }
+  catch(e){ console.error('Anonymous sign-in error',e); showToast('Error: '+(e.code||e.message)); }
 }
 async function logout(){
   try{await signOut(auth);showToast('Sesión cerrada');}
@@ -499,34 +508,19 @@ async function logout(){
 }
 
 onAuthStateChanged(auth,async(user)=>{
-  // Clean up per-user subscriptions
   userSubs.forEach(u=>{try{u();}catch(e){}});
   userSubs=[];
-
   if(user){
-    currentUser={
-      id:user.uid,
-      name:user.displayName||(user.isAnonymous?'PRbots Demo':'Usuario'),
-      email:user.email||(user.isAnonymous?'demo@gobistats.app':''),
-      avatar:user.photoURL||'',
-      provider:user.isAnonymous?'Demo':'Google'
-    };
+    currentUser={id:user.uid,name:user.displayName||(user.isAnonymous?'PRbots Demo':'Usuario'),email:user.email||(user.isAnonymous?'demo@gobistats.app':''),avatar:user.photoURL||'',provider:user.isAnonymous?'Demo':'Google'};
     try{
       const userRef=doc(db,'users',user.uid);
       const userSnap=await getDoc(userRef);
       if(!userSnap.exists()){
-        await setDoc(userRef,{
-          name:currentUser.name,email:currentUser.email,avatar:currentUser.avatar,
-          provider:currentUser.provider,createdAt:serverTimestamp(),
-          evaluaciones:0,denuncias:0,impact:0
-        });
+        await setDoc(userRef,{name:currentUser.name,email:currentUser.email,avatar:currentUser.avatar,provider:currentUser.provider,createdAt:serverTimestamp(),evaluaciones:0,denuncias:0,impact:0});
       }else{
-        // Refresh display fields from Google on each login
         await updateDoc(userRef,{name:currentUser.name,email:currentUser.email,avatar:currentUser.avatar,provider:currentUser.provider}).catch(()=>{});
       }
-      // Subscribe to user stats doc
       userSubs.push(onSnapshot(userRef,(snap)=>{if(snap.exists()){currentUserStats=snap.data();if(currentPage==='profile')renderProfile();}}));
-      // Subscribe to user's votes
       userSubs.push(onSnapshot(collection(db,'users',user.uid,'votes'),(snap)=>{const next={};snap.forEach(d=>{next[d.id]=d.data().direction;});userVotes=next;rerenderCurrent();}));
     }catch(e){console.error('User init error',e);showToast('Error de conexión con Firestore');}
   }else{
@@ -536,22 +530,34 @@ onAuthStateChanged(auth,async(user)=>{
   rerenderCurrent();
 });
 
-// Public subscriptions (no auth required)
 onSnapshot(collection(db,'politicianScores'),(snap)=>{const next={};snap.forEach(d=>{next[d.id]=d.data();});politicianScores=next;rerenderCurrent();},(err)=>{console.error('Scores subscription error',err);});
 onSnapshot(collection(db,'complaints'),(snap)=>{const next={};snap.forEach(d=>{const data=d.data();const pid=data.politicianId;if(!next[pid])next[pid]=[];next[pid].push({id:d.id,...data});});allComplaints=next;rerenderCurrent();},(err)=>{console.error('Complaints subscription error',err);});
 
-// --- Toast
 function showToast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2800);}
 
-// Expose handlers to window for inline onclick
 window.goProfile=goProfile;window.showPage=showPage;window.goDetail=goDetail;window.goBack=goBack;window.goSearchCategory=goSearchCategory;window.setFilter=setFilter;window.doSearch=doSearch;window.setRankTab=setRankTab;window.vote=vote;window.openReport=openReport;window.closeModal=closeModal;window.selectCat=selectCat;window.submitComplaint=submitComplaint;window.loginGoogle=loginGoogle;window.loginDemo=loginDemo;window.logout=logout;window.loadNews=loadNews;
 
-// Modal click outside to close
 document.querySelectorAll('.modal-overlay').forEach(o=>o.addEventListener('click',e=>{if(e.target===o)o.classList.remove('open');}));
 
-// Boot
-renderHome();renderSearch();renderRanking();updateHeaderAvatar();
-setTimeout(()=>{const b=document.getElementById('boot');if(b){b.classList.add('hide');setTimeout(()=>b.remove(),400);}},800);
+async function boot() {
+  try {
+    const result = await loadPoliticians();
+    if (result.fromCache) {
+      setTimeout(() => { loadPoliticians().catch(() => {}).then(() => rerenderCurrent()); }, 1000);
+    }
+  } catch (e) {
+    console.error('Load failed, trying stale cache:', e);
+    if (!loadStaleCache()) {
+      document.getElementById('boot-msg').innerHTML = 'Error al cargar candidatos.<br><button onclick="location.reload()" style="margin-top:12px;padding:10px 20px;background:var(--accent);color:white;border:none;border-radius:8px;font-weight:700;cursor:pointer">Reintentar</button>';
+      return;
+    }
+    showToast('Usando datos guardados');
+  }
+  renderHome(); renderSearch(); renderRanking(); updateHeaderAvatar();
+  const b = document.getElementById('boot');
+  if (b) { b.classList.add('hide'); setTimeout(() => b.remove(), 400); }
+}
+boot();
 </script>
 </body>
 </html>
